@@ -54,10 +54,15 @@ We are going to make a web application to help students navigate the stressful a
 Do you have a strategy for shopping classes? If so, what is it?
       * Has it worked so far?
 How many classes do you shop in a semester?
+
 How do you keep track of the courses you’re shopping?
+
 How do you prioritize courses with prioritizing timeslots?
+
 What factors do you take into consideration when shopping classes?
+
 Describe your shopping period experiences
+
 Shopping period grievances
 
 
