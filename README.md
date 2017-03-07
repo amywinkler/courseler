@@ -51,9 +51,8 @@ We are going to make a web application to help students navigate the stressful a
 
 ###Questions We Asked Potential Users:
 
-Do you have a strategy for shopping classes? If so, what is it?
+Do you have a strategy for shopping classes? If so, what is it? Has it worked so far?
 
-      * Has it worked so far?
 How many classes do you shop in a semester?
 
 How do you keep track of the courses you’re shopping?
