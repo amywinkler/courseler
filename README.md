@@ -10,8 +10,6 @@ We are going to make a web application to help students navigate the stressful a
 **Mentor TA:** _Put your mentor TA's name and email here once you're assigned one!_
 
 ## Project Requirements
-_This portion of the README is due March 8th (see the project handout)!_
-
 ![friends](http://i.imgur.com/NH3osox.png)
 ### Overview:
 We are going to make a web application to help students navigate the stressful and tumultuous series of days that is known as “shopping period”. We are going to allow students to add courses to an easy to use mobile-responsive calendar. We will also suggest courses to fill empty time slots.
@@ -22,12 +20,16 @@ We are going to make a web application to help students navigate the stressful a
 * Calendar view
       * Ability to add multiple courses per timeslot
       * Ability to toggle course suggestions for specified timeslots
-      
+
 ### Necessary Features:
-brown.edu email authentication/Brown Wifi authentication:
+1. brown.edu email authentication/Brown Wifi authentication:
+
       * We need this because the Critical Review data cannot be accessed outside of the Brown community. We will explore which method is the most reasonable out of these two. 
+
 2. Calendar with time slots
+
       * Students often have multiple ways of keeping track of their shopping period courses because they are uncertain about how to keep all of their options (that they prioritize in different ways) in one list. Having an intuitive and easy to use calendar in our app would be essential for allowing students to create their shopping schedule in one application. In our preliminary interviews, students said they primarily used Courses@Brown’s calendar export functionality to keep track of where and when to shop (although some supplemented with written notes, suggesting that there’s room to improve on the calendar-based approach).
+      
 3. Integration with Critical Review data
       * Critical Review data can be used to generate relevant course recommendations based on factors like open timeslots on the user’s schedule, indicated department interests, and class year demographic. In our preliminary interviews we spoke with many students who thought the Critical Review was an invaluable resource for shopping period.
 4. Integration with Banner Data
