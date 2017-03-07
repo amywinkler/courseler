@@ -12,7 +12,7 @@ We are going to make a web application to help students navigate the stressful a
 ## Project Requirements
 _This portion of the README is due March 8th (see the project handout)!_
 
-![friends](http://imgur.com/a/mpzui)
+![friends](http://i.imgur.com/NH3osox.png)
 ### Overview:
 We are going to make a web application to help students navigate the stressful and tumultuous series of days that is known as “shopping period”. We are going to allow students to add courses to an easy to use mobile-responsive calendar. We will also suggest courses to fill empty time slots.
 ### Potential User Flow:
@@ -22,6 +22,7 @@ We are going to make a web application to help students navigate the stressful a
 * Calendar view
       * Ability to add multiple courses per timeslot
       * Ability to toggle course suggestions for specified timeslots
+      
 ### Necessary Features:
 brown.edu email authentication/Brown Wifi authentication:
       * We need this because the Critical Review data cannot be accessed outside of the Brown community. We will explore which method is the most reasonable out of these two. 
