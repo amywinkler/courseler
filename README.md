@@ -67,7 +67,7 @@ Shopping period grievances
 
 
 ## Project Specs and Mockup
-_A link to your specifications document and your mockup will go here!_
+https://docs.google.com/document/d/1GKM-N-vWcIS38vIEOaYEuHFBCRq0A_ufGcuqTijh5DM/edit
 
 ## Project Design Presentation
 _A link to your design presentation/document will go here!_
