@@ -67,7 +67,7 @@ Shopping period grievances
 
 
 ## Project Specs and Mockup
-https://docs.google.com/document/d/1GKM-N-vWcIS38vIEOaYEuHFBCRq0A_ufGcuqTijh5DM/edit
+https://docs.google.com/a/brown.edu/document/d/1GKM-N-vWcIS38vIEOaYEuHFBCRq0A_ufGcuqTijh5DM/edit?usp=sharing
 
 ## Project Design Presentation
 _A link to your design presentation/document will go here!_
