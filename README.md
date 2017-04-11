@@ -70,7 +70,10 @@ Shopping period grievances
 https://docs.google.com/a/brown.edu/document/d/1GKM-N-vWcIS38vIEOaYEuHFBCRq0A_ufGcuqTijh5DM/edit?usp=sharing
 
 ## Project Design Presentation
-_A link to your design presentation/document will go here!_
+Doc:
+https://docs.google.com/document/d/1Qzbr1F-rTaYdqKQuIACWUSw_MGFiXSuz3HvZNHAJZds/edit#
+Presentation:
+https://docs.google.com/a/brown.edu/presentation/d/1y0aD0XIOIBRLpxyBk9F8SL-xjUq4c0EEfjcIgC6ZOzk/edit?usp=sharing
 
 ## How to Build and Run
 _A necessary part of any README!_
