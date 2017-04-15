@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<fileset-config file-format-version="1.2.0" simple-config="true" sync-formatter="false">
+  <local-check-config name="CS32" location="internal_config_1485917916203.xml" type="internal" description=""/>
+  <local-check-config name="CS32 updated" location="internal_config_1492291041134.xml" type="internal" description=""/>
+  <fileset name="all" enabled="true" check-config-name="CS32 updated" local="true">
+    <file-match-pattern match-pattern="." include-pattern="true"/>
+  </fileset>
+</fileset-config>
