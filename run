@@ -46,5 +46,4 @@ fi
 
 # The symbol "$@" passes the command-line arguments from
 # this script to your Java program.
-#java -agentpath:/Users/alex/Downloads/visualvm_139/profiler/lib/deployed/jdk16/mac/libprofilerinterface.jnilib=/Users/alex/Downloads/visualvm_139/profiler/lib,5140 -Xverify:none -ea -cp "$TARGET$PATHSEP$CP" edu.brown.cs.$STUDENT.$MAINPKG.Main "$@"
 java -ea -cp "$TARGET$PATHSEP$CP" edu.brown.cs.$STUDENT.$MAINPKG.Main "$@"
