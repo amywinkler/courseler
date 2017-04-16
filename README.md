@@ -4,24 +4,29 @@
 
 You gotta compile the frontend _and_ the backend!!!!
 
-### Backend
-
-`mvn package` and `./run --gui`
-
-
-### Frontend
-
-😤 😂 Javascript 💫 is 💫 fun!!! 😳 👀
+### Installing dependencies for frontend!
 
 Install dependencies! (do this once)
 
 `npm install`
 
-Code is in `frontend/app.js`!
+also:
 
-To compile, run:
+`npm install -g webpack`
+
+### Compiling the frontend
 
 `webpack`
+
+### Compiling the backend
+
+`mvn package`
+
+### Run it!
+
+`./run --gui`
+
+_If you update the frontend code, you just need to re-run `webpack` — no need to `mvn package` or `./run` again!_
 
 **Team Members:** 
 Alberta Devor, Amy Winkler, Koko Nakajima, Nathaniel Parrott
