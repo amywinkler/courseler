@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/main.css"/>
   </head>
   <body>
-  	<h1>haha hey</h1>
+  	<div id='app'></div>
+  	<script src='/js/app.js'></script>
   </body>
 </html>
