@@ -1,5 +1,28 @@
 # cs0320 Term Project
 
+## How to Build and Run
+
+You gotta compile the frontend _and_ the backend!!!!
+
+### Backend
+
+`mvn package` and `./run --gui`
+
+
+### Frontend
+
+😤 😂 Javascript 💫 is 💫 fun!!! 😳 👀
+
+Install dependencies! (do this once)
+
+`npm install`
+
+Code is in `frontend/app.js`!
+
+To compile, run:
+
+`webpack`
+
 **Team Members:** 
 Alberta Devor, Amy Winkler, Koko Nakajima, Nathaniel Parrott
 (A very heterogrenous team of fun friends!!)
@@ -75,5 +98,3 @@ https://docs.google.com/document/d/1Qzbr1F-rTaYdqKQuIACWUSw_MGFiXSuz3HvZNHAJZds/
 Presentation:
 https://docs.google.com/a/brown.edu/presentation/d/1y0aD0XIOIBRLpxyBk9F8SL-xjUq4c0EEfjcIgC6ZOzk/edit?usp=sharing
 
-## How to Build and Run
-_A necessary part of any README!_
