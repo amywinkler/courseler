@@ -4,14 +4,17 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.util.HashMap;
 
 import freemarker.template.Configuration;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import spark.ExceptionHandler;
+import spark.ModelAndView;
 import spark.Request;
 import spark.Response;
 import spark.Spark;
+import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
 
 /**
@@ -35,7 +38,6 @@ public final class Main {
   private String[] args;
 
   private Main(String[] args) {
-
     this.args = args;
   }
 
@@ -74,7 +76,21 @@ public final class Main {
 
     FreeMarkerEngine freeMarker = createEngine();
 
-    // Setup Spark Routes
+    // Setup Spark Routes:
+    Spark.get("/", new MainHandler(), freeMarker);
+  }
+
+  /**
+   * Main homepage.
+   *
+   * @author nateparrott
+   *
+   */
+  private static final class MainHandler implements TemplateViewRoute {
+    public ModelAndView handle(Request req, Response res) {
+      HashMap<String, Object> variables = new HashMap<String, Object>();
+      return new ModelAndView(variables, "main.ftl");
+    }
   }
 
   /**
