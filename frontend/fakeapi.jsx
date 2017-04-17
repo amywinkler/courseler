@@ -1,3 +1,22 @@
+let cs032_s01 = {
+  course_code: 'CSCI 0320',
+  title: 'Software Engineering',
+  section: 'S01',
+  professor: 'John Jannotti',
+  location: 'Salomon 001',
+  times: {
+    monday_start: null,
+    monday_end: null,
+    tuesday_start: 1300,
+    tuesday_end: 1430,
+    wednesday_start: null,
+    wednesday_end: null,
+    thursday_start: 1300,
+    thursday_end: 1430,
+    friday_start: null,
+    friday_end: null
+  }
+};
 
 let cs32 = {
   code: 'CSCI 0320',
@@ -30,25 +49,29 @@ let cs32 = {
     descriptions: ['hahha', 'fuck']
   },
   sections: [
-    {
-      code: 'CSCI 0320',
-      section: 'S01',
-      professor: 'John Jannotti',
-      location: 'Salomon 001',
-      times: {
-        monday_start: null,
-        monday_end: null,
-        tuesday_start: 1300,
-        tuesday_end: 1430,
-        wednesday_start: null,
-        wednesday_end: null,
-        thursday_start: 1300,
-        thursday_end: 1430,
-        friday_start: null,
-        friday_end: null
-      }
-    }
+    cs032_s01
   ]
+};
+
+let calendar = {
+  sections: [
+    cs032_s01
+  ]
+};
+
+let loginSuccess = {
+  status: 'success',
+  id: 'jj@brown.edu',
+  preferences: {
+    class_year: 2018,
+    concentration: 'CSCI',
+    favorite_class: 'CSCI 0320',
+    dept_interests: ['CSCI', 'VISA', 'CHIN']
+  }
+};
+
+let loginFailure = {
+  status: 'unregistered' // or wrong_password, bad_ip
 };
 
 export default class API {
