@@ -2,16 +2,56 @@ package edu.brown.cs.courseler.data;
 
 import java.util.List;
 
-import edu.brown.cs.courseler.courseinfo.CourseTime;
+import edu.brown.cs.courseler.courseinfo.SectionTime;
 import edu.brown.cs.courseler.courseinfo.TimeSlot;
 
+/**
+ * Parse the data about courses.
+ *
+ * @author amywinkler
+ *
+ */
 public class CourseDataParser {
+  private CourseDataCache cache;
 
-  // takes in a courseDataCache, in constructor, call parse banner then crit
-  // review then fun and cool
+  /**
+   * Constructor for coursedataparser.
+   *
+   * @param cache
+   *          the cache of courses
+   */
+  public CourseDataParser(CourseDataCache cache) {
+    this.cache = cache;
+    parseBannerData();
+    parseCritReviewData();
+    parseGoogleFormData();
+  }
 
-  public static List<TimeSlot> getOverlappingTimeSlots(CourseTime ct) {
+  private SectionTime parseSectionTime(String timeSlot) {
+    // TODO: return a section time
+    return null;
+  }
+
+  public void parseBannerData() {
+    // if course not in db, then create new course object
+
+    // otherwise, just need to create new section object and add it to the
+    // course
+    // 1. check if section cache contains the current section id
+    // 2a. if yes - done
+    // 2b. if no -
+  }
+
+  /**
+   * Gets the overlapping timeslots for a given section time.
+   *
+   * @param st
+   *          The section time
+   * @return a list of overlapping timselots
+   */
+  public static List<TimeSlot> getOverlappingTimeSlots(SectionTime st) {
     // get the coursetime for each timeslot, check if ct is within that
+    // call overlapswithtimeslot
     return null;
   }
 
@@ -19,17 +59,8 @@ public class CourseDataParser {
    * Method to parse the data from the critical review csv.
    */
   public void parseCritReviewData() {
-    // File csvData = new File(
-    // "/Users/amywinkler/term-project-adevor-awinkler-knakajim-nparrott/data/critreview.csv");
+
     // try {
-    // // CSVParser parser = CSVParser.parse(csvData, StandardCharsets.UTF_8,
-    // // CSVFormat.EXCEL);
-    // //
-    // // CsvReader rdr
-    // // for (CSVRecord record : parser) {
-    // // String[] rec = record.getValues();
-    // // System.out.println(rec);
-    // // }
     //
     // CSVReader reader = new CSVReader(
     // new FileReader(
@@ -76,10 +107,6 @@ public class CourseDataParser {
     // } catch (IOException e) {
     // throw new RuntimeException("Unable to read csv");
     // }
-  }
-
-  public void parseBannerData() {
-
   }
 
   public void parseGoogleFormData() {
