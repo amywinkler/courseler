@@ -182,12 +182,13 @@ public class DbProxy {
           }
 
         } else {
-          user = new User(rs.getString("incorrect_password"));
+          user = new User("incorrect_password");
         }
       }
       rs.close();
       prep.close();
     } catch (SQLException e) {
+      e.printStackTrace();
       return null;
     }
     return user;
@@ -253,5 +254,17 @@ public class DbProxy {
 
     // Reset the DB Proxy connection and clear all caching
     this.conn = connection;
+  }
+
+  /**
+   * Closes the db connection.
+   *
+   * @throws SQLException
+   *           if closing fails.
+   */
+  public void closeConnection() throws SQLException {
+    if (conn != null) {
+      conn.close();
+    }
   }
 }
