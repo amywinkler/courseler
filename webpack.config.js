@@ -13,5 +13,6 @@ module.exports = {
     },
   output: {
     filename: './src/main/resources/static/js/app.js'
-  }
+  },
+  devtool: 'source-map'
 }

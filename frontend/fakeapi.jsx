@@ -70,37 +70,74 @@ let loginSuccess = {
   }
 };
 
-let loginFailure = {
+let loginFailureUnregistered = {
   status: 'unregistered' // or wrong_password, bad_ip
 };
 
-export default class API {
+let loginFailureWrongPassword = {
+  status: 'wrong_password' // or wrong_password, bad_ip
+};
+
+let fakeAccounts = {
+  'jj@brown.edu': 'abc'
+}
+
+let signupSuccess = loginSuccess;
+
+let signupFailureAlreadyRegistered = {
+  status: 'already_registered'
+};
+
+let fakeDelay = function(callback) {
+  setTimeout(() => {
+    callback();
+  }, Math.random() * 0.7);
+}
+
+export class API {
+  constructor() {
+    this.loggedIn = false;
+    this.accountPrefs = null;
+  }
+  
   // LOGIN METHODS:
   
   isLoggedIn() {
-    
+    return this.loggedIn;
   }
   
   getToken() {
-    
+    return this.loggedIn ? 'token' : null;
   }
   
   logOut() {
-    
+    this.loggedIn = false;
   }
   
-  // callback is a function with the parameters: (loginSuccessful, message)
-  // - loginSuccessful: true/false
-  // - message: an error, if we failed 
   logIn(email, password, callback) {
-    
+    fakeDelay(() => {
+      if (fakeAccounts[email]) {
+        if (fakeAccounts[email] === password) {
+          this.accountPrefs = loginSuccess.preferences;
+          callback(loginSuccess);
+        } else {
+          callback(loginFailureWrongPassword);
+        }
+      } else {
+        callback(loginFailureUnregistered);
+      }
+    })
   }
   
-  // callback is a function with the parameters: (signupSuccessful, message)
-  // - loginSuccessful: true/false
-  // - message: an error, if we failed 
   signUp(email, password, callback) {
-    
+    fakeDelay(() => {
+      if (fakeAccounts[email]) {
+        callback(signupFailureAlreadyRegistered);
+      } else {
+        fakeAccounts[email] = password;
+        callback(signupSuccess);
+      }
+    })
   }
   
   // ACCOUNT PREFS:
@@ -119,16 +156,20 @@ export default class API {
   
   // callback has 1 param, a prefs dictionary
   getPrefs(callback) {
-    
+    fakeDelay(() => {
+      callback(this.accountPrefs);
+    })
   }
   
   postPrefs(prefs) {
-    
+    this.accountPrefs = prefs;
   }
   
   // callback has 1 param, a calendar json
   getCalendar(callback) {
-    
+    fakeDelay(() => {
+      callback(calendar);
+    })
   }
   
   // ADD COURSES UI apis

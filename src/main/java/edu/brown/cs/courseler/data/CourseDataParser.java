@@ -1,25 +1,86 @@
 package edu.brown.cs.courseler.data;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+import edu.brown.cs.courseler.courseinfo.SectionTime;
+import edu.brown.cs.courseler.courseinfo.TimeSlot;
+
+/**
+ * Parse the data about courses.
+ *
+ * @author amywinkler
+ *
+ */
 public class CourseDataParser {
-  
-  //takes in a courseDataCache
+  private CourseDataCache cache;
+
+  /**
+   * Constructor for coursedataparser.
+   *
+   * @param cache
+   *          the cache of courses
+   */
+  public CourseDataParser(CourseDataCache cache) {
+    this.cache = cache;
+    parseBannerData();
+    parseCritReviewData();
+    parseGoogleFormData();
+  }
+
+  private SectionTime parseSectionTime(String timeSlot) {
+    // TODO: return a section time (that's set)
+    return null;
+  }
+
+  private void parseCourseSectionFromBanner() {
+    // if course not in db, then create new course object
+
+
+    // otherwise, just need to create new section object and add it to the
+    // course
+    // 1. check if section cache contains the current section id
+    // 2a. if yes - done
+    // 2b. if no -
+
+  }
+
+  public void parseBannerData() {
+
+  }
+
+  /**
+   * Gets the overlapping timeslots for a given section time.
+   *
+   * @param st
+   *          The section time
+   * @return a list of overlapping timselots
+   */
+  public List<TimeSlot> getTimeSlots(List<SectionTime> timeList) {
+    // get the coursetime for each timeslot, check if ct is within that
+    // call overlapswithtimeslot
+    Set<TimeSlot> uniqueSlotsWithOverlap = new HashSet<>();
+
+    for (int i = 0; i < timeList.size(); i++) {
+      for (TimeSlot slot : TimeSlot.values()) {
+        if (timeList.get(i).overlapsWithTimeSlot(
+            cache.getTimeForTimeslot(slot))) {
+          uniqueSlotsWithOverlap.add(slot);
+        }
+      }
+    }
+
+    return new ArrayList<TimeSlot>(uniqueSlotsWithOverlap);
+  }
 
   /**
    * Method to parse the data from the critical review csv.
    */
   public void parseCritReviewData() {
-    // File csvData = new File(
-    // "/Users/amywinkler/term-project-adevor-awinkler-knakajim-nparrott/data/critreview.csv");
+
     // try {
-    // // CSVParser parser = CSVParser.parse(csvData, StandardCharsets.UTF_8,
-    // // CSVFormat.EXCEL);
-    // //
-    // // CsvReader rdr
-    // // for (CSVRecord record : parser) {
-    // // String[] rec = record.getValues();
-    // // System.out.println(rec);
-    // // }
     //
     // CSVReader reader = new CSVReader(
     // new FileReader(
@@ -66,5 +127,9 @@ public class CourseDataParser {
     // } catch (IOException e) {
     // throw new RuntimeException("Unable to read csv");
     // }
+  }
+
+  public void parseGoogleFormData() {
+
   }
 }
