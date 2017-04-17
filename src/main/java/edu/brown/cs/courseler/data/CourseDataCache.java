@@ -1,6 +1,7 @@
 package edu.brown.cs.courseler.data;
 
 import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.Map;
 
 import edu.brown.cs.courseler.courseinfo.Course;
@@ -13,8 +14,19 @@ public class CourseDataCache {
   private Map<String, Course> courseIdToCourse;
   private Map<String, Course> sectionIdToSection;
 
+  /**
+   * Constructor for CourseDataCache.
+   */
   public CourseDataCache() {
     setUpTimeSlots();
+    timeSlotToTimes = new HashMap<>();
+    coursesForProf = new HashMap<>();
+    courseIdToCourse = new HashMap<>();
+    sectionIdToSection = new HashMap<>();
+  }
+
+  public SectionTime getTimeForTimeslot(TimeSlot t){
+    return timeSlotToTimes.get(t);
   }
 
 
