@@ -94,7 +94,7 @@ let fakeDelay = function(callback) {
   }, Math.random() * 0.7);
 }
 
-export default class API {
+export class API {
   constructor() {
     this.loggedIn = false;
     this.accountPrefs = null;
