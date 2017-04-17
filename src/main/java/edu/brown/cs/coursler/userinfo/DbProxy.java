@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -101,7 +100,6 @@ public class DbProxy {
    * @return a user object with as much data as possible.
    */
   public User getUserFromId(String id) {
-    List<String> wayNames = new ArrayList<String>();
     if (conn == null) {
       return null;
     }
