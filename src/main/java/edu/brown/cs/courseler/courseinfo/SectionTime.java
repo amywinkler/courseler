@@ -8,7 +8,7 @@ import java.util.List;
  * @author amywinkler
  *
  */
-public class CourseTime {
+public class SectionTime {
   // A list of all the timeslots that this section is filled by
   private transient List<TimeSlot> slotsFilledBySection;
   private Integer mondayStart;
@@ -25,7 +25,7 @@ public class CourseTime {
   /**
    * Constructor for CourseTime object.
    */
-  public CourseTime() {
+  public SectionTime() {
     mondayStart = null;
     mondayEnd = null;
     tuesdayStart = null;
@@ -39,6 +39,50 @@ public class CourseTime {
   }
 
   /**
+   * Adds a monday wednesday friday time to this section time.
+   *
+   * @param startTime
+   *          the starting time
+   * @param endTime
+   *          the ending time
+   */
+  public void addMonWedFriTime(int startTime, int endTime) {
+    setSectionTime("mondayStart", startTime);
+    setSectionTime("wednesdayStart", startTime);
+    setSectionTime("fridayStart", startTime);
+    setSectionTime("mondayEnd", endTime);
+    setSectionTime("wednesdayEnd", endTime);
+    setSectionTime("fridayEnd", endTime);
+  }
+
+  /**
+   * Gets the overlaps between a given section and a time slot.
+   *
+   * @param timeSlot
+   *          the SectionTime representing the timeslot
+   */
+  public boolean overlapsWithTimeSlot(SectionTime timeSlot) {
+    // TODO: figure out whether or not the coursetime has any overlapping time
+    return false;
+  }
+
+  /**
+   * Add a tursday and thursday time to this section time.
+   *
+   * @param startTime
+   *          the start time
+   * @param endTime
+   *          the end time
+   */
+  public void addTuesThursTime(int startTime, int endTime) {
+    setSectionTime("tuesdayStart", startTime);
+    setSectionTime("thursdayStart", startTime);
+    setSectionTime("tuesdayEnd", endTime);
+    setSectionTime("thursdayEnd", endTime);
+
+  }
+
+  /**
    * Set the course time, pass in the name of the time you want to set.
    *
    * @param timeName
@@ -46,7 +90,7 @@ public class CourseTime {
    * @param time
    *          the time to set
    */
-  public void setCourseTime(String timeName, int time) {
+  public void setSectionTime(String timeName, int time) {
     switch (timeName) {
       case "mondayStart":
         mondayStart = time;

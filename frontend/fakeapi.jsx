@@ -116,7 +116,7 @@ export class API {
   
   logIn(email, password, callback) {
     fakeDelay(() => {
-      if (fakeAccounts[emai]) {
+      if (fakeAccounts[email]) {
         if (fakeAccounts[email] === password) {
           this.accountPrefs = loginSuccess.preferences;
           callback(loginSuccess);

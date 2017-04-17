@@ -12,10 +12,10 @@ class App extends React.Component {
      };
    }
    render() {
-     if (this.loggedIn) {
+     if (this.state.loggedIn) {
        return <LoggedInView onLogOut={() => {this.setState({loggedIn: false})}} />;
      } else {
-       return <LoggedOutView onLogIn={() => {this.setState({loggedIn: true})}} />;
+       return <LoggedOutView onLogIn={() => this.setState({loggedIn: true})} />;
      }
    }
 }

@@ -37,4 +37,8 @@ public class Course {
     this.courseCode = courseCode;
   }
 
+  public void addSectionObject(Section s) {
+    sections.add(s);
+  }
+
 }
