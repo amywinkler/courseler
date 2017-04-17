@@ -96,29 +96,29 @@ let fakeDelay = function(callback) {
 
 export class API {
   constructor() {
-    this.loggedIn = false;
-    this.accountPrefs = null;
+    
   }
   
   // LOGIN METHODS:
   
   isLoggedIn() {
-    return this.loggedIn;
+    return localStorage.loggedIn === 'true';
   }
   
   getToken() {
-    return this.loggedIn ? 'token' : null;
+    return this.isLoggedIn() ? 'token' : null;
   }
   
   logOut() {
-    this.loggedIn = false;
+    localStorage.loggedIn = 'false';
   }
   
   logIn(email, password, callback) {
     fakeDelay(() => {
       if (fakeAccounts[email]) {
         if (fakeAccounts[email] === password) {
-          this.accountPrefs = loginSuccess.preferences;
+          localStorage.loggedIn = 'true';
+          localStorage.accountPrefs = JSON.stringify(loginSuccess.preferences);
           callback(loginSuccess);
         } else {
           callback(loginFailureWrongPassword);
@@ -135,6 +135,7 @@ export class API {
         callback(signupFailureAlreadyRegistered);
       } else {
         fakeAccounts[email] = password;
+        localStorage.loggedIn = 'true';
         callback(signupSuccess);
       }
     })
@@ -157,12 +158,12 @@ export class API {
   // callback has 1 param, a prefs dictionary
   getPrefs(callback) {
     fakeDelay(() => {
-      callback(this.accountPrefs);
+      callback(JSON.parse(localStorage.accountPrefs));
     })
   }
   
   postPrefs(prefs) {
-    this.accountPrefs = prefs;
+    localStorage.accountPrefs = JSON.stringify(prefs);
   }
   
   // callback has 1 param, a calendar json
