@@ -1,5 +1,6 @@
 package edu.brown.cs.coursler.userinfo;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,13 +10,14 @@ import java.util.List;
  */
 public class User {
 
-  private String email;
-  private String password; // LOL saved in plaintext oh well
+  // private String email;
+  // private String password; // LOL saved in plaintext oh well
   private String classYear; // "2019" or "2017.5"
   private String concentration; // e.g. "CSCI"
   private String favClassCode; // e.g. "CSCI 0320"
   private String loginIdToken; // e.g. AxW67yh
   private List<String> interests; // e.g. CSCI, VISA
+  private List<String> sectionsInCart;
 
   /**
    * User constructor. We only pass in the login token then add additional info.
@@ -33,9 +35,10 @@ public class User {
     classYear = null;
     concentration = null;
     favClassCode = null;
-    email = null;
-    password = null;
-    interests = null;
+    // email = null;
+    // password = null;
+    interests = new ArrayList<>();
+    sectionsInCart = new ArrayList<>();
   }
 
   void setClassYear(String year) {
@@ -62,23 +65,71 @@ public class User {
     this.interests = interests;
   }
 
-  List<String> getInterests() {
+  void setCart(List<String> sections) {
+    this.sectionsInCart = sections;
+  }
+
+  void addToCart(String sectionId) {
+    this.sectionsInCart.add(sectionId);
+  }
+
+  void removeFromCart(String sectionId) {
+    if (sectionsInCart.contains(sectionId)) {
+      this.sectionsInCart.remove(sectionId);
+    }
+  }
+
+  /**
+   * Get interests of user.
+   *
+   * @return interests
+   */
+  public List<String> getInterests() {
     return interests;
   }
 
-  String getFavClassCode() {
+  /**
+   * Get sections in cart of user.
+   *
+   * @return list of section
+   */
+  public List<String> getSectionsInCart() {
+    return sectionsInCart;
+  }
+
+  /**
+   * Gets fav class code of user.
+   *
+   * @return fav class code
+   */
+  public String getFavClassCode() {
     return favClassCode;
   }
 
-  String getConcentraton() {
+  /**
+   * Get concentration of user.
+   *
+   * @return concentration
+   */
+  public String getConcentraton() {
     return concentration;
   }
 
-  String getClassYear() {
+  /**
+   * Get class year of user.
+   *
+   * @return class year
+   */
+  public String getClassYear() {
     return classYear;
   }
 
-  String getTokenId() {
+  /**
+   * Gets token id of user.
+   *
+   * @return token id
+   */
+  public String getTokenId() {
     return loginIdToken;
   }
 }

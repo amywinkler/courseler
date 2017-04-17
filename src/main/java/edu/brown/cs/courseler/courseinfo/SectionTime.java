@@ -60,10 +60,64 @@ public class SectionTime {
    *
    * @param timeSlot
    *          the SectionTime representing the timeslot
+   * @return
+   *    boolean representing whether or not there is overlap for this timeslot
    */
   public boolean overlapsWithTimeSlot(SectionTime timeSlot) {
-    // TODO: figure out whether or not the coursetime has any overlapping time
-    return false;
+    boolean hasOverlap = false;
+    if (!hasOverlap && mondayStart != null && mondayEnd != null) {
+      if (timeSlot.mondayStart != null && timeSlot.mondayEnd != null) {
+        if ((mondayStart < timeSlot.mondayStart
+            && mondayEnd > timeSlot.mondayStart)
+            || (mondayStart >= timeSlot.mondayStart
+            && mondayStart < timeSlot.mondayEnd)) {
+          hasOverlap = true;
+        }
+      }
+
+    }
+
+    if (!hasOverlap && tuesdayStart != null && tuesdayEnd != null) {
+      if ((tuesdayStart < timeSlot.tuesdayStart
+          && tuesdayEnd > timeSlot.tuesdayStart)
+          || (tuesdayStart >= timeSlot.tuesdayStart
+          && tuesdayStart < timeSlot.tuesdayEnd)) {
+        hasOverlap = true;
+      }
+
+    }
+
+    if (!hasOverlap && wednesdayStart != null && wednesdayEnd != null) {
+      if ((wednesdayStart < timeSlot.wednesdayStart
+          && wednesdayEnd > timeSlot.wednesdayStart)
+          || (wednesdayStart >= timeSlot.wednesdayStart
+          && wednesdayStart < timeSlot.wednesdayEnd)) {
+        hasOverlap = true;
+      }
+
+    }
+
+    if (!hasOverlap && thursdayStart != null && thursdayEnd != null) {
+      if ((thursdayStart < timeSlot.thursdayStart
+          && thursdayEnd > timeSlot.thursdayStart)
+          || (thursdayStart >= timeSlot.thursdayStart
+          && thursdayStart < timeSlot.thursdayEnd)) {
+        hasOverlap = true;
+      }
+
+    }
+
+    if (!hasOverlap && fridayStart != null && fridayEnd != null) {
+      if ((fridayStart < timeSlot.fridayStart
+          && fridayEnd > timeSlot.fridayStart)
+          || (fridayStart >= timeSlot.fridayStart
+          && fridayStart < timeSlot.fridayEnd)) {
+        hasOverlap = true;
+      }
+
+    }
+
+    return hasOverlap;
   }
 
   /**

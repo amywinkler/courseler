@@ -1,6 +1,9 @@
 package edu.brown.cs.courseler.data;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import edu.brown.cs.courseler.courseinfo.SectionTime;
 import edu.brown.cs.courseler.courseinfo.TimeSlot;
@@ -28,18 +31,24 @@ public class CourseDataParser {
   }
 
   private SectionTime parseSectionTime(String timeSlot) {
-    // TODO: return a section time
+    // TODO: return a section time (that's set)
     return null;
   }
 
-  public void parseBannerData() {
+  private void parseCourseSectionFromBanner() {
     // if course not in db, then create new course object
+
 
     // otherwise, just need to create new section object and add it to the
     // course
     // 1. check if section cache contains the current section id
     // 2a. if yes - done
     // 2b. if no -
+
+  }
+
+  public void parseBannerData() {
+
   }
 
   /**
@@ -49,10 +58,21 @@ public class CourseDataParser {
    *          The section time
    * @return a list of overlapping timselots
    */
-  public static List<TimeSlot> getOverlappingTimeSlots(SectionTime st) {
+  public List<TimeSlot> getTimeSlots(List<SectionTime> timeList) {
     // get the coursetime for each timeslot, check if ct is within that
     // call overlapswithtimeslot
-    return null;
+    Set<TimeSlot> uniqueSlotsWithOverlap = new HashSet<>();
+
+    for (int i = 0; i < timeList.size(); i++) {
+      for (TimeSlot slot : TimeSlot.values()) {
+        if (timeList.get(i).overlapsWithTimeSlot(
+            cache.getTimeForTimeslot(slot))) {
+          uniqueSlotsWithOverlap.add(slot);
+        }
+      }
+    }
+
+    return new ArrayList<TimeSlot>(uniqueSlotsWithOverlap);
   }
 
   /**
