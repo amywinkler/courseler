@@ -2,11 +2,13 @@ package edu.brown.cs.courseler.data;
 
 
 public class CourseDataParser {
+  
+  //takes in a courseDataCache
 
   /**
    * Method to parse the data from the critical review csv.
    */
-  public static void parseCritReviewData() {
+  public void parseCritReviewData() {
     // File csvData = new File(
     // "/Users/amywinkler/term-project-adevor-awinkler-knakajim-nparrott/data/critreview.csv");
     // try {

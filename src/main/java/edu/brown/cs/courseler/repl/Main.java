@@ -40,7 +40,6 @@ public final class Main {
 
   private Main(String[] args) {
     this.args = args;
-    CourseDataParser.parseCritReviewData();
   }
 
   private void run() {
