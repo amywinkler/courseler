@@ -1,9 +1,19 @@
 package edu.brown.cs.courseler.data;
 
+import java.util.List;
+
+import edu.brown.cs.courseler.courseinfo.CourseTime;
+import edu.brown.cs.courseler.courseinfo.TimeSlot;
 
 public class CourseDataParser {
-  
-  //takes in a courseDataCache
+
+  // takes in a courseDataCache, in constructor, call parse banner then crit
+  // review then fun and cool
+
+  public static List<TimeSlot> getOverlappingTimeSlots(CourseTime ct) {
+    // get the coursetime for each timeslot, check if ct is within that
+    return null;
+  }
 
   /**
    * Method to parse the data from the critical review csv.
@@ -66,5 +76,13 @@ public class CourseDataParser {
     // } catch (IOException e) {
     // throw new RuntimeException("Unable to read csv");
     // }
+  }
+
+  public void parseBannerData() {
+
+  }
+
+  public void parseGoogleFormData() {
+
   }
 }

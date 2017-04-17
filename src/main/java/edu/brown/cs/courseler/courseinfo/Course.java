@@ -16,7 +16,7 @@ public class Course {
   private Map<String, Double> demographics;
   private Double courseScore;
   private Double profScore;
-  private Double reccomendedToNonConcentrators;
+  private Double recommendedToNonConcentrators;
   private Double learnedALot;
   private Double difficulty;
   private Double enjoyed;

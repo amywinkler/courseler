@@ -48,39 +48,40 @@ public class CourseTime {
    */
   public void setCourseTime(String timeName, int time) {
     switch (timeName) {
-    case "mondayStart":
-      mondayStart = time;
-      break;
-    case "mondayEnd":
-      mondayEnd = time;
-      break;
-    case "tuesdayStart":
-      tuesdayStart = time;
-      break;
-    case "tuesdayEnd":
-      tuesdayEnd = time;
-      break;
-    case "wednesdayStart":
-      wednesdayStart = time;
-      break;
-    case "wednesdayEnd":
-      wednesdayEnd = time;
-      break;
-    case "thursdayStart":
-      thursdayStart = time;
-      break;
-    case "thursdayEnd":
-      thursdayEnd = time;
-      break;
-    case "fridayStart":
-      fridayStart = time;
-      break;
-    case "fridayEnd":
-      fridayEnd = time;
-      break;
-    default:
-      break;
+      case "mondayStart":
+        mondayStart = time;
+        break;
+      case "mondayEnd":
+        mondayEnd = time;
+        break;
+      case "tuesdayStart":
+        tuesdayStart = time;
+        break;
+      case "tuesdayEnd":
+        tuesdayEnd = time;
+        break;
+      case "wednesdayStart":
+        wednesdayStart = time;
+        break;
+      case "wednesdayEnd":
+        wednesdayEnd = time;
+        break;
+      case "thursdayStart":
+        thursdayStart = time;
+        break;
+      case "thursdayEnd":
+        thursdayEnd = time;
+        break;
+      case "fridayStart":
+        fridayStart = time;
+        break;
+      case "fridayEnd":
+        fridayEnd = time;
+        break;
+      default:
+        break;
     }
 
   }
+
 }
