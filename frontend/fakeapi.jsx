@@ -1,21 +1,28 @@
 let cs032_s01 = {
   course_code: 'CSCI 0320',
   title: 'Software Engineering',
-  section: 'S01',
+  section_id: 'CSCI 0320 S01',
   professor: 'John Jannotti',
-  location: 'Salomon 001',
-  times: {
-    monday_start: null,
-    monday_end: null,
-    tuesday_start: 1300,
-    tuesday_end: 1430,
-    wednesday_start: null,
-    wednesday_end: null,
-    thursday_start: 1300,
-    thursday_end: 1430,
-    friday_start: null,
-    friday_end: null
-  }
+  locations: {
+    monday_location: null,
+    tuesday_location: 'Salomon 001',
+    wednesday_location: null,
+    thursday_location: 'Salomon 001',
+    friday_location: null
+  },
+  times: [{
+      monday_start: null,
+      monday_end: null,
+      tuesday_start: 1300,
+      tuesday_end: 1430,
+      wednesday_start: null,
+      wednesday_end: null,
+      thursday_start: 1300,
+      thursday_end: 1430,
+      friday_start: null,
+      friday_end: null
+    }
+  ]
 };
 
 let cs32 = {
