@@ -6,7 +6,6 @@ import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.util.HashMap;
 
-import freemarker.template.Configuration;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import spark.ExceptionHandler;
@@ -16,6 +15,8 @@ import spark.Response;
 import spark.Spark;
 import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
+import edu.brown.cs.courseler.data.CourseDataParser;
+import freemarker.template.Configuration;
 
 /**
  * The Main class of our project. This is where execution begins.
@@ -46,7 +47,7 @@ public final class Main {
     OptionParser parser = new OptionParser();
     parser.accepts("gui");
     parser.accepts("port").withRequiredArg().ofType(Integer.class)
-        .defaultsTo(DEFAULT_PORT);
+    .defaultsTo(DEFAULT_PORT);
     OptionSet options = parser.parse(args);
 
     if (options.has("gui")) {
@@ -87,6 +88,7 @@ public final class Main {
    *
    */
   private static final class MainHandler implements TemplateViewRoute {
+    @Override
     public ModelAndView handle(Request req, Response res) {
       HashMap<String, Object> variables = new HashMap<String, Object>();
       return new ModelAndView(variables, "main.ftl");
