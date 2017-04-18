@@ -123,16 +123,16 @@ public class DbProxy {
     // set new data about the user (concentration, interests, class year)
 
     // Put into DB
-    String query = "UPDATE users SET (concentration = ?,"
-        + " interests = ?, classYear = ?, favClass = ?)" + " WHERE id == ?;";
+    String update = "UPDATE users SET concentration = ?,"
+        + " interests = ?, year = ?, favClass = ?" + " WHERE id == ?;";
 
-    PreparedStatement prep = conn.prepareStatement(query);
+    PreparedStatement prep = conn.prepareStatement(update);
     prep.setString(1, concentration);
     prep.setString(2, interests);
     prep.setString(3, classYear);
-    prep.setString(4, id);
-    ResultSet rs = prep.executeQuery();
-    rs.close();
+    prep.setString(4, favClass);
+    prep.setString(5, id);
+    prep.executeUpdate();
     prep.close();
   }
 
@@ -265,6 +265,25 @@ public class DbProxy {
   public void closeConnection() throws SQLException {
     if (conn != null) {
       conn.close();
+    }
+  }
+
+  /**
+   * Clears the table that the db is associated with. For testing only.
+   */
+  public void clearTable() {
+
+    // delete table data
+    String query = "DELETE FROM users;";
+
+    PreparedStatement prep;
+    try {
+      prep = conn.prepareStatement(query);
+      prep.executeUpdate();
+      prep.close();
+    } catch (SQLException e) {
+      e.printStackTrace();
+      return;
     }
   }
 }
