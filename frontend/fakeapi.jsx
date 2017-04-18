@@ -65,6 +65,10 @@ let calendar = {
   ]
 };
 
+let courses = {
+  'CSCI 0320': cs32
+}
+
 let loginSuccess = {
   status: 'success',
   id: 'jj@brown.edu',
@@ -198,7 +202,9 @@ export class API {
 
   // GET COURSE INFO
   courseInfo(courseCode, callback) {
-
+    fakeDelay(() => {
+      callback(courses[courseCode]);
+    })
   }
 
   // CSCS 0320 S01
