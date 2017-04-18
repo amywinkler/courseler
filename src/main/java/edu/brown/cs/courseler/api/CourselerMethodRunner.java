@@ -25,7 +25,7 @@ public class CourselerMethodRunner implements MethodRunner<String> {
    * @param cache
    *          the course cache
    */
-  public CourselerMethodRunner(CourseDataCache cache){
+  public CourselerMethodRunner(CourseDataCache cache) {
     this.cache = cache;
   }
 
@@ -53,8 +53,8 @@ public class CourselerMethodRunner implements MethodRunner<String> {
 
   private void searchCmd(String currCmdStr) {
     Search s = new Search(cache);
-    List<Course> courses = s.rankedKeywordSearch(currCmdStr.
-        substring(currCmdStr.indexOf("search ") + 7));
+    List<Course> courses = s.rankedKeywordSearch(currCmdStr
+        .substring(currCmdStr.indexOf("search ") + "search ".length()));
     for (Course c: courses) {
       System.out.println(c.toString());
     }

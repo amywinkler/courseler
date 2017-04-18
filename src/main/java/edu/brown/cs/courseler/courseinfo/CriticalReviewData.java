@@ -141,10 +141,26 @@ public class CriticalReviewData {
     this.demographics = new HashMap<>();
   }
 
+  /**
+   * Add to the hours per week map.
+   *
+   * @param key
+   *          the key for the map
+   * @param value
+   *          the hours per week
+   */
   public void addHoursPerWeek(String key, Double value) {
     hoursPerWeek.put(key, value);
   }
 
+  /**
+   * Add to the demographic map.
+   *
+   * @param key
+   *          the key for the map
+   * @param value
+   *          the demographic value
+   */
   public void addDemographic(String key, Double value) {
     demographics.put(key, value);
   }
@@ -166,7 +182,8 @@ public class CriticalReviewData {
    *          enjoyment score
    */
   public void setAllScores(Double courseSc, Double profSc,
-      Double recommendedNonConc, Double learned, Double difficult, Double enjoy) {
+      Double recommendedNonConc, Double learned,
+      Double difficult, Double enjoy) {
     this.courseScore = courseSc;
     this.profScore = profSc;
     this.recommendedToNonConcentrators = recommendedNonConc;

@@ -39,7 +39,5 @@ public class MeetingLocation {
         System.out.println("Should't be here1");
         break;
     }
-
   }
-
 }
