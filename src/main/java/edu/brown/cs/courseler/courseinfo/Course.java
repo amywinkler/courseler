@@ -38,6 +38,10 @@ public class Course {
     this.sections = new ArrayList<>();
   }
 
+  public void setCritReviewData(CriticalReviewData cr) {
+    this.crData = cr;
+  }
+
   public void setDescription(String description) {
     this.description = description;
   }
