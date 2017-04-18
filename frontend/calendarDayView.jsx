@@ -7,16 +7,18 @@ export default class CalendarDayView extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			day: props.day,
-			date: ''
 		};
 	}
 
 	render() {
-		let day = this.state.day;
+		let day = this.props.day;
+		let courses = this.props.courses;
 		return (
 			<div className='calendarDayView' style={{display:"inline-block", width:"20%"}}>
-				<h3>{day}</h3>
+				<h1>{day}</h1>
+				<div className='courses'>
+					{courses}
+				</div>
 			</div>
 		)
 	}

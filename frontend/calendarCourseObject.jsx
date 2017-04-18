@@ -4,12 +4,19 @@ import api from './api.jsx';
 
 export default class CalendarCourseObject extends React.Component {
 
+	constructor(props) {
+		super(props);
+			this.state = {
+				overlaps: false
+			};
+  }
 
 	render() {
-	return (
-	  <div className='calendarCourseObject'>
-	    <h3>here is a course object</h3>
-	  </div>
-	)
+		let title = this.props.title;
+		return (
+		  <div className='calendarCourseObject'>
+				<h3>{title}</h3>
+		  </div>
+		)
 	}
 }
