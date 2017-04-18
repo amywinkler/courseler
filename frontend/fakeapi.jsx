@@ -2,7 +2,7 @@ let cs032_s01 = {
   course_code: 'CSCI 0320',
   title: 'Software Engineering',
   section_id: 'CSCI 0320 S01',
-  professor: 'John Jannotti',
+  professors: ['John Jannotti'],
   locations: {
     monday_location: null,
     tuesday_location: 'Salomon 001',

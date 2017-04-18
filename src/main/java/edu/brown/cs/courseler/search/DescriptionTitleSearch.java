@@ -35,7 +35,9 @@ public class DescriptionTitleSearch implements SearchSuggestions<Course> {
       } else if (c.getTitle().toLowerCase().contains(searchTerm)) {
         toReturn.add(c);
       } else if (c.getDescription() != null
-          && c.getDescription().toLowerCase().contains(searchTerm)) {
+          && (c.getDescription().toLowerCase().
+            contains(" " + searchTerm) || c.getDescription().toLowerCase().
+            contains(searchTerm + " "))) {
         toReturn.add(c);
       }
     }

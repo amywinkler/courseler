@@ -89,14 +89,12 @@ public class Course {
   }
 
   @Override
-  public String toString(){
-    return "Course code " + courseCode + "\n" +
-        "Title " + title + "\n" +
-        "Cap " + cap + "\n" +
-        "CdotBrownLink " + coursesDotBrownLink + "\n" +
-        "Prereq " + prereq + "\n" +
-        "Descripion " + description + "\n";
-
+  public String toString() {
+    return "Course code: " + courseCode + "\n"
+        + "Title: " + title + "\n"
+        + "Cap: " + cap + "\n" + "Courses dot brown link: "
+        + coursesDotBrownLink + "\n" + "Prereqs: " + prereq + "\n"
+        + "Description:  " + description + "\n";
   }
 
   @Override
