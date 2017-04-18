@@ -12,6 +12,21 @@ public class Section {
   private MeetingLocation meetingLocations;
   private transient List<TimeSlot> overlappingTimeSlots;
 
+  /**
+   * @return the overlappingTimeSlots
+   */
+  public List<TimeSlot> getOverlappingTimeSlots() {
+    return overlappingTimeSlots;
+  }
+
+  /**
+   * @param overlappingTimeSlots
+   *          the overlappingTimeSlots to set
+   */
+  public void setOverlappingTimeSlots(List<TimeSlot> overlappingTimeSlots) {
+    this.overlappingTimeSlots = overlappingTimeSlots;
+  }
+
   public Section(String sectionId, String courseCode,
       String title, List<String> professors, SectionTime times,
       MeetingLocation meetingLocations, List<TimeSlot> overlappingTimeSlots){

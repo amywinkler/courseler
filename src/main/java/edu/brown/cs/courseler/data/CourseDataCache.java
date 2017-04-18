@@ -46,6 +46,10 @@ public class CourseDataCache {
     allCourses.add(c);
   }
 
+  public Section getSectionFromCache(String sectionId) {
+    return sectionIdToSection.get(sectionId);
+  }
+
   public SectionTime getTimeForTimeslot(TimeSlot t){
     return timeSlotToTimes.get(t);
   }

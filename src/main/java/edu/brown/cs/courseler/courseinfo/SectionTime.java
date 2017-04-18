@@ -62,7 +62,6 @@ public class SectionTime {
           hasOverlap = true;
         }
       }
-
     }
 
     if (!hasOverlap && tuesdayStart != null && tuesdayEnd != null) {
@@ -74,7 +73,6 @@ public class SectionTime {
           hasOverlap = true;
         }
       }
-
     }
 
     if (!hasOverlap && wednesdayStart != null && wednesdayEnd != null) {
@@ -86,7 +84,6 @@ public class SectionTime {
           hasOverlap = true;
         }
       }
-
     }
 
     if (!hasOverlap && thursdayStart != null && thursdayEnd != null) {
@@ -109,7 +106,6 @@ public class SectionTime {
           hasOverlap = true;
         }
       }
-
     }
 
     return hasOverlap;
@@ -174,7 +170,6 @@ public class SectionTime {
       default:
         break;
     }
-
   }
 
 }

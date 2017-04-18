@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.brown.cs.courseler.courseinfo.Course;
+import edu.brown.cs.courseler.courseinfo.Section;
+import edu.brown.cs.courseler.courseinfo.TimeSlot;
 import edu.brown.cs.courseler.data.CourseDataCache;
 import edu.brown.cs.courseler.repl.MethodRunner;
 import edu.brown.cs.courseler.search.Search;
@@ -17,6 +19,12 @@ import edu.brown.cs.courseler.search.Search;
 public class CourselerMethodRunner implements MethodRunner<String> {
   private CourseDataCache cache;
 
+  /**
+   * Constructor for courselermethodrunner.
+   *
+   * @param cache
+   *          the course cache
+   */
   public CourselerMethodRunner(CourseDataCache cache){
     this.cache = cache;
   }
@@ -24,16 +32,16 @@ public class CourselerMethodRunner implements MethodRunner<String> {
 
   @Override
   public List<String> run(String currCmdStr) {
-    // TODO Auto-generated method stub
     String[] currCmdArr = currCmdStr.split(" ");
 
     if (currCmdArr.length > 0) {
       switch (currCmdArr[0].trim()) {
         case "search":
           searchCmd(currCmdStr);
+        case "time":
+          getTimeSlots(currCmdStr);
         default:
           break;
-
       }
     }
 
@@ -47,6 +55,15 @@ public class CourselerMethodRunner implements MethodRunner<String> {
         substring(currCmdStr.indexOf("search ") + 7));
     for (Course c: courses) {
       System.out.println(c.toString());
+    }
+  }
+
+  private void getTimeSlots(String currCmdStr) {
+    String sectionString = currCmdStr
+        .substring(currCmdStr.indexOf("time ") + 5);
+    Section currSect = cache.getSectionFromCache(sectionString);
+    for (TimeSlot t : currSect.getOverlappingTimeSlots()) {
+      System.out.println(t);
     }
   }
 
