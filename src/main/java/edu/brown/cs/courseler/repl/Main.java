@@ -38,7 +38,7 @@ public final class Main {
 
     if (options.has("gui")) {
       RequestHandler handler = new RequestHandler();
-      // handler.runSparkServer((int) options.valueOf("port"));
+      handler.runSparkServer((int) options.valueOf("port"));
     }
   }
 }
