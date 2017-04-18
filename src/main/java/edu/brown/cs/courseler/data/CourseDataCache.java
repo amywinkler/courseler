@@ -4,29 +4,57 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
+
 import edu.brown.cs.courseler.courseinfo.Course;
+import edu.brown.cs.courseler.courseinfo.Section;
 import edu.brown.cs.courseler.courseinfo.SectionTime;
 import edu.brown.cs.courseler.courseinfo.TimeSlot;
 
 public class CourseDataCache {
   private Map<TimeSlot, SectionTime> timeSlotToTimes;
-  private Map<String, Course> coursesForProf;
+  private Multimap<String, Course> coursesForProf;
   private Map<String, Course> courseIdToCourse;
-  private Map<String, Course> sectionIdToSection;
+  private Map<String, Section> sectionIdToSection;
 
   /**
    * Constructor for CourseDataCache.
    */
   public CourseDataCache() {
     setUpTimeSlots();
-    timeSlotToTimes = new HashMap<>();
-    coursesForProf = new HashMap<>();
+    coursesForProf = ArrayListMultimap.create();
     courseIdToCourse = new HashMap<>();
     sectionIdToSection = new HashMap<>();
   }
 
   public SectionTime getTimeForTimeslot(TimeSlot t){
     return timeSlotToTimes.get(t);
+  }
+
+  public boolean sectionCacheContains(String sectionId){
+    return sectionIdToSection.containsKey(sectionId);
+  }
+
+  public void addToProfCache(String prof, Course course){
+    coursesForProf.put(prof, course);
+  }
+
+  public void addToCourseCache(String id, Course c){
+    courseIdToCourse.put(id, c);
+  }
+
+  /**
+   * Get the course from the course cache.
+   * @param courseId
+   * @return
+   */
+  public Course getCourseFomCache(String courseId) {
+    return courseIdToCourse.get(courseId);
+  }
+
+  public void addToSectionCache(String id, Section s){
+    sectionIdToSection.put(id, s);
   }
 
 
@@ -106,5 +134,36 @@ public class CourseDataCache {
     timeSlotQ.setSectionTime("thursdayEnd", 1830);
     timeSlotToTimes.put(TimeSlot.Q, timeSlotQ);
 
+    SectionTime timeSlotR = new SectionTime();
+    timeSlotR.setSectionTime("tuesdayStart", 1200);
+    timeSlotR.setSectionTime("tuesdayEnd", 1250);
+    timeSlotToTimes.put(TimeSlot.R, timeSlotR);
+
+    SectionTime timeSlotS = new SectionTime();
+    timeSlotS.setSectionTime("thursdayStart", 1200);
+    timeSlotS.setSectionTime("thursdayEnd", 1250);
+    timeSlotToTimes.put(TimeSlot.S, timeSlotS);
+
+    SectionTime timeSlotT = new SectionTime();
+    timeSlotT.setSectionTime("mondayStart", 1800);
+    timeSlotT.setSectionTime("mondayEnd", 2200);
+    timeSlotToTimes.put(TimeSlot.T, timeSlotT);
+
+    SectionTime timeSlotU = new SectionTime();
+    timeSlotU.setSectionTime("wednesdayStart", 1800);
+    timeSlotU.setSectionTime("wednesdayEnd", 2200);
+    timeSlotToTimes.put(TimeSlot.U, timeSlotU);
+
+    SectionTime timeSlotV = new SectionTime();
+    timeSlotV.setSectionTime("tuesdayStart", 2000);
+    timeSlotV.setSectionTime("tuesdayEnd", 2200);
+    timeSlotToTimes.put(TimeSlot.V, timeSlotV);
+
+    SectionTime timeSlotW = new SectionTime();
+    timeSlotW.setSectionTime("thursdayStart", 2000);
+    timeSlotW.setSectionTime("thursdayEnd", 2200);
+    timeSlotToTimes.put(TimeSlot.W, timeSlotW);
+
   }
+
 }
