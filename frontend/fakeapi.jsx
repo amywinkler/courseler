@@ -30,15 +30,14 @@ let cs32 = {
   title: 'Software Engineering',
   hours_per_week: {maximum: 50, average: 30},
   demographics: {
-    percent_freshmen: 0.25, 
+    percent_freshmen: 0.25,
     percent_sophomores: 0.5,
     percent_juniors: 0.25,
     percent_seniors: 0,
     percent_grad: 0,
     percent_concentrators: 0.25,
     percent_non_concentrators: 0.5,
-    percent_undecided: 0.25,
-    percent_took_for_requirement: 0.6
+    percent_undecided: 0.25
   },
   course_score: 0.71,
   prof_score: 0.64,
@@ -103,23 +102,23 @@ let fakeDelay = function(callback) {
 
 export class API {
   constructor() {
-    
+
   }
-  
+
   // LOGIN METHODS:
-  
+
   isLoggedIn() {
     return localStorage.loggedIn === 'true';
   }
-  
+
   getToken() {
     return this.isLoggedIn() ? 'token' : null;
   }
-  
+
   logOut() {
     localStorage.loggedIn = 'false';
   }
-  
+
   logIn(email, password, callback) {
     fakeDelay(() => {
       if (fakeAccounts[email]) {
@@ -135,7 +134,7 @@ export class API {
       }
     })
   }
-  
+
   signUp(email, password, callback) {
     fakeDelay(() => {
       if (fakeAccounts[email]) {
@@ -147,67 +146,67 @@ export class API {
       }
     })
   }
-  
+
   // ACCOUNT PREFS:
-  
+
   /*
   Prefs is a dictionary! (for both)
-  
+
   {
     class_year: 2018,
     concentration: 'CSCI',
     favorite_class: 'CSCI 0320',
     dept_interests: ['CSCI', 'VISA', 'CHIN']
   }
-  
+
   */
-  
+
   // callback has 1 param, a prefs dictionary
   getPrefs(callback) {
     fakeDelay(() => {
       callback(JSON.parse(localStorage.accountPrefs));
     })
   }
-  
+
   postPrefs(prefs) {
     localStorage.accountPrefs = JSON.stringify(prefs);
   }
-  
+
   // callback has 1 param, a calendar json
   getCalendar(callback) {
     fakeDelay(() => {
       callback(calendar);
     })
   }
-  
+
   // ADD COURSES UI apis
-  
+
   /*
   `filters` are a dict of restrictions on the results.
   {
-    
+
   }
   */
-  
+
   getRecommendations(filters, callback) {
-    
+
   }
-  
+
   search(filters, query, callback) {
-    
+
   }
-  
+
   // GET COURSE INFO
   courseInfo(courseCode, callback) {
-    
+
   }
-  
+
   // CSCS 0320 S01
   addToCart(sectionCode, callback) {
-    
+
   }
-  
+
   removeFromCart(sectionCode, callback) {
-    
+
   }
 }
