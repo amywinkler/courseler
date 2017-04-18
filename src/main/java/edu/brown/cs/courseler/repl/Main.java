@@ -15,7 +15,6 @@ import spark.Response;
 import spark.Spark;
 import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
-import edu.brown.cs.courseler.data.CourseDataParser;
 import freemarker.template.Configuration;
 
 /**
@@ -40,6 +39,7 @@ public final class Main {
 
   private Main(String[] args) {
     this.args = args;
+    // CourseDataParser cdp = new CourseDataParser(new CourseDataCache());
   }
 
   private void run() {

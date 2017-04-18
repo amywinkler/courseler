@@ -1,6 +1,5 @@
 package edu.brown.cs.courseler.courseinfo;
 
-import java.util.List;
 
 /**
  * Class representing a course time object.
@@ -10,7 +9,6 @@ import java.util.List;
  */
 public class SectionTime {
   // A list of all the timeslots that this section is filled by
-  private transient List<TimeSlot> slotsFilledBySection;
   private Integer mondayStart;
   private Integer mondayEnd;
   private Integer tuesdayStart;
@@ -26,16 +24,6 @@ public class SectionTime {
    * Constructor for CourseTime object.
    */
   public SectionTime() {
-    mondayStart = null;
-    mondayEnd = null;
-    tuesdayStart = null;
-    tuesdayEnd = null;
-    wednesdayStart = null;
-    wednesdayEnd = null;
-    thursdayStart = null;
-    thursdayEnd = null;
-    fridayStart = null;
-    fridayEnd = null;
   }
 
   /**
@@ -78,41 +66,48 @@ public class SectionTime {
     }
 
     if (!hasOverlap && tuesdayStart != null && tuesdayEnd != null) {
-      if ((tuesdayStart < timeSlot.tuesdayStart
-          && tuesdayEnd > timeSlot.tuesdayStart)
-          || (tuesdayStart >= timeSlot.tuesdayStart
-          && tuesdayStart < timeSlot.tuesdayEnd)) {
-        hasOverlap = true;
+      if (timeSlot.tuesdayStart != null && timeSlot.tuesdayEnd != null) {
+        if ((tuesdayStart < timeSlot.tuesdayStart
+            && tuesdayEnd > timeSlot.tuesdayStart)
+            || (tuesdayStart >= timeSlot.tuesdayStart
+            && tuesdayStart < timeSlot.tuesdayEnd)) {
+          hasOverlap = true;
+        }
       }
 
     }
 
     if (!hasOverlap && wednesdayStart != null && wednesdayEnd != null) {
-      if ((wednesdayStart < timeSlot.wednesdayStart
-          && wednesdayEnd > timeSlot.wednesdayStart)
-          || (wednesdayStart >= timeSlot.wednesdayStart
-          && wednesdayStart < timeSlot.wednesdayEnd)) {
-        hasOverlap = true;
+      if (timeSlot.wednesdayStart != null && timeSlot.wednesdayEnd != null) {
+        if ((wednesdayStart < timeSlot.wednesdayStart
+            && wednesdayEnd > timeSlot.wednesdayStart)
+            || (wednesdayStart >= timeSlot.wednesdayStart
+            && wednesdayStart < timeSlot.wednesdayEnd)) {
+          hasOverlap = true;
+        }
       }
 
     }
 
     if (!hasOverlap && thursdayStart != null && thursdayEnd != null) {
-      if ((thursdayStart < timeSlot.thursdayStart
-          && thursdayEnd > timeSlot.thursdayStart)
-          || (thursdayStart >= timeSlot.thursdayStart
-          && thursdayStart < timeSlot.thursdayEnd)) {
-        hasOverlap = true;
+      if (timeSlot.thursdayStart != null && timeSlot.thursdayEnd != null) {
+        if ((thursdayStart < timeSlot.thursdayStart
+            && thursdayEnd > timeSlot.thursdayStart)
+            || (thursdayStart >= timeSlot.thursdayStart
+            && thursdayStart < timeSlot.thursdayEnd)) {
+          hasOverlap = true;
+        }
       }
-
     }
 
     if (!hasOverlap && fridayStart != null && fridayEnd != null) {
-      if ((fridayStart < timeSlot.fridayStart
-          && fridayEnd > timeSlot.fridayStart)
-          || (fridayStart >= timeSlot.fridayStart
-          && fridayStart < timeSlot.fridayEnd)) {
-        hasOverlap = true;
+      if (timeSlot.fridayStart != null && timeSlot.fridayEnd != null) {
+        if ((fridayStart < timeSlot.fridayStart
+            && fridayEnd > timeSlot.fridayStart)
+            || (fridayStart >= timeSlot.fridayStart
+            && fridayStart < timeSlot.fridayEnd)) {
+          hasOverlap = true;
+        }
       }
 
     }
