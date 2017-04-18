@@ -6,7 +6,7 @@ import java.util.List;
 import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.data.CourseDataCache;
 import edu.brown.cs.courseler.repl.MethodRunner;
-import edu.brown.cs.courseler.search.DescriptionTitleSearch;
+import edu.brown.cs.courseler.search.Search;
 
 /**
  * Run methods for the courseler repl.
@@ -30,7 +30,7 @@ public class CourselerMethodRunner implements MethodRunner<String> {
     if (currCmdArr.length > 0) {
       switch (currCmdArr[0].trim()) {
         case "search":
-          searchCmd(currCmdArr);
+          searchCmd(currCmdStr);
         default:
           break;
 
@@ -41,9 +41,10 @@ public class CourselerMethodRunner implements MethodRunner<String> {
 
   }
 
-  private void searchCmd(String[] currCmdArr) {
-    DescriptionTitleSearch dt = new DescriptionTitleSearch(cache);
-    List<Course> courses = dt.suggest(currCmdArr[1]);
+  private void searchCmd(String currCmdStr) {
+    Search s = new Search(cache);
+    List<Course> courses = s.rankedKeywordSearch(currCmdStr.
+        substring(currCmdStr.indexOf("search ") + 7));
     for (Course c: courses) {
       System.out.println(c.toString());
     }
@@ -52,7 +53,7 @@ public class CourselerMethodRunner implements MethodRunner<String> {
 
   @Override
   public boolean isCmdForClass(String currCmdStr) {
-    // TODO Auto-generated method stub
+    // TODO:
     return true;
   }
 

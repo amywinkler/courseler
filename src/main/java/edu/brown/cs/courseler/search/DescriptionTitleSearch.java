@@ -27,8 +27,12 @@ public class DescriptionTitleSearch implements SearchSuggestions<Course> {
     List<Course> allCourses = cache.getAllCourses();
     List<Course> toReturn =  new ArrayList<>();
 
+    //TODO: split this into two for loops
     for (Course c: allCourses) {
-      if (c.getTitle().toLowerCase().contains(searchTerm)) {
+
+      if (c.getCourseCode().toLowerCase().contains(searchTerm)){
+        toReturn.add(c);
+      } else if (c.getTitle().toLowerCase().contains(searchTerm)) {
         toReturn.add(c);
       } else if (c.getDescription() != null
           && c.getDescription().toLowerCase().contains(searchTerm)) {

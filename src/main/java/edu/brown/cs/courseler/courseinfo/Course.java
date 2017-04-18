@@ -104,4 +104,8 @@ public class Course {
     return courseCode.hashCode();
   }
 
+  public String getCourseCode() {
+    return courseCode;
+  }
+
 }

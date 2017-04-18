@@ -35,14 +35,8 @@ public final class Main {
 
   private String[] args;
 
-  //TODO: remove this it is just for testing!
-  private void printAllCourses() {
-    cdc.printAllCourses();
-  }
-
   private Main(String[] args) {
     this.args = args;
-
   }
 
   private void run() {
@@ -65,6 +59,4 @@ public final class Main {
     repl.run();
 
   }
-
-
 }
