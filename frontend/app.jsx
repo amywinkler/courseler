@@ -2,13 +2,13 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import LoggedInView from './loggedInView.jsx';
 import LoggedOutView from './loggedOutView.jsx';
-import api from './fakeapi.jsx';
+import api from './api.jsx';
 
 class App extends React.Component {
   constructor(props) {
      super(props);
      this.state = {
-       loggedIn: false,
+       loggedIn: api.isLoggedIn(),
      };
    }
    render() {

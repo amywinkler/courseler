@@ -1,21 +1,28 @@
 let cs032_s01 = {
   course_code: 'CSCI 0320',
   title: 'Software Engineering',
-  section: 'S01',
+  section_id: 'CSCI 0320 S01',
   professor: 'John Jannotti',
-  location: 'Salomon 001',
-  times: {
-    monday_start: null,
-    monday_end: null,
-    tuesday_start: 1300,
-    tuesday_end: 1430,
-    wednesday_start: null,
-    wednesday_end: null,
-    thursday_start: 1300,
-    thursday_end: 1430,
-    friday_start: null,
-    friday_end: null
-  }
+  locations: {
+    monday_location: null,
+    tuesday_location: 'Salomon 001',
+    wednesday_location: null,
+    thursday_location: 'Salomon 001',
+    friday_location: null
+  },
+  times: [{
+      monday_start: null,
+      monday_end: null,
+      tuesday_start: 1300,
+      tuesday_end: 1430,
+      wednesday_start: null,
+      wednesday_end: null,
+      thursday_start: 1300,
+      thursday_end: 1430,
+      friday_start: null,
+      friday_end: null
+    }
+  ]
 };
 
 let cs32 = {
@@ -66,7 +73,7 @@ let loginSuccess = {
     class_year: 2018,
     concentration: 'CSCI',
     favorite_class: 'CSCI 0320',
-    dept_interests: ['CSCI', 'VISA', 'CHIN']
+    dept_interests: 'CSCI,VISA,MCM'
   }
 };
 
@@ -96,29 +103,29 @@ let fakeDelay = function(callback) {
 
 export class API {
   constructor() {
-    this.loggedIn = false;
-    this.accountPrefs = null;
+    
   }
   
   // LOGIN METHODS:
   
   isLoggedIn() {
-    return this.loggedIn;
+    return localStorage.loggedIn === 'true';
   }
   
   getToken() {
-    return this.loggedIn ? 'token' : null;
+    return this.isLoggedIn() ? 'token' : null;
   }
   
   logOut() {
-    this.loggedIn = false;
+    localStorage.loggedIn = 'false';
   }
   
   logIn(email, password, callback) {
     fakeDelay(() => {
       if (fakeAccounts[email]) {
         if (fakeAccounts[email] === password) {
-          this.accountPrefs = loginSuccess.preferences;
+          localStorage.loggedIn = 'true';
+          localStorage.accountPrefs = JSON.stringify(loginSuccess.preferences);
           callback(loginSuccess);
         } else {
           callback(loginFailureWrongPassword);
@@ -135,6 +142,7 @@ export class API {
         callback(signupFailureAlreadyRegistered);
       } else {
         fakeAccounts[email] = password;
+        localStorage.loggedIn = 'true';
         callback(signupSuccess);
       }
     })
@@ -157,12 +165,12 @@ export class API {
   // callback has 1 param, a prefs dictionary
   getPrefs(callback) {
     fakeDelay(() => {
-      callback(this.accountPrefs);
+      callback(JSON.parse(localStorage.accountPrefs));
     })
   }
   
   postPrefs(prefs) {
-    this.accountPrefs = prefs;
+    localStorage.accountPrefs = JSON.stringify(prefs);
   }
   
   // callback has 1 param, a calendar json
@@ -189,7 +197,7 @@ export class API {
     
   }
   
-  // GET cOURSE INFO
+  // GET COURSE INFO
   courseInfo(courseCode, callback) {
     
   }
