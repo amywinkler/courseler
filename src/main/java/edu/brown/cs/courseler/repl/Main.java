@@ -1,7 +1,11 @@
 package edu.brown.cs.courseler.repl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
+import edu.brown.cs.courseler.api.CourselerMethodRunner;
 import edu.brown.cs.courseler.api.RequestHandler;
 import edu.brown.cs.courseler.data.CourseDataCache;
 import edu.brown.cs.courseler.data.CourseDataParser;
@@ -12,6 +16,8 @@ import edu.brown.cs.courseler.data.CourseDataParser;
  */
 public final class Main {
   private static final int DEFAULT_PORT = 4567;
+  private static CourseDataCache cdc;
+  private static CourselerMethodRunner cmr;
 
   /**
    * The initial method called when execution begins.
@@ -20,17 +26,27 @@ public final class Main {
    *          An array of command line arguments
    */
   public static void main(String[] args) {
+    cdc = new CourseDataCache();
+    CourseDataParser cdp = new CourseDataParser(cdc);
+    cmr = new CourselerMethodRunner(cdc);
+
     new Main(args).run();
   }
 
   private String[] args;
 
+  //TODO: remove this it is just for testing!
+  private void printAllCourses() {
+    cdc.printAllCourses();
+  }
+
   private Main(String[] args) {
     this.args = args;
-    CourseDataParser cdp = new CourseDataParser(new CourseDataCache());
+
   }
 
   private void run() {
+    //printAllCourses();
     // Parse command line arguments
     OptionParser parser = new OptionParser();
     parser.accepts("gui");
@@ -42,5 +58,13 @@ public final class Main {
       RequestHandler handler = new RequestHandler();
       handler.runSparkServer((int) options.valueOf("port"));
     }
+
+    List<MethodRunner<?>> methodRunners = new ArrayList<>();
+    methodRunners.add(cmr);
+    Repl repl = new Repl(methodRunners);
+    repl.run();
+
   }
+
+
 }

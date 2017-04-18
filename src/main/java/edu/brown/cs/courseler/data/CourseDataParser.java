@@ -143,7 +143,6 @@ public class CourseDataParser {
           locations.setLoc("W", meetingLocation);
           break;
         default:
-          System.out.println("Should't be here");
           break;
       }
     }
@@ -193,11 +192,11 @@ public class CourseDataParser {
         currCourse.setDescription((String) courseJSON.get("description"));
         currCourse.addSectionObject(sect);
         cache.addToCourseCache(courseId, currCourse);
+        cache.addToAllCourses(currCourse);
 
       } else {
         //Course exists, just add the section information.
         currCourse.addSectionObject(sect);
-
       }
 
       for (String prof: professors) {
@@ -264,7 +263,6 @@ public class CourseDataParser {
               + "knakajim-nparrott/data/critreview.csv"), '|');
 
       String[] nextLine;
-      int i = 0;
 
       // TODO: change this to not be hard coded lol
       int department_code_index = 1;
@@ -286,7 +284,6 @@ public class CourseDataParser {
       int tally_index = 22;
 
       nextLine = reader.readNext();
-
 
       while ((nextLine = reader.readNext()) != null) {
         // nextLine[] is an array of values from the line
@@ -356,7 +353,7 @@ public class CourseDataParser {
   private Double getAverage(JsonObject counts) {
     JsonElement ones = counts.get("1");
     double numOnes;
-    if (ones == null){
+    if (ones == null) {
       numOnes = 0.0;
     } else {
       numOnes = ones.getAsDouble();
@@ -364,7 +361,7 @@ public class CourseDataParser {
 
     JsonElement twos = counts.get("2");
     double numTwos;
-    if (twos == null){
+    if (twos == null) {
       numTwos = 0.0;
     } else {
       numTwos = twos.getAsDouble();
@@ -401,6 +398,6 @@ public class CourseDataParser {
   }
 
   public void parseGoogleFormData() {
-
+    //TODO: not actually basing reccomendations off this so do later
   }
 }
