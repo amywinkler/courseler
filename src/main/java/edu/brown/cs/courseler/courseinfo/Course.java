@@ -70,6 +70,14 @@ public class Course {
     sections.add(s);
   }
 
+  public String getTitle() {
+    return title;
+  }
+
+  public String getDescription() {
+    return description;
+  }
+
   @Override
   public boolean equals(Object o){
     if (o instanceof Course){
@@ -81,8 +89,23 @@ public class Course {
   }
 
   @Override
+  public String toString(){
+    return "Course code " + courseCode + "\n" +
+        "Title " + title + "\n" +
+        "Cap " + cap + "\n" +
+        "CdotBrownLink " + coursesDotBrownLink + "\n" +
+        "Prereq " + prereq + "\n" +
+        "Descripion " + description + "\n";
+
+  }
+
+  @Override
   public int hashCode(){
     return courseCode.hashCode();
+  }
+
+  public String getCourseCode() {
+    return courseCode;
   }
 
 }

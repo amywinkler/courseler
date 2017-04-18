@@ -1,7 +1,10 @@
 package edu.brown.cs.courseler.data;
 
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import com.google.common.collect.ArrayListMultimap;
@@ -12,11 +15,17 @@ import edu.brown.cs.courseler.courseinfo.Section;
 import edu.brown.cs.courseler.courseinfo.SectionTime;
 import edu.brown.cs.courseler.courseinfo.TimeSlot;
 
+/**
+ * Cache for courses and professors.
+ * @author amywinkler
+ *
+ */
 public class CourseDataCache {
   private Map<TimeSlot, SectionTime> timeSlotToTimes;
   private Multimap<String, Course> coursesForProf;
   private Map<String, Course> courseIdToCourse;
   private Map<String, Section> sectionIdToSection;
+  private List<Course> allCourses;
 
   /**
    * Constructor for CourseDataCache.
@@ -26,6 +35,15 @@ public class CourseDataCache {
     coursesForProf = ArrayListMultimap.create();
     courseIdToCourse = new HashMap<>();
     sectionIdToSection = new HashMap<>();
+    allCourses = new ArrayList<>();
+  }
+
+  /**
+   * Add a course to the list of courses.
+   * @param c the course to add
+   */
+  public void addToAllCourses(Course c){
+    allCourses.add(c);
   }
 
   public SectionTime getTimeForTimeslot(TimeSlot t){
@@ -42,6 +60,18 @@ public class CourseDataCache {
 
   public void addToCourseCache(String id, Course c){
     courseIdToCourse.put(id, c);
+  }
+
+  public void printAllCourses(){
+    Iterator<String> iter = courseIdToCourse.keySet().iterator();
+    while (iter.hasNext()){
+      Course c = courseIdToCourse.get(iter.next());
+      System.out.println(c.toString());
+    }
+  }
+
+  public List<Course> getAllCourses(){
+    return allCourses;
   }
 
   /**
