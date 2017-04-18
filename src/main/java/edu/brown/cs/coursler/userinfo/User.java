@@ -111,7 +111,7 @@ public class User {
    *
    * @return concentration
    */
-  public String getConcentraton() {
+  public String getConcentration() {
     return concentration;
   }
 

@@ -37,7 +37,8 @@ public final class Main {
     OptionSet options = parser.parse(args);
 
     if (options.has("gui")) {
-      RequestHandler.runSparkServer((int) options.valueOf("port"));
+      RequestHandler handler = new RequestHandler();
+      handler.runSparkServer((int) options.valueOf("port"));
     }
   }
 }
