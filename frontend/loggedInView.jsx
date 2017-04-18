@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import api from './api.jsx';
-import CalendarDayView from './calendarDayView.jsx';
+import Calendar from './calendar.jsx';
 import PreferencesScreen from './preferencesScreen.jsx';
 import AddCoursesScreen from './addCoursesScreen.jsx';
 
@@ -25,7 +25,7 @@ export default class LoggedInView extends React.Component {
       return (
         <div className='calendar-screen'>
           <div className='menu-button' onClick={() => this.setState({screen: 'menu'})}>Menu</div>
-          <h1>Calendar goes here</h1>
+          <Calendar />          
           <div className='add-courses-button' onClick={() => this.setState({screen: 'add-courses'})}>Add Courses</div>
         </div>
       )

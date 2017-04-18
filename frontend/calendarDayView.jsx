@@ -7,28 +7,18 @@ export default class CalendarDayView extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			numCourses: 0
+			day: props.day,
+			date: ''
 		};
 	}
 
 	render() {
-		const courses = [];
-		for (var i=0; i < this.state.numCourses; i+=1) {
-			courses.push(<CalendarCourseObject />)
-		}
-
+		let day = this.state.day;
 		return (
-			<div className='calendarDayView'>
-			<h1>This is a day</h1>
-			<button onClick={() => { this.addCourse() }}>Add a course!</button>
-			{courses}
+			<div className='calendarDayView' style={{display:"inline-block", width:"20%"}}>
+				<h3>{day}</h3>
 			</div>
 		)
 	}
 
-	addCourse() {
-		this.setState({
-			numCourses: this.state.numCourses + 1
-		})
-	}
 }
