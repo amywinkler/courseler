@@ -38,8 +38,10 @@ public class CourselerMethodRunner implements MethodRunner<String> {
       switch (currCmdArr[0].trim()) {
         case "search":
           searchCmd(currCmdStr);
+          break;
         case "time":
           getTimeSlots(currCmdStr);
+          break;
         default:
           break;
       }

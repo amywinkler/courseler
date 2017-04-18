@@ -38,6 +38,10 @@ public class Course {
     this.sections = new ArrayList<>();
   }
 
+  /**
+   * @param cr
+   *          the critical review data
+   */
   public void setCritReviewData(CriticalReviewData cr) {
     this.crData = cr;
   }

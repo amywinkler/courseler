@@ -76,7 +76,8 @@ public class CriticalReviewData {
   }
 
   /**
-   * @param recommendedToNonConcentrators the recommendedToNonConcentrators to set
+   * @param recommendedToNonConcentrators
+   *          the recommendedToNonConcentrators to set
    */
   public void setRecommendedToNonConcentrators(
       Double recommendedToNonConcentrators) {
@@ -132,6 +133,9 @@ public class CriticalReviewData {
   private Double difficulty;
   private Double enjoyed;
 
+  /**
+   * Constructor for CriticalReviewData object.
+   */
   public CriticalReviewData() {
     this.hoursPerWeek = new HashMap<>();
     this.demographics = new HashMap<>();
@@ -171,6 +175,4 @@ public class CriticalReviewData {
     this.enjoyed = enjoy;
 
   }
-
-
 }

@@ -1,19 +1,17 @@
 package edu.brown.cs.courseler.courseinfo;
 
+/**
+ * Class representing a meeting Location.
+ *
+ * @author amywinkler
+ *
+ */
 public class MeetingLocation {
   private String mondayMeetingLoc;
   private String tuesdayMeetingLoc;
   private String wednesdayMeetingLoc;
   private String thursdayMeetingLoc;
   private String fridayMeetingLoc;
-
-  public MeetingLocation(){
-    mondayMeetingLoc = null;
-    tuesdayMeetingLoc = null;
-    wednesdayMeetingLoc = null;
-    thursdayMeetingLoc = null;
-    fridayMeetingLoc = null;
-  }
 
   /**
    * Sets the location for a given day.
