@@ -17,7 +17,7 @@ export default class CalendarCourseObject extends React.Component {
 		let start = this.props.start;
 		let end = this.props.end;
 		return (
-		  <div className='calendarCourseObject' onClick={this.props.click}>
+		  <div className='calendarCourseObject' onClick={this.props.click} style={{backgroundColor: "#cccccc"}}>
 				<h3>{title}</h3>
 				<p>time: {start}–{end}</p>
 		  </div>

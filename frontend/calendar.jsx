@@ -11,36 +11,23 @@ export default class Calendar extends React.Component {
 		super(props);
 		this.state = {
 			screen: 'calendar',
-			//Arrays of calendar course objects
+			// For calendar View
 			monday: [],
 			tuesday: [],
 			wednesday: [],
 			thursday: [],
 			friday: [],
-			//
-			selectedCourse: ''
+			// For course info view
+			selectedCourseInfo: {}
 		};
-
-		// Binding 'this' to the togglers
-		this.showCourseInfo = this.showCourseInfo.bind(this);
-		this.showCalendar = this.showCalendar.bind(this);
-
 		this.loadExistingSections();
-	}
-
-	showCourseInfo(e) {
-		this.setState({screen: 'coursePage'});
-	}
-
-	showCalendar(e) {
-		this.setState({screen: 'calendar'});
 	}
 
 	render() {
 		let screen = this.state.screen;
 		if (screen==='calendar') {
 			return (
-				<div className ='calendar'>
+				<div className = 'calendar'>
 					<CalendarDayView day="Monday" courses={this.state.monday} />
 					<CalendarDayView day="Tuesday" courses={this.state.tuesday} />
 					<CalendarDayView day="Wednesday" courses={this.state.wednesday} />
@@ -49,13 +36,38 @@ export default class Calendar extends React.Component {
 				</div>
 			)
 		} else if (screen==='coursePage') {
+			let coursePage = <CourseInfoScreen click={this.showCalendar.bind(this)} info={this.state.selectedCourseInfo}/>
 			return (
-				<div className = 'coursePage'>
-					<CourseInfoScreen click={this.showCalendar}/>
-				</div>
+				<div className = 'coursePage'>{coursePage}</div>
 			)
 		}
 	}
+
+	/*
+		Shows the course info view.
+	*/
+	showCourseInfo(e) {
+		this.setState({screen: 'coursePage'});
+		this.getCourseInfo(e);
+	}
+
+	/*
+		Shows the calendar view.
+	*/
+	showCalendar(e) {
+		this.setState({screen: 'calendar'});
+	}
+
+	/*
+		Makes an api call to get the selected course info.
+	*/
+	getCourseInfo(courseCode) {
+		let callback = (course) => {
+			this.setState({selectedCourseInfo: course});
+		}
+		api.courseInfo(courseCode, callback);
+	}
+
 
 	/*
 		Loads existing sections as CalendarCourseObjects from api.
@@ -66,10 +78,11 @@ export default class Calendar extends React.Component {
 		let loadDay = (day, timeObject, sectionObject) => {
 			let startString = day+"_start";
 			let endString = day+"_end";
+			let courseId = sectionObject.course_code;
 			if (timeObject[startString] != null && timeObject[endString] !=null) {
 				let startTime = timeObject[startString];
-				let endTime = timeObject[endString];
-				let newCourseObject = <CalendarCourseObject key={sectionObject.section_id} title={sectionObject.section_id} start={startTime} end={endTime} click={this.showCourseInfo}/>;
+				let endTime = timeObject[endString]; //bind courseid instead
+				let newCourseObject = <CalendarCourseObject key={sectionObject.section_id} title={sectionObject.section_id} start={startTime} end={endTime} click={this.showCourseInfo.bind(this, courseId)}/>;
 				let obj = {};
 				obj[day] = this.state[day].concat([newCourseObject]);
 				this.setState(obj);

@@ -11,15 +11,20 @@ export default class CourseInfoScreen extends React.Component {
   }
 
 	render() {
+		let title = this.props.info.title;
+		let code = this.props.info.code;
+		let description = this.props.info.description;
+		//...and so on
+
 		let calendarButton = <a href='#' onClick={this.props.click}>Return To Calendar</a>;
 
 		return (
 			<div>
-				<h1>Course Info Page!!!!</h1>
+				<h2>{code}: {title}</h2>
+				<p>Course Description: {description}</p>
 				{calendarButton}
 			</div>
 		)	
 	}
-
 
 }
