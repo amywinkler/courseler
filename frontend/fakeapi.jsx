@@ -73,7 +73,7 @@ let loginSuccess = {
     class_year: 2018,
     concentration: 'CSCI',
     favorite_class: 'CSCI 0320',
-    dept_interests: ['CSCI', 'VISA', 'CHIN']
+    dept_interests: 'CSCI,VISA,MCM'
   }
 };
 
@@ -197,7 +197,7 @@ export class API {
     
   }
   
-  // GET cOURSE INFO
+  // GET COURSE INFO
   courseInfo(courseCode, callback) {
     
   }
