@@ -3,6 +3,8 @@ package edu.brown.cs.courseler.repl;
 import joptsimple.OptionParser;
 import joptsimple.OptionSet;
 import edu.brown.cs.courseler.api.RequestHandler;
+import edu.brown.cs.courseler.data.CourseDataCache;
+import edu.brown.cs.courseler.data.CourseDataParser;
 /**
  * The Main class of our project. This is where execution begins.
  *
@@ -25,7 +27,7 @@ public final class Main {
 
   private Main(String[] args) {
     this.args = args;
-    // CourseDataParser cdp = new CourseDataParser(new CourseDataCache());
+    CourseDataParser cdp = new CourseDataParser(new CourseDataCache());
   }
 
   private void run() {
@@ -38,7 +40,7 @@ public final class Main {
 
     if (options.has("gui")) {
       RequestHandler handler = new RequestHandler();
-      // handler.runSparkServer((int) options.valueOf("port"));
+      handler.runSparkServer((int) options.valueOf("port"));
     }
   }
 }

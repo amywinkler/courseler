@@ -15,10 +15,14 @@ import org.json.simple.parser.ParseException;
 
 import au.com.bytecode.opencsv.CSVReader;
 
+import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.JsonSyntaxException;
 
 import edu.brown.cs.courseler.courseinfo.Course;
+import edu.brown.cs.courseler.courseinfo.CriticalReviewData;
 import edu.brown.cs.courseler.courseinfo.MeetingLocation;
 import edu.brown.cs.courseler.courseinfo.Section;
 import edu.brown.cs.courseler.courseinfo.SectionTime;
@@ -261,24 +265,139 @@ public class CourseDataParser {
 
       String[] nextLine;
       int i = 0;
+
+      // TODO: change this to not be hard coded lol
+      int department_code_index = 1;
+      int course_num_index = 2;
+      int num_respondents_index = 6;
+      int frosh_index = 7;
+      int soph_index = 8;
+      int jun_index = 9;
+      int senior_index = 10;
+      int grad_index = 11;
+      int total_students_index = 12;
+      int concs_index = 13;
+      int nonconcs_index = 14;
+      int dunno_index = 15;
+      int prof_score = 16;
+      int course_score = 17;
+      int mean_avg_hours_index = 18;
+      int mean_max_hours_index = 20;
+      int tally_index = 22;
+
+      nextLine = reader.readNext();
+
+
       while ((nextLine = reader.readNext()) != null) {
         // nextLine[] is an array of values from the line
-        if (i > 0) {
-          // JSONObject jsonArrayOfObj = JSONObject. nextLine[22].;
-          // JSONObject obj = (JSONObject) jsonArrayOfObj.get("conc");
-          // Set<String> ob2 = obj.keySet();
+        Course currCourse = cache
+            .getCourseFomCache(nextLine[department_code_index] + " "
+                + nextLine[course_num_index]);
+        if (currCourse != null) {
+          CriticalReviewData cr = new CriticalReviewData();
+          Double totalPeopleInClass = Double
+              .parseDouble(nextLine[total_students_index]);
+          Double numRespondents = Double
+              .parseDouble(nextLine[num_respondents_index]);
 
-        } else {
+          // frosh, etc. is over total
+          cr.addDemographic("percent_freshmen",
+              Double.parseDouble(nextLine[frosh_index]) / totalPeopleInClass);
+          cr.addDemographic("percent_sophomores",
+              Double.parseDouble(nextLine[soph_index]) / totalPeopleInClass);
+          cr.addDemographic("percent_juniors",
+              Double.parseDouble(nextLine[jun_index]) / totalPeopleInClass);
+          cr.addDemographic("percent_seniors",
+              Double.parseDouble(nextLine[senior_index]) / totalPeopleInClass);
+          cr.addDemographic("percent_grad",
+              Double.parseDouble(nextLine[grad_index]) / totalPeopleInClass);
 
+          // conc nonconc is over respondents
+          cr.addDemographic("percent_concentrators",
+              Double.parseDouble(nextLine[concs_index]) / numRespondents);
+          cr.addDemographic("percent_non_concentrators",
+              Double.parseDouble(nextLine[nonconcs_index]) / numRespondents);
+          cr.addDemographic("percent_undecided",
+              Double.parseDouble(nextLine[dunno_index]) / numRespondents);
+
+          // add all the hours per week data
+          cr.addHoursPerWeek("maximum",
+              Double.parseDouble(nextLine[mean_max_hours_index]));
+          cr.addHoursPerWeek("average",
+              Double.parseDouble(nextLine[mean_avg_hours_index]));
+
+          // get the course and prof average.. set them during jsonarray
+          Double profAvg = Double.parseDouble(nextLine[prof_score]) / 5.0;
+          Double courseAvg = Double.parseDouble(nextLine[course_score]) / 5.0;
+
+          JsonParser parser = new JsonParser();
+          JsonElement parsed = parser.parse(nextLine[tally_index]);
+          JsonObject tallys = parsed.getAsJsonObject();
+          Double recommendedToNonConcentrators =
+              getAverage(tallys.get("non-concs").getAsJsonObject());
+          Double learnedALot =
+              getAverage(tallys.get("learned").getAsJsonObject());
+          Double difficulty =
+              getAverage(tallys.get("difficult").getAsJsonObject());
+          Double enjoyed =
+              getAverage(tallys.get("loved").getAsJsonObject());
+
+          cr.setAllScores(courseAvg, profAvg, recommendedToNonConcentrators,
+              learnedALot, difficulty, enjoyed);
+
+          currCourse.setCritReviewData(cr);
         }
-        i++;
-
-        System.out.println("etc...");
       }
-
     } catch (IOException e) {
       throw new RuntimeException("Unable to read csv");
     }
+  }
+
+  private Double getAverage(JsonObject counts) {
+    JsonElement ones = counts.get("1");
+    double numOnes;
+    if (ones == null){
+      numOnes = 0.0;
+    } else {
+      numOnes = ones.getAsDouble();
+    }
+
+    JsonElement twos = counts.get("2");
+    double numTwos;
+    if (twos == null){
+      numTwos = 0.0;
+    } else {
+      numTwos = twos.getAsDouble();
+    }
+
+    JsonElement threes = counts.get("3");
+    double numThrees;
+    if (threes == null) {
+      numThrees = 0.0;
+    } else {
+      numThrees = threes.getAsDouble();
+    }
+
+    JsonElement fours = counts.get("4");
+    double numFours;
+    if (fours == null) {
+      numFours = 0.0;
+    } else {
+      numFours = fours.getAsDouble();
+    }
+
+    JsonElement fives = counts.get("5");
+    double numFives;
+    if (fives == null) {
+      numFives = 0.0;
+    } else {
+      numFives = fives.getAsDouble();
+    }
+
+    // sum up the number of respondents
+    return ((numOnes + numTwos * 2.0 + numThrees * 3.0
+        + numFours * 4.0 + numFives * 5.0)
+        / (numOnes + numTwos + numThrees + numFours + numFives)) / 5.0;
   }
 
   public void parseGoogleFormData() {
