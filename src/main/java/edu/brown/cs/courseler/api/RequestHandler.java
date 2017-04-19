@@ -61,6 +61,7 @@ public final class RequestHandler {
     // Setup Spark Routes:
     Spark.get("/", new MainHandler(), freeMarker);
     Spark.post("/login", new LoginHandler());
+    Spark.post("/signup", new SignupHandler());
 
   }
 
@@ -116,9 +117,34 @@ public final class RequestHandler {
             user.getTokenId(), "sections_in_cart",
             ImmutableMap.of("class_year", year, "concentration", concentration,
                 "favorite_class", favClass, "dept_interests", interests));
-
       }
+      return GSON.toJson(variables);
+    }
+  }
 
+  /**
+   * Processes a request to sign up!
+   *
+   * @author adevor
+   *
+   */
+  private class SignupHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+
+      Map<String, Object> variables;
+      QueryParamsMap qm = req.queryMap();
+      String email = qm.value("email");
+      String pass = qm.value("password");
+      User alreadyExistingUserWithThatEmail =
+          db.getUserFromEmailAndPassword(email, pass);
+      if (alreadyExistingUserWithThatEmail != null) {
+        variables = ImmutableMap.of("status", "already_registered");
+      } else {
+        User newUser = db.createNewUser(email, pass);
+        variables =
+            ImmutableMap.of("status", "success", "id", newUser.getTokenId());
+      }
       return GSON.toJson(variables);
     }
   }
@@ -142,6 +168,7 @@ public final class RequestHandler {
       }
       res.body(stacktrace.toString());
     }
+
   }
 
   private static FreeMarkerEngine createEngine() {
