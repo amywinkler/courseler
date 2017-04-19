@@ -3,7 +3,6 @@ package edu.brown.cs.courseler.data;
 import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -42,46 +41,55 @@ public class CourseDataCache {
    * Add a course to the list of courses.
    * @param c the course to add
    */
-  public void addToAllCourses(Course c){
+  public void addToAllCourses(Course c) {
     allCourses.add(c);
   }
 
+  /**
+   * @param sectionId
+   *          the section id
+   * @return the section object for the id
+   */
   public Section getSectionFromCache(String sectionId) {
     return sectionIdToSection.get(sectionId);
   }
 
-  public SectionTime getTimeForTimeslot(TimeSlot t){
+  /**
+   * @param t
+   *          the TimeSlot
+   * @return the SectionTime for the TimeSlot
+   */
+  public SectionTime getTimeForTimeslot(TimeSlot t) {
     return timeSlotToTimes.get(t);
   }
 
-  public boolean sectionCacheContains(String sectionId){
+  public boolean sectionCacheContains(String sectionId) {
     return sectionIdToSection.containsKey(sectionId);
   }
 
-  public void addToProfCache(String prof, Course course){
+  public void addToProfCache(String prof, Course course) {
     coursesForProf.put(prof, course);
   }
 
-  public void addToCourseCache(String id, Course c){
+  public void addToCourseCache(String id, Course c) {
     courseIdToCourse.put(id, c);
   }
 
-  public void printAllCourses(){
-    Iterator<String> iter = courseIdToCourse.keySet().iterator();
-    while (iter.hasNext()){
-      Course c = courseIdToCourse.get(iter.next());
-      System.out.println(c.toString());
-    }
-  }
-
-  public List<Course> getAllCourses(){
+  /**
+   * Gets all the courses that are currently in the cache.
+   *
+   * @return a list of courses
+   */
+  public List<Course> getAllCourses() {
     return allCourses;
   }
 
   /**
    * Get the course from the course cache.
+   *
    * @param courseId
-   * @return
+   *          the course id
+   * @return the course cache
    */
   public Course getCourseFomCache(String courseId) {
     return courseIdToCourse.get(courseId);
