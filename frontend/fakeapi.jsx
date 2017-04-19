@@ -237,21 +237,25 @@ export class API {
     });
   }
 
-  // CSCS 0320 S01
+  // adds one of the two sections to the backend calendar
   addToCart(sectionCode, callback) {
     fakeDelay(() => {
-      //this is wrong
-      // calendar.sections.add(sectionCode);
+      //this is very fake
+      if (sectionCode==='CSCI 0320 S01') {
+        calendar.sections.push(cs032_s01);
+      } else if (sectionCode==='CSCI 0320 S02') {
+        calendar.sections.push(cs032_s02);
+      }
+      callback(sectionCode);
     });
   }
 
   removeFromCart(sectionCode, callback) {
     fakeDelay(() => {
       if (calendar.sections.filter(function(section) {return section.section_id===sectionCode})) {
-        // console.log(calendar.sections[sectionCode]);
         calendar.sections = calendar.sections.filter(function(section) {return section.section_id!=sectionCode});
+        callback(sectionCode); 
       }
-      callback(); //maybe this just changes the button idk
     });
   }
 }

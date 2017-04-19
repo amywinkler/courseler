@@ -7,17 +7,16 @@ export default class SectionInfo extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			//maybe check whether its in the cart by passing the cart to courseinfo??
-			inCart: true
+			inCart: this.props.inCart
 		}
   }
 
 	render() {
-		// add or remove to cart button
+		// Button to either add this section to the cart, or remove it
 		let buttonTitle = this.state.inCart ? 'Remove from Cart' : 'Add to Cart';
     let addRemoveButton = <input type='submit' value={ buttonTitle } onClick={this.addOrRemove.bind(this)}/>;
 
-    // section info
+    // Section info 
     let sectionId = this.props.sectionId;
 
 		return (
@@ -27,10 +26,11 @@ export default class SectionInfo extends React.Component {
 
 	addOrRemove(e) {
 		if (this.state.inCart) {
-			api.removeFromCart(this.props.sectionId, console.log);
+			api.removeFromCart(this.props.sectionId, this.props.remove);
 			this.setState({inCart: false});
 		}	else {
-
+			api.addToCart(this.props.sectionId, this.props.add);
+			this.setState({inCart: true});
 		}
 	}
 

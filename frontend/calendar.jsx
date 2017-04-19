@@ -38,7 +38,11 @@ export default class Calendar extends React.Component {
 				</div>
 			)
 		} else if (screen==='coursePage') {
-			let coursePage = <CourseInfoScreen click={this.showCalendar.bind(this)} info={this.state.selectedCourseInfo} currentCart={this.state.currentCart} />
+			let coursePage = <CourseInfoScreen click={this.showCalendar.bind(this)} 
+								info={this.state.selectedCourseInfo} 
+								currentCart={this.state.currentCart} 
+								remove={this.removeCourse.bind(this)}
+								add={this.addCourse.bind(this)} />
 			return (
 				<div className = 'coursePage'>{coursePage}</div>
 			)
@@ -108,7 +112,6 @@ export default class Calendar extends React.Component {
 					loadDay("thursday", time, section);
 					loadDay("friday", time, section);
 				}, this);
-				//Add sectionId to current cart state
 				this.setState({currentCart: this.state.currentCart.concat([section.section_id])});
 			}, this);
 		};
@@ -116,5 +119,38 @@ export default class Calendar extends React.Component {
 		api.getCalendar(loadCalendar);
 	}
 
+	/*
+		Removes a section from the current cart state / calendar. 
+		Called when a user hits "remove from cart" for a section in a course page
+	*/
+	removeCourse(sectionId) {
+		let removeIndex = this.state.currentCart.indexOf(sectionId);
+		if (removeIndex > -1) {
+			this.setState({currentCart: this.state.currentCart.splice(removeIndex,1)});
+    		//Reset view
+    		this.setState({currentCart: []});
+    		this.setState({monday: []});
+    		this.setState({tuesday: []});
+    		this.setState({wednesday: []});
+    		this.setState({thursday: []});
+    		this.setState({friday: []});
+    		this.loadApiSections();
+		}
+	}
 
+	/*
+		Adds a section from the current cart state / calendar.
+		Called when a user hits "add to cart" for a section in a course page
+	*/ 
+	addCourse(sectionId) {
+		this.setState({currentCart: this.state.currentCart.concat([sectionId])});
+		// There is 100% a better way to do this
+	    this.setState({currentCart: []});
+		this.setState({monday: []});
+		this.setState({tuesday: []});
+		this.setState({wednesday: []});
+		this.setState({thursday: []});
+		this.setState({friday: []});
+		this.loadApiSections();
+	}
 }
