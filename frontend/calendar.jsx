@@ -124,6 +124,7 @@ export default class Calendar extends React.Component {
 		Called when a user hits "remove from cart" for a section in a course page
 	*/
 	removeCourse(sectionId) {
+		//can maybe do the api thing here
 		let removeIndex = this.state.currentCart.indexOf(sectionId);
 		if (removeIndex > -1) {
 			this.setState({currentCart: this.state.currentCart.splice(removeIndex,1)});
