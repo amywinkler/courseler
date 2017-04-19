@@ -208,9 +208,7 @@ public class CourseDataParser {
   private void parseBannerData() {
     JSONParser parser = new JSONParser();
     try {
-      Object obj =  parser.parse(new FileReader(""
-          + "/Users/amywinkler/term-project-adevor-awinkler-knakajim-nparrott/"
-          + "data/banner2016.txt"));
+      Object obj = parser.parse(new FileReader("data/banner2016.txt"));
       JSONObject jsonObj = (JSONObject) obj;
       JSONArray items = (JSONArray) jsonObj.get("items");
       for (int i = 0; i < items.size(); i++) {
@@ -257,10 +255,8 @@ public class CourseDataParser {
   public void parseCritReviewData() {
 
     try {
-      CSVReader reader = new CSVReader(
-          new FileReader(
-          "/Users/amywinkler/term-project-adevor-awinkler-"
-              + "knakajim-nparrott/data/critreview.csv"), '|');
+      CSVReader reader = new CSVReader(new FileReader("data/critreview.csv"),
+          '|');
 
       String[] nextLine;
 
@@ -395,7 +391,35 @@ public class CourseDataParser {
         / (numOnes + numTwos + numThrees + numFours + numFives)) / 5.0;
   }
 
-  public void parseGoogleFormData() {
-    //TODO: not actually basing reccomendations off this so do later
+  private void parseGoogleFormData() {
+    try {
+      CSVReader reader = new CSVReader(new FileReader(
+          "data/google_form_data.csv"));
+      String[] nextLine;
+      reader.readNext();
+
+      while ((nextLine = reader.readNext()) != null) {
+        // 2 is course
+        // 3 is words to describe
+        // 4 is emoji
+        // 5 is alternative name
+        String courseCode = nextLine[2].toUpperCase();
+        Course currCourse = cache.getCourseFomCache(courseCode);
+        if (currCourse != null) {
+          currCourse.addToFunAndCool("alternate_titles", nextLine[5]);
+          currCourse.addToFunAndCool("emojis", nextLine[4]);
+          String[] wordsToDescribe = nextLine[3].split(", ");
+          for (int i = 0; i < wordsToDescribe.length; i++) {
+            currCourse.addToFunAndCool("descriptions", wordsToDescribe[i]);
+          }
+        }
+      }
+    } catch (FileNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    } catch (IOException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
   }
 }

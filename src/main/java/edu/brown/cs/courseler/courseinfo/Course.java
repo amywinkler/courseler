@@ -2,7 +2,9 @@ package edu.brown.cs.courseler.courseinfo;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
+
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 
 /**
  * Class that represents a course.
@@ -24,7 +26,7 @@ public class Course {
 
 
   //google form data
-  private Map<String, String> funAndCool;
+  private Multimap<String, String> funAndCool;
   private List<Section> sections;
 
   /**
@@ -36,6 +38,11 @@ public class Course {
   public Course(String courseCode) {
     this.courseCode = courseCode;
     this.sections = new ArrayList<>();
+    this.funAndCool = ArrayListMultimap.create();
+  }
+
+  public void addToFunAndCool(String key, String value) {
+    funAndCool.put(key, value);
   }
 
   /**
@@ -45,6 +52,7 @@ public class Course {
   public void setCritReviewData(CriticalReviewData cr) {
     this.crData = cr;
   }
+
 
   public void setDescription(String description) {
     this.description = description;
