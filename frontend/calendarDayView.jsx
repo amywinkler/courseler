@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import api from './api.jsx';
-import CalendarCourseObject from './calendarCourseObject.jsx';
+import CalendarSectionObject from './calendarSectionObject.jsx';
 
 export default class CalendarDayView extends React.Component {
 	constructor(props) {
@@ -12,12 +12,12 @@ export default class CalendarDayView extends React.Component {
 
 	render() {
 		let day = this.props.day;
-		let courses = this.props.courses;
+		let sections = this.props.sections;
 		return (
 			<div className='calendarDayView' style={{display:"inline-block", width:"20%", verticalAlign:"top"}}>
 				<h1>{day}</h1>
 				<div className='courses'>
-					{courses}
+					{sections}
 				</div>
 			</div>
 		)

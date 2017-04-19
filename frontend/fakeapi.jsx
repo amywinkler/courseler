@@ -25,6 +25,33 @@ let cs032_s01 = {
   ]
 };
 
+let cs032_s02 = {
+  course_code: 'CSCI 0320',
+  title: 'Software Engineering',
+  section_id: 'CSCI 0320 S02',
+  professors: ['John Jannotti'],
+  locations: {
+    monday_location: null,
+    tuesday_location: 'Sayles 001',
+    wednesday_location: null,
+    thursday_location: 'Sayles 001',
+    friday_location: null
+  },
+  times: [{
+      monday_start: null,
+      monday_end: null,
+      tuesday_start: 1500,
+      tuesday_end: 1630,
+      wednesday_start: null,
+      wednesday_end: null,
+      thursday_start: 1000,
+      thursday_end: 1130,
+      friday_start: null,
+      friday_end: null
+    }
+  ]
+};
+
 let cs32 = {
   code: 'CSCI 0320',
   title: 'Software Engineering',
@@ -45,7 +72,7 @@ let cs32 = {
   learned_a_lot: 0.8,
   difficulty: 0.9,
   enjoyed: 0.7,
-  description: 'hahahahhahahahah',
+  description: 'In this course you will learn how to type.',
   department: 'CSCI',
   cap: 999,
   courses_dot_brown_link: 'http://hahahahah.ha',
@@ -55,13 +82,15 @@ let cs32 = {
     descriptions: ['hahha', 'fuck']
   },
   sections: [
-    cs032_s01
+    cs032_s01,
+    cs032_s02
   ]
 };
 
 let calendar = {
   sections: [
-    cs032_s01
+    cs032_s01,
+    cs032_s02
   ]
 };
 
@@ -200,19 +229,29 @@ export class API {
 
   }
 
-  // GET COURSE INFO
+  // Gets course info
+  // callback has 1 param, the course object
   courseInfo(courseCode, callback) {
     fakeDelay(() => {
       callback(courses[courseCode]);
-    })
+    });
   }
 
   // CSCS 0320 S01
   addToCart(sectionCode, callback) {
-
+    fakeDelay(() => {
+      //this is wrong
+      // calendar.sections.add(sectionCode);
+    });
   }
 
   removeFromCart(sectionCode, callback) {
-
+    fakeDelay(() => {
+      if (calendar.sections.filter(function(section) {return section.section_id===sectionCode})) {
+        // console.log(calendar.sections[sectionCode]);
+        calendar.sections = calendar.sections.filter(function(section) {return section.section_id!=sectionCode});
+      }
+      callback(); //maybe this just changes the button idk
+    });
   }
 }
