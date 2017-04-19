@@ -80,4 +80,31 @@ a {
   padding: 15px 20px;
 }
 
+/* CALENDAR UI */
 
+.calendarDayView {
+  display: inline-block; 
+  width: 20%;
+  vertical-align: top;
+}
+
+.calendarSectionObject {
+  width: 80%;
+  padding: 2px 10px;
+  /*margin-top: 10px;*/
+  margin: 10px auto;
+  background-color: #ccc;
+}
+
+.calendarSectionObject:hover {
+  background-color: #bbb;
+}
+
+.calendar {
+  width: 90%;
+  margin: 0 auto;
+}
+
+.dayLabel {
+  text-align: center;
+}
