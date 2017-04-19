@@ -3,12 +3,13 @@ package edu.brown.cs.courseler.repl;
 import java.util.ArrayList;
 import java.util.List;
 
-import joptsimple.OptionParser;
-import joptsimple.OptionSet;
 import edu.brown.cs.courseler.api.CourselerMethodRunner;
 import edu.brown.cs.courseler.api.RequestHandler;
 import edu.brown.cs.courseler.data.CourseDataCache;
 import edu.brown.cs.courseler.data.CourseDataParser;
+import joptsimple.OptionParser;
+import joptsimple.OptionSet;
+
 /**
  * The Main class of our project. This is where execution begins.
  *
@@ -40,7 +41,7 @@ public final class Main {
   }
 
   private void run() {
-    //printAllCourses();
+    // printAllCourses();
     // Parse command line arguments
     OptionParser parser = new OptionParser();
     parser.accepts("gui");
@@ -49,7 +50,9 @@ public final class Main {
     OptionSet options = parser.parse(args);
 
     if (options.has("gui")) {
-      RequestHandler handler = new RequestHandler();
+      // TODO: Someone remind me to switch this to the live db when the time is
+      // right.
+      RequestHandler handler = new RequestHandler("test_users_1.sqlite3");
       handler.runSparkServer((int) options.valueOf("port"));
     }
 

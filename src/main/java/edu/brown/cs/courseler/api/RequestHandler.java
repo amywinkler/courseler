@@ -35,13 +35,16 @@ public final class RequestHandler {
 
   private static final Gson GSON = new Gson();
   private DbProxy db;
+  private static final int THE_NUMBER_NEEDED_FOR_IP = 7;
 
   /**
    * Constructs request handler.
+   *
+   * @param fileName
+   *          the name of the file for the db.
    */
-  public RequestHandler() {
-    // Someone remind me to switch this to the live db when the time is right.
-    db = new DbProxy("test_users_1.sqlite3");
+  public RequestHandler(String fileName) {
+    db = new DbProxy(fileName);
   }
 
   /**
@@ -62,7 +65,7 @@ public final class RequestHandler {
     Spark.get("/", new MainHandler(), freeMarker);
     Spark.post("/login", new LoginHandler());
     Spark.post("/signup", new SignupHandler());
-
+    Spark.get("/ipVerify", new IPVerificationHandler());
   }
 
   /**
@@ -117,6 +120,37 @@ public final class RequestHandler {
             user.getTokenId(), "sections_in_cart",
             ImmutableMap.of("class_year", year, "concentration", concentration,
                 "favorite_class", favClass, "dept_interests", interests));
+      }
+      return GSON.toJson(variables);
+    }
+  }
+
+  boolean isIpValid(String ip) {
+    if (ip.length() < THE_NUMBER_NEEDED_FOR_IP) {
+      return false;
+    }
+    String frontOfIp = ip.substring(0, THE_NUMBER_NEEDED_FOR_IP);
+    if ((frontOfIp.equals("128.148") || frontOfIp.equals("138.16."))) {
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Processes a request to verify ip address.
+   *
+   * @author adevor
+   *
+   */
+  private class IPVerificationHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+      String clientIp = req.ip();
+      Map<String, Object> variables;
+      if (isIpValid(clientIp)) {
+        variables = ImmutableMap.of("status", "valid");
+      } else {
+        variables = ImmutableMap.of("status", "invalid");
       }
       return GSON.toJson(variables);
     }
