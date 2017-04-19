@@ -38,10 +38,9 @@ export default class CourseInfoScreen extends React.Component {
 				{calendarButton}
 				<h2>{code}: {title}</h2>
 				<p>{description}</p>
-				<p>more info will go here</p>
-				<div className ='sections' style={{backgroundColor: '#f4f4f4'}}>Sections:
+				<div className ='sections'>Sections:
 					{sectionInfo}
-        </div>
+        		</div>
 			</div>
 		)	
 	}
