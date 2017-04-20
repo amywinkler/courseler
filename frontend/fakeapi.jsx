@@ -1,81 +1,85 @@
 let cs032_s01 = {
-  course_code: 'CSCI 0320',
+  courseCode: 'CSCI 0320',
   title: 'Software Engineering',
-  section_id: 'CSCI 0320 S01',
+  sectionId: 'CSCI 0320 S01',
   professors: ['John Jannotti'],
-  locations: {
-    monday_location: null,
-    tuesday_location: 'Salomon 001',
-    wednesday_location: null,
-    thursday_location: 'Salomon 001',
-    friday_location: null
+  meetingLocations: {
+    mondayMeetingLoc: null,
+    tuesdayMeetingLoc: 'Salomon 001',
+    wednesdayMeetingLoc: null,
+    thursdayMeetingLoc: 'Salomon 001',
+    fridayMeetingLoc: null
   },
-  times: [{
-      monday_start: null,
-      monday_end: null,
-      tuesday_start: 1300,
-      tuesday_end: 1430,
-      wednesday_start: null,
-      wednesday_end: null,
-      thursday_start: 1300,
-      thursday_end: 1430,
-      friday_start: null,
-      friday_end: null
-    }
-  ]
+  times: {
+    mondayStart: null,
+    mondayEnd: null,
+    tuesdayStart: 1300,
+    tuesdayEnd: 1430,
+    wednesdayStart: null,
+    wednesdayEnd: null,
+    thursdayStart: 1300,
+    thursdayEnd: 1430,
+    fridayStart: null,
+    fridayEnd: null
+  }
 };
 
 let cs032_s02 = {
-  course_code: 'CSCI 0320',
+  courseCode: 'CSCI 0320',
   title: 'Software Engineering',
-  section_id: 'CSCI 0320 S02',
+  sectionId: 'CSCI 0320 S02',
   professors: ['John Jannotti'],
-  locations: {
-    monday_location: null,
-    tuesday_location: 'Sayles 001',
-    wednesday_location: null,
-    thursday_location: 'Sayles 001',
-    friday_location: null
+  meetingLocations: {
+    mondayMeetingLoc: null,
+    tuesdayMeetingLoc: 'Sayles Basement',
+    wednesdayMeetingLoc: null,
+    thursdayMeetingLoc: 'Sayles Basement',
+    fridayMeetingLoc: null
   },
-  times: [{
-      monday_start: null,
-      monday_end: null,
-      tuesday_start: 1500,
-      tuesday_end: 1630,
-      wednesday_start: null,
-      wednesday_end: null,
-      thursday_start: 1000,
-      thursday_end: 1130,
-      friday_start: null,
-      friday_end: null
-    }
-  ]
+  times: {
+    mondayStart: null,
+    mondayEnd: null,
+    tuesdayStart: 1500,
+    tuesdayEnd: 1630,
+    wednesdayStart: null,
+    wednesdayEnd: null,
+    thursdayStart: 1500,
+    thursdayEnd: 1630,
+    fridayStart: null,
+    fridayEnd: null
+  }
 };
 
 let cs32 = {
-  code: 'CSCI 0320',
+  courseCode: 'CSCI 0320',
   title: 'Software Engineering',
-  hours_per_week: {maximum: 50, average: 30},
-  demographics: {
-    percent_freshmen: 0.25,
-    percent_sophomores: 0.5,
-    percent_juniors: 0.25,
-    percent_seniors: 0,
-    percent_grad: 0,
-    percent_concentrators: 0.25,
-    percent_non_concentrators: 0.5,
-    percent_undecided: 0.25
-  },
-  course_score: 0.71,
-  prof_score: 0.64,
-  recommended_to_non_concentrators: 0.2,
-  learned_a_lot: 0.8,
-  difficulty: 0.9,
-  enjoyed: 0.7,
-  description: 'In this course you will learn how to type.',
   department: 'CSCI',
   cap: 999,
-  courses_dot_brown_link: 'http://hahahahah.ha',
+  coursesDotBrownLink: 'http://hahahahah.ha',
+  prereq: null,
+  description: 'In this course you will learn how to type.',
+  crData: {
+    hoursPerWeek: {
+      average: 30,
+      maximum: 50
+    },
+    demographics: {
+      percent_freshmen: 0.25,
+      percent_sophomores: 0.5,
+      percent_juniors: 0.25,
+      percent_seniors: 0,
+      percent_grad: 0,
+      percent_concentrators: 0.25,
+      percent_non_concentrators: 0.5,
+      percent_undecided: 0.25
+    },
+    courseScore: 0.71,
+    profScore: 0.64,
+    recommendedToNonConcentrators: 0.2,
+    learnedAlot: 0.8,
+    difficulty: 0.9,
+    enjoyed: 0.7,
+  },
   fun_and_cool: {
     alternate_titles: ['An Accelerated Intro to Time Management'],
     emojis: ['😂'],
@@ -252,8 +256,8 @@ export class API {
 
   removeFromCart(sectionCode, callback) {
     fakeDelay(() => {
-      if (calendar.sections.filter(function(section) {return section.section_id===sectionCode})) {
-        calendar.sections = calendar.sections.filter(function(section) {return section.section_id!=sectionCode});
+      if (calendar.sections.filter(function(section) {return section.sectionId===sectionCode})) {
+        calendar.sections = calendar.sections.filter(function(section) {return section.sectionId!=sectionCode});
         callback(sectionCode); 
       }
     });
