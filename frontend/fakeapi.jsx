@@ -128,15 +128,16 @@ let signupFailureAlreadyRegistered = {
   status: 'already_registered'
 };
 
+// /search?query=???
 let searchResults = [cs32, cs32, cs32, cs32, cs32];
-let recommended = {
-  sections: [
+
+// /recommend?open=true|false,less_than_10_hours=true|false
+let recommended = [
   {name: 'Based on Your Cart', courses: [cs32, cs32, cs32, cs32]},
   {name: 'In Your Concentration', courses: [cs32, cs32, cs32]},
   {name: 'Hard Classes', courses: [cs32, cs32, cs32, cs32, cs32]},
   {name: 'Class That Make You Go "Yikes"!', courses: [cs32, cs32, cs32, cs32]}
-  ]
-}
+]
 
 let fakeDelay = function(callback) {
   setTimeout(() => {

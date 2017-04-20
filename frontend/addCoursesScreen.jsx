@@ -49,6 +49,7 @@ export default class AddCoursesScreen extends React.Component {
         <input type='text' onChange={(e) => this.updateSearchQuery(e)} placeholder='Search courses...' value={this.state.search} />
       </form>
       { this.renderContent() }
+      <div className='back' onClick={() => this.props.onDone()}>Back to Calendar</div>
     </div>
     )
     return <h1>add courses go here! <a href='#' onClick={() => this.props.onDone()}>done</a></h1>
