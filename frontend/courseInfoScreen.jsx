@@ -13,7 +13,7 @@ export default class CourseInfoScreen extends React.Component {
 
 	render() {
 		let title = this.props.info.title;
-		let code = this.props.info.code;
+		let code = this.props.info.courseCode;
 		let description = this.props.info.description;
  		let sections = [];
  		let currCart = this.props.currentCart;
@@ -25,10 +25,10 @@ export default class CourseInfoScreen extends React.Component {
 
 		let sectionInfo = sections.map(function(section, index) {
 			// Checks whether the current cart has this section in it already
-			if (currCart.indexOf(section.section_id) >= 0) {
-				return <SectionInfo key={index} sectionId={section.section_id} time={section.times} inCart = {true} remove={remove} add={add}/>
+			if (currCart.indexOf(section.sectionId) >= 0) {
+				return <SectionInfo key={index} sectionId={section.sectionId} time={section.times} inCart = {true} remove={remove} add={add}/>
 			} else {
-				return <SectionInfo key={index} sectionId={section.section_id} time={section.times} inCart = {false} remove={remove} add={add}/>
+				return <SectionInfo key={index} sectionId={section.sectionId} time={section.times} inCart = {false} remove={remove} add={add}/>
 			}
 		});
 
