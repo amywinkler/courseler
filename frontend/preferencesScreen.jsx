@@ -25,7 +25,7 @@ export default class PreferencesScreen extends React.Component {
     let doneButton = <a href='#' onClick={() => this.done()}>done</a>;
 
     return (
-      <div className='Preferences'>
+      <div className='preferences'>
         <h1>User Preferences! </h1>
         <div>
           <label>Class Year</label>
