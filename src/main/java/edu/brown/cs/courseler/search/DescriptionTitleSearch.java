@@ -28,7 +28,6 @@ public class DescriptionTitleSearch implements SearchSuggestions<Course> {
     List<Course> toReturn =  new ArrayList<>();
 
     for (Course c: allCourses) {
-
       if (c.getTitle().toLowerCase().contains(searchTerm)) {
         toReturn.add(c);
       } else if (c.getDescription() != null

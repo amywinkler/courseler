@@ -15,6 +15,8 @@ import org.json.simple.parser.ParseException;
 
 import au.com.bytecode.opencsv.CSVReader;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
@@ -36,6 +38,25 @@ import edu.brown.cs.courseler.courseinfo.TimeSlot;
  */
 public class CourseDataParser {
   private CourseDataCache cache;
+  private static final int deptCodeIdx = 1;
+  private static final int courseNumIdx = 2;
+  private static final int numRespIdx = 6;
+  private static final int froshIdx = 7;
+  private static final int sophIdx = 8;
+  private static final int junIdx = 9;
+  private static final int senIdx = 10;
+  private static final int gradIdx = 11;
+  private static final int totalStudIdx = 12;
+  private static final int concsIdx = 13;
+  private static final int nonconcsIdx = 14;
+  private static final int dunnoIdx = 15;
+  private static final int profScoreIdx = 16;
+  private static final int courseScoreIdx = 17;
+  private static final int meanAvgHoursIdx = 18;
+  private static final int meanMaxHoursIdx = 20;
+  private static final int tallyIdx = 22;
+
+  
 
   /**
    * Constructor for coursedataparser.
@@ -181,6 +202,7 @@ public class CourseDataParser {
 
       if (currCourse == null) {
         //Course hasn't been seen before, need to parse all course info
+
         currCourse = new Course(courseId);
         currCourse.setTitle(title);
         currCourse.setDepartment(nameArr[0]);
@@ -188,7 +210,11 @@ public class CourseDataParser {
             "maxregallowed").toString()));
         currCourse.setCoursesDotBrownLink((String)
             courseJSON.get("course_preview"));
-        currCourse.setPreReq((String) courseJSON.get("prereq"));
+        String prereq = (String) courseJSON.get("prereq");
+        if (prereq != null && courseId.equals("ENGN 0030")) {
+          currCourse.setPreReq(prereq);
+        }
+
         currCourse.setDescription((String) courseJSON.get("description"));
         currCourse.addSectionObject(sect);
         cache.addToCourseCache(courseId, currCourse);
@@ -196,6 +222,11 @@ public class CourseDataParser {
 
       } else {
         //Course exists, just add the section information.
+        String prereq = (String) courseJSON.get("prereq");
+        if (prereq != null && courseId.equals("ENGN 0030")) {
+          currCourse.setPreReq(prereq);
+        }
+
         currCourse.addSectionObject(sect);
       }
 
@@ -260,23 +291,6 @@ public class CourseDataParser {
 
       String[] nextLine;
 
-      int deptCodeIdx = 1;
-      int courseNumIdx = 2;
-      int numRespIdx = 6;
-      int froshIdx = 7;
-      int sophIdx = 8;
-      int junIdx = 9;
-      int senIdx = 10;
-      int gradIdx = 11;
-      int totalStudIdx = 12;
-      int concsIdx = 13;
-      int nonconcsIdx = 14;
-      int dunnoIdx = 15;
-      int profScoreIdx = 16;
-      int courseScoreIdx = 17;
-      int meanAvgHoursIdx = 18;
-      int meanMaxHoursIdx = 20;
-      int tallyIdx = 22;
 
       nextLine = reader.readNext();
 
