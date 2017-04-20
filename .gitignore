@@ -4,6 +4,7 @@
 
 node_modules/
 src/main/resources/static/js/app.js
+src/main/resources/static/js/app.js.map
 
 ########
 # Java #

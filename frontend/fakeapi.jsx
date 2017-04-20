@@ -1,3 +1,4 @@
+
 let cs032_s01 = {
   course_code: 'CSCI 0320',
   title: 'Software Engineering',
@@ -127,6 +128,17 @@ let signupFailureAlreadyRegistered = {
   status: 'already_registered'
 };
 
+// /search?query=???
+let searchResults = [cs32, cs32, cs32, cs32, cs32];
+
+// /recommend?open=true|false&less_than_10_hours=true|false&small_courses=true|false
+let recommended = [
+  {name: 'Based on Your Cart', courses: [cs32, cs32, cs32, cs32]},
+  {name: 'In Your Concentration', courses: [cs32, cs32, cs32]},
+  {name: 'Hard Classes', courses: [cs32, cs32, cs32, cs32, cs32]},
+  {name: 'Class That Make You Go "Yikes"!', courses: [cs32, cs32, cs32, cs32]}
+]
+
 let fakeDelay = function(callback) {
   setTimeout(() => {
     callback();
@@ -222,11 +234,15 @@ export class API {
   */
 
   getRecommendations(filters, callback) {
-
+    fakeDelay(() => {
+      callback(recommended);
+    });
   }
 
   search(filters, query, callback) {
-
+    fakeDelay(() => {
+      callback(searchResults);
+    });
   }
 
   // Gets course info
