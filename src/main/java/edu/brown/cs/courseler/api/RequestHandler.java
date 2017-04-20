@@ -130,7 +130,10 @@ public final class RequestHandler {
       return false;
     }
     String frontOfIp = ip.substring(0, THE_NUMBER_NEEDED_FOR_IP);
-    if ((frontOfIp.equals("128.148") || frontOfIp.equals("138.16."))) {
+    if ((frontOfIp.equals("128.148") || frontOfIp.equals("138.16.")
+        || frontOfIp.equals("0:0:0:"))) {
+      // 0:0:0: represents localhost - no one outside of brown's campus better
+      // have this on their localhost
       return true;
     }
     return false;
@@ -146,6 +149,7 @@ public final class RequestHandler {
     @Override
     public String handle(Request req, Response res) {
       String clientIp = req.ip();
+      System.out.println(clientIp);
       Map<String, Object> variables;
       if (isIpValid(clientIp)) {
         variables = ImmutableMap.of("status", "valid");
