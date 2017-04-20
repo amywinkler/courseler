@@ -8,7 +8,7 @@ import edu.brown.cs.courseler.courseinfo.Section;
 import edu.brown.cs.courseler.courseinfo.TimeSlot;
 import edu.brown.cs.courseler.data.CourseDataCache;
 import edu.brown.cs.courseler.repl.MethodRunner;
-import edu.brown.cs.courseler.search.Search;
+import edu.brown.cs.courseler.search.RankedSearch;
 
 /**
  * Run methods for the courseler repl.
@@ -52,7 +52,7 @@ public class CourselerMethodRunner implements MethodRunner<String> {
   }
 
   private void searchCmd(String currCmdStr) {
-    Search s = new Search(cache);
+    RankedSearch s = new RankedSearch(cache);
     List<Course> courses = s.rankedKeywordSearch(currCmdStr
         .substring(currCmdStr.indexOf("search ") + "search ".length()));
     for (Course c: courses) {
@@ -72,7 +72,7 @@ public class CourselerMethodRunner implements MethodRunner<String> {
 
   @Override
   public boolean isCmdForClass(String currCmdStr) {
-    // TODO:
+    // TODO: error handling
     return true;
   }
 
