@@ -156,7 +156,6 @@ public final class RequestHandler {
     @Override
     public String handle(Request req, Response res) {
       String clientIp = req.ip();
-      System.out.println(clientIp);
       Map<String, Object> variables;
       if (isIpValid(clientIp)) {
         variables = ImmutableMap.of("status", "valid");
