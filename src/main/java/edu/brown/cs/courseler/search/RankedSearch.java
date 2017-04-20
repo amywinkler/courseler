@@ -6,10 +6,22 @@ import java.util.List;
 import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.data.CourseDataCache;
 
-public class Search {
+/**
+ * Class for aggregating Search Results.
+ *
+ * @author amywinkler
+ *
+ */
+public class RankedSearch {
   private CourseDataCache cache;
 
-  public Search(CourseDataCache cache){
+  /**
+   * Constructor for search object.
+   *
+   * @param cache
+   *          the course data cache
+   */
+  public RankedSearch(CourseDataCache cache) {
     this.cache = cache;
   }
 
@@ -36,7 +48,6 @@ public class Search {
       }
     }
 
-    //TODO break up how to do keyword search
     String[] searchWordsSplit = entireSearch.split(" ");
     if (searchWordsSplit.length <= 5) {
       //search on each word
@@ -49,6 +60,9 @@ public class Search {
           }
         }
 
+      }
+
+      for (int i = searchWordsSplit.length - 1; i > 0; i--) {
         List<Course> tempLst2 = dt.suggest(searchWordsSplit[i]);
         for (Course c : tempLst2) {
           if (!finalCourseList.contains(c)) {
