@@ -88,7 +88,7 @@ export default class AddCoursesScreen extends React.Component {
     }
   }
   renderRecommendations() {
-    let sections = this.state.recommendations ? this.state.recommendations.sections : [];
+    let sections = this.state.recommendations || [];
     let sectionCells = sections.map((section, i) => {
       return <SectionCell key={i} section={section} onClickedCourse={(course) => this.clickedCourse(course)} />;
     });
