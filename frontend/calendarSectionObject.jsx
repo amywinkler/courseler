@@ -28,7 +28,7 @@ export default class CalendarSectionObject extends React.Component {
 	convertTime(time) {
 		let hours = time.toString().substring(0,2) % 12;
 		let minutes = time.toString().substring(2,4);
-		let amPm = '';
+		let amPm;
 		if (time.toString().substring(0,2) > 11) {
 			amPm = 'pm';
 		} else {

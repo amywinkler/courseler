@@ -82,15 +82,15 @@ export default class Calendar extends React.Component {
 
 		// Puts a single section into the appropriate day (see the next function) 
 		let loadDay = (day, timeObject, sectionObject) => {
-			let startString = day+"_start";
-			let endString = day+"_end";
-			let courseId = sectionObject.course_code;
+			let startString = day+"Start";
+			let endString = day+"End";
+			let courseId = sectionObject.courseCode;
 			if (timeObject[startString] != null && timeObject[endString] !=null) {
 				let startTime = timeObject[startString];
 				let endTime = timeObject[endString]; 
 				let newSectionObject = <CalendarSectionObject 
-										key={sectionObject.section_id} 
-										title={sectionObject.section_id} 
+										key={sectionObject.sectionId} 
+										title={sectionObject.sectionId} 
 										start={startTime} 
 										end={endTime} 
 										click={this.showCourseInfo.bind(this, courseId)}/>;
@@ -105,14 +105,12 @@ export default class Calendar extends React.Component {
 			// For each section in the calendar, 
 			// add sectionObjects in the appropriate days
 			calendar.sections.map(function(section) {
-				section.times.map(function(time) {
-					loadDay("monday", time, section);
-					loadDay("tuesday", time, section);
-					loadDay("wednesday", time, section);
-					loadDay("thursday", time, section);
-					loadDay("friday", time, section);
-				}, this);
-				this.setState({currentCart: this.state.currentCart.concat([section.section_id])});
+				loadDay("monday", section.times, section);
+				loadDay("tuesday", section.times, section);
+				loadDay("wednesday", section.times, section);
+				loadDay("thursday", section.times, section);
+				loadDay("friday", section.times, section);
+				this.setState({currentCart: this.state.currentCart.concat([section.sectionId])});
 			}, this);
 		};
 
