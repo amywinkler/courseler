@@ -24,7 +24,9 @@ export default class LoggedInView extends React.Component {
     if (screen === 'calendar') {
       return (
         <div className='calendar-screen'>
-          <div className='menu-button' onClick={() => this.setState({screen: 'menu'})}>Menu</div>
+          <div className='header'>
+            <div className='menu-button' onClick={() => this.setState({screen: 'menu'})}>Menu</div>
+          </div>
           <Calendar />          
           <div className='add-courses-button' onClick={() => this.setState({screen: 'add-courses'})}>Add Courses</div>
         </div>
