@@ -14,8 +14,8 @@ export default class CalendarDayView extends React.Component {
 		let day = this.props.day;
 		let sections = this.props.sections;
 		return (
-			<div className='calendarDayView' style={{display:"inline-block", width:"20%", verticalAlign:"top"}}>
-				<h1>{day}</h1>
+			<div className='calendarDayView'>
+				<h2 className='dayLabel'>{day}</h2>
 				<div className='courses'>
 					{sections}
 				</div>

@@ -18,17 +18,17 @@ export default class LoggedOutView extends React.Component {
     
     let allowSubmit = !!this.state.email && !!this.state.password;
     
-    let emailField = <input type='email' value={this.state.email} onChange={ (e) => {this.setState({email: e.target.value})} } />;
-    let passwordField = <input type='password' value={this.state.password} onChange={ (e) => {this.setState({password: e.target.value})} } />;
+    let emailField = <input placeholder='Email Address' type='email' value={this.state.email} onChange={ (e) => {this.setState({email: e.target.value})} } />;
+    let passwordField = <input placeholder='Password' type='password' value={this.state.password} onChange={ (e) => {this.setState({password: e.target.value})} } />;
     
     let buttonTitle = this.state.showSignup ? 'Sign Up' : 'Log In';
     let submitButton = <input type='submit' value={ buttonTitle } disabled={!allowSubmit} />;
     
     let switchButton;
     if (this.state.showSignup) {
-      switchButton = <div>Already have an account? <a href='#' onClick={ onSwitch }>Log In</a></div>;
+      switchButton = <div className='switch'>Already have an account? <a href='#' onClick={ onSwitch }>Log In</a></div>;
     } else {
-      switchButton = <div>Don't have an account? <a href='#' onClick={ onSwitch }>Sign Up</a></div>;
+      switchButton = <div className='switch'>Don't have an account? <a href='#' onClick={ onSwitch }>Sign Up</a></div>;
     }
     
     let error = null;
@@ -38,20 +38,22 @@ export default class LoggedOutView extends React.Component {
     
     return (
       <div className='LoggedOutView'>
-        <h1>{title}</h1>
-        <form onSubmit={ (e) => this.submit(e) }>
-          {error}
-          <div>
-            <label>Email</label>
-            {emailField}
-          </div>
-          <div>
-              <label>Password</label>
-              {passwordField}
-          </div>
-          {submitButton}
-        </form>
-        {switchButton}
+        <div className='inner'>
+          <div className='logo' />
+          <form onSubmit={ (e) => this.submit(e) } autoComplete='off'>
+            {error}
+            <div>
+              <label>Email</label>
+              {emailField}
+            </div>
+            <div>
+                <label>Password</label>
+                {passwordField}
+            </div>
+            {submitButton}
+          </form>
+          {switchButton}
+        </div>
       </div>
     )
   }
