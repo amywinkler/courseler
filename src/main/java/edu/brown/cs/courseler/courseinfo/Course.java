@@ -58,16 +58,16 @@ public class Course {
     this.description = description;
   }
 
-  public void setPreReq(String prereq){
-    this.prereq = prereq;
+  public void setPreReq(String prer) {
+    this.prereq = prer;
   }
 
   public void setTitle(String title){
     this.title = title;
   }
 
-  public void setDepartment(String department){
-    this.department = department;
+  public void setDepartment(String dept) {
+    this.department = dept;
   }
 
   public void setCap(int cap){

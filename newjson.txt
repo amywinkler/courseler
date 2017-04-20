@@ -1,0 +1,281 @@
+{  
+   "courseCode":"VISA 0100",
+   "title":"Studio Foundation",
+   "department":"VISA",
+   "cap":30,
+   "coursesDotBrownLink":"https://courses.brown.edu/courses/fall-2016/visa-0100-s01",
+   "prereq":null,
+   "description":"An introduction to basic visual art concepts, exploring a range of materials with emphasis on experimentation and analysis of visual relationships. Drawing is a vital part of this course. Admittance to this course will be determined by an online lottery, which can be accessed through the VISA 0100 Lottery link in the Student menu in Banner Web. VISA 0100 or 0110 is a prerequisite to any advanced studio course work at Brown or the Rhode Island School of Design. Under certain circumstances a student may petition for a waiver of this requirement upon submission of a portfolio.",
+   "crData":{  
+      "hoursPerWeek":{  
+         "average":4.85714,
+         "maximum":8.92857
+      },
+      "demographics":{  
+         "percent_juniors":0.1,
+         "percent_seniors":0.1,
+         "percent_freshmen":0.3,
+         "percent_grad":0.0,
+         "percent_sophomores":0.5,
+         "percent_concentrators":0.0,
+         "percent_non_concentrators":0.8571428571428571,
+         "percent_undecided":0.14285714285714285
+      },
+      "courseScore":0.933334,
+      "profScore":0.991964,
+      "recommendedToNonConcentrators":0.9714285714285713,
+      "learnedALot":0.8714285714285713,
+      "difficulty":0.5857142857142856,
+      "enjoyed":0.9571428571428571
+   },
+   "funAndCool":{ 
+     alternateTitles: ['An Accelerated Intro to Time Management'],
+     emojis: ['😂'],
+     descriptions: ['hahha', 'fuck'] 
+   },
+   "sections":[  
+      {  
+         "sectionId":"VISA 0100 S01",
+         "courseCode":"VISA 0100",
+         "title":"Studio Foundation",
+         "professors":[  
+            "Smick, Martin L."
+         ],
+         "times":{  
+            "mondayStart":1000,
+            "mondayEnd":1150,
+            "tuesdayStart":null,
+            "tuesdayEnd":null,
+            "wednesdayStart":1000,
+            "wednesdayEnd":1150,
+            "thursdayStart":null,
+            "thursdayEnd":null,
+            "fridayStart":null,
+            "fridayEnd":null
+         },
+         "meetingLocations":{  
+            "mondayMeetingLoc":"List Art Center 225",
+            "tuesdayMeetingLoc":null,
+            "wednesdayMeetingLoc":"List Art Center 225",
+            "thursdayMeetingLoc":null,
+            "fridayMeetingLoc":null
+         }
+      },
+      {  
+         "sectionId":"VISA 0100 S02",
+         "courseCode":"VISA 0100",
+         "title":"Studio Foundation",
+         "professors":[  
+            "Villanueva, Eduardo J."
+         ],
+         "times":{  
+            "mondayStart":null,
+            "mondayEnd":null,
+            "tuesdayStart":1000,
+            "tuesdayEnd":1150,
+            "wednesdayStart":null,
+            "wednesdayEnd":null,
+            "thursdayStart":1000,
+            "thursdayEnd":1150,
+            "fridayStart":null,
+            "fridayEnd":null
+         },
+         "meetingLocations":{  
+            "mondayMeetingLoc":null,
+            "tuesdayMeetingLoc":"List Art Center 225",
+            "wednesdayMeetingLoc":null,
+            "thursdayMeetingLoc":"List Art Center 225",
+            "fridayMeetingLoc":null
+         }
+      },
+      {  
+         "sectionId":"VISA 0100 S03",
+         "courseCode":"VISA 0100",
+         "title":"Studio Foundation",
+         "professors":[  
+            "Villanueva, Eduardo J."
+         ],
+         "times":{  
+            "mondayStart":null,
+            "mondayEnd":null,
+            "tuesdayStart":1300,
+            "tuesdayEnd":1450,
+            "wednesdayStart":null,
+            "wednesdayEnd":null,
+            "thursdayStart":1300,
+            "thursdayEnd":1450,
+            "fridayStart":null,
+            "fridayEnd":null
+         },
+         "meetingLocations":{  
+            "mondayMeetingLoc":null,
+            "tuesdayMeetingLoc":"List Art Center 225",
+            "wednesdayMeetingLoc":null,
+            "thursdayMeetingLoc":"List Art Center 225",
+            "fridayMeetingLoc":null
+         }
+      },
+      {  
+         "sectionId":"VISA 0100 S04",
+         "courseCode":"VISA 0100",
+         "title":"Studio Foundation",
+         "professors":[  
+            "Kodi, Khalid I."
+         ],
+         "times":{  
+            "mondayStart":1600,
+            "mondayEnd":1750,
+            "tuesdayStart":null,
+            "tuesdayEnd":null,
+            "wednesdayStart":1600,
+            "wednesdayEnd":1750,
+            "thursdayStart":null,
+            "thursdayEnd":null,
+            "fridayStart":null,
+            "fridayEnd":null
+         },
+         "meetingLocations":{  
+            "mondayMeetingLoc":"List Art Center 325",
+            "tuesdayMeetingLoc":null,
+            "wednesdayMeetingLoc":"List Art Center 325",
+            "thursdayMeetingLoc":null,
+            "fridayMeetingLoc":null
+         }
+      },
+      {  
+         "sectionId":"VISA 0100 S05",
+         "courseCode":"VISA 0100",
+         "title":"Studio Foundation",
+         "professors":[  
+            "Kodi, Khalid I."
+         ],
+         "times":{  
+            "mondayStart":1900,
+            "mondayEnd":2050,
+            "tuesdayStart":null,
+            "tuesdayEnd":null,
+            "wednesdayStart":1900,
+            "wednesdayEnd":2050,
+            "thursdayStart":null,
+            "thursdayEnd":null,
+            "fridayStart":null,
+            "fridayEnd":null
+         },
+         "meetingLocations":{  
+            "mondayMeetingLoc":"List Art Center 325",
+            "tuesdayMeetingLoc":null,
+            "wednesdayMeetingLoc":"List Art Center 325",
+            "thursdayMeetingLoc":null,
+            "fridayMeetingLoc":null
+         }
+      },
+      {  
+         "sectionId":"VISA 0100 S06",
+         "courseCode":"VISA 0100",
+         "title":"Studio Foundation",
+         "professors":[  
+            "Irons, Ellen L."
+         ],
+         "times":{  
+            "mondayStart":1300,
+            "mondayEnd":1450,
+            "tuesdayStart":null,
+            "tuesdayEnd":null,
+            "wednesdayStart":1300,
+            "wednesdayEnd":1450,
+            "thursdayStart":null,
+            "thursdayEnd":null,
+            "fridayStart":null,
+            "fridayEnd":null
+         },
+         "meetingLocations":{  
+            "mondayMeetingLoc":"List Art Center 225",
+            "tuesdayMeetingLoc":null,
+            "wednesdayMeetingLoc":"List Art Center 225",
+            "thursdayMeetingLoc":null,
+            "fridayMeetingLoc":null
+         }
+      },
+      {  
+         "sectionId":"VISA 0100 S07",
+         "courseCode":"VISA 0100",
+         "title":"Studio Foundation",
+         "professors":[  
+            "Irons, Ellen L."
+         ],
+         "times":{  
+            "mondayStart":1600,
+            "mondayEnd":1750,
+            "tuesdayStart":null,
+            "tuesdayEnd":null,
+            "wednesdayStart":1600,
+            "wednesdayEnd":1750,
+            "thursdayStart":null,
+            "thursdayEnd":null,
+            "fridayStart":null,
+            "fridayEnd":null
+         },
+         "meetingLocations":{  
+            "mondayMeetingLoc":"List Art Center 225",
+            "tuesdayMeetingLoc":null,
+            "wednesdayMeetingLoc":"List Art Center 225",
+            "thursdayMeetingLoc":null,
+            "fridayMeetingLoc":null
+         }
+      },
+      {  
+         "sectionId":"VISA 0100 S08",
+         "courseCode":"VISA 0100",
+         "title":"Studio Foundation",
+         "professors":[  
+            "Donsky, Elizabeth A."
+         ],
+         "times":{  
+            "mondayStart":null,
+            "mondayEnd":null,
+            "tuesdayStart":null,
+            "tuesdayEnd":null,
+            "wednesdayStart":null,
+            "wednesdayEnd":null,
+            "thursdayStart":1800,
+            "thursdayEnd":2140,
+            "fridayStart":null,
+            "fridayEnd":null
+         },
+         "meetingLocations":{  
+            "mondayMeetingLoc":null,
+            "tuesdayMeetingLoc":null,
+            "wednesdayMeetingLoc":null,
+            "thursdayMeetingLoc":"List Art Center 225",
+            "fridayMeetingLoc":null
+         }
+      },
+      {  
+         "sectionId":"VISA 0100 S09",
+         "courseCode":"VISA 0100",
+         "title":"Studio Foundation",
+         "professors":[  
+            "Donsky, Elizabeth A."
+         ],
+         "times":{  
+            "mondayStart":null,
+            "mondayEnd":null,
+            "tuesdayStart":null,
+            "tuesdayEnd":null,
+            "wednesdayStart":null,
+            "wednesdayEnd":null,
+            "thursdayStart":null,
+            "thursdayEnd":null,
+            "fridayStart":1000,
+            "fridayEnd":1340
+         },
+         "meetingLocations":{  
+            "mondayMeetingLoc":null,
+            "tuesdayMeetingLoc":null,
+            "wednesdayMeetingLoc":null,
+            "thursdayMeetingLoc":null,
+            "fridayMeetingLoc":"List Art Center 225"
+         }
+      }
+   ]
+}
