@@ -15,8 +15,6 @@ import org.json.simple.parser.ParseException;
 
 import au.com.bytecode.opencsv.CSVReader;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonIOException;
 import com.google.gson.JsonObject;
@@ -56,7 +54,7 @@ public class CourseDataParser {
   private static final int meanMaxHoursIdx = 20;
   private static final int tallyIdx = 22;
 
-  
+
 
   /**
    * Constructor for coursedataparser.
@@ -191,6 +189,10 @@ public class CourseDataParser {
       for (int i = 0; i < instructors.size(); i++) {
         JSONObject instructorObject = (JSONObject) instructors.get(i);
         String instructor = (String) instructorObject.get("instructor");
+        String[] instructorArr = instructor.split(", ");
+        if (instructorArr.length == 2) {
+          instructor = instructorArr[1] + " " + instructorArr[0];
+        }
         professors.add(instructor);
       }
 
@@ -211,7 +213,7 @@ public class CourseDataParser {
         currCourse.setCoursesDotBrownLink((String)
             courseJSON.get("course_preview"));
         String prereq = (String) courseJSON.get("prereq");
-        if (prereq != null && courseId.equals("ENGN 0030")) {
+        if (prereq != null) {
           currCourse.setPreReq(prereq);
         }
 
@@ -223,7 +225,7 @@ public class CourseDataParser {
       } else {
         //Course exists, just add the section information.
         String prereq = (String) courseJSON.get("prereq");
-        if (prereq != null && courseId.equals("ENGN 0030")) {
+        if (prereq != null) {
           currCourse.setPreReq(prereq);
         }
 
