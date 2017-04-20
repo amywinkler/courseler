@@ -22,6 +22,7 @@ import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.data.CourseDataCache;
 import edu.brown.cs.coursler.userinfo.DbProxy;
 import edu.brown.cs.coursler.userinfo.User;
@@ -71,6 +72,7 @@ public final class RequestHandler {
     Spark.post("/login", new LoginHandler());
     Spark.post("/signup", new SignupHandler());
     Spark.get("/ipVerify", new IPVerificationHandler());
+    Spark.post("/course", new CourseHandler());
   }
 
   /**
@@ -192,7 +194,26 @@ public final class RequestHandler {
     }
   }
 
-  // Get a user's cart
+  /**
+   * Processes a get course request.
+   *
+   * @author amywinkler
+   *
+   */
+  private class CourseHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+
+      Map<String, Object> variables;
+      QueryParamsMap qm = req.queryMap();
+      String courseId = qm.value("courseId");
+      Course currCourse = cache.getCourseFomCache(courseId);
+
+      return GSON.toJson(currCourse);
+    }
+  }
+
+
 
   /**
    * Display an error page when an exception occurs in the server.

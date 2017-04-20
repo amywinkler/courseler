@@ -41,7 +41,6 @@ public final class Main {
   }
 
   private void run() {
-    // printAllCourses();
     // Parse command line arguments
     OptionParser parser = new OptionParser();
     parser.accepts("gui");
