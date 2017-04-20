@@ -3,12 +3,12 @@ package edu.brown.cs.courseler.repl;
 import java.util.ArrayList;
 import java.util.List;
 
+import joptsimple.OptionParser;
+import joptsimple.OptionSet;
 import edu.brown.cs.courseler.api.CourselerMethodRunner;
 import edu.brown.cs.courseler.api.RequestHandler;
 import edu.brown.cs.courseler.data.CourseDataCache;
 import edu.brown.cs.courseler.data.CourseDataParser;
-import joptsimple.OptionParser;
-import joptsimple.OptionSet;
 
 /**
  * The Main class of our project. This is where execution begins.
@@ -17,7 +17,7 @@ import joptsimple.OptionSet;
  */
 public final class Main {
   private static final int DEFAULT_PORT = 4567;
-  private static CourseDataCache cdc;
+  private static CourseDataCache cache;
   private static CourselerMethodRunner cmr;
 
   /**
@@ -27,9 +27,9 @@ public final class Main {
    *          An array of command line arguments
    */
   public static void main(String[] args) {
-    cdc = new CourseDataCache();
-    CourseDataParser cdp = new CourseDataParser(cdc);
-    cmr = new CourselerMethodRunner(cdc);
+    cache = new CourseDataCache();
+    CourseDataParser cdp = new CourseDataParser(cache);
+    cmr = new CourselerMethodRunner(cache);
 
     new Main(args).run();
   }
@@ -41,7 +41,6 @@ public final class Main {
   }
 
   private void run() {
-    // printAllCourses();
     // Parse command line arguments
     OptionParser parser = new OptionParser();
     parser.accepts("gui");
@@ -52,7 +51,7 @@ public final class Main {
     if (options.has("gui")) {
       // TODO: Someone remind me to switch this to the live db when the time is
       // right.
-      RequestHandler handler = new RequestHandler("test_users_1.sqlite3");
+      RequestHandler handler = new RequestHandler("test_users_1.sqlite3", cache);
       handler.runSparkServer((int) options.valueOf("port"));
     }
 

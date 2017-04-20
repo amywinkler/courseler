@@ -8,12 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.gson.Gson;
-
-import edu.brown.cs.coursler.userinfo.DbProxy;
-import edu.brown.cs.coursler.userinfo.User;
-import freemarker.template.Configuration;
 import spark.ExceptionHandler;
 import spark.ModelAndView;
 import spark.QueryParamsMap;
@@ -24,6 +18,16 @@ import spark.Spark;
 import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import edu.brown.cs.courseler.courseinfo.Course;
+import edu.brown.cs.courseler.data.CourseDataCache;
+import edu.brown.cs.coursler.userinfo.DbProxy;
+import edu.brown.cs.coursler.userinfo.User;
+import freemarker.template.Configuration;
+
 /**
  * The main request handler class where all API calls can be called. All calls
  * from GUI come in from here.
@@ -33,9 +37,10 @@ import spark.template.freemarker.FreeMarkerEngine;
  */
 public final class RequestHandler {
 
-  private static final Gson GSON = new Gson();
+  private static final Gson GSON = new GsonBuilder().serializeNulls().create();
   private DbProxy db;
   private static final int THE_NUMBER_NEEDED_FOR_IP = 7;
+  private CourseDataCache cache;
 
   /**
    * Constructs request handler.
@@ -43,8 +48,9 @@ public final class RequestHandler {
    * @param fileName
    *          the name of the file for the db.
    */
-  public RequestHandler(String fileName) {
+  public RequestHandler(String fileName, CourseDataCache cache) {
     db = new DbProxy(fileName);
+    this.cache = cache;
   }
 
   /**
@@ -66,6 +72,7 @@ public final class RequestHandler {
     Spark.post("/login", new LoginHandler());
     Spark.post("/signup", new SignupHandler());
     Spark.get("/ipVerify", new IPVerificationHandler());
+    Spark.post("/course", new CourseHandler());
   }
 
   /**
@@ -131,7 +138,7 @@ public final class RequestHandler {
     }
     String frontOfIp = ip.substring(0, THE_NUMBER_NEEDED_FOR_IP);
     if ((frontOfIp.equals("128.148") || frontOfIp.equals("138.16.")
-        || frontOfIp.equals("0:0:0:"))) {
+        || frontOfIp.equals("0:0:0:0"))) {
       // 0:0:0: represents localhost - no one outside of brown's campus better
       // have this on their localhost
       return true;
@@ -186,6 +193,27 @@ public final class RequestHandler {
       return GSON.toJson(variables);
     }
   }
+
+  /**
+   * Processes a get course request.
+   *
+   * @author amywinkler
+   *
+   */
+  private class CourseHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+
+      Map<String, Object> variables;
+      QueryParamsMap qm = req.queryMap();
+      String courseId = qm.value("courseId");
+      Course currCourse = cache.getCourseFomCache(courseId);
+
+      return GSON.toJson(currCourse);
+    }
+  }
+
+
 
   /**
    * Display an error page when an exception occurs in the server.
