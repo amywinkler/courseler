@@ -2,25 +2,51 @@ package edu.brown.cs.courseler.reccomendation;
 
 import java.util.List;
 
+import edu.brown.cs.courseler.courseinfo.Course;
+import edu.brown.cs.courseler.courseinfo.Section;
+import edu.brown.cs.courseler.data.CourseDataCache;
+import edu.brown.cs.coursler.userinfo.User;
 
-/**
- * Class to get and aggregate the different types of reccomendations.
- *
- * @author amywinkler
- *
- */
-public class ReccomendationExecutor {
+public class ReccomendationExecutor implements Reccomend<ReccomendationDatum> {
+  private User user;
+  private Filter filter;
+  private List<Course> allCourses;
+  private List<Section> sectionsInUserCart;
+  private List<Course> coursesInUserCart;
+  private CourseDataCache cache;
+
   /**
+   * Constructor for reccomendations.
    *
-   * @param sectionIdsInCart
+   * @param user
+   *          the user object
+   * @param filter
+   *          the filter
    */
-  public ReccomendationExecutor(List<String> sectionIdsInCart, Filter filter) {
-
+  public ReccomendationExecutor(User user, Filter filter, List<Course> allCourses,
+      CourseDataCache cache) {
+    this.user = user;
+    this.filter = filter;
+    this.allCourses = allCourses;
+    this.sectionsInUserCart = getSectionsInUserCart();
+    this.cache = cache;
   }
 
-  public void runAndFilterReccomendations() {
-
+  private List<Section> getSectionsInUserCart() {
+    // TODO: return all the section objects in a user's cart
+    return null;
   }
 
+  private List<Course> getCoursesInUserCart() {
+    // TODO: this should just return the courses in a user's cart do we need
+    // this
+    return null;
+  }
+
+  @Override
+  public List<ReccomendationDatum> getReccomendations() {
+    // TODO Auto-generated method stub
+    return null;
+  }
 
 }

@@ -6,6 +6,8 @@ import java.sql.SQLException;
 
 import org.junit.Test;
 
+import com.google.common.collect.ImmutableList;
+
 import edu.brown.cs.coursler.userinfo.DbProxy;
 import edu.brown.cs.coursler.userinfo.User;
 
@@ -62,9 +64,11 @@ public class DbProxyTest {
   public void testSetNewUserData() {
     DbProxy proxy = new DbProxy("test_users_1.sqlite3");
     User alberta = proxy.createNewUser("alberta_devor1@brown.edu", "i_love_JJ");
+    alberta.setInterests(ImmutableList.of("CSCI", "VISA", "HIAA"));
+    alberta.setConcentration("CSCI");
+    alberta.setClassYear("2019");
     try {
-      proxy.setUserData(alberta.getTokenId(), "CSCI", "CSCI,VISA,HIAA",
-          "2018.5", "CSCI 0320");
+      proxy.setUserPreferenceData(alberta);
     } catch (SQLException e1) {
       e1.printStackTrace();
     }
@@ -79,8 +83,7 @@ public class DbProxyTest {
 
     assertTrue(alberta2.getConcentration().equals("CSCI"));
     assertTrue(alberta2.getInterests().contains("VISA"));
-    assertTrue(alberta2.getClassYear().equals("2018.5"));
-    assertTrue(alberta2.getFavClassCode().equals("CSCI 0320"));
+    assertTrue(alberta2.getClassYear().equals("2019"));
   }
 
   /**
@@ -90,9 +93,11 @@ public class DbProxyTest {
   public void testSetNewUserDataGettingFromId() {
     DbProxy proxy = new DbProxy("test_users_1.sqlite3");
     User alberta = proxy.createNewUser("alberta_devor1@brown.edu", "i_love_JJ");
+    alberta.setInterests(ImmutableList.of("CSCI", "VISA", "HIAA"));
+    alberta.setConcentration("CSCI");
+    alberta.setClassYear("2019");
     try {
-      proxy.setUserData(alberta.getTokenId(), "CSCI", "CSCI,VISA,HIAA",
-          "2018.5", "CSCI 0320");
+      proxy.setUserPreferenceData(alberta);
     } catch (SQLException e1) {
       e1.printStackTrace();
     }
@@ -106,7 +111,54 @@ public class DbProxyTest {
 
     assertTrue(alberta2.getConcentration().equals("CSCI"));
     assertTrue(alberta2.getInterests().contains("VISA"));
-    assertTrue(alberta2.getClassYear().equals("2018.5"));
-    assertTrue(alberta2.getFavClassCode().equals("CSCI 0320"));
+    assertTrue(alberta2.getClassYear().equals("2019"));
+  }
+
+  /**
+   * Testing updating user cart.
+   */
+  @Test
+  public void testUserCartChanges() {
+    DbProxy proxy = new DbProxy("test_users_1.sqlite3");
+    User alberta = proxy.createNewUser("alberta_devor1@brown.edu", "i_love_JJ");
+    String myId = alberta.getTokenId();
+    try {
+      proxy.updateUserCart(alberta);
+    } catch (SQLException e1) {
+      e1.printStackTrace();
+      proxy.clearTable();
+      try {
+        proxy.closeConnection();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+    User alberta2 = proxy.getUserFromId(myId);
+
+    assertTrue(alberta2.getSectionsInCart().size() == 0);
+    alberta.addToCart("CSCI 0320 S01");
+    try {
+      proxy.updateUserCart(alberta);
+    } catch (SQLException e1) {
+      e1.printStackTrace();
+      proxy.clearTable();
+      try {
+        proxy.closeConnection();
+      } catch (SQLException e) {
+        e.printStackTrace();
+      }
+    }
+    User alberta3 = proxy.getUserFromId(myId);
+
+    proxy.clearTable();
+    try {
+      proxy.closeConnection();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    assertTrue(alberta3.getSectionsInCart().size() == 1);
+    assertTrue(alberta3.getSectionsInCart().get(0).equals("CSCI 0320 S01"));
+
   }
 }

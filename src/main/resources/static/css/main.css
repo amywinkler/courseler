@@ -75,9 +75,10 @@ a {
 
 .header {
   width: 100%;
-  background-color: #444;
+  background-color: #333;
   color: white;
   padding: 15px 20px;
+  flex-direction: row;
 }
 
 /* CALENDAR UI */
@@ -109,23 +110,24 @@ a {
   text-align: center;
 }
 
-.add-courses-button {
-  width: 60%;
-  max-width: 300px;
+.floating-button {
+  width: 200px;
+  margin-left: -100px;
+  left: 50%;
+  bottom: 16px;
   font-family: 'Roboto Mono';
   padding: 12px 20px;
+  box-sizing: border-box;
   background-color: white;
   color: black;
   border: 1px solid #eee;
-  box-shadow: 5px 5px 10px #bbb;
+  box-shadow: 5px 5px 10px rgba(0,0,0,0.3);
   text-transform: uppercase;
   font-size: 1em;
   border-radius: 30px;
-  margin-top: 2em;
-  margin-bottom: 1em;
-  margin-left: auto;
-  margin-right: auto;
   text-align: center;
+  position: fixed;
+  cursor: default;
 }
 
 /* COURSE PAGE UI */
@@ -164,3 +166,96 @@ a {
 .preferences {
   padding: 20px;
 }
+
+/* SEARCH/RECOMMENDATIONS */
+
+.AddCourses {
+  padding-bottom: 4em;
+  padding-top: 5em;
+}
+
+.search-field {
+  background-color: #eee;
+  font-size: 1em;
+  padding: 1.6em;
+  width: 100%;
+  box-sizing: border-box;
+  appearance: none;
+  border: none;
+  outline: none;
+  background-image: url(/img/SearchIcon.svg);
+  background-repeat: no-repeat;
+  background-position: 0.8em center;
+  padding-left: 3.3em;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 10;
+}
+
+.hscroll {
+  width: 100%;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+}
+
+.hscroll > div {
+  white-space: nowrap;
+}
+
+.hscroll > div > div {
+  display: inline-block;
+  white-space: normal;
+}
+
+.CourseCell {
+  width: 220px;
+}
+
+.CourseCell {
+  margin: 0.8em;
+}
+
+.hscroll .CourseCell:not(:first-child) {
+  margin-left: 0;
+}
+
+.CourseCell > * {
+  margin: 0.4em;
+}
+
+.CourseCell {
+  transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
+  box-shadow: 0px 0px 0px rgba(0,0,0,255);
+}
+
+.CourseCell:hover {
+  box-shadow: 4px 4px 0px rgba(0,0,0,255);
+  cursor: default;
+  transform: translate(-4px, -4px);
+}
+
+.SectionCell label {
+  font-family: 'Roboto Mono';
+  opacity: 0.5;
+  margin: 0.8em;
+  margin-bottom: 0;
+  margin-top: 1em;
+  text-transform: lowercase;
+  display: block;
+}
+
+.results .CourseCell {
+  display: inline-block;
+  vertical-align: top;
+}
+
+@media screen and (max-width: 500px) {
+  .SectionCell label, .CourseCell, .search-field {
+    font-size: small;
+  }
+  .CourseCell {
+    width: 160px;
+  }
+}
+

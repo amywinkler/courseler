@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -103,35 +104,68 @@ public class DbProxy {
   }
 
   /**
-   * Sets user data for an inputed user.
+   * Updates user cart.
    *
-   * @param id
-   *          the id of the user we're updating.
-   * @param concentration
-   *          the concentration inputted
-   * @param interests
-   *          the dept interests e.g. "CSCI,VISA"
-   * @param classYear
-   *          the class year of the person
-   * @param favClass
-   *          the favorite class code of the person
+   * @param user
+   *          the user we're updating the cart for.
    * @throws SQLException
    *           if there's an error with the sql query
    */
-  public void setUserData(String id, String concentration, String interests,
-      String classYear, String favClass) throws SQLException {
+  public void updateUserCart(User user) throws SQLException {
+    // set cart data about user
+    StringBuilder sections = new StringBuilder();
+    for (String sectionId : user.getSectionsInCart()) {
+      sections.append(sectionId);
+      sections.append(",");
+    }
+    String sectionsString = "";
+    if (sections.length() > 1) {
+      sections.deleteCharAt(sections.length() - 1); // delete the last comma
+      sectionsString = sections.toString();
+    }
+    String id = user.getTokenId();
+
+    // Put into DB
+    String update = "UPDATE users SET sections_in_cart = ? WHERE id = ?";
+
+    PreparedStatement prep = conn.prepareStatement(update);
+    prep.setString(1, sectionsString);
+    prep.setString(2, id);
+    prep.executeUpdate();
+    prep.close();
+  }
+
+  /**
+   * Sets user data for an inputed user.
+   *
+   * @param user
+   *          the user we want to update the data for.
+   * @throws SQLException
+   *           if there's an error with the sql query
+   */
+  public void setUserPreferenceData(User user) throws SQLException {
     // set new data about the user (concentration, interests, class year)
+
+    StringBuilder interests = new StringBuilder();
+    for (String interest : user.getInterests()) {
+      interests.append(interest);
+      interests.append(",");
+    }
+    String interestString = "";
+    if (interests.length() > 1) {
+      interests.deleteCharAt(interests.length() - 1); // delete the last comma
+      interestString = interests.toString();
+    }
 
     // Put into DB
     String update = "UPDATE users SET concentration = ?,"
-        + " interests = ?, year = ?, favClass = ?" + " WHERE id == ?;";
+        + " interests = ?, year = ?" + " WHERE id == ?;";
 
     PreparedStatement prep = conn.prepareStatement(update);
-    prep.setString(1, concentration);
-    prep.setString(2, interests);
-    prep.setString(3, classYear);
-    prep.setString(4, favClass);
-    prep.setString(5, id);
+    prep.setString(1, user.getConcentration());
+    prep.setString(2, interestString);
+    prep.setString(3, user.getClassYear());
+    prep.setString(4, user.getTokenId());
     prep.executeUpdate();
     prep.close();
   }
@@ -163,21 +197,21 @@ public class DbProxy {
       while (rs.next()) {
         if (rs.getString("password").equals(password)) {
           user = new User(rs.getString("id"));
-          user.setClassYear(rs.getString("year"));
           // user.setEmail(rs.getString("email"));
           // user.setPassword(rs.getString("password"));
           user.setConcentration(rs.getString("concentration"));
           user.setClassYear(rs.getString("year"));
-          user.setFavClassCode(rs.getString("favClass"));
 
           String interests = rs.getString("interests");
           if (interests != null) {
-            List<String> interestList = Arrays.asList(interests.split(","));
+            List<String> interestList =
+                new ArrayList<>(Arrays.asList(interests.split(",")));
             user.setInterests(interestList);
           }
           String sections = rs.getString("sections_in_cart");
           if (sections != null) {
-            List<String> sectionList = Arrays.asList(sections.split(","));
+            List<String> sectionList =
+                new ArrayList<>(Arrays.asList(sections.split(",")));
             user.setCart(sectionList);
           }
 
@@ -219,10 +253,22 @@ public class DbProxy {
         // user.setPassword(rs.getString("password"));
         user.setConcentration(rs.getString("concentration"));
         user.setClassYear(rs.getString("year"));
-        user.setFavClassCode(rs.getString("favClass"));
         String interests = rs.getString("interests");
-        List<String> interestList = Arrays.asList(interests.split(","));
-        user.setInterests(interestList);
+        String sections = rs.getString("sections_in_cart");
+        if (sections != null && sections.length() > 1) {
+          List<String> sectionList =
+              new ArrayList<>(Arrays.asList(sections.split(",")));
+          user.setCart(sectionList);
+        } else {
+          user.setCart(new ArrayList<>());
+        }
+        if (interests != null && interests.length() > 1) {
+          List<String> interestList =
+              new ArrayList<>(Arrays.asList(interests.split(",")));
+          user.setInterests(interestList);
+        } else {
+          user.setInterests(new ArrayList<>());
+        }
       }
       rs.close();
       prep.close();
