@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
@@ -103,6 +104,39 @@ public class DbProxy {
   }
 
   /**
+   * Updates user cart.
+   *
+   * @param user
+   *          the user we're updating the cart for.
+   * @throws SQLException
+   *           if there's an error with the sql query
+   */
+  public void updateUserCart(User user) throws SQLException {
+    // set cart data about user
+    StringBuilder sections = new StringBuilder();
+    for (String sectionId : user.getSectionsInCart()) {
+      sections.append(sectionId);
+      sections.append(",");
+    }
+    String sectionsString = "";
+    if (sections.length() > 1) {
+      sections.deleteCharAt(sections.length() - 1); // delete the last comma
+      sectionsString = sections.toString();
+    }
+    String id = user.getTokenId();
+    System.out.println("The id we're updating is " + id);
+
+    // Put into DB
+    String update = "UPDATE users SET sections_in_cart = ? WHERE id = ?";
+
+    PreparedStatement prep = conn.prepareStatement(update);
+    prep.setString(1, sectionsString);
+    prep.setString(2, id);
+    prep.executeUpdate();
+    prep.close();
+  }
+
+  /**
    * Sets user data for an inputed user.
    *
    * @param id
@@ -168,7 +202,6 @@ public class DbProxy {
           // user.setPassword(rs.getString("password"));
           user.setConcentration(rs.getString("concentration"));
           user.setClassYear(rs.getString("year"));
-          user.setFavClassCode(rs.getString("favClass"));
 
           String interests = rs.getString("interests");
           if (interests != null) {
@@ -219,10 +252,20 @@ public class DbProxy {
         // user.setPassword(rs.getString("password"));
         user.setConcentration(rs.getString("concentration"));
         user.setClassYear(rs.getString("year"));
-        user.setFavClassCode(rs.getString("favClass"));
         String interests = rs.getString("interests");
-        List<String> interestList = Arrays.asList(interests.split(","));
-        user.setInterests(interestList);
+        String sections = rs.getString("sections_in_cart");
+        if (sections != null && sections.length() > 1) {
+          List<String> sectionList = Arrays.asList(sections.split(","));
+          user.setCart(sectionList);
+        } else {
+          user.setCart(new ArrayList<>());
+        }
+        if (interests != null && interests.length() > 1) {
+          List<String> interestList = Arrays.asList(interests.split(","));
+          user.setInterests(interestList);
+        } else {
+          user.setInterests(new ArrayList<>());
+        }
       }
       rs.close();
       prep.close();

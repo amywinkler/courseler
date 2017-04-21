@@ -8,6 +8,18 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import edu.brown.cs.courseler.courseinfo.Course;
+import edu.brown.cs.courseler.data.CourseDataCache;
+import edu.brown.cs.courseler.reccomendation.Filter;
+import edu.brown.cs.courseler.reccomendation.WritCourseReccomendations;
+import edu.brown.cs.coursler.userinfo.DbProxy;
+import edu.brown.cs.coursler.userinfo.User;
+import edu.brown.cs.coursler.userinfo.UserCache;
+import freemarker.template.Configuration;
 import spark.ExceptionHandler;
 import spark.ModelAndView;
 import spark.QueryParamsMap;
@@ -17,17 +29,6 @@ import spark.Route;
 import spark.Spark;
 import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
-
-import com.google.common.collect.ImmutableMap;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import edu.brown.cs.courseler.courseinfo.Course;
-import edu.brown.cs.courseler.data.CourseDataCache;
-import edu.brown.cs.coursler.userinfo.DbProxy;
-import edu.brown.cs.coursler.userinfo.User;
-import edu.brown.cs.coursler.userinfo.UserCache;
-import freemarker.template.Configuration;
 
 /**
  * The main request handler class where all API calls can be called. All calls
@@ -77,6 +78,8 @@ public final class RequestHandler {
     Spark.post("/signup", new SignupHandler());
     Spark.get("/ipVerify", new IPVerificationHandler());
     Spark.post("/course", new CourseHandler());
+    // Spark.post("/addSection", new AddCartSectionHandler());
+    // Spark.post("/removeSection", new RemoveCartSectionHandler());
     Spark.get("/departments", new DepartmentHandler());
     Spark.post("/reccomend", new ReccomendationHandler());
   }
@@ -96,7 +99,7 @@ public final class RequestHandler {
   }
 
   /**
-   * Processes a request to log in!
+   * Processes a request to add a section to the cart!
    *
    * @author adevor
    *
@@ -107,9 +110,12 @@ public final class RequestHandler {
 
       Map<String, Object> variables;
       QueryParamsMap qm = req.queryMap();
-      String email = qm.value("email");
-      String pass = qm.value("password");
-      User user = db.getUserFromEmailAndPassword(email, pass);
+      String section = qm.value("section");
+      String id = qm.value("id");
+
+      User user = db.getUserFromId(id);
+      user.addToCart(section);
+
       if (user == null) {
         variables = ImmutableMap.of("status", "unregistered");
       } else if (user.getTokenId().equals("incorrect_password")) {
@@ -133,6 +139,44 @@ public final class RequestHandler {
             user.getTokenId(), "sections_in_cart",
             ImmutableMap.of("class_year", year, "concentration", concentration,
                 "favorite_class", favClass, "dept_interests", interests));
+      }
+      return GSON.toJson(variables);
+    }
+  }
+
+  /**
+   * Processes a request to log in!
+   *
+   * @author adevor
+   *
+   */
+  private class AddCartSectionHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+
+      Map<String, Object> variables;
+      QueryParamsMap qm = req.queryMap();
+      String email = qm.value("email");
+      String pass = qm.value("password");
+      User user = db.getUserFromEmailAndPassword(email, pass);
+      if (user == null) {
+        variables = ImmutableMap.of("status", "unregistered");
+      } else if (user.getTokenId().equals("incorrect_password")) {
+        variables = ImmutableMap.of("status", "wrong_password");
+      } else {
+        String year = user.getClassYear();
+        if (year == null) {
+          year = "";
+        }
+        String concentration = user.getConcentration();
+        if (concentration == null) {
+          concentration = "";
+        }
+        List<String> interests = user.getInterests();
+
+        variables = ImmutableMap.of("status", "success", "id", user
+            .getTokenId(), "sections_in_cart", ImmutableMap.of("class_year",
+            year, "concentration", concentration, "dept_interests", interests));
       }
       return GSON.toJson(variables);
     }
@@ -216,6 +260,8 @@ public final class RequestHandler {
     }
   }
 
+<<<<<<< HEAD
+=======
   /**
    * Return an alphabetically sorted list of departments.
    *
@@ -239,12 +285,42 @@ public final class RequestHandler {
     @Override
     public String handle(Request req, Response res) {
       QueryParamsMap qm = req.queryMap();
+      String userId = qm.value("id");
+      User currUser = userCache.getUserForId(userId);
+      // open=true|false&less_than_10_hours=true|false&small_courses=true|false
+
+      String open = qm.value("open");
+      boolean openFilter = false;
+      if (open != null) {
+        openFilter = Boolean.parseBoolean(open);
+      }
+
+      String lessThanTenHours = qm.value("less_than_10_hours");
+      boolean lessThanTenHoursFilter = false;
+      if (lessThanTenHours != null) {
+        lessThanTenHoursFilter = Boolean.parseBoolean(lessThanTenHours);
+      }
+
+      String smallCourses = qm.value("small_courses");
+      boolean smallCoursesFilter = false;
+      if (smallCourses != null) {
+        smallCoursesFilter = Boolean.parseBoolean(smallCourses);
+      }
+
+      Filter filter = new Filter(openFilter, lessThanTenHoursFilter,
+          smallCoursesFilter);
+      WritCourseReccomendations wcRecs = new WritCourseReccomendations(
+          currUser, filter);
+      List<Course> writCourses = wcRecs.getReccomendations();
+
+
       return GSON.toJson(null);
     }
   }
 
 
 
+>>>>>>> 61c7f0c7cc2ff97bb6b5ca3f3a6d5811fa085416
   /**
    * Display an error page when an exception occurs in the server.
    *
