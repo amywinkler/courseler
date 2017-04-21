@@ -255,6 +255,12 @@ export class API {
     fakeDelay(() => {
       callback(courses[courseCode]);
     });
+    const postParameters = {courseId: 'VISA 0100'};
+    $.post("/course", postParameters, responseJSON => {
+      // Parse the JSON response into a JavaScript object.
+      const responseObject = JSON.parse(responseJSON);
+      console.log(responseObject);
+    });
   }
 
   // adds one of the two sections to the backend calendar
