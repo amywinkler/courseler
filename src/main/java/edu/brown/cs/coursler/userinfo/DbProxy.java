@@ -218,7 +218,6 @@ public class DbProxy {
         // user.setPassword(rs.getString("password"));
         user.setConcentration(rs.getString("concentration"));
         user.setClassYear(rs.getString("year"));
-        user.setFavClassCode(rs.getString("favClass"));
         String interests = rs.getString("interests");
         List<String> interestList = Arrays.asList(interests.split(","));
         user.setInterests(interestList);
