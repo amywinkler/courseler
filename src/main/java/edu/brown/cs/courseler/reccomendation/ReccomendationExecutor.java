@@ -1,5 +1,6 @@
 package edu.brown.cs.courseler.reccomendation;
 
+
 /**
  * Class to get and aggregate the different types of reccomendations.
  *
@@ -7,5 +8,6 @@ package edu.brown.cs.courseler.reccomendation;
  *
  */
 public class ReccomendationExecutor {
+
 
 }

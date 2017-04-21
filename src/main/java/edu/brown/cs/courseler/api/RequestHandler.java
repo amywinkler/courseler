@@ -36,7 +36,6 @@ import freemarker.template.Configuration;
  *
  */
 public final class RequestHandler {
-
   private static final Gson GSON = new GsonBuilder().serializeNulls().create();
   private DbProxy db;
   private static final int THE_NUMBER_NEEDED_FOR_IP = 7;
@@ -47,6 +46,8 @@ public final class RequestHandler {
    *
    * @param fileName
    *          the name of the file for the db.
+   * @param cache
+   *          the course data cache
    */
   public RequestHandler(String fileName, CourseDataCache cache) {
     db = new DbProxy(fileName);
@@ -202,8 +203,6 @@ public final class RequestHandler {
   private class CourseHandler implements Route {
     @Override
     public String handle(Request req, Response res) {
-
-      Map<String, Object> variables;
       QueryParamsMap qm = req.queryMap();
       String courseId = qm.value("courseId");
       Course currCourse = cache.getCourseFomCache(courseId);
