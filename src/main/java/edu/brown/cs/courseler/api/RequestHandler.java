@@ -88,6 +88,7 @@ public final class RequestHandler {
     Spark.get("/departments", new DepartmentHandler());
     Spark.post("/reccomend", new ReccomendationHandler());
     Spark.post("/search", new SearchHandler());
+    Spark.post("/userPrefs", new UserPrefHandler());
   }
 
   /**
@@ -105,27 +106,23 @@ public final class RequestHandler {
   }
 
   /**
-   * Processes a request to add a section to the cart!
+   * Processes a request to get user preferences!
    *
    * @author adevor
    *
    */
-  private class LoginHandler implements Route {
+  private class UserPrefHandler implements Route {
     @Override
     public String handle(Request req, Response res) {
 
       Map<String, Object> variables;
       QueryParamsMap qm = req.queryMap();
-      String section = qm.value("section");
       String id = qm.value("id");
 
       User user = db.getUserFromId(id);
-      user.addToCart(section);
 
       if (user == null) {
-        variables = ImmutableMap.of("status", "unregistered");
-      } else if (user.getTokenId().equals("incorrect_password")) {
-        variables = ImmutableMap.of("status", "wrong_password");
+        variables = ImmutableMap.of("status", "does_not_exist");
       } else {
         String year = user.getClassYear();
         if (year == null) {
@@ -139,9 +136,46 @@ public final class RequestHandler {
         List<String> interests = user.getInterests();
 
         variables = ImmutableMap.of("status", "success", "id",
-            user.getTokenId(), "sections_in_cart",
+            user.getTokenId(), "preferences",
             ImmutableMap.of("class_year", year, "concentration", concentration,
                 "dept_interests", interests));
+      }
+      return GSON.toJson(variables);
+    }
+  }
+
+  /**
+   * Processes a request to log in!
+   *
+   * @author adevor
+   *
+   */
+  private class LoginHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+
+      Map<String, Object> variables;
+      QueryParamsMap qm = req.queryMap();
+      String email = qm.value("email");
+      String pass = qm.value("password");
+      User user = db.getUserFromEmailAndPassword(email, pass);
+      if (user == null) {
+        variables = ImmutableMap.of("status", "unregistered");
+      } else if (user.getTokenId().equals("incorrect_password")) {
+        variables = ImmutableMap.of("status", "wrong_password");
+      } else {
+        String year = user.getClassYear();
+        if (year == null) {
+          year = "";
+        }
+        String concentration = user.getConcentration();
+        if (concentration == null) {
+          concentration = "";
+        }
+        List<String> interests = user.getInterests();
+
+        variables =
+            ImmutableMap.of("status", "success", "id", user.getTokenId());
       }
       return GSON.toJson(variables);
     }
