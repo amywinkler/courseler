@@ -51,7 +51,7 @@ public final class RequestHandler {
    *
    * @param fileName
    *          the name of the file for the db.
-   * @param cache
+   * @param courseCache
    *          the course data cache
    */
   public RequestHandler(String fileName, CourseDataCache courseCache) {
@@ -82,6 +82,7 @@ public final class RequestHandler {
     Spark.post("/course", new CourseHandler());
     Spark.post("/addSection", new AddCartSectionHandler());
     Spark.post("/removeSection", new RemoveCartSectionHandler());
+    Spark.post("/getCart", new GetCartHandler());
     Spark.get("/departments", new DepartmentHandler());
     Spark.post("/reccomend", new ReccomendationHandler());
     Spark.post("/search", new SearchHandler());
@@ -145,6 +146,26 @@ public final class RequestHandler {
   }
 
   /**
+   * Processes a request to get cart section!
+   *
+   * @author adevor
+   *
+   */
+  private class GetCartHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+
+      Map<String, Object> variables;
+      QueryParamsMap qm = req.queryMap();
+      String id = qm.value("id");
+      User user = userCache.getUserForId(id);
+      List<String> sections = user.getSectionsInCart();
+      variables = ImmutableMap.of("sections", sections);
+      return GSON.toJson(variables);
+    }
+  }
+
+  /**
    * Processes a request to add cart section!
    *
    * @author adevor
@@ -156,7 +177,7 @@ public final class RequestHandler {
 
       Map<String, Object> variables;
       QueryParamsMap qm = req.queryMap();
-      String id = qm.value("email");
+      String id = qm.value("id");
       String section = qm.value("section");
       User user = userCache.getUserForId(id);
       user.addToCart(section);
@@ -183,7 +204,7 @@ public final class RequestHandler {
 
       Map<String, Object> variables;
       QueryParamsMap qm = req.queryMap();
-      String id = qm.value("email");
+      String id = qm.value("id");
       String section = qm.value("section");
       User user = userCache.getUserForId(id);
       user.removeFromCart(section);
