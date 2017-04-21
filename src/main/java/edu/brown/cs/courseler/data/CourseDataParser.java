@@ -200,6 +200,8 @@ public class CourseDataParser {
 
       Section sect = new Section(sectionId, courseId, title, professors,
           sectionTime, locations, overlaps);
+
+      sect.setIsMainSection(nameArr[2].substring(0, 1).equals("S"));
       cache.addToSectionCache(sectionId, sect);
 
       Course currCourse = cache.getCourseFomCache(courseId);

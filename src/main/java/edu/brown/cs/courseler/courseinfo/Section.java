@@ -17,6 +17,7 @@ public class Section {
   private SectionTime times;
   private MeetingLocation meetingLocations;
   private transient List<TimeSlot> overlappingTimeSlots;
+  private transient boolean isMainSection;
 
   /**
    * Constructor for a section.
@@ -38,7 +39,7 @@ public class Section {
    */
   public Section(String sectionId, String courseCode,
       String title, List<String> professors, SectionTime times,
-      MeetingLocation meetingLocations, List<TimeSlot> overlappingTimeSlots){
+      MeetingLocation meetingLocations, List<TimeSlot> overlappingTimeSlots) {
     this.sectionId = sectionId;
     this.courseCode = courseCode;
     this.title = title;
@@ -46,6 +47,15 @@ public class Section {
     this.times = times;
     this.meetingLocations = meetingLocations;
     this.overlappingTimeSlots = overlappingTimeSlots;
+  }
+
+  /**
+   * @param mainSection
+   *          boolean representing whether or not the section is a main section
+   */
+  public void setIsMainSection(boolean mainSection) {
+    this.isMainSection = mainSection;
+
   }
 
   /**
