@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -51,7 +52,7 @@ public final class RequestHandler {
    *
    * @param fileName
    *          the name of the file for the db.
-   * @param cache
+   * @param courseCache
    *          the course data cache
    */
   public RequestHandler(String fileName, CourseDataCache courseCache) {
@@ -80,8 +81,9 @@ public final class RequestHandler {
     Spark.post("/signup", new SignupHandler());
     Spark.get("/ipVerify", new IPVerificationHandler());
     Spark.post("/course", new CourseHandler());
-    // Spark.post("/addSection", new AddCartSectionHandler());
-    // Spark.post("/removeSection", new RemoveCartSectionHandler());
+    Spark.post("/addSection", new AddCartSectionHandler());
+    Spark.post("/removeSection", new RemoveCartSectionHandler());
+    Spark.post("/getCart", new GetCartHandler());
     Spark.get("/departments", new DepartmentHandler());
     Spark.post("/reccomend", new ReccomendationHandler());
     Spark.post("/search", new SearchHandler());
@@ -135,16 +137,37 @@ public final class RequestHandler {
 
         List<String> interests = user.getInterests();
 
-        variables = ImmutableMap.of("status", "success", "id", user
-            .getTokenId(), "sections_in_cart", ImmutableMap.of("class_year",
-            year, "concentration", concentration, "dept_interests", interests));
+        variables = ImmutableMap.of("status", "success", "id",
+            user.getTokenId(), "sections_in_cart",
+            ImmutableMap.of("class_year", year, "concentration", concentration,
+                "dept_interests", interests));
       }
       return GSON.toJson(variables);
     }
   }
 
   /**
-   * Processes a request to log in!
+   * Processes a request to get cart section!
+   *
+   * @author adevor
+   *
+   */
+  private class GetCartHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+
+      Map<String, Object> variables;
+      QueryParamsMap qm = req.queryMap();
+      String id = qm.value("id");
+      User user = userCache.getUserForId(id);
+      List<String> sections = user.getSectionsInCart();
+      variables = ImmutableMap.of("sections", sections);
+      return GSON.toJson(variables);
+    }
+  }
+
+  /**
+   * Processes a request to add cart section!
    *
    * @author adevor
    *
@@ -155,28 +178,44 @@ public final class RequestHandler {
 
       Map<String, Object> variables;
       QueryParamsMap qm = req.queryMap();
-      String email = qm.value("email");
-      String pass = qm.value("password");
-      User user = db.getUserFromEmailAndPassword(email, pass);
-      if (user == null) {
-        variables = ImmutableMap.of("status", "unregistered");
-      } else if (user.getTokenId().equals("incorrect_password")) {
-        variables = ImmutableMap.of("status", "wrong_password");
-      } else {
-        String year = user.getClassYear();
-        if (year == null) {
-          year = "";
-        }
-        String concentration = user.getConcentration();
-        if (concentration == null) {
-          concentration = "";
-        }
-        List<String> interests = user.getInterests();
-
-        variables = ImmutableMap.of("status", "success", "id", user
-            .getTokenId(), "sections_in_cart", ImmutableMap.of("class_year",
-            year, "concentration", concentration, "dept_interests", interests));
+      String id = qm.value("id");
+      String section = qm.value("section");
+      User user = userCache.getUserForId(id);
+      user.addToCart(section);
+      try {
+        db.updateUserCart(user);
+      } catch (SQLException e) {
+        variables = ImmutableMap.of("status", "failure");
+        return GSON.toJson(variables);
       }
+      variables = ImmutableMap.of("status", "success");
+      return GSON.toJson(variables);
+    }
+  }
+
+  /**
+   * Processes a request to remove cart section!
+   *
+   * @author adevor
+   *
+   */
+  private class RemoveCartSectionHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+
+      Map<String, Object> variables;
+      QueryParamsMap qm = req.queryMap();
+      String id = qm.value("id");
+      String section = qm.value("section");
+      User user = userCache.getUserForId(id);
+      user.removeFromCart(section);
+      try {
+        db.updateUserCart(user);
+      } catch (SQLException e) {
+        variables = ImmutableMap.of("status", "failure");
+        return GSON.toJson(variables);
+      }
+      variables = ImmutableMap.of("status", "success");
       return GSON.toJson(variables);
     }
   }
@@ -304,13 +343,13 @@ public final class RequestHandler {
         smallCoursesFilter = Boolean.parseBoolean(smallCourses);
       }
 
+
       List<Course> allCourses = courseCache.getAllCourses();
       Filter filter = new Filter(openFilter, lessThanTenHoursFilter,
           smallCoursesFilter);
       WritCourseReccomendations wcRecs = new WritCourseReccomendations(
           currUser, filter, allCourses);
       List<Course> writCourses = wcRecs.getReccomendations();
-
 
       return GSON.toJson(null);
     }
