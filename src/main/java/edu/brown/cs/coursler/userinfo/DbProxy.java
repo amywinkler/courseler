@@ -204,12 +204,14 @@ public class DbProxy {
 
           String interests = rs.getString("interests");
           if (interests != null) {
-            List<String> interestList = Arrays.asList(interests.split(","));
+            List<String> interestList =
+                new ArrayList<>(Arrays.asList(interests.split(",")));
             user.setInterests(interestList);
           }
           String sections = rs.getString("sections_in_cart");
           if (sections != null) {
-            List<String> sectionList = Arrays.asList(sections.split(","));
+            List<String> sectionList =
+                new ArrayList<>(Arrays.asList(sections.split(",")));
             user.setCart(sectionList);
           }
 
@@ -254,13 +256,15 @@ public class DbProxy {
         String interests = rs.getString("interests");
         String sections = rs.getString("sections_in_cart");
         if (sections != null && sections.length() > 1) {
-          List<String> sectionList = Arrays.asList(sections.split(","));
+          List<String> sectionList =
+              new ArrayList<>(Arrays.asList(sections.split(",")));
           user.setCart(sectionList);
         } else {
           user.setCart(new ArrayList<>());
         }
         if (interests != null && interests.length() > 1) {
-          List<String> interestList = Arrays.asList(interests.split(","));
+          List<String> interestList =
+              new ArrayList<>(Arrays.asList(interests.split(",")));
           user.setInterests(interestList);
         } else {
           user.setInterests(new ArrayList<>());

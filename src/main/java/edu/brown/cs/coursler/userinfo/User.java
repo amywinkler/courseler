@@ -97,10 +97,13 @@ public class User {
    *
    * @param sectionId
    *          the id of the section.
+   *
    */
   public void removeFromCart(String sectionId) {
     if (sectionsInCart.contains(sectionId)) {
       this.sectionsInCart.remove(sectionId);
+    } else {
+      throw new IllegalArgumentException("No such section in cart");
     }
   }
 

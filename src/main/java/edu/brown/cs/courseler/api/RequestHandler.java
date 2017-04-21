@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -129,7 +130,8 @@ public final class RequestHandler {
         }
         String interests = qm.value("interests");
         if (interests != null) {
-          List<String> interestList = Arrays.asList(interests.split(","));
+          List<String> interestList =
+              new ArrayList<>(Arrays.asList(interests.split(",")));
           user.setInterests(interestList);
         }
         String year = qm.value("year");
@@ -228,8 +230,12 @@ public final class RequestHandler {
       QueryParamsMap qm = req.queryMap();
       String id = qm.value("id");
       User user = userCache.getUserForId(id);
-      List<String> sections = user.getSectionsInCart();
-      variables = ImmutableMap.of("sections", sections);
+      if (user == null) {
+        variables = ImmutableMap.of("status", "no_such_user");
+      } else {
+        List<String> sections = user.getSectionsInCart();
+        variables = ImmutableMap.of("status", "success", "sections", sections);
+      }
       return GSON.toJson(variables);
     }
   }
@@ -249,6 +255,10 @@ public final class RequestHandler {
       String id = qm.value("id");
       String section = qm.value("section");
       User user = userCache.getUserForId(id);
+      if (section == null) {
+        variables = ImmutableMap.of("status", "null_section_error");
+        return GSON.toJson(variables);
+      }
       user.addToCart(section);
       try {
         db.updateUserCart(user);
@@ -276,7 +286,13 @@ public final class RequestHandler {
       String id = qm.value("id");
       String section = qm.value("section");
       User user = userCache.getUserForId(id);
-      user.removeFromCart(section);
+      try {
+        user.removeFromCart(section);
+      } catch (IllegalArgumentException e) {
+        variables = ImmutableMap.of("status", "no_such_cart_object_failure");
+        return GSON.toJson(variables);
+      }
+
       try {
         db.updateUserCart(user);
       } catch (SQLException e) {
