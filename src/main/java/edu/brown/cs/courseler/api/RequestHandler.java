@@ -43,7 +43,7 @@ public final class RequestHandler {
   private static final Gson GSON = new GsonBuilder().serializeNulls().create();
   private DbProxy db;
   private static final int THE_NUMBER_NEEDED_FOR_IP = 7;
-  private static final int MAX_SEARCH_LIST_SIZE = 15;
+  private static final int MAX_SEARCH_LIST_SIZE = 20;
   private CourseDataCache courseCache;
   private UserCache userCache;
 
