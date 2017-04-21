@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,7 +88,8 @@ public final class RequestHandler {
     Spark.get("/departments", new DepartmentHandler());
     Spark.post("/reccomend", new ReccomendationHandler());
     Spark.post("/search", new SearchHandler());
-    Spark.post("/userPrefs", new UserPrefHandler());
+    Spark.post("/getUserPrefs", new UserPrefHandler());
+    Spark.post("/setUserPrefs", new SetUserPrefHandler());
   }
 
   /**
@@ -105,6 +107,48 @@ public final class RequestHandler {
   }
 
   /**
+   * Processes a request to set user preferences!
+   *
+   * @author adevor
+   *
+   */
+  private class SetUserPrefHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+
+      Map<String, Object> variables;
+      QueryParamsMap qm = req.queryMap();
+      String id = qm.value("id");
+      User user = userCache.getUserForId(id);
+      if (user == null) {
+        variables = ImmutableMap.of("status", "no_such_user");
+      } else {
+        String concentration = qm.value("concentration");
+        if (concentration != null) {
+          user.setConcentration(concentration);
+        }
+        String interests = qm.value("interests");
+        if (interests != null) {
+          List<String> interestList = Arrays.asList(interests.split(","));
+          user.setInterests(interestList);
+        }
+        String year = qm.value("year");
+        if (year != null) {
+          user.setClassYear(year);
+        }
+        try {
+          db.setUserPreferenceData(user);
+        } catch (SQLException e) {
+          variables = ImmutableMap.of("status", "failure");
+        }
+
+        variables = ImmutableMap.of("status", "success");
+      }
+      return GSON.toJson(variables);
+    }
+  }
+
+  /**
    * Processes a request to get user preferences!
    *
    * @author adevor
@@ -118,7 +162,7 @@ public final class RequestHandler {
       QueryParamsMap qm = req.queryMap();
       String id = qm.value("id");
 
-      User user = db.getUserFromId(id);
+      User user = userCache.getUserForId(id);
 
       if (user == null) {
         variables = ImmutableMap.of("status", "does_not_exist");

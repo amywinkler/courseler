@@ -40,11 +40,23 @@ public class User {
     sectionsInCart = new ArrayList<>();
   }
 
-  void setClassYear(String year) {
+  /**
+   * Sets class year of user.
+   *
+   * @param year
+   *          the year of the user.
+   */
+  public void setClassYear(String year) {
     this.classYear = year;
   }
 
-  void setConcentration(String conc) {
+  /**
+   * Sets the user's concentration.
+   *
+   * @param conc
+   *          the concentration of the user.
+   */
+  public void setConcentration(String conc) {
     this.concentration = conc;
   }
 
@@ -56,8 +68,13 @@ public class User {
   // this.password = pw;
   // }
 
-
-  void setInterests(List<String> interests) {
+  /**
+   * Sets user interests.
+   *
+   * @param interests
+   *          the interests of the user.
+   */
+  public void setInterests(List<String> interests) {
     this.interests = interests;
   }
 
@@ -104,7 +121,6 @@ public class User {
   public List<String> getSectionsInCart() {
     return sectionsInCart;
   }
-
 
   /**
    * Get concentration of user.

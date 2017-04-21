@@ -138,33 +138,34 @@ public class DbProxy {
   /**
    * Sets user data for an inputed user.
    *
-   * @param id
-   *          the id of the user we're updating.
-   * @param concentration
-   *          the concentration inputted
-   * @param interests
-   *          the dept interests e.g. "CSCI,VISA"
-   * @param classYear
-   *          the class year of the person
-   * @param favClass
-   *          the favorite class code of the person
+   * @param user
+   *          the user we want to update the data for.
    * @throws SQLException
    *           if there's an error with the sql query
    */
-  public void setUserData(String id, String concentration, String interests,
-      String classYear, String favClass) throws SQLException {
+  public void setUserPreferenceData(User user) throws SQLException {
     // set new data about the user (concentration, interests, class year)
+
+    StringBuilder interests = new StringBuilder();
+    for (String interest : user.getInterests()) {
+      interests.append(interest);
+      interests.append(",");
+    }
+    String interestString = "";
+    if (interests.length() > 1) {
+      interests.deleteCharAt(interests.length() - 1); // delete the last comma
+      interestString = interests.toString();
+    }
 
     // Put into DB
     String update = "UPDATE users SET concentration = ?,"
-        + " interests = ?, year = ?, favClass = ?" + " WHERE id == ?;";
+        + " interests = ?, year = ?" + " WHERE id == ?;";
 
     PreparedStatement prep = conn.prepareStatement(update);
-    prep.setString(1, concentration);
-    prep.setString(2, interests);
-    prep.setString(3, classYear);
-    prep.setString(4, favClass);
-    prep.setString(5, id);
+    prep.setString(1, user.getConcentration());
+    prep.setString(2, interestString);
+    prep.setString(3, user.getClassYear());
+    prep.setString(4, user.getTokenId());
     prep.executeUpdate();
     prep.close();
   }
@@ -196,7 +197,6 @@ public class DbProxy {
       while (rs.next()) {
         if (rs.getString("password").equals(password)) {
           user = new User(rs.getString("id"));
-          user.setClassYear(rs.getString("year"));
           // user.setEmail(rs.getString("email"));
           // user.setPassword(rs.getString("password"));
           user.setConcentration(rs.getString("concentration"));
