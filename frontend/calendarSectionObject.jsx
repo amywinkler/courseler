@@ -25,6 +25,8 @@ export default class CalendarSectionObject extends React.Component {
 		)
 	}
 
+	// wait this is wrong lol
+
 	convertTime(time) {
 		let hours = time.toString().substring(0,2) % 12;
 		let minutes = time.toString().substring(2,4);
