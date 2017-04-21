@@ -10,17 +10,24 @@ export default class PreferencesScreen extends React.Component {
        classYear: '',
        concentration: '',
        favoriteClass: '',
-       departmentalInterests: ''
+       departmentalInterests: '',
+       departments: []
      };
      this.displayExistingPreferences();
+     this.loadDepartments();
   }
 
   render() {
 
+    // console.log(this.state.departments);
+
     let classYearField = <input type='text' value={this.state.classYear} onChange={ (e) => {this.setState({classYear: e.target.value})} } />;
-    let concentrationField = <input type='text' value={this.state.concentration} onChange={ (e) => {this.setState({concentration: e.target.value})} } />;
     let favoriteClassField = <input type='text' value={this.state.favoriteClass} onChange={ (e) => {this.setState({favoriteClass: e.target.value})} } />;
     let departmentalInterestsField = <input type='text' value={this.state.departmentalInterests} onChange={ (e) => {this.setState({departmentalInterests: e.target.value})} } />;
+    let concentrationField = (
+      <select name="deptInterests" onChange={ (e) => {console.log(e.target.value)}}> 
+      </select>
+    );
 
     let doneButton = <a href='#' onClick={() => this.done()}>done</a>;
 
@@ -82,6 +89,15 @@ export default class PreferencesScreen extends React.Component {
       this.setState({departmentalInterests: preferences.dept_interests});
     }
     api.getPrefs(display);
+  }
+
+  loadDepartments() {
+    let departmentDropdown = (departments) => {
+      this.setState({departments: departments.map((department, index) => {
+        return <option key={index} value={department}>{department}</option>;
+      })});
+    };
+    api.getDepartments(departmentDropdown);
   }
 
 

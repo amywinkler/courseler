@@ -284,4 +284,13 @@ export class API {
       }
     });
   }
+
+  // gets all the departments.
+  getDepartments(callback) {
+    $.get("/departments", responseJSON => {
+      const responseObject = JSON.parse(responseJSON);
+      callback(responseObject);
+    });
+  }
+
 }
