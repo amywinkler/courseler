@@ -202,7 +202,6 @@ public class DbProxy {
           // user.setPassword(rs.getString("password"));
           user.setConcentration(rs.getString("concentration"));
           user.setClassYear(rs.getString("year"));
-          user.setFavClassCode(rs.getString("favClass"));
 
           String interests = rs.getString("interests");
           if (interests != null) {
@@ -253,7 +252,6 @@ public class DbProxy {
         // user.setPassword(rs.getString("password"));
         user.setConcentration(rs.getString("concentration"));
         user.setClassYear(rs.getString("year"));
-        user.setFavClassCode(rs.getString("favClass"));
         String interests = rs.getString("interests");
         String sections = rs.getString("sections_in_cart");
         if (sections != null && sections.length() > 1) {

@@ -80,7 +80,6 @@ public class DbProxyTest {
     assertTrue(alberta2.getConcentration().equals("CSCI"));
     assertTrue(alberta2.getInterests().contains("VISA"));
     assertTrue(alberta2.getClassYear().equals("2018.5"));
-    assertTrue(alberta2.getFavClassCode().equals("CSCI 0320"));
   }
 
   /**
@@ -107,7 +106,6 @@ public class DbProxyTest {
     assertTrue(alberta2.getConcentration().equals("CSCI"));
     assertTrue(alberta2.getInterests().contains("VISA"));
     assertTrue(alberta2.getClassYear().equals("2018.5"));
-    assertTrue(alberta2.getFavClassCode().equals("CSCI 0320"));
   }
 
   /**

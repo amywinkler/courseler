@@ -12,9 +12,9 @@ public class User {
 
   // private String email;
   // private String password; // LOL saved in plaintext oh well
-  private String classYear; // "2019" or "2017.5"
+  private String classYear; // "Freshman", "Sophomore", "Junior", "Senior",
+                            // "Grad Student"
   private String concentration; // e.g. "CSCI"
-  private String favClassCode; // e.g. "CSCI 0320"
   private String loginIdToken; // e.g. AxW67yh
   private List<String> interests; // e.g. CSCI, VISA
   private List<String> sectionsInCart;
@@ -34,7 +34,6 @@ public class User {
     this.loginIdToken = token;
     classYear = null;
     concentration = null;
-    favClassCode = null;
     // email = null;
     // password = null;
     interests = new ArrayList<>();
@@ -57,9 +56,6 @@ public class User {
   // this.password = pw;
   // }
 
-  void setFavClassCode(String classC) {
-    this.favClassCode = classC;
-  }
 
   void setInterests(List<String> interests) {
     this.interests = interests;
@@ -109,14 +105,6 @@ public class User {
     return sectionsInCart;
   }
 
-  /**
-   * Gets fav class code of user.
-   *
-   * @return fav class code
-   */
-  public String getFavClassCode() {
-    return favClassCode;
-  }
 
   /**
    * Get concentration of user.

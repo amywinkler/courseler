@@ -17,7 +17,7 @@ import joptsimple.OptionSet;
  */
 public final class Main {
   private static final int DEFAULT_PORT = 4567;
-  private static CourseDataCache cache;
+  private static CourseDataCache courseCache;
   private static CourselerMethodRunner cmr;
 
   /**
@@ -27,9 +27,9 @@ public final class Main {
    *          An array of command line arguments
    */
   public static void main(String[] args) {
-    cache = new CourseDataCache();
-    CourseDataParser cdp = new CourseDataParser(cache);
-    cmr = new CourselerMethodRunner(cache);
+    courseCache = new CourseDataCache();
+    CourseDataParser cdp = new CourseDataParser(courseCache);
+    cmr = new CourselerMethodRunner(courseCache);
 
     new Main(args).run();
   }
@@ -52,7 +52,7 @@ public final class Main {
       // TODO: Someone remind me to switch this to the live db when the time is
       // right.
       RequestHandler handler =
-          new RequestHandler("test_users_1.sqlite3", cache);
+          new RequestHandler("test_users_1.sqlite3", courseCache);
       handler.runSparkServer((int) options.valueOf("port"));
     }
 

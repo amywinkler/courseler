@@ -14,8 +14,11 @@ import com.google.gson.GsonBuilder;
 
 import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.data.CourseDataCache;
+import edu.brown.cs.courseler.reccomendation.Filter;
+import edu.brown.cs.courseler.reccomendation.WritCourseReccomendations;
 import edu.brown.cs.coursler.userinfo.DbProxy;
 import edu.brown.cs.coursler.userinfo.User;
+import edu.brown.cs.coursler.userinfo.UserCache;
 import freemarker.template.Configuration;
 import spark.ExceptionHandler;
 import spark.ModelAndView;
@@ -35,21 +38,24 @@ import spark.template.freemarker.FreeMarkerEngine;
  *
  */
 public final class RequestHandler {
-
   private static final Gson GSON = new GsonBuilder().serializeNulls().create();
   private DbProxy db;
   private static final int THE_NUMBER_NEEDED_FOR_IP = 7;
-  private CourseDataCache cache;
+  private CourseDataCache courseCache;
+  private UserCache userCache;
 
   /**
    * Constructs request handler.
    *
    * @param fileName
    *          the name of the file for the db.
+   * @param cache
+   *          the course data cache
    */
-  public RequestHandler(String fileName, CourseDataCache cache) {
+  public RequestHandler(String fileName, CourseDataCache courseCache) {
     db = new DbProxy(fileName);
-    this.cache = cache;
+    this.courseCache = courseCache;
+    this.userCache = new UserCache(db);
   }
 
   /**
@@ -74,6 +80,8 @@ public final class RequestHandler {
     Spark.post("/course", new CourseHandler());
     // Spark.post("/addSection", new AddCartSectionHandler());
     // Spark.post("/removeSection", new RemoveCartSectionHandler());
+    Spark.get("/departments", new DepartmentHandler());
+    Spark.post("/reccomend", new ReccomendationHandler());
   }
 
   /**
@@ -164,16 +172,11 @@ public final class RequestHandler {
         if (concentration == null) {
           concentration = "";
         }
-        String favClass = user.getFavClassCode();
-        if (favClass == null) {
-          favClass = "";
-        }
         List<String> interests = user.getInterests();
 
-        variables = ImmutableMap.of("status", "success", "id",
-            user.getTokenId(), "sections_in_cart",
-            ImmutableMap.of("class_year", year, "concentration", concentration,
-                "favorite_class", favClass, "dept_interests", interests));
+        variables = ImmutableMap.of("status", "success", "id", user
+            .getTokenId(), "sections_in_cart", ImmutableMap.of("class_year",
+            year, "concentration", concentration, "dept_interests", interests));
       }
       return GSON.toJson(variables);
     }
@@ -249,16 +252,75 @@ public final class RequestHandler {
   private class CourseHandler implements Route {
     @Override
     public String handle(Request req, Response res) {
-
-      Map<String, Object> variables;
       QueryParamsMap qm = req.queryMap();
       String courseId = qm.value("courseId");
-      Course currCourse = cache.getCourseFomCache(courseId);
+      Course currCourse = courseCache.getCourseFomCache(courseId);
 
       return GSON.toJson(currCourse);
     }
   }
 
+<<<<<<< HEAD
+=======
+  /**
+   * Return an alphabetically sorted list of departments.
+   *
+   * @author amywinkler
+   *
+   */
+  private class DepartmentHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+
+      return GSON.toJson(courseCache.getDepartmentList());
+    }
+  }
+
+  /**
+   *
+   * @author amywinkler
+   *
+   */
+  private class ReccomendationHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+      QueryParamsMap qm = req.queryMap();
+      String userId = qm.value("id");
+      User currUser = userCache.getUserForId(userId);
+      // open=true|false&less_than_10_hours=true|false&small_courses=true|false
+
+      String open = qm.value("open");
+      boolean openFilter = false;
+      if (open != null) {
+        openFilter = Boolean.parseBoolean(open);
+      }
+
+      String lessThanTenHours = qm.value("less_than_10_hours");
+      boolean lessThanTenHoursFilter = false;
+      if (lessThanTenHours != null) {
+        lessThanTenHoursFilter = Boolean.parseBoolean(lessThanTenHours);
+      }
+
+      String smallCourses = qm.value("small_courses");
+      boolean smallCoursesFilter = false;
+      if (smallCourses != null) {
+        smallCoursesFilter = Boolean.parseBoolean(smallCourses);
+      }
+
+      Filter filter = new Filter(openFilter, lessThanTenHoursFilter,
+          smallCoursesFilter);
+      WritCourseReccomendations wcRecs = new WritCourseReccomendations(
+          currUser, filter);
+      List<Course> writCourses = wcRecs.getReccomendations();
+
+
+      return GSON.toJson(null);
+    }
+  }
+
+
+
+>>>>>>> 61c7f0c7cc2ff97bb6b5ca3f3a6d5811fa085416
   /**
    * Display an error page when an exception occurs in the server.
    *
