@@ -12,7 +12,8 @@ public class User {
 
   // private String email;
   // private String password; // LOL saved in plaintext oh well
-  private String classYear; // "2019" or "2017.5"
+  private String classYear; // "Freshman", "Sophomore", "Junior", "Senior",
+                            // "Grad Student"
   private String concentration; // e.g. "CSCI"
   private String favClassCode; // e.g. "CSCI 0320"
   private String loginIdToken; // e.g. AxW67yh

@@ -24,6 +24,8 @@ import com.google.gson.GsonBuilder;
 
 import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.data.CourseDataCache;
+import edu.brown.cs.courseler.reccomendation.Filter;
+import edu.brown.cs.courseler.reccomendation.WritCourseReccomendations;
 import edu.brown.cs.coursler.userinfo.DbProxy;
 import edu.brown.cs.coursler.userinfo.User;
 import edu.brown.cs.coursler.userinfo.UserCache;
@@ -239,6 +241,35 @@ public final class RequestHandler {
     @Override
     public String handle(Request req, Response res) {
       QueryParamsMap qm = req.queryMap();
+      String userId = qm.value("id");
+      User currUser = userCache.getUserForId(userId);
+      // open=true|false&less_than_10_hours=true|false&small_courses=true|false
+
+      String open = qm.value("open");
+      boolean openFilter = false;
+      if (open != null) {
+        openFilter = Boolean.parseBoolean(open);
+      }
+
+      String lessThanTenHours = qm.value("less_than_10_hours");
+      boolean lessThanTenHoursFilter = false;
+      if (lessThanTenHours != null) {
+        lessThanTenHoursFilter = Boolean.parseBoolean(lessThanTenHours);
+      }
+
+      String smallCourses = qm.value("small_courses");
+      boolean smallCoursesFilter = false;
+      if (smallCourses != null) {
+        smallCoursesFilter = Boolean.parseBoolean(smallCourses);
+      }
+
+      Filter filter = new Filter(openFilter, lessThanTenHoursFilter,
+          smallCoursesFilter);
+      WritCourseReccomendations wcRecs = new WritCourseReccomendations(
+          currUser, filter);
+      List<Course> writCourses = wcRecs.getReccomendations();
+
+
       return GSON.toJson(null);
     }
   }
