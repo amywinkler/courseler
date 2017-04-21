@@ -74,7 +74,7 @@ public final class RequestHandler {
     Spark.post("/signup", new SignupHandler());
     Spark.get("/ipVerify", new IPVerificationHandler());
     Spark.post("/course", new CourseHandler());
-    Spark.get("/department", new DepartmentHandler());
+    Spark.get("/departments", new DepartmentHandler());
   }
 
   /**
