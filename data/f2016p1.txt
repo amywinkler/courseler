@@ -1,0 +1,6 @@
+{
+  "items": [{
+  "term":"201610","tdesc":"Fall 2016","crn":"16989","subject":"HIST 1965L S01","dept":"HIST","title":"Appetite for Greatness: Cuisine, Power, and the French","description":"France has long been synonymous with a delicious cuisine, one with no equal in the world.  This seminar will examine the development of French cuisine as a tool for national greatness, beginning with its origins under the Sun King, Louis XIV.  We will trace subjects such as the global dissemination of French food after the French Revolution, the food shortages common to French people as the country industrialized, and the feeling that France was losing its culinary hold in the twentieth century.  Today, French food again serves as a nexus for the anxieties of the nation, including Americanization and immigration. \r\n\r\n\r\n","instructors":[{"instructor":"Colvin, Kelly R.","primary_ind":"Y"}],"meet_time":"[{"meetingtime":"07-SEP-16 to 21-DEC-16 M 1500-1730","meetinglocation":"Wilson Hall 109"}]","maxregallowed":20,"actualreg":20,"course_preview":"https://courses.brown.edu/courses/fall-2016/hist-1965l-s01","critical_review":"http://www.thecriticalreview.org?action=search&advancedsearch=Search&EDITION=All&PROFESSOR=Colvin"}    
+  ]
+}
+

@@ -26,6 +26,7 @@ import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.data.CourseDataCache;
 import edu.brown.cs.coursler.userinfo.DbProxy;
 import edu.brown.cs.coursler.userinfo.User;
+import edu.brown.cs.coursler.userinfo.UserCache;
 import freemarker.template.Configuration;
 
 /**
@@ -39,7 +40,8 @@ public final class RequestHandler {
   private static final Gson GSON = new GsonBuilder().serializeNulls().create();
   private DbProxy db;
   private static final int THE_NUMBER_NEEDED_FOR_IP = 7;
-  private CourseDataCache cache;
+  private CourseDataCache courseCache;
+  private UserCache userCache;
 
   /**
    * Constructs request handler.
@@ -49,9 +51,10 @@ public final class RequestHandler {
    * @param cache
    *          the course data cache
    */
-  public RequestHandler(String fileName, CourseDataCache cache) {
+  public RequestHandler(String fileName, CourseDataCache courseCache) {
     db = new DbProxy(fileName);
-    this.cache = cache;
+    this.courseCache = courseCache;
+    this.userCache = new UserCache(db);
   }
 
   /**
@@ -74,6 +77,8 @@ public final class RequestHandler {
     Spark.post("/signup", new SignupHandler());
     Spark.get("/ipVerify", new IPVerificationHandler());
     Spark.post("/course", new CourseHandler());
+    Spark.get("/departments", new DepartmentHandler());
+    Spark.post("/reccomend", new ReccomendationHandler());
   }
 
   /**
@@ -205,9 +210,36 @@ public final class RequestHandler {
     public String handle(Request req, Response res) {
       QueryParamsMap qm = req.queryMap();
       String courseId = qm.value("courseId");
-      Course currCourse = cache.getCourseFomCache(courseId);
+      Course currCourse = courseCache.getCourseFomCache(courseId);
 
       return GSON.toJson(currCourse);
+    }
+  }
+
+  /**
+   * Return an alphabetically sorted list of departments.
+   *
+   * @author amywinkler
+   *
+   */
+  private class DepartmentHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+
+      return GSON.toJson(courseCache.getDepartmentList());
+    }
+  }
+
+  /**
+   *
+   * @author amywinkler
+   *
+   */
+  private class ReccomendationHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+      QueryParamsMap qm = req.queryMap();
+      return GSON.toJson(null);
     }
   }
 
