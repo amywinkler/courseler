@@ -44,6 +44,7 @@ public final class RequestHandler {
   private static final Gson GSON = new GsonBuilder().serializeNulls().create();
   private DbProxy db;
   private static final int THE_NUMBER_NEEDED_FOR_IP = 7;
+  private static final int MAX_SEARCH_LIST_SIZE = 15;
   private CourseDataCache courseCache;
   private UserCache userCache;
 
@@ -362,6 +363,7 @@ public final class RequestHandler {
    *
    */
   private class SearchHandler implements Route {
+
     @Override
     public String handle(Request req, Response res) {
       QueryParamsMap qm = req.queryMap();
@@ -369,7 +371,7 @@ public final class RequestHandler {
       RankedSearch s = new RankedSearch(courseCache);
       List<Course> courses = s.rankedKeywordSearch(queryValue);
       // TODO: decide how to actually drop this
-      while (courses.size() > 15) {
+      while (courses.size() > MAX_SEARCH_LIST_SIZE) {
         courses.remove(courses.size() - 1);
       }
 
