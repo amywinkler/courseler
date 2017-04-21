@@ -8,18 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import edu.brown.cs.courseler.courseinfo.Course;
-import edu.brown.cs.courseler.data.CourseDataCache;
-import edu.brown.cs.courseler.reccomendation.Filter;
-import edu.brown.cs.courseler.reccomendation.WritCourseReccomendations;
-import edu.brown.cs.coursler.userinfo.DbProxy;
-import edu.brown.cs.coursler.userinfo.User;
-import edu.brown.cs.coursler.userinfo.UserCache;
-import freemarker.template.Configuration;
 import spark.ExceptionHandler;
 import spark.ModelAndView;
 import spark.QueryParamsMap;
@@ -29,6 +17,20 @@ import spark.Route;
 import spark.Spark;
 import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
+
+import com.google.common.collect.ImmutableMap;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import edu.brown.cs.courseler.courseinfo.Course;
+import edu.brown.cs.courseler.data.CourseDataCache;
+import edu.brown.cs.courseler.reccomendation.Filter;
+import edu.brown.cs.courseler.reccomendation.WritCourseReccomendations;
+import edu.brown.cs.courseler.search.RankedSearch;
+import edu.brown.cs.coursler.userinfo.DbProxy;
+import edu.brown.cs.coursler.userinfo.User;
+import edu.brown.cs.coursler.userinfo.UserCache;
+import freemarker.template.Configuration;
 
 /**
  * The main request handler class where all API calls can be called. All calls
@@ -82,6 +84,7 @@ public final class RequestHandler {
     Spark.post("/removeSection", new RemoveCartSectionHandler());
     Spark.get("/departments", new DepartmentHandler());
     Spark.post("/reccomend", new ReccomendationHandler());
+    Spark.post("/search", new SearchHandler());
   }
 
   /**
@@ -129,16 +132,12 @@ public final class RequestHandler {
         if (concentration == null) {
           concentration = "";
         }
-        String favClass = user.getFavClassCode();
-        if (favClass == null) {
-          favClass = "";
-        }
+
         List<String> interests = user.getInterests();
 
-        variables = ImmutableMap.of("status", "success", "id",
-            user.getTokenId(), "sections_in_cart",
-            ImmutableMap.of("class_year", year, "concentration", concentration,
-                "favorite_class", favClass, "dept_interests", interests));
+        variables = ImmutableMap.of("status", "success", "id", user
+            .getTokenId(), "sections_in_cart", ImmutableMap.of("class_year",
+            year, "concentration", concentration, "dept_interests", interests));
       }
       return GSON.toJson(variables);
     }
@@ -260,8 +259,6 @@ public final class RequestHandler {
     }
   }
 
-<<<<<<< HEAD
-=======
   /**
    * Return an alphabetically sorted list of departments.
    *
@@ -318,9 +315,31 @@ public final class RequestHandler {
     }
   }
 
+  /**
+   * Handler for search.
+   *
+   * @author amywinkler
+   *
+   */
+  private class SearchHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+      QueryParamsMap qm = req.queryMap();
+      String userId = qm.value("query");
+      RankedSearch s = new RankedSearch(courseCache);
+      List<Course> courses = s.rankedKeywordSearch(qm.value());
+      // TODO: decide how to actually drop this
+      if (courses.size() > 15) {
+        for (int i = 15; i < courses.size(); i++) {
+          courses.remove(i);
+        }
+      }
 
+      return GSON.toJson(courses);
 
->>>>>>> 61c7f0c7cc2ff97bb6b5ca3f3a6d5811fa085416
+    }
+  }
+
   /**
    * Display an error page when an exception occurs in the server.
    *
