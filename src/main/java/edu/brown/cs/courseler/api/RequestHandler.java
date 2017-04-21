@@ -26,7 +26,7 @@ import com.google.gson.GsonBuilder;
 import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.data.CourseDataCache;
 import edu.brown.cs.courseler.reccomendation.Filter;
-import edu.brown.cs.courseler.reccomendation.WritCourseReccomendations;
+import edu.brown.cs.courseler.reccomendation.Reccomendation;
 import edu.brown.cs.courseler.search.RankedSearch;
 import edu.brown.cs.coursler.userinfo.DbProxy;
 import edu.brown.cs.coursler.userinfo.User;
@@ -382,11 +382,11 @@ public final class RequestHandler {
       List<Course> allCourses = courseCache.getAllCourses();
       Filter filter = new Filter(openFilter, lessThanTenHoursFilter,
           smallCoursesFilter);
-      WritCourseReccomendations wcRecs = new WritCourseReccomendations(
+      Reccomendation allRecs = new Reccomendation(
           currUser, filter, allCourses);
-      List<Course> writCourses = wcRecs.getReccomendations();
 
-      return GSON.toJson(null);
+
+      return GSON.toJson(allRecs.getReccomendations());
     }
   }
 
@@ -404,7 +404,6 @@ public final class RequestHandler {
       String queryValue = qm.value("query");
       RankedSearch s = new RankedSearch(courseCache);
       List<Course> courses = s.rankedKeywordSearch(queryValue);
-      // TODO: decide how to actually drop this
       while (courses.size() > MAX_SEARCH_LIST_SIZE) {
         courses.remove(courses.size() - 1);
       }
