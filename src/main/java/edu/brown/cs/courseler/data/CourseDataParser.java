@@ -65,6 +65,7 @@ public class CourseDataParser {
   public CourseDataParser(CourseDataCache cache) {
     this.cache = cache;
     parseBannerData();
+    cache.sortDeptList();
     parseCritReviewData();
     parseGoogleFormData();
   }
@@ -169,6 +170,7 @@ public class CourseDataParser {
 
 
   private void parseCourseSectionFromBanner(JSONObject courseJSON) {
+
     String sectionId = (String) courseJSON.get("subjectc");
     if (!cache.sectionCacheContains(sectionId)) {
       String[] nameArr = sectionId.split(" ");
@@ -208,6 +210,7 @@ public class CourseDataParser {
         currCourse = new Course(courseId);
         currCourse.setTitle(title);
         currCourse.setDepartment(nameArr[0]);
+        cache.addToDepartmentList(nameArr[0]);
         currCourse.setCap(Integer.parseInt(courseJSON.get(
             "maxregallowed").toString()));
         currCourse.setCoursesDotBrownLink((String)
@@ -232,9 +235,6 @@ public class CourseDataParser {
         currCourse.addSectionObject(sect);
       }
 
-      for (String prof: professors) {
-        cache.addToProfCache(prof, currCourse);
-      }
     }
   }
 

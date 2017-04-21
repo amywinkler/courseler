@@ -1,13 +1,11 @@
 package edu.brown.cs.courseler.data;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
 
 import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.courseinfo.Section;
@@ -21,20 +19,22 @@ import edu.brown.cs.courseler.courseinfo.TimeSlot;
  */
 public class CourseDataCache {
   private Map<TimeSlot, SectionTime> timeSlotToTimes;
-  private Multimap<String, Course> coursesForProf;
   private Map<String, Course> courseIdToCourse;
   private Map<String, Section> sectionIdToSection;
   private List<Course> allCourses;
+  private List<String> departmentList;
 
   /**
    * Constructor for CourseDataCache.
    */
   public CourseDataCache() {
     setUpTimeSlots();
-    coursesForProf = ArrayListMultimap.create();
     courseIdToCourse = new HashMap<>();
     sectionIdToSection = new HashMap<>();
     allCourses = new ArrayList<>();
+    departmentList = new ArrayList<>();
+    departmentList.add("Undecided");
+    departmentList.add("Independent Concentration");
   }
 
   /**
@@ -63,16 +63,29 @@ public class CourseDataCache {
     return timeSlotToTimes.get(t);
   }
 
+  public List<String> getDepartmentList() {
+    return departmentList;
+  }
+
   public boolean sectionCacheContains(String sectionId) {
     return sectionIdToSection.containsKey(sectionId);
   }
 
-  public void addToProfCache(String prof, Course course) {
-    coursesForProf.put(prof, course);
-  }
-
   public void addToCourseCache(String id, Course c) {
     courseIdToCourse.put(id, c);
+  }
+
+  public void addToDepartmentList(String deptCode) {
+    if (!departmentList.contains(deptCode)) {
+      departmentList.add(deptCode);
+    }
+  }
+
+  /**
+   * Sorts the department list in alphabetical order.
+   */
+  public void sortDeptList() {
+    Collections.sort(departmentList);
   }
 
   /**

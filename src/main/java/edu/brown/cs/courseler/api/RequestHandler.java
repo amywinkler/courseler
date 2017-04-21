@@ -74,6 +74,7 @@ public final class RequestHandler {
     Spark.post("/signup", new SignupHandler());
     Spark.get("/ipVerify", new IPVerificationHandler());
     Spark.post("/course", new CourseHandler());
+    Spark.get("/department", new DepartmentHandler());
   }
 
   /**
@@ -208,6 +209,20 @@ public final class RequestHandler {
       Course currCourse = cache.getCourseFomCache(courseId);
 
       return GSON.toJson(currCourse);
+    }
+  }
+
+  /**
+   * Return an alphabetically sorted list of departments.
+   *
+   * @author amywinkler
+   *
+   */
+  private class DepartmentHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+
+      return GSON.toJson(cache.getDepartmentList());
     }
   }
 
