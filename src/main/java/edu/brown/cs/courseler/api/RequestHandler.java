@@ -125,16 +125,11 @@ public final class RequestHandler {
         if (concentration == null) {
           concentration = "";
         }
-        String favClass = user.getFavClassCode();
-        if (favClass == null) {
-          favClass = "";
-        }
         List<String> interests = user.getInterests();
 
-        variables = ImmutableMap.of("status", "success", "id",
-            user.getTokenId(), "sections_in_cart",
-            ImmutableMap.of("class_year", year, "concentration", concentration,
-                "favorite_class", favClass, "dept_interests", interests));
+        variables = ImmutableMap.of("status", "success", "id", user
+            .getTokenId(), "sections_in_cart", ImmutableMap.of("class_year",
+            year, "concentration", concentration, "dept_interests", interests));
       }
       return GSON.toJson(variables);
     }
