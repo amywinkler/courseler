@@ -247,6 +247,7 @@ a {
 
 .results .CourseCell {
   display: inline-block;
+  vertical-align: top;
 }
 
 @media screen and (max-width: 500px) {
