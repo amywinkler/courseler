@@ -135,7 +135,7 @@ let signupFailureAlreadyRegistered = {
 // /search?query=???
 let searchResults = [cs32, cs32, cs32, cs32, cs32];
 
-// /recommend?open=true|false&less_than_10_hours=true|false&small_courses=true|false
+// /recommend?id=verySecureId123|open=true|false&less_than_10_hours=true|false&small_courses=true|false
 let recommended = [
   {name: 'Based on Your Cart', courses: [cs32, cs32, cs32, cs32]},
   {name: 'In Your Concentration', courses: [cs32, cs32, cs32]},
@@ -280,7 +280,7 @@ export class API {
     fakeDelay(() => {
       if (calendar.sections.filter(function(section) {return section.sectionId===sectionCode})) {
         calendar.sections = calendar.sections.filter(function(section) {return section.sectionId!=sectionCode});
-        callback(sectionCode); 
+        callback(sectionCode);
       }
     });
   }
