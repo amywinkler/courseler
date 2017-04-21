@@ -23,7 +23,7 @@ export default class Calendar extends React.Component {
 			// Array of all sectionIds in current cart
 			currentCart: []
 		};
-		this.loadApiSections();
+    if (this.props.calendar) this.gotCalendar(this.props.calendar);
 	}
 
 	render() {
@@ -77,11 +77,13 @@ export default class Calendar extends React.Component {
 	}
 
 
-	/*
-		Loads existing sections as CalendarCourseObjects from api.
-	*/
-	loadApiSections() {
-
+  componentWillReceiveProps(props) {
+    if (props.calendar) {
+      this.gotCalendar(props.calendar)
+    }
+	}
+  
+  gotCalendar(calendar) {
 		// Puts a single section into the appropriate day (see the next function) 
 		let loadDay = (day, timeObject, sectionObject) => {
 			let startString = day+"Start";
@@ -100,24 +102,16 @@ export default class Calendar extends React.Component {
 				obj[day] = this.state[day].concat([newSectionObject]);
 				this.setState(obj);
 			}
-		}
-
-		// Loads the entire week
-		let loadCalendar = (calendar) => {
-			// For each section in the calendar, 
-			// add sectionObjects in the appropriate days
-			calendar.sections.map(function(section) {
-				loadDay("monday", section.times, section);
-				loadDay("tuesday", section.times, section);
-				loadDay("wednesday", section.times, section);
-				loadDay("thursday", section.times, section);
-				loadDay("friday", section.times, section);
-				this.setState({currentCart: this.state.currentCart.concat([section.sectionId])});
-			}, this);
-		};
-
-		api.getCalendar(loadCalendar);
-	}
+    }
+		calendar.sections.map(function(section) {
+			loadDay("monday", section.times, section);
+			loadDay("tuesday", section.times, section);
+			loadDay("wednesday", section.times, section);
+			loadDay("thursday", section.times, section);
+			loadDay("friday", section.times, section);
+			this.setState({currentCart: this.state.currentCart.concat([section.sectionId])});
+		}, this);
+  }
 
 	/*
 		Removes a section from the current cart state / calendar. 
@@ -126,17 +120,7 @@ export default class Calendar extends React.Component {
 	removeCourse(sectionId) {
 		//can maybe do the api thing here
 		let removeIndex = this.state.currentCart.indexOf(sectionId);
-		if (removeIndex > -1) {
-			this.setState({currentCart: this.state.currentCart.splice(removeIndex,1)});
-    		//Reset view
-    		this.setState({currentCart: []});
-    		this.setState({monday: []});
-    		this.setState({tuesday: []});
-    		this.setState({wednesday: []});
-    		this.setState({thursday: []});
-    		this.setState({friday: []});
-    		this.loadApiSections();
-		}
+    this.props.reloadCalendar();
 	}
 
 	/*
@@ -144,14 +128,7 @@ export default class Calendar extends React.Component {
 		Called when a user hits "add to cart" for a section in a course page
 	*/ 
 	addCourse(sectionId) {
-		this.setState({currentCart: this.state.currentCart.concat([sectionId])});
-		// There is 100% a better way to do this
-	    this.setState({currentCart: []});
-		this.setState({monday: []});
-		this.setState({tuesday: []});
-		this.setState({wednesday: []});
-		this.setState({thursday: []});
-		this.setState({friday: []});
-		this.loadApiSections();
+    // TODO call the api
+    this.props.reloadCalendar();
 	}
 }

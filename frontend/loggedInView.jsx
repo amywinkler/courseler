@@ -9,43 +9,55 @@ import { currentRoute, navigateToRoute } from './routing.jsx';
 export default class LoggedInView extends React.Component {
   constructor(props) {
      super(props);
-     this.state = {};
+     this.state = {
+       calendar: null
+     };
+     this.reloadCalendar();
    }
-  render() {
-    return (
-      <div className='LoggedInView'>
-        {this.renderScreen()}
-      </div>
-    );
-  }
-  renderScreen() {
-    let screen = this.props.route.screen || 'calendar';
-    if (screen === 'calendar' || screen === 'course') {
-      return (
-        <div className='calendar-screen'>
-          <div className='header'>
-            <div className='menu-button' onClick={() => navigateToRoute({screen: 'menu'})}>Menu</div>
-          </div>
-          <Calendar route={this.props.route} />          
-          <div className='add-courses-button floating-button' onClick={() => navigateToRoute({screen: 'add-courses'})}>Add Courses</div>
-        </div>
-      )
-    } else if (screen === 'menu') {
-      return (
-        <div className='menu-screen'>
-          <div onClick={() => navigateToRoute({})}>Calendar</div>
-          <div onClick={() => navigateToRoute({screen: 'preferences'})}>Account preferences</div>
-          <div onClick={() => this.logOut()}>Log out</div>
-        </div>
-      )
-    } else if (screen === 'preferences') {
-      return <PreferencesScreen />;
-    } else if (screen === 'add-courses') {
-      return <AddCoursesScreen />;
-    }
-  }
-  logOut() {
-    api.logOut();
-    this.props.onLogOut();
-  }
+   
+   reloadCalendar() {
+     api.getCalendar((calendar) => {
+       this.setState({calendar: calendar});
+     });
+   }
+   
+   render() {
+     return (
+       <div className='LoggedInView'>
+         {this.renderScreen()}
+       </div>
+     );
+   }
+   
+   renderScreen() {
+     let screen = this.props.route.screen || 'calendar';
+     if (screen === 'calendar' || screen === 'course') {
+       return (
+         <div className='calendar-screen'>
+           <div className='header'>
+             <div className='menu-button' onClick={() => navigateToRoute({screen: 'menu'})}>Menu</div>
+           </div>
+           <Calendar calendar={this.state.calendar} route={this.props.route} reloadCalendar={this.reloadCalendar.bind(this)} />          
+           <div className='add-courses-button floating-button' onClick={() => navigateToRoute({screen: 'add-courses'})}>Add Courses</div>
+         </div>
+       )
+     } else if (screen === 'menu') {
+       return (
+         <div className='menu-screen'>
+           <div onClick={() => navigateToRoute({})}>Calendar</div>
+           <div onClick={() => navigateToRoute({screen: 'preferences'})}>Account preferences</div>
+           <div onClick={() => this.logOut()}>Log out</div>
+         </div>
+       )
+     } else if (screen === 'preferences') {
+       return <PreferencesScreen />;
+     } else if (screen === 'add-courses') {
+       return <AddCoursesScreen />;
+     }
+   }
+   
+   logOut() {
+     api.logOut();
+     this.props.onLogOut();
+   }
 }
