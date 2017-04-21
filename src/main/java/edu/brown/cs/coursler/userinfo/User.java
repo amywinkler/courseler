@@ -69,11 +69,23 @@ public class User {
     this.sectionsInCart = sections;
   }
 
-  void addToCart(String sectionId) {
+  /**
+   * Adds section to cart.
+   *
+   * @param sectionId
+   *          the id of the section.
+   */
+  public void addToCart(String sectionId) {
     this.sectionsInCart.add(sectionId);
   }
 
-  void removeFromCart(String sectionId) {
+  /**
+   * Removes section from cart.
+   *
+   * @param sectionId
+   *          the id of the section.
+   */
+  public void removeFromCart(String sectionId) {
     if (sectionsInCart.contains(sectionId)) {
       this.sectionsInCart.remove(sectionId);
     }
