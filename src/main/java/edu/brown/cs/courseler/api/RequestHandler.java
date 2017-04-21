@@ -9,16 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import spark.ExceptionHandler;
-import spark.ModelAndView;
-import spark.QueryParamsMap;
-import spark.Request;
-import spark.Response;
-import spark.Route;
-import spark.Spark;
-import spark.TemplateViewRoute;
-import spark.template.freemarker.FreeMarkerEngine;
-
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -32,6 +22,15 @@ import edu.brown.cs.coursler.userinfo.DbProxy;
 import edu.brown.cs.coursler.userinfo.User;
 import edu.brown.cs.coursler.userinfo.UserCache;
 import freemarker.template.Configuration;
+import spark.ExceptionHandler;
+import spark.ModelAndView;
+import spark.QueryParamsMap;
+import spark.Request;
+import spark.Response;
+import spark.Route;
+import spark.Spark;
+import spark.TemplateViewRoute;
+import spark.template.freemarker.FreeMarkerEngine;
 
 /**
  * The main request handler class where all API calls can be called. All calls
@@ -164,16 +163,6 @@ public final class RequestHandler {
       } else if (user.getTokenId().equals("incorrect_password")) {
         variables = ImmutableMap.of("status", "wrong_password");
       } else {
-        String year = user.getClassYear();
-        if (year == null) {
-          year = "";
-        }
-        String concentration = user.getConcentration();
-        if (concentration == null) {
-          concentration = "";
-        }
-        List<String> interests = user.getInterests();
-
         variables =
             ImmutableMap.of("status", "success", "id", user.getTokenId());
       }
@@ -303,6 +292,9 @@ public final class RequestHandler {
       QueryParamsMap qm = req.queryMap();
       String email = qm.value("email");
       String pass = qm.value("password");
+      if (email == null || pass == null) {
+        variables = ImmutableMap.of("status", "null_input");
+      }
       User alreadyExistingUserWithThatEmail =
           db.getUserFromEmailAndPassword(email, pass);
       if (alreadyExistingUserWithThatEmail != null) {
@@ -378,12 +370,11 @@ public final class RequestHandler {
         smallCoursesFilter = Boolean.parseBoolean(smallCourses);
       }
 
-
       List<Course> allCourses = courseCache.getAllCourses();
-      Filter filter = new Filter(openFilter, lessThanTenHoursFilter,
-          smallCoursesFilter);
-      WritCourseReccomendations wcRecs = new WritCourseReccomendations(
-          currUser, filter, allCourses);
+      Filter filter =
+          new Filter(openFilter, lessThanTenHoursFilter, smallCoursesFilter);
+      WritCourseReccomendations wcRecs =
+          new WritCourseReccomendations(currUser, filter, allCourses);
       List<Course> writCourses = wcRecs.getReccomendations();
 
       return GSON.toJson(null);
