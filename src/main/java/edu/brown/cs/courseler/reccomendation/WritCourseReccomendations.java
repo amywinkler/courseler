@@ -9,6 +9,14 @@ public class WritCourseReccomendations implements Reccomend<Course> {
   private User user;
   private Filter filter;
 
+  /**
+   * Constructor for WRIT course reccomendations.
+   *
+   * @param user
+   *          the user object
+   * @param filter
+   *          the filter
+   */
   public WritCourseReccomendations(User user, Filter filter) {
     this.user = user;
     this.filter = filter;

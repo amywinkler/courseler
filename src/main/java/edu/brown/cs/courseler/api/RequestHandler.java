@@ -26,6 +26,7 @@ import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.data.CourseDataCache;
 import edu.brown.cs.courseler.reccomendation.Filter;
 import edu.brown.cs.courseler.reccomendation.WritCourseReccomendations;
+import edu.brown.cs.courseler.search.RankedSearch;
 import edu.brown.cs.coursler.userinfo.DbProxy;
 import edu.brown.cs.coursler.userinfo.User;
 import edu.brown.cs.coursler.userinfo.UserCache;
@@ -81,6 +82,7 @@ public final class RequestHandler {
     Spark.post("/course", new CourseHandler());
     Spark.get("/departments", new DepartmentHandler());
     Spark.post("/reccomend", new ReccomendationHandler());
+    Spark.post("/search", new SearchHandler());
   }
 
   /**
@@ -266,6 +268,31 @@ public final class RequestHandler {
 
 
       return GSON.toJson(null);
+    }
+  }
+
+  /**
+   * Handler for search.
+   *
+   * @author amywinkler
+   *
+   */
+  private class SearchHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+      QueryParamsMap qm = req.queryMap();
+      String userId = qm.value("query");
+      RankedSearch s = new RankedSearch(courseCache);
+      List<Course> courses = s.rankedKeywordSearch(qm.value());
+      // TODO: decide how to actually drop this
+      if (courses.size() > 15) {
+        for (int i = 15; i < courses.size(); i++) {
+          courses.remove(i);
+        }
+      }
+
+      return GSON.toJson(courses);
+
     }
   }
 
