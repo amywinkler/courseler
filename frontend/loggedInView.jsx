@@ -20,13 +20,13 @@ export default class LoggedInView extends React.Component {
   }
   renderScreen() {
     let screen = this.props.route.screen || 'calendar';
-    if (screen === 'calendar') {
+    if (screen === 'calendar' || screen === 'course') {
       return (
         <div className='calendar-screen'>
           <div className='header'>
             <div className='menu-button' onClick={() => navigateToRoute({screen: 'menu'})}>Menu</div>
           </div>
-          <Calendar />          
+          <Calendar route={this.props.route} />          
           <div className='add-courses-button floating-button' onClick={() => navigateToRoute({screen: 'add-courses'})}>Add Courses</div>
         </div>
       )

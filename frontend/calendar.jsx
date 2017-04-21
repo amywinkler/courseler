@@ -27,35 +27,34 @@ export default class Calendar extends React.Component {
 	}
 
 	render() {
-		let screen = this.state.screen;
-		if (screen==='calendar') {
-			return (
-				<div className = 'calendar'>
-					<CalendarDayView day="Monday" sections={this.state.monday} />
-					<CalendarDayView day="Tuesday" sections={this.state.tuesday} />
-					<CalendarDayView day="Wednesday" sections={this.state.wednesday} />
-					<CalendarDayView day="Thursday" sections={this.state.thursday} />
-					<CalendarDayView day="Friday" sections={this.state.friday} />
-				</div>
-			)
-		} else if (screen==='coursePage') {
-			let coursePage = <CourseInfoScreen click={this.showCalendar.bind(this)} 
-								info={this.state.selectedCourseInfo} 
-								currentCart={this.state.currentCart} 
-								remove={this.removeCourse.bind(this)}
-								add={this.addCourse.bind(this)} />
-			return (
-				<div className = 'coursePage'>{coursePage}</div>
-			)
-		}
+    let screen = this.props.route.screen || 'calendar';
+    if (screen === 'calendar') {
+  		return (
+  			<div className = 'calendar'>
+  				<CalendarDayView day="Monday" sections={this.state.monday} />
+  				<CalendarDayView day="Tuesday" sections={this.state.tuesday} />
+  				<CalendarDayView day="Wednesday" sections={this.state.wednesday} />
+  				<CalendarDayView day="Thursday" sections={this.state.thursday} />
+  				<CalendarDayView day="Friday" sections={this.state.friday} />
+  			</div>
+  		)
+    } else if (screen === 'course') {
+      let coursePage = <CourseInfoScreen click={this.showCalendar.bind(this)}
+                info={this.state.selectedCourseInfo}
+                currentCart={this.state.currentCart}
+                remove={this.removeCourse.bind(this)}
+                add={this.addCourse.bind(this)} />
+      return (
+        <div className = 'coursePage'>{coursePage}</div>
+      )
+    }
 	}
 
 	/*
 		Shows the course info view.
 	*/
 	showCourseInfo(e) {
-    // navigateToRoute({screen: 'course', course: e.courseCode});
-		this.setState({screen: 'coursePage'});
+		navigateToRoute({screen: 'course'});
 		this.getCourseInfo(e);
 	}
 
@@ -72,6 +71,7 @@ export default class Calendar extends React.Component {
 	getCourseInfo(courseCode) {
 		let callback = (course) => {
 			this.setState({selectedCourseInfo: course});
+      navigateToRoute({screen: 'course'});
 		}
 		api.courseInfo(courseCode, callback);
 	}
