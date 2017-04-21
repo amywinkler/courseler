@@ -8,6 +8,7 @@ import edu.brown.cs.coursler.userinfo.User;
 public class WritCourseReccomendations implements Reccomend<Course> {
   private User user;
   private Filter filter;
+  private List<Course> allCourses;
 
   /**
    * Constructor for WRIT course reccomendations.
@@ -17,9 +18,11 @@ public class WritCourseReccomendations implements Reccomend<Course> {
    * @param filter
    *          the filter
    */
-  public WritCourseReccomendations(User user, Filter filter) {
+  public WritCourseReccomendations(User user, Filter filter,
+      List<Course> allCourses) {
     this.user = user;
     this.filter = filter;
+    this.allCourses = allCourses;
   }
 
   @Override
