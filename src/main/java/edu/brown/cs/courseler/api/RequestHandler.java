@@ -362,9 +362,9 @@ public final class RequestHandler {
     @Override
     public String handle(Request req, Response res) {
       QueryParamsMap qm = req.queryMap();
-      String userId = qm.value("query");
+      String queryValue = qm.value("query");
       RankedSearch s = new RankedSearch(courseCache);
-      List<Course> courses = s.rankedKeywordSearch(qm.value());
+      List<Course> courses = s.rankedKeywordSearch(queryValue);
       // TODO: decide how to actually drop this
       if (courses.size() > 15) {
         for (int i = 15; i < courses.size(); i++) {
