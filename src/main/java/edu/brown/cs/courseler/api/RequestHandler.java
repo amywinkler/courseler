@@ -164,16 +164,6 @@ public final class RequestHandler {
       } else if (user.getTokenId().equals("incorrect_password")) {
         variables = ImmutableMap.of("status", "wrong_password");
       } else {
-        String year = user.getClassYear();
-        if (year == null) {
-          year = "";
-        }
-        String concentration = user.getConcentration();
-        if (concentration == null) {
-          concentration = "";
-        }
-        List<String> interests = user.getInterests();
-
         variables =
             ImmutableMap.of("status", "success", "id", user.getTokenId());
       }
@@ -303,6 +293,9 @@ public final class RequestHandler {
       QueryParamsMap qm = req.queryMap();
       String email = qm.value("email");
       String pass = qm.value("password");
+      if (email == null || pass == null) {
+        variables = ImmutableMap.of("status", "null_input");
+      }
       User alreadyExistingUserWithThatEmail =
           db.getUserFromEmailAndPassword(email, pass);
       if (alreadyExistingUserWithThatEmail != null) {
@@ -378,12 +371,12 @@ public final class RequestHandler {
         smallCoursesFilter = Boolean.parseBoolean(smallCourses);
       }
 
-
       List<Course> allCourses = courseCache.getAllCourses();
       Filter filter = new Filter(openFilter, lessThanTenHoursFilter,
           smallCoursesFilter);
       Reccomendation allRecs = new Reccomendation(
           currUser, filter, allCourses);
+
 
 
       return GSON.toJson(allRecs.getReccomendations());
