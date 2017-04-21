@@ -78,8 +78,8 @@ public final class RequestHandler {
     Spark.post("/signup", new SignupHandler());
     Spark.get("/ipVerify", new IPVerificationHandler());
     Spark.post("/course", new CourseHandler());
-    // Spark.post("/addSection", new AddCartSectionHandler());
-    // Spark.post("/removeSection", new RemoveCartSectionHandler());
+    Spark.post("/addSection", new AddCartSectionHandler());
+    Spark.post("/removeSection", new RemoveCartSectionHandler());
     Spark.get("/departments", new DepartmentHandler());
     Spark.post("/reccomend", new ReccomendationHandler());
   }
