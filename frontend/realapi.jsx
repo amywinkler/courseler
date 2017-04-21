@@ -175,43 +175,29 @@ export class API {
   // LOGIN METHODS:
 
   isLoggedIn() {
-    return localStorage.loggedIn === 'true';
-  }
-
-  getToken() {
-    return this.isLoggedIn() ? 'token' : null;
+    return !!localStorage.userId;
   }
 
   logOut() {
-    localStorage.loggedIn = 'false';
+    delete localStorage.userId;
   }
 
   logIn(email, password, callback) {
-    fakeDelay(() => {
-      if (fakeAccounts[email]) {
-        if (fakeAccounts[email] === password) {
-          localStorage.loggedIn = 'true';
-          localStorage.accountPrefs = JSON.stringify(loginSuccess.preferences);
-          callback(loginSuccess);
-        } else {
-          callback(loginFailureWrongPassword);
-        }
-      } else {
-        callback(loginFailureUnregistered);
+    this.post('/login', {email: email, password: password}, (result) => {
+      if (result.status === 'success') {
+        localStorage.userId = result.id;
       }
-    })
+      callback(result);
+    });
   }
 
   signUp(email, password, callback) {
-    fakeDelay(() => {
-      if (fakeAccounts[email]) {
-        callback(signupFailureAlreadyRegistered);
-      } else {
-        fakeAccounts[email] = password;
-        localStorage.loggedIn = 'true';
-        callback(signupSuccess);
+    this.post('/signup', {email: email, password: password}, (result) => {
+      if (result.status === 'success') {
+        localStorage.userId = result.id;
       }
-    })
+      callback(result);
+    });
   }
 
   // ACCOUNT PREFS:
