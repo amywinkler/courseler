@@ -124,7 +124,6 @@ public class DbProxy {
       sectionsString = sections.toString();
     }
     String id = user.getTokenId();
-    System.out.println("The id we're updating is " + id);
 
     // Put into DB
     String update = "UPDATE users SET sections_in_cart = ? WHERE id = ?";

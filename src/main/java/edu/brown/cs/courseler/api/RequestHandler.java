@@ -26,7 +26,7 @@ import com.google.gson.GsonBuilder;
 import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.data.CourseDataCache;
 import edu.brown.cs.courseler.reccomendation.Filter;
-import edu.brown.cs.courseler.reccomendation.WritCourseReccomendations;
+import edu.brown.cs.courseler.reccomendation.Reccomendation;
 import edu.brown.cs.courseler.search.RankedSearch;
 import edu.brown.cs.coursler.userinfo.DbProxy;
 import edu.brown.cs.coursler.userinfo.User;
@@ -44,6 +44,7 @@ public final class RequestHandler {
   private static final Gson GSON = new GsonBuilder().serializeNulls().create();
   private DbProxy db;
   private static final int THE_NUMBER_NEEDED_FOR_IP = 7;
+  private static final int MAX_SEARCH_LIST_SIZE = 20;
   private CourseDataCache courseCache;
   private UserCache userCache;
 
@@ -87,6 +88,7 @@ public final class RequestHandler {
     Spark.get("/departments", new DepartmentHandler());
     Spark.post("/reccomend", new ReccomendationHandler());
     Spark.post("/search", new SearchHandler());
+    Spark.post("/userPrefs", new UserPrefHandler());
   }
 
   /**
@@ -104,27 +106,23 @@ public final class RequestHandler {
   }
 
   /**
-   * Processes a request to add a section to the cart!
+   * Processes a request to get user preferences!
    *
    * @author adevor
    *
    */
-  private class LoginHandler implements Route {
+  private class UserPrefHandler implements Route {
     @Override
     public String handle(Request req, Response res) {
 
       Map<String, Object> variables;
       QueryParamsMap qm = req.queryMap();
-      String section = qm.value("section");
       String id = qm.value("id");
 
       User user = db.getUserFromId(id);
-      user.addToCart(section);
 
       if (user == null) {
-        variables = ImmutableMap.of("status", "unregistered");
-      } else if (user.getTokenId().equals("incorrect_password")) {
-        variables = ImmutableMap.of("status", "wrong_password");
+        variables = ImmutableMap.of("status", "does_not_exist");
       } else {
         String year = user.getClassYear();
         if (year == null) {
@@ -138,9 +136,36 @@ public final class RequestHandler {
         List<String> interests = user.getInterests();
 
         variables = ImmutableMap.of("status", "success", "id",
-            user.getTokenId(), "sections_in_cart",
+            user.getTokenId(), "preferences",
             ImmutableMap.of("class_year", year, "concentration", concentration,
                 "dept_interests", interests));
+      }
+      return GSON.toJson(variables);
+    }
+  }
+
+  /**
+   * Processes a request to log in!
+   *
+   * @author adevor
+   *
+   */
+  private class LoginHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+
+      Map<String, Object> variables;
+      QueryParamsMap qm = req.queryMap();
+      String email = qm.value("email");
+      String pass = qm.value("password");
+      User user = db.getUserFromEmailAndPassword(email, pass);
+      if (user == null) {
+        variables = ImmutableMap.of("status", "unregistered");
+      } else if (user.getTokenId().equals("incorrect_password")) {
+        variables = ImmutableMap.of("status", "wrong_password");
+      } else {
+        variables =
+            ImmutableMap.of("status", "success", "id", user.getTokenId());
       }
       return GSON.toJson(variables);
     }
@@ -268,6 +293,9 @@ public final class RequestHandler {
       QueryParamsMap qm = req.queryMap();
       String email = qm.value("email");
       String pass = qm.value("password");
+      if (email == null || pass == null) {
+        variables = ImmutableMap.of("status", "null_input");
+      }
       User alreadyExistingUserWithThatEmail =
           db.getUserFromEmailAndPassword(email, pass);
       if (alreadyExistingUserWithThatEmail != null) {
@@ -343,15 +371,15 @@ public final class RequestHandler {
         smallCoursesFilter = Boolean.parseBoolean(smallCourses);
       }
 
-
       List<Course> allCourses = courseCache.getAllCourses();
       Filter filter = new Filter(openFilter, lessThanTenHoursFilter,
           smallCoursesFilter);
-      WritCourseReccomendations wcRecs = new WritCourseReccomendations(
+      Reccomendation allRecs = new Reccomendation(
           currUser, filter, allCourses);
-      List<Course> writCourses = wcRecs.getReccomendations();
 
-      return GSON.toJson(null);
+
+
+      return GSON.toJson(allRecs.getReccomendations());
     }
   }
 
@@ -362,14 +390,14 @@ public final class RequestHandler {
    *
    */
   private class SearchHandler implements Route {
+
     @Override
     public String handle(Request req, Response res) {
       QueryParamsMap qm = req.queryMap();
       String queryValue = qm.value("query");
       RankedSearch s = new RankedSearch(courseCache);
       List<Course> courses = s.rankedKeywordSearch(queryValue);
-      // TODO: decide how to actually drop this
-      while (courses.size() > 15) {
+      while (courses.size() > MAX_SEARCH_LIST_SIZE) {
         courses.remove(courses.size() - 1);
       }
 
