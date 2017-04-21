@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import api from './api.jsx';
+import { currentRoute, navigateToRoute } from './routing.jsx';
 
 export default class PreferencesScreen extends React.Component {
 
@@ -54,7 +55,7 @@ export default class PreferencesScreen extends React.Component {
   */
   done() {
     this.post(); 
-    this.props.onDone();
+    navigateToRoute({});
   }
 
   /*

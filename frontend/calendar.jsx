@@ -4,6 +4,7 @@ import api from './api.jsx';
 import CalendarSectionObject from './calendarSectionObject.jsx';
 import CalendarDayView from './calendarDayView.jsx';
 import CourseInfoScreen from './courseInfoScreen.jsx';
+import { currentRoute, navigateToRoute } from './routing.jsx';
 
 export default class Calendar extends React.Component {
 
@@ -53,6 +54,7 @@ export default class Calendar extends React.Component {
 		Shows the course info view.
 	*/
 	showCourseInfo(e) {
+    // navigateToRoute({screen: 'course', course: e.courseCode});
 		this.setState({screen: 'coursePage'});
 		this.getCourseInfo(e);
 	}
@@ -61,7 +63,7 @@ export default class Calendar extends React.Component {
 		Shows the calendar view.
 	*/
 	showCalendar(e) {
-		this.setState({screen: 'calendar'});
+    navigateToRoute({});
 	}
 
 	/*
