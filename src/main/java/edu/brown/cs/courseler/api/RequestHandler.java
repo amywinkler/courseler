@@ -304,10 +304,11 @@ public final class RequestHandler {
         smallCoursesFilter = Boolean.parseBoolean(smallCourses);
       }
 
+      List<Course> allCourses = courseCache.getAllCourses();
       Filter filter = new Filter(openFilter, lessThanTenHoursFilter,
           smallCoursesFilter);
       WritCourseReccomendations wcRecs = new WritCourseReccomendations(
-          currUser, filter);
+          currUser, filter, allCourses);
       List<Course> writCourses = wcRecs.getReccomendations();
 
 
@@ -329,10 +330,8 @@ public final class RequestHandler {
       RankedSearch s = new RankedSearch(courseCache);
       List<Course> courses = s.rankedKeywordSearch(queryValue);
       // TODO: decide how to actually drop this
-      if (courses.size() > 15) {
-        for (int i = 15; i < courses.size(); i++) {
-          courses.remove(i);
-        }
+      while (courses.size() > 15) {
+        courses.remove(courses.size() - 1);
       }
 
       return GSON.toJson(courses);
