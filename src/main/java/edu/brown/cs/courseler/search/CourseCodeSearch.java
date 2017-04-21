@@ -6,6 +6,13 @@ import java.util.List;
 import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.data.CourseDataCache;
 
+/**
+ * Class to search on the course code (ranked more highly than title or
+ * description).
+ *
+ * @author amywinkler
+ *
+ */
 public class CourseCodeSearch implements SearchSuggestions<Course> {
   private CourseDataCache cache;
 

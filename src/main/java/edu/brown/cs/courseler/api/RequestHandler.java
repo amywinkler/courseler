@@ -26,7 +26,7 @@ import com.google.gson.GsonBuilder;
 import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.data.CourseDataCache;
 import edu.brown.cs.courseler.reccomendation.Filter;
-import edu.brown.cs.courseler.reccomendation.Reccomendation;
+import edu.brown.cs.courseler.reccomendation.ReccomendationExecutor;
 import edu.brown.cs.courseler.search.RankedSearch;
 import edu.brown.cs.coursler.userinfo.DbProxy;
 import edu.brown.cs.coursler.userinfo.User;
@@ -372,12 +372,11 @@ public final class RequestHandler {
       }
 
       List<Course> allCourses = courseCache.getAllCourses();
-      Filter filter = new Filter(openFilter, lessThanTenHoursFilter,
+      Filter filter = new Filter(currUser.getSectionsInCart(), openFilter,
+          lessThanTenHoursFilter,
           smallCoursesFilter);
-      Reccomendation allRecs = new Reccomendation(
-          currUser, filter, allCourses);
-
-
+      ReccomendationExecutor allRecs = new ReccomendationExecutor(currUser,
+          filter, allCourses, courseCache);
 
       return GSON.toJson(allRecs.getReccomendations());
     }
