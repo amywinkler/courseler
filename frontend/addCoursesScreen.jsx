@@ -138,7 +138,7 @@ export default class AddCoursesScreen extends React.Component {
     return <div className='results'>{cells}</div>; 
   }
   clickedCourse(course) {
-    // TODO
+    navigateToRoute({screen: 'course', courseCode: course.courseCode});
   }
   done() {
     navigateToRoute({});

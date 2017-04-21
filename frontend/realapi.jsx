@@ -149,6 +149,10 @@ let fakeDelay = function(callback) {
   }, Math.random() * 0.7);
 }
 
+let copy = function(x) {
+  return JSON.parse(JSON.stringify(x));
+}
+
 export class API {
   constructor() {
 
@@ -264,21 +268,14 @@ export class API {
   // Gets course info
   // callback has 1 param, the course object
   courseInfo(courseCode, callback) {
-    fakeDelay(() => {
-      callback(courses[courseCode]);
-    });
-    const postParameters = {courseId: 'VISA 0100'};
-    $.post("/course", postParameters, responseJSON => {
-      // Parse the JSON response into a JavaScript object.
-      const responseObject = JSON.parse(responseJSON);
-      console.log(responseObject);
-    });
+    this.post('/course', {courseId: courseCode}, callback);
   }
 
   // adds one of the two sections to the backend calendar
   addToCart(sectionCode, callback) {
     fakeDelay(() => {
       //this is very fake
+      calendar.sections = copy(calendar.sections);
       if (sectionCode==='CSCI 0320 S01') {
         calendar.sections.push(cs032_s01);
       } else if (sectionCode==='CSCI 0320 S02') {
