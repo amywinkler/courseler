@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import api from './api.jsx';
 import CalendarSectionObject from './calendarSectionObject.jsx';
 import CalendarDayView from './calendarDayView.jsx';
-import CourseInfoScreen from './courseInfoScreen.jsx';
 import { currentRoute, navigateToRoute } from './routing.jsx';
 
 export default class Calendar extends React.Component {
@@ -23,39 +22,30 @@ export default class Calendar extends React.Component {
 			// Array of all sectionIds in current cart
 			currentCart: []
 		};
-    if (this.props.calendar) this.gotCalendar(this.props.calendar);
 	}
+  
+  componentDidMount() {
+    if (this.props.calendar) this.gotCalendar(this.props.calendar);
+  }
 
 	render() {
-    let screen = this.props.route.screen || 'calendar';
-    if (screen === 'calendar') {
-  		return (
-  			<div className = 'calendar'>
-  				<CalendarDayView day="Monday" sections={this.state.monday} />
-  				<CalendarDayView day="Tuesday" sections={this.state.tuesday} />
-  				<CalendarDayView day="Wednesday" sections={this.state.wednesday} />
-  				<CalendarDayView day="Thursday" sections={this.state.thursday} />
-  				<CalendarDayView day="Friday" sections={this.state.friday} />
-  			</div>
-  		)
-    } else if (screen === 'course') {
-      let coursePage = <CourseInfoScreen click={this.showCalendar.bind(this)}
-                info={this.state.selectedCourseInfo}
-                currentCart={this.state.currentCart}
-                remove={this.removeCourse.bind(this)}
-                add={this.addCourse.bind(this)} />
-      return (
-        <div className = 'coursePage'>{coursePage}</div>
-      )
-    }
+		return (
+			<div className = 'calendar'>
+				<CalendarDayView day="Monday" sections={this.state.monday} />
+				<CalendarDayView day="Tuesday" sections={this.state.tuesday} />
+				<CalendarDayView day="Wednesday" sections={this.state.wednesday} />
+				<CalendarDayView day="Thursday" sections={this.state.thursday} />
+				<CalendarDayView day="Friday" sections={this.state.friday} />
+			</div>
+		)
 	}
 
 	/*
 		Shows the course info view.
 	*/
-	showCourseInfo(e) {
-		navigateToRoute({screen: 'course'});
-		this.getCourseInfo(e);
+	showCourseInfo(courseCode) {
+		navigateToRoute({screen: 'course', courseCode: courseCode});
+    // this.getCourseInfo(e);
 	}
 
 	/*
@@ -98,9 +88,9 @@ export default class Calendar extends React.Component {
 										start={startTime} 
 										end={endTime} 
 										click={this.showCourseInfo.bind(this, courseId)}/>;
-				let obj = {};
-				obj[day] = this.state[day].concat([newSectionObject]);
-				this.setState(obj);
+				this.setState((state) => {
+  				state[day] = state[day].concat([newSectionObject]);
+        });
 			}
     }
 		calendar.sections.map(function(section) {
@@ -112,23 +102,4 @@ export default class Calendar extends React.Component {
 			this.setState({currentCart: this.state.currentCart.concat([section.sectionId])});
 		}, this);
   }
-
-	/*
-		Removes a section from the current cart state / calendar. 
-		Called when a user hits "remove from cart" for a section in a course page
-	*/
-	removeCourse(sectionId) {
-		//can maybe do the api thing here
-		let removeIndex = this.state.currentCart.indexOf(sectionId);
-    this.props.reloadCalendar();
-	}
-
-	/*
-		Adds a section from the current cart state / calendar.
-		Called when a user hits "add to cart" for a section in a course page
-	*/ 
-	addCourse(sectionId) {
-    // TODO call the api
-    this.props.reloadCalendar();
-	}
 }

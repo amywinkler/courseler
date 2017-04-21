@@ -4,6 +4,7 @@ import api from './api.jsx';
 import Calendar from './calendar.jsx';
 import PreferencesScreen from './preferencesScreen.jsx';
 import AddCoursesScreen from './addCoursesScreen.jsx';
+import CourseInfoScreen from './courseInfoScreen.jsx';
 import { currentRoute, navigateToRoute } from './routing.jsx';
 
 export default class LoggedInView extends React.Component {
@@ -31,7 +32,7 @@ export default class LoggedInView extends React.Component {
    
    renderScreen() {
      let screen = this.props.route.screen || 'calendar';
-     if (screen === 'calendar' || screen === 'course') {
+     if (screen === 'calendar') {
        return (
          <div className='calendar-screen'>
            <div className='header'>
@@ -53,6 +54,8 @@ export default class LoggedInView extends React.Component {
        return <PreferencesScreen />;
      } else if (screen === 'add-courses') {
        return <AddCoursesScreen />;
+     } else if (screen === 'course') {
+       return <CourseInfoScreen courseCode={this.props.route.courseCode} calendar={this.state.calendar} reloadCalendar={this.reloadCalendar.bind(this)} />
      }
    }
    
