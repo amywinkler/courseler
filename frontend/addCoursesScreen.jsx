@@ -9,7 +9,7 @@ function hashCode(string) {
 	if (string.length == 0) return hash;
 	for (let i = 0; i < string.length; i++) {
 		let char = string.charCodeAt(i);
-		let hash = ((hash<<5)-hash)+char;
+		hash = ((hash<<5)-hash)+char;
 		hash = hash & hash; // Convert to 32bit integer
 	}
 	return hash;
@@ -23,8 +23,8 @@ let colors = [
 ];
 
 function colorForCourse(course) {
-  let hash = hashCode(course.courseCode);
-  return colors[hash % colors.length]
+  let hash = Math.abs(hashCode(course.title));
+  return colors[hash % colors.length];
 }
 
 class CourseCell extends React.Component {
@@ -138,7 +138,7 @@ export default class AddCoursesScreen extends React.Component {
     return <div className='results'>{cells}</div>; 
   }
   clickedCourse(course) {
-    // TODO
+    navigateToRoute({screen: 'course', courseCode: course.courseCode});
   }
   done() {
     navigateToRoute({});

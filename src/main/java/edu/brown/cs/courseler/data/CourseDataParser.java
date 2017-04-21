@@ -171,7 +171,7 @@ public class CourseDataParser {
 
   private void parseCourseSectionFromBanner(JSONObject courseJSON) {
 
-    String sectionId = (String) courseJSON.get("subjectc");
+    String sectionId = (String) courseJSON.get("subject");
     if (!cache.sectionCacheContains(sectionId)) {
       String[] nameArr = sectionId.split(" ");
       String courseId = nameArr[0] + " " + nameArr[1];
@@ -243,7 +243,7 @@ public class CourseDataParser {
   private void parseBannerData() {
     JSONParser parser = new JSONParser();
     try {
-      Object obj = parser.parse(new FileReader("data/banner2016.txt"));
+      Object obj = parser.parse(new FileReader("data/2016_fall_full.txt"));
       JSONObject jsonObj = (JSONObject) obj;
       JSONArray items = (JSONArray) jsonObj.get("items");
       for (int i = 0; i < items.size(); i++) {

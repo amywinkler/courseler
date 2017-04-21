@@ -29,10 +29,10 @@ export default class SectionInfo extends React.Component {
 
 	addOrRemove(e) {
 		if (this.state.inCart) {
-			api.removeFromCart(this.props.sectionId, this.props.remove);
+			api.removeFromCart(this.props.sectionId, this.props.onAdd);
 			this.setState({inCart: false});
 		}	else {
-			api.addToCart(this.props.sectionId, this.props.add);
+			api.addToCart(this.props.sectionId, this.props.onRemove);
 			this.setState({inCart: true});
 		}
 	}

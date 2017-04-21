@@ -11,19 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.google.common.collect.ImmutableMap;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import edu.brown.cs.courseler.courseinfo.Course;
-import edu.brown.cs.courseler.data.CourseDataCache;
-import edu.brown.cs.courseler.reccomendation.Filter;
-import edu.brown.cs.courseler.reccomendation.WritCourseReccomendations;
-import edu.brown.cs.courseler.search.RankedSearch;
-import edu.brown.cs.coursler.userinfo.DbProxy;
-import edu.brown.cs.coursler.userinfo.User;
-import edu.brown.cs.coursler.userinfo.UserCache;
-import freemarker.template.Configuration;
 import spark.ExceptionHandler;
 import spark.ModelAndView;
 import spark.QueryParamsMap;
@@ -33,6 +20,20 @@ import spark.Route;
 import spark.Spark;
 import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
+
+import com.google.common.collect.ImmutableMap;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import edu.brown.cs.courseler.courseinfo.Course;
+import edu.brown.cs.courseler.data.CourseDataCache;
+import edu.brown.cs.courseler.reccomendation.Filter;
+import edu.brown.cs.courseler.reccomendation.ReccomendationExecutor;
+import edu.brown.cs.courseler.search.RankedSearch;
+import edu.brown.cs.coursler.userinfo.DbProxy;
+import edu.brown.cs.coursler.userinfo.User;
+import edu.brown.cs.coursler.userinfo.UserCache;
+import freemarker.template.Configuration;
 
 /**
  * The main request handler class where all API calls can be called. All calls
@@ -431,13 +432,13 @@ public final class RequestHandler {
       }
 
       List<Course> allCourses = courseCache.getAllCourses();
-      Filter filter =
-          new Filter(openFilter, lessThanTenHoursFilter, smallCoursesFilter);
-      WritCourseReccomendations wcRecs =
-          new WritCourseReccomendations(currUser, filter, allCourses);
-      List<Course> writCourses = wcRecs.getReccomendations();
+      Filter filter = new Filter(currUser.getSectionsInCart(), openFilter,
+          lessThanTenHoursFilter,
+          smallCoursesFilter);
+      ReccomendationExecutor allRecs = new ReccomendationExecutor(currUser,
+          filter, allCourses, courseCache);
 
-      return GSON.toJson(null);
+      return GSON.toJson(allRecs.getReccomendations());
     }
   }
 
@@ -455,7 +456,6 @@ public final class RequestHandler {
       String queryValue = qm.value("query");
       RankedSearch s = new RankedSearch(courseCache);
       List<Course> courses = s.rankedKeywordSearch(queryValue);
-      // TODO: decide how to actually drop this
       while (courses.size() > MAX_SEARCH_LIST_SIZE) {
         courses.remove(courses.size() - 1);
       }
