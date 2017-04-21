@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import api from './api.jsx';
+import { currentRoute, navigateToRoute } from './routing.jsx';
 
 // from http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
 function hashCode(string) {
@@ -74,10 +75,9 @@ export default class AddCoursesScreen extends React.Component {
         <input type='text' onChange={(e) => this.updateSearchQuery(e)} placeholder='Search courses...' value={this.state.search} className='search-field' placeholder='search for courses or departments' />
       </form>
       { this.renderContent() }
-      <div className='back floating-button' onClick={() => this.props.onDone()}>Back to Calendar</div>
+      <div className='back floating-button' onClick={() => this.done()}>Back to Calendar</div>
     </div>
     )
-    return <h1>add courses go here! <a href='#' onClick={() => this.props.onDone()}>done</a></h1>
   }
   
   updateSearchQuery(e) {
@@ -139,5 +139,8 @@ export default class AddCoursesScreen extends React.Component {
   }
   clickedCourse(course) {
     // TODO
+  }
+  done() {
+    navigateToRoute({});
   }
 }

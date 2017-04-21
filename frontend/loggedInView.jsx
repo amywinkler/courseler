@@ -4,13 +4,12 @@ import api from './api.jsx';
 import Calendar from './calendar.jsx';
 import PreferencesScreen from './preferencesScreen.jsx';
 import AddCoursesScreen from './addCoursesScreen.jsx';
+import { currentRoute, navigateToRoute } from './routing.jsx';
 
 export default class LoggedInView extends React.Component {
   constructor(props) {
      super(props);
-     this.state = {
-       screen: 'calendar'
-     };
+     this.state = {};
    }
   render() {
     return (
@@ -20,29 +19,29 @@ export default class LoggedInView extends React.Component {
     );
   }
   renderScreen() {
-    let screen = this.state.screen;
+    let screen = this.props.route.screen || 'calendar';
     if (screen === 'calendar') {
       return (
         <div className='calendar-screen'>
           <div className='header'>
-            <div className='menu-button' onClick={() => this.setState({screen: 'menu'})}>Menu</div>
+            <div className='menu-button' onClick={() => navigateToRoute({screen: 'menu'})}>Menu</div>
           </div>
           <Calendar />          
-          <div className='add-courses-button floating-button' onClick={() => this.setState({screen: 'add-courses'})}>Add Courses</div>
+          <div className='add-courses-button floating-button' onClick={() => navigateToRoute({screen: 'add-courses'})}>Add Courses</div>
         </div>
       )
     } else if (screen === 'menu') {
       return (
         <div className='menu-screen'>
-          <div onClick={() => this.setState({screen: 'calendar'})}>Calendar</div>
-          <div onClick={() => this.setState({screen: 'preferences'})}>Account preferences</div>
+          <div onClick={() => navigateToRoute({})}>Calendar</div>
+          <div onClick={() => navigateToRoute({screen: 'preferences'})}>Account preferences</div>
           <div onClick={() => this.logOut()}>Log out</div>
         </div>
       )
     } else if (screen === 'preferences') {
-      return <PreferencesScreen onDone={() => this.setState({screen: 'calendar'})} />;
+      return <PreferencesScreen />;
     } else if (screen === 'add-courses') {
-      return <AddCoursesScreen onDone={() => this.setState({screen: 'calendar'})} />;
+      return <AddCoursesScreen />;
     }
   }
   logOut() {
