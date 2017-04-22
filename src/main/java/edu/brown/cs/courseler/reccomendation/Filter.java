@@ -18,7 +18,7 @@ import edu.brown.cs.coursler.userinfo.User;
  */
 public class Filter {
   private static final int MAX_NUM_RECCOMENDATIONS = 15;
-  private static final int SMALL_COURSE_SIZE = 15;
+  private static final int SMALL_COURSE_SIZE = 24;
   private static final int AVG_HOURS_PER_WEEK = 10;
 
   private CourseDataCache cache;
