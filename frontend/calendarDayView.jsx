@@ -15,7 +15,7 @@ export default class CalendarDayView extends React.Component {
 		let sections = this.props.sections;
 		return (
 			<div className='calendarDayView'>
-				<h2 className='dayLabel'>{day}</h2>
+				<h3 className='dayLabel'>{day}</h3>
 				<div className='courses'>
 					{sections}
 				</div>
