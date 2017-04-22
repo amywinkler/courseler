@@ -19,6 +19,7 @@ export default class LoggedInView extends React.Component {
    reloadCalendar() {
      api.getCalendar((calendar) => {
        this.setState({calendar: calendar});
+       // this.setState({screen: 'calendar'});
      });
    }
    

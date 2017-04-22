@@ -11,13 +11,17 @@ export default class CourseInfoScreen extends React.Component {
       info: null
     };
     api.courseInfo(this.props.courseCode, (info) => {
+      console.log(info);
       this.setState({info: info});
     });
   }
 
 	render() {
     if (this.state.info) {
+      // console.log(this.state.info.funAndCool);
+      let emojis = this.state.info.funAndCool.emojis;
       let info = this.state.info;
+      let term = info.term;
   		let title = info.title;
   		let code = info.courseCode;
   		let description = info.description;
@@ -26,15 +30,22 @@ export default class CourseInfoScreen extends React.Component {
       let mySectionIds = mySections.map((s) => s.sectionId);
             
   		let sectionInfo = info.sections.map((section, index) => {
+        // console.log(section);
   			// Checks whether the current cart has this section in it already
         let inCart = mySectionIds.indexOf(section.sectionId) >= 0;
-        return <SectionInfo key={index} sectionId={section.sectionId} time={section.times} inCart = {inCart} onAdd={this.props.reloadCalendar} onRemove={this.props.reloadCalendar} />
+        return <SectionInfo key={index} 
+                  sectionId={section.sectionId} 
+                  time={section.times} 
+                  inCart = {inCart} 
+                  onAdd={this.props.reloadCalendar} 
+                  onRemove={this.props.reloadCalendar} />
       });
 
   		let calendarButton = <a href='#' onClick={this.back.bind()}>Back</a>;
   		return (
   			<div className='courseInfo'>
   				{calendarButton}
+          <h4>{term} {emojis}</h4>
   				<h2>{code}: {title}</h2>
   				<p>{description}</p>
   				<div className ='sections'>Sections:
@@ -46,7 +57,15 @@ export default class CourseInfoScreen extends React.Component {
       return null;
     }
 	}
+
+  demographics() {
+    
+  }
+
+
   back() {
     history.back();
   }
+
+
 }

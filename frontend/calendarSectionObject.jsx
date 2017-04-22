@@ -25,18 +25,26 @@ export default class CalendarSectionObject extends React.Component {
 		)
 	}
 
-	// wait this is wrong lol
-
+	// Format military time 
 	convertTime(time) {
-		let hours = time.toString().substring(0,2) % 12;
-		let minutes = time.toString().substring(2,4);
-		let amPm;
-		if (time.toString().substring(0,2) > 11) {
+		let timeString;
+		if (time.toString().length==3) {
+			timeString = '0' + time.toString();
+		} else {
+			timeString = time.toString();
+		}
+
+		let militaryHours = parseInt(timeString.substring(0, 2),10);
+    let hours = ((militaryHours + 11) % 12) + 1;
+    let amPm;
+    if (militaryHours > 11) {
 			amPm = 'pm';
 		} else {
 			amPm = 'am';
 		}
-		return hours + ":" + minutes + amPm;
+    let minutes = timeString.substring(2);
+
+    return hours + ':' + minutes + amPm;
 	}
 
 }
