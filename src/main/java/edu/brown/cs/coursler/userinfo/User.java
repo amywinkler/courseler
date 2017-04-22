@@ -119,7 +119,7 @@ public class User {
   /**
    * Get sections in cart of user.
    *
-   * @return list of section
+   * @return list of section ids
    */
   public List<String> getSectionsInCart() {
     return sectionsInCart;

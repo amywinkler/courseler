@@ -1,5 +1,6 @@
 package edu.brown.cs.courseler.reccomendation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.brown.cs.courseler.courseinfo.Course;
@@ -45,8 +46,15 @@ public class ReccomendationExecutor implements Reccomend<ReccomendationDatum> {
 
   @Override
   public List<ReccomendationDatum> getReccomendations() {
-    // TODO Auto-generated method stub
-    return null;
+    List<ReccomendationDatum> toReturn = new ArrayList<>();
+    WritCourseReccomendations wc = new WritCourseReccomendations(user, filter,
+        cache.getAllCourses());
+    List<Course> wcReccomendations = wc.getReccomendations();
+    ReccomendationDatum writRd = new ReccomendationDatum(
+        "WRIT Courses Based on Your Interests", wcReccomendations);
+    toReturn.add(writRd);
+
+    return toReturn;
   }
 
 }

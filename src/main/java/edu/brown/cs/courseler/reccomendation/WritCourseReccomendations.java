@@ -32,15 +32,29 @@ public class WritCourseReccomendations implements Reccomend<Course> {
     // just add highest remaining writ courses
     List<Course> writCourses = getOnlyWritCourses();
     List<String> interests = user.getInterests();
+    List<Course> orderedResults = new ArrayList<>();
 
-    // add all the writ courses in interests and then sort on cr data
-    return null;
+    for (Course wc : writCourses) {
+      if (interests.contains(wc.getDepartment())) {
+        orderedResults.add(wc);
+        interests.remove(wc);
+      }
+    }
+
+    orderedResults.sort(Course.getCrCompCScore());
+    writCourses.sort(Course.getCrCompCScore());
+
+    for (Course wc : writCourses) {
+      orderedResults.add(wc);
+    }
+
+    return filter.getFilteredListOfCourses(orderedResults);
   }
 
   private List<Course> getOnlyWritCourses() {
     List<Course> toReturn = new ArrayList<>();
     for (Course c : allCourses) {
-      if (c.getDescription().contains("WRIT")) {
+      if (c.getDescription() != null && c.getDescription().contains("WRIT")) {
         toReturn.add(c);
       }
     }
