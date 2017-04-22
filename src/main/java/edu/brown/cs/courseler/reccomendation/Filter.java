@@ -153,11 +153,17 @@ public class Filter {
   }
 
   private void filterOnLessThanTenHours(List<Course> currentListOfCourses) {
+    List<Course> toRemove = new ArrayList<>();
     for (Course c : currentListOfCourses) {
+
       if (c.getCrData() == null
-          || c.getCrData().getHoursPerWeek().get("average_hours") > AVG_HOURS_PER_WEEK) {
-        currentListOfCourses.remove(c);
+          || c.getCrData().getHoursPerWeek().get("average") > AVG_HOURS_PER_WEEK) {
+        toRemove.add(c);
       }
+    }
+
+    for (Course c : toRemove) {
+      currentListOfCourses.remove(c);
     }
   }
 
