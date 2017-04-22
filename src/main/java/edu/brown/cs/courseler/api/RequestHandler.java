@@ -11,6 +11,20 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.ImmutableMap;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
+import edu.brown.cs.courseler.courseinfo.Course;
+import edu.brown.cs.courseler.courseinfo.Section;
+import edu.brown.cs.courseler.data.CourseDataCache;
+import edu.brown.cs.courseler.reccomendation.Filter;
+import edu.brown.cs.courseler.reccomendation.RecommendationExecutor;
+import edu.brown.cs.courseler.search.RankedSearch;
+import edu.brown.cs.coursler.userinfo.DbProxy;
+import edu.brown.cs.coursler.userinfo.User;
+import edu.brown.cs.coursler.userinfo.UserCache;
+import freemarker.template.Configuration;
 import spark.ExceptionHandler;
 import spark.ModelAndView;
 import spark.QueryParamsMap;
@@ -20,20 +34,6 @@ import spark.Route;
 import spark.Spark;
 import spark.TemplateViewRoute;
 import spark.template.freemarker.FreeMarkerEngine;
-
-import com.google.common.collect.ImmutableMap;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-
-import edu.brown.cs.courseler.courseinfo.Course;
-import edu.brown.cs.courseler.data.CourseDataCache;
-import edu.brown.cs.courseler.reccomendation.Filter;
-import edu.brown.cs.courseler.reccomendation.RecommendationExecutor;
-import edu.brown.cs.courseler.search.RankedSearch;
-import edu.brown.cs.coursler.userinfo.DbProxy;
-import edu.brown.cs.coursler.userinfo.User;
-import edu.brown.cs.coursler.userinfo.UserCache;
-import freemarker.template.Configuration;
 
 /**
  * The main request handler class where all API calls can be called. All calls
@@ -235,7 +235,12 @@ public final class RequestHandler {
         variables = ImmutableMap.of("status", "no_such_user");
       } else {
         List<String> sections = user.getSectionsInCart();
-        variables = ImmutableMap.of("status", "success", "sections", sections);
+        List<Section> sectionList = new ArrayList<>();
+        for (String section : sections) {
+          sectionList.add(courseCache.getSectionFromCache(section));
+        }
+        variables =
+            ImmutableMap.of("status", "success", "sections", sectionList);
       }
       return GSON.toJson(variables);
     }
@@ -432,11 +437,10 @@ public final class RequestHandler {
       }
 
       List<Course> allCourses = courseCache.getAllCourses();
-      Filter filter = new Filter(currUser, openFilter,
-          lessThanTenHoursFilter,
+      Filter filter = new Filter(currUser, openFilter, lessThanTenHoursFilter,
           smallCoursesFilter);
-      RecommendationExecutor allRecs = new RecommendationExecutor(currUser,
-          filter, allCourses, courseCache);
+      RecommendationExecutor allRecs =
+          new RecommendationExecutor(currUser, filter, allCourses, courseCache);
 
       return GSON.toJson(allRecs.getReccomendations());
     }
