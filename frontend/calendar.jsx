@@ -91,7 +91,7 @@ export default class Calendar extends React.Component {
 				let endTime = timeObject[endString]; 
 				let newSectionObject = <CalendarSectionObject 
 										key={sectionObject.sectionId} 
-										title={sectionObject.sectionId} 
+										title={sectionObject.title} 
 										start={startTime} 
 										end={endTime} 
 										click={this.showCourseInfo.bind(this, courseId)}/>;
@@ -101,6 +101,7 @@ export default class Calendar extends React.Component {
 			}
     }
 		calendar.sections.map(function(section) {
+			// console.log(section);
 			loadDay("monday", section.times, section);
 			loadDay("tuesday", section.times, section);
 			loadDay("wednesday", section.times, section);
