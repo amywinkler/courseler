@@ -37,48 +37,52 @@ public class ClassYearRecommendations implements Recommend<Course> {
     this.classYear = user.getClassYear();
   }
 
-
   @Override
   public List<Course> getReccomendations() {
-    String percentName;
-    if (classYear.equals("Freshman")) {
-      percentName = "percent_freshmen";
-    } else if (classYear.equals("Sophomore")) {
-      percentName = "percent_sophomores";
-    } else if (classYear.equals("Junior")) {
-      percentName = "percent_juniors";
-    } else if (classYear.equals("Senior")) {
-      percentName = "percent_seniors";
-    } else {
-      percentName = "percent_grad";
-    }
-
-    List<Course> goodForClassYear = new ArrayList<>();
     List<Course> toReturn = new ArrayList<Course>();
+    if (classYear != null) {
 
-    for (Course c : allCourses) {
-      if (c.getCrData() != null
-          && c.getCrData().getDemographics().get(percentName) >= PERCENT_TO_CHECK) {
-        goodForClassYear.add(c);
+      String percentName;
+      if (classYear.equals("Freshman")) {
+        percentName = "percent_freshmen";
+      } else if (classYear.equals("Sophomore")) {
+        percentName = "percent_sophomores";
+      } else if (classYear.equals("Junior")) {
+        percentName = "percent_juniors";
+      } else if (classYear.equals("Senior")) {
+        percentName = "percent_seniors";
+      } else {
+        percentName = "percent_grad";
       }
-    }
 
-    goodForClassYear.sort(Course.getCrCompCScore());
+      List<Course> goodForClassYear = new ArrayList<>();
 
-    for (Course c : goodForClassYear) {
-      if (user.getInterests().contains(c.getDepartment())
-          || user.getConcentration().equals(c.getDepartment())) {
-        toReturn.add(c);
+      for (Course c : allCourses) {
+        if (c.getCrData() != null
+            && c.getCrData().getDemographics().get(percentName) >= PERCENT_TO_CHECK) {
+          goodForClassYear.add(c);
+        }
       }
-    }
 
-    for (Course c : goodForClassYear) {
-      if (!toReturn.contains(c)) {
-        toReturn.add(c);
+      goodForClassYear.sort(Course.getCrCompCScore());
+
+      for (Course c : goodForClassYear) {
+        if (user.getInterests().contains(c.getDepartment())
+            || user.getConcentration().equals(c.getDepartment())) {
+          toReturn.add(c);
+        }
       }
-    }
 
-    return filter.getFilteredListOfCourses(toReturn);
+      for (Course c : goodForClassYear) {
+        if (!toReturn.contains(c)) {
+          toReturn.add(c);
+        }
+      }
+
+      return filter.getFilteredListOfCourses(toReturn);
+    } else {
+      return toReturn;
+    }
   }
 
 }
