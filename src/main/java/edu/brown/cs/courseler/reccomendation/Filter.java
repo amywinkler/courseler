@@ -19,13 +19,15 @@ import edu.brown.cs.coursler.userinfo.User;
 public class Filter {
   private static final int MAX_NUM_RECCOMENDATIONS = 15;
   private static final int SMALL_COURSE_SIZE = 15;
+  private static final int AVG_HOURS_PER_WEEK = 10;
 
   private CourseDataCache cache;
   private User user;
   private boolean openFilter;
   private boolean lessThanTenHoursFilter;
   private boolean smallCoursesFilter;
-  private List<Section> sectionsInUserCart;
+  private List<Section> sectionsInCart;
+  private List<Course> coursesInCart;
   private EnumSet<TimeSlot> openTimeSlots;
 
 
@@ -47,8 +49,9 @@ public class Filter {
     this.openFilter = openFilter;
     this.lessThanTenHoursFilter = lessThanTenHoursFilter;
     this.smallCoursesFilter = smallCoursesFilter;
-    this.sectionsInUserCart = getSectionsInUserCart();
+    this.sectionsInCart = getSectionsInUserCart();
     this.openTimeSlots = getOpenTimeslots();
+    this.coursesInCart = getCoursesInCart();
 
   }
 
@@ -62,9 +65,21 @@ public class Filter {
     return toReturn;
   }
 
+  private List<Course> getCoursesInCart() {
+    List<Course> toReturn = new ArrayList<>();
+
+    for (Section s : sectionsInCart) {
+      if (!toReturn.contains(cache.getCourseFomCache(s.getCourseCode()))) {
+        toReturn.add(cache.getCourseFomCache(s.getCourseCode()));
+      }
+    }
+
+    return toReturn;
+  }
+
   private EnumSet<TimeSlot> getOpenTimeslots() {
     EnumSet<TimeSlot> toReturn = EnumSet.allOf(TimeSlot.class);
-    for (Section s : sectionsInUserCart) {
+    for (Section s : sectionsInCart) {
       for (TimeSlot t : s.getOverlappingTimeSlots()) {
         toReturn.remove(t);
       }
@@ -73,7 +88,16 @@ public class Filter {
   }
 
   private void filterOnClassesNotInCart(List<Course> currentListOfCourses) {
-    // TODO: make this actually do something lmao
+    List<Course> toRemove = new ArrayList<>();
+    for (Course c : currentListOfCourses) {
+      if (coursesInCart.contains(c)) {
+        toRemove.add(c);
+      }
+    }
+
+    for (Course c : toRemove) {
+      currentListOfCourses.remove(c);
+    }
   }
 
   private void filterOnMaxReccomendations(List<Course> currentListOfCourses) {
@@ -84,36 +108,54 @@ public class Filter {
   }
 
   private void filterOnSmallCourses(List<Course> currentListOfCourses) {
+    List<Course> toRemove = new ArrayList<>();
+
     for (Course c : currentListOfCourses) {
       if (c.getCap() > SMALL_COURSE_SIZE) {
-        currentListOfCourses.remove(c);
+        toRemove.add(c);
+
       }
+    }
+
+    for (Course c : toRemove) {
+      currentListOfCourses.remove(c);
     }
   }
 
   private void filterOnOpenTimeSlots(List<Course> currentListOfCourses) {
-    // for (Course c : currentListOfCourses) {
-    // for (Section s : c.getSections()) {
-    // boolean doesNotFitInCart = false;
-    // if (s.getIsMain()) {
-    // for (TimeSlot t : s.getOverlappingTimeSlots()) {
-    // if (!openTimeSlots.contains(t)) {
-    // doesNotFitInCart = true;
-    // }
-    // }
-    // }
-    // }
-    //
-    // if (doesNotFitInCart) {
-    // currentListOfCourses.remove(c);
-    // }
-    // }
+    List<Course> toRemove = new ArrayList<>();
+
+    for (Course c : currentListOfCourses) {
+      boolean oneMainSectionFitsInCart = false;
+      for (Section s : c.getSections()) {
+        boolean fitsInCart = true;
+        if (s.getIsMainSection() && !oneMainSectionFitsInCart) {
+          for (TimeSlot t : s.getOverlappingTimeSlots()) {
+            if (!openTimeSlots.contains(t)) {
+              fitsInCart = false;
+            }
+          }
+        }
+
+        if (fitsInCart) {
+          oneMainSectionFitsInCart = true;
+        }
+      }
+
+      if (!oneMainSectionFitsInCart) {
+        toRemove.add(c);
+      }
+    }
+
+    for (Course c : toRemove) {
+      currentListOfCourses.remove(c);
+    }
   }
 
   private void filterOnLessThanTenHours(List<Course> currentListOfCourses) {
     for (Course c : currentListOfCourses) {
       if (c.getCrData() == null
-          || c.getCrData().getHoursPerWeek().get("average_hours") > 10) {
+          || c.getCrData().getHoursPerWeek().get("average_hours") > AVG_HOURS_PER_WEEK) {
         currentListOfCourses.remove(c);
       }
     }
