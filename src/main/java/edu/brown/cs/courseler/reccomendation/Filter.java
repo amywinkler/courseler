@@ -4,6 +4,7 @@ import java.util.List;
 
 import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.courseinfo.TimeSlot;
+import edu.brown.cs.coursler.userinfo.User;
 
 /**
  * Class to do a filter on reccoemndations.
@@ -12,7 +13,7 @@ import edu.brown.cs.courseler.courseinfo.TimeSlot;
  *
  */
 public class Filter {
-  private List<String> userSections;
+  private User user;
   private boolean openFilter;
   private boolean lessThanTenHoursFilter;
   private boolean smallCoursesFilter;
@@ -28,12 +29,13 @@ public class Filter {
    * @param smallCoursesFilter
    *          filter for only small courses (leq 24 students)
    */
-  public Filter(List<String> userSections, boolean openFilter, boolean lessThanTenHoursFilter,
+  public Filter(User user, boolean openFilter,
+      boolean lessThanTenHoursFilter,
       boolean smallCoursesFilter) {
+    this.user = user;
     this.openFilter = openFilter;
     this.lessThanTenHoursFilter = lessThanTenHoursFilter;
     this.smallCoursesFilter = smallCoursesFilter;
-    this.userSections = userSections;
     this.openTimeSlots = getOpenTimeslots();
 
   }
@@ -45,7 +47,8 @@ public class Filter {
 
   public List<Course> getFilteredListOfCourses(List<Course> currentListOfCourses) {
     // TODO: filter must apply all the filters and then return max 15 courses
-    return null;
+    // automatically filter by classes that are not in your cart
+    return currentListOfCourses;
   }
 
 }

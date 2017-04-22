@@ -372,7 +372,7 @@ public final class RequestHandler {
       }
 
       List<Course> allCourses = courseCache.getAllCourses();
-      Filter filter = new Filter(currUser.getSectionsInCart(), openFilter,
+      Filter filter = new Filter(currUser, openFilter,
           lessThanTenHoursFilter,
           smallCoursesFilter);
       ReccomendationExecutor allRecs = new ReccomendationExecutor(currUser,

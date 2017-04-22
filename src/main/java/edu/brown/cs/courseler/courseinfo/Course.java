@@ -47,7 +47,16 @@ public class Course {
   private static Comparator<Course> crCompCScore = new Comparator<Course>() {
     @Override
     public int compare(Course c1, Course c2) {
-      return c1.crData.getCourseScore().compareTo(c2.crData.getCourseScore());
+      if (c1.crData == null && c2.crData == null) {
+        return 0;
+      } else if (c1.crData == null && c2.crData != null) {
+        return 1;
+      } else if (c1.crData != null && c2.crData == null) {
+        return -1;
+      } else {
+        return -1
+            * c1.crData.getCourseScore().compareTo(c2.crData.getCourseScore());
+      }
     }
   };
 
@@ -56,8 +65,15 @@ public class Course {
    *
    * @return the comparator for course score
    */
-  public Comparator<Course> getCrCompCScore() {
+  public static Comparator<Course> getCrCompCScore() {
     return crCompCScore;
+  }
+
+  /**
+   * @return the critical review data
+   */
+  public CriticalReviewData getCrData() {
+    return crData;
   }
 
 
@@ -158,6 +174,13 @@ public class Course {
    */
   public String getCourseCode() {
     return courseCode;
+  }
+
+  /**
+   * @return the course's department
+   */
+  public String getDepartment() {
+    return department;
   }
 
   @Override

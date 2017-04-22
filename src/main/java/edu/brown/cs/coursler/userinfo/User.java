@@ -40,7 +40,7 @@ public class User {
     sectionsInCart = new ArrayList<>();
   }
 
-  void setClassYear(String year) {
+  public void setClassYear(String year) {
     this.classYear = year;
   }
 
@@ -56,8 +56,8 @@ public class User {
   // this.password = pw;
   // }
 
-
-  void setInterests(List<String> interests) {
+  // TODO: is it ok that this is public?
+  public void setInterests(List<String> interests) {
     this.interests = interests;
   }
 
@@ -99,12 +99,11 @@ public class User {
   /**
    * Get sections in cart of user.
    *
-   * @return list of section
+   * @return list of section ids
    */
   public List<String> getSectionsInCart() {
     return sectionsInCart;
   }
-
 
   /**
    * Get concentration of user.
