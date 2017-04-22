@@ -18,9 +18,7 @@ export default class CourseInfoScreen extends React.Component {
 
 	render() {
     if (this.state.info) {
-      console.log(this.state.info.funAndCool);
-      // console.log(this.state.info.crData);
-      // console.log(this.state.info);
+      // console.log(this.state.info.funAndCool);
       let emojis = this.state.info.funAndCool.emojis;
       let info = this.state.info;
       let term = info.term;
@@ -32,7 +30,7 @@ export default class CourseInfoScreen extends React.Component {
       let mySectionIds = mySections.map((s) => s.sectionId);
             
   		let sectionInfo = info.sections.map((section, index) => {
-        console.log(section);
+        // console.log(section);
   			// Checks whether the current cart has this section in it already
         let inCart = mySectionIds.indexOf(section.sectionId) >= 0;
         return <SectionInfo key={index} 
