@@ -2,10 +2,9 @@ package edu.brown.cs.courseler.courseinfo;
 
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
-
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Multimap;
+import java.util.Map;
 
 /**
  * Class that represents a course.
@@ -27,7 +26,7 @@ public class Course {
   private CriticalReviewData crData;
 
   //google form data
-  private Multimap<String, String> funAndCool;
+  private Map<String, List<String>> funAndCool;
   private List<Section> sections;
 
   /**
@@ -39,7 +38,7 @@ public class Course {
   public Course(String courseCode) {
     this.courseCode = courseCode;
     this.sections = new ArrayList<>();
-    this.funAndCool = ArrayListMultimap.create();
+    this.funAndCool = new HashMap<>();
   }
 
   /**
@@ -88,7 +87,16 @@ public class Course {
    *          the value for the map
    */
   public void addToFunAndCool(String key, String value) {
-    funAndCool.put(key, value);
+    if (funAndCool.containsKey(key)) {
+      List<String> currVals = funAndCool.get(key);
+      currVals.add(value);
+      funAndCool.put(key, currVals);
+    } else {
+      List<String> toAdd = new ArrayList<>();
+      toAdd.add(value);
+      funAndCool.put(key, toAdd);
+    }
+
   }
 
   /**
@@ -223,4 +231,5 @@ public class Course {
   public int hashCode() {
     return courseCode.hashCode();
   }
+
 }

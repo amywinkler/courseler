@@ -52,7 +52,7 @@ export default class Calendar extends React.Component {
 		Shows the calendar view.
 	*/
 	showCalendar(e) {
-    navigateToRoute({});
+    	navigateToRoute({});
 	}
 
 	/*
@@ -81,6 +81,12 @@ export default class Calendar extends React.Component {
   	this.setState({"thursday" : []});
   	this.setState({"friday" : []});
 
+  	// Compare function to order sections based on time
+  	let orderSections = (s1, s2) => {
+
+  	}
+
+
 		// Puts a single section into the appropriate day
 		let loadDay = (day, timeObject, sectionObject) => {
 			let startString = day+"Start";
@@ -91,7 +97,7 @@ export default class Calendar extends React.Component {
 				let endTime = timeObject[endString]; 
 				let newSectionObject = <CalendarSectionObject 
 										key={sectionObject.sectionId} 
-										title={sectionObject.sectionId} 
+										title={sectionObject.title} 
 										start={startTime} 
 										end={endTime} 
 										click={this.showCourseInfo.bind(this, courseId)}/>;
@@ -101,6 +107,7 @@ export default class Calendar extends React.Component {
 			}
     }
 		calendar.sections.map(function(section) {
+			// console.log(section);
 			loadDay("monday", section.times, section);
 			loadDay("tuesday", section.times, section);
 			loadDay("wednesday", section.times, section);

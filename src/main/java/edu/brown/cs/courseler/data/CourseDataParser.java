@@ -67,6 +67,7 @@ public class CourseDataParser {
     parseBannerData();
     cache.sortDeptList();
     parseCritReviewData();
+
     parseGoogleFormData();
   }
 

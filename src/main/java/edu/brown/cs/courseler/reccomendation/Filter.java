@@ -97,9 +97,15 @@ public class Filter {
     // boolean doesNotFitInCart = false;
     // if (s.getIsMain()) {
     // for (TimeSlot t : s.getOverlappingTimeSlots()) {
-    // if(openTimeSlots.con)
+    // if (!openTimeSlots.contains(t)) {
+    // doesNotFitInCart = true;
     // }
     // }
+    // }
+    // }
+    //
+    // if (doesNotFitInCart) {
+    // currentListOfCourses.remove(c);
     // }
     // }
   }
