@@ -19,7 +19,7 @@ export default class CalendarSectionObject extends React.Component {
 
 		return (
 		  <div className='calendarSectionObject' onClick={this.props.click}>
-				<h3>{title}</h3>
+				<h4>{title}</h4>
 				<p>{start}–{end}</p>
 		  </div>
 		)
