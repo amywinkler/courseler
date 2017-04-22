@@ -230,6 +230,12 @@ export class API {
     fakeDelay(() => {
       callback(calendar);
     })
+    // this.post('/getCart', {id: localStorage.userId}, (result) => {
+    //   if (result.status === 'success') {
+    //     console.log(result);
+    //     callback(result);
+    //   }
+    // });
   }
 
   // ADD COURSES UI apis
@@ -269,6 +275,8 @@ export class API {
       }
       callback(sectionCode);
     });
+
+    // this.post('/addSection', {id: localStorage.userId, section: sectionCode})
   }
 
   removeFromCart(sectionCode, callback) {
@@ -277,6 +285,16 @@ export class API {
         calendar.sections = calendar.sections.filter(function(section) {return section.sectionId!=sectionCode});
         callback(sectionCode);
       }
+    });
+
+    // this.post('/removeSection', {id: localStorage.userId, section: sectionCode})
+  }
+
+  // gets all the departments.
+  getDepartments(callback) {
+    $.get("/departments", responseJSON => {
+      const responseObject = JSON.parse(responseJSON);
+      callback(responseObject);
     });
   }
 }
