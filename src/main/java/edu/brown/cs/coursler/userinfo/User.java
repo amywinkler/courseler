@@ -10,10 +10,7 @@ import java.util.List;
  */
 public class User {
 
-  // private String email;
-  // private String password; // LOL saved in plaintext oh well
-  private String classYear; // "Freshman", "Sophomore", "Junior", "Senior",
-                            // "Grad Student"
+  private String classYear; // "Freshman", "Sophomore", "Junior", "Senior"
   private String concentration; // e.g. "CSCI"
   private String loginIdToken; // e.g. AxW67yh
   private List<String> interests; // e.g. CSCI, VISA
@@ -34,8 +31,6 @@ public class User {
     this.loginIdToken = token;
     classYear = null;
     concentration = null;
-    // email = null;
-    // password = null;
     interests = new ArrayList<>();
     sectionsInCart = new ArrayList<>();
   }
@@ -59,14 +54,6 @@ public class User {
   public void setConcentration(String conc) {
     this.concentration = conc;
   }
-
-  // void setEmail(String email) {
-  // this.email = email;
-  // }
-
-  // void setPassword(String pw) {
-  // this.password = pw;
-  // }
 
   /**
    * Sets user interests.
