@@ -46,6 +46,13 @@ public class RecommendationExecutor implements Recommend<RecommendationDatum> {
         "Good Courses For Your Class Year", cyReccomendations);
     toReturn.add(cyRec);
 
+    ConcentrationRecommendations cr = new ConcentrationRecommendations(user,
+        filter, cache.getAllCourses());
+    List<Course> crRecs = cr.getReccomendations();
+    RecommendationDatum crRecDatum = new RecommendationDatum(
+        "Reccomended Courses in Your Concentration", crRecs);
+    toReturn.add(crRecDatum);
+
     return toReturn;
   }
 

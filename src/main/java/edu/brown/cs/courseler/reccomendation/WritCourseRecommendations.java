@@ -35,7 +35,7 @@ public class WritCourseRecommendations implements Recommend<Course> {
     List<Course> orderedResults = new ArrayList<>();
 
     for (Course wc : writCourses) {
-      if (interests.contains(wc.getDepartment())) {
+      if (interests != null && interests.contains(wc.getDepartment())) {
         orderedResults.add(wc);
       }
     }
