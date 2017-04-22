@@ -216,13 +216,20 @@ export class API {
 
   // callback has 1 param, a prefs dictionary
   getPrefs(callback) {
-    fakeDelay(() => {
-      callback(JSON.parse(localStorage.accountPrefs));
-    })
+    this.post('/getUserPrefs', {id: localStorage.userId}, (result) => {
+      if (result.status === 'success') {
+        console.log(result);
+        callback(result);
+      }
+    });
   }
 
   postPrefs(prefs) {
-    localStorage.accountPrefs = JSON.stringify(prefs);
+    console.log(prefs);
+    prefs.id = localStorage.userId;
+    this.post('/setUserPrefs', prefs, (result) => {
+      console.log(result);
+    });
   }
 
   // callback has 1 param, a calendar json

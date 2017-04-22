@@ -18,19 +18,44 @@ export default class CourseInfoScreen extends React.Component {
 
 	render() {
     if (this.state.info) {
-      // console.log(this.state.info.funAndCool);
-      let emojis = this.state.info.funAndCool.emojis;
+      console.log(this.state.info);
       let info = this.state.info;
       let term = info.term;
   		let title = info.title;
   		let code = info.courseCode;
   		let description = info.description;
-      
+      let emojis = this.state.info.funAndCool.emojis;
+
+      let stats;
+      if (info.crData) {
+        let stats = info.crData.demographics;
+
+      }
+
    		let mySections = this.props.calendar ? this.props.calendar.sections : [];
       let mySectionIds = mySections.map((s) => s.sectionId);
             
+      let demographics = () => {
+        if (this.state.info.crData) {
+          return (
+            <div className="demographicsSection">
+            <label>Demographics</label>
+            <div className="demographics">
+              <div className="freshmen" style={{width:info.crData.demographics.percent_freshmen*100+"%", backgroundColor: "#444"}}></div>
+              <div className="sophomores" style={{width:info.crData.demographics.percent_sophomores*100+"%", backgroundColor: "#777"}}></div>
+              <div className="junior" style={{width:info.crData.demographics.percent_juniors*100+"%", backgroundColor: "#999"}}></div>
+              <div className="senior" style={{width:info.crData.demographics.percent_seniors*100+"%", backgroundColor: "#aaa"}}></div>
+              <div className="other" style={{width:info.crData.demographics.percent_grad*100+"%", backgroundColor: "#ccc"}}></div>
+            </div>
+            </div>
+          )
+        } else {
+          return null;
+        };
+      }
+      
+
   		let sectionInfo = info.sections.map((section, index) => {
-        // console.log(section);
   			// Checks whether the current cart has this section in it already
         let inCart = mySectionIds.indexOf(section.sectionId) >= 0;
         return <SectionInfo key={index} 
@@ -42,15 +67,22 @@ export default class CourseInfoScreen extends React.Component {
       });
 
   		let calendarButton = <a href='#' onClick={this.back.bind()}>Back</a>;
-  		return (
+  		
+      return (
   			<div className='courseInfo'>
   				{calendarButton}
-          <h4>{term} {emojis}</h4>
-  				<h2>{code}: {title}</h2>
-  				<p>{description}</p>
-  				<div className ='sections'>Sections:
-  					{sectionInfo}
-          		</div>
+          <div></div>
+          <label>{term}</label> <div className='emojis'>{emojis}</div>
+  				<h3>{code}: {title}</h3>
+          <label>Course Description</label>
+  				  <p>{description}</p>
+          <label>Hours Per Week</label>
+            <p>lots of hours</p>
+          {demographics()}
+          <label>Sections</label> 
+            <div className ='sections'>
+              {sectionInfo}
+            </div>
   			</div>
   		)	
     } else {
