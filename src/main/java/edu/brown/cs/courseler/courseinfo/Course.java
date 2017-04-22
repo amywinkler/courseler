@@ -21,6 +21,7 @@ public class Course {
   private String coursesDotBrownLink;
   private String prereq;
   private String description;
+  private String term;
 
   //crit review
   private CriticalReviewData crData;
@@ -60,6 +61,7 @@ public class Course {
     }
   };
 
+
   /**
    * Get the comparator for course score.
    *
@@ -95,6 +97,14 @@ public class Course {
    */
   public void setCritReviewData(CriticalReviewData cr) {
     this.crData = cr;
+  }
+
+  /**
+   * @param currTerm
+   *          the current term
+   */
+  public void setTerm(String currTerm) {
+    term = currTerm;
   }
 
   /**

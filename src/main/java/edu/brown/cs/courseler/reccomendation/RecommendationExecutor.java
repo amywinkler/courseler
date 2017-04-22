@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.brown.cs.courseler.courseinfo.Course;
-import edu.brown.cs.courseler.courseinfo.Section;
 import edu.brown.cs.courseler.data.CourseDataCache;
 import edu.brown.cs.coursler.userinfo.User;
 
@@ -12,8 +11,6 @@ public class RecommendationExecutor implements Recommend<RecommendationDatum> {
   private User user;
   private Filter filter;
   private List<Course> allCourses;
-  private List<Section> sectionsInUserCart;
-  private List<Course> coursesInUserCart;
   private CourseDataCache cache;
 
   /**
@@ -29,19 +26,7 @@ public class RecommendationExecutor implements Recommend<RecommendationDatum> {
     this.user = user;
     this.filter = filter;
     this.allCourses = allCourses;
-    this.sectionsInUserCart = getSectionsInUserCart();
     this.cache = cache;
-  }
-
-  private List<Section> getSectionsInUserCart() {
-    // TODO: return all the section objects in a user's cart
-    return null;
-  }
-
-  private List<Course> getCoursesInUserCart() {
-    // TODO: this should just return the courses in a user's cart do we need
-    // this
-    return null;
   }
 
   @Override
