@@ -52,7 +52,7 @@ export default class Calendar extends React.Component {
 		Shows the calendar view.
 	*/
 	showCalendar(e) {
-    navigateToRoute({});
+    	navigateToRoute({});
 	}
 
 	/*
@@ -80,6 +80,12 @@ export default class Calendar extends React.Component {
   	this.setState({"wednesday" : []});
   	this.setState({"thursday" : []});
   	this.setState({"friday" : []});
+
+  	// Compare function to order sections based on time
+  	let orderSections = (s1, s2) => {
+
+  	}
+
 
 		// Puts a single section into the appropriate day
 		let loadDay = (day, timeObject, sectionObject) => {
