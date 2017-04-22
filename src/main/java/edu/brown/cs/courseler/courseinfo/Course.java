@@ -138,6 +138,13 @@ public class Course {
   }
 
   /**
+   * @return the course cap
+   */
+  public int getCap() {
+    return cap;
+  }
+
+  /**
    * @param link
    *          the courses dot brown link
    */

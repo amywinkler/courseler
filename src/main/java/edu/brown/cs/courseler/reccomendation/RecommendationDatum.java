@@ -10,7 +10,7 @@ import edu.brown.cs.courseler.courseinfo.Course;
  * @author amywinkler
  *
  */
-public class ReccomendationDatum {
+public class RecommendationDatum {
   private String name;
   private List<Course> courses;
 
@@ -22,7 +22,7 @@ public class ReccomendationDatum {
    * @param courses
    *          the list of courses to be reccomended
    */
-  public ReccomendationDatum(String name, List<Course> courses) {
+  public RecommendationDatum(String name, List<Course> courses) {
     this.name = name;
     this.courses = courses;
   }

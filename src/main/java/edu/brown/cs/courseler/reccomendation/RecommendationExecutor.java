@@ -8,7 +8,7 @@ import edu.brown.cs.courseler.courseinfo.Section;
 import edu.brown.cs.courseler.data.CourseDataCache;
 import edu.brown.cs.coursler.userinfo.User;
 
-public class ReccomendationExecutor implements Reccomend<ReccomendationDatum> {
+public class RecommendationExecutor implements Recommend<RecommendationDatum> {
   private User user;
   private Filter filter;
   private List<Course> allCourses;
@@ -24,7 +24,7 @@ public class ReccomendationExecutor implements Reccomend<ReccomendationDatum> {
    * @param filter
    *          the filter
    */
-  public ReccomendationExecutor(User user, Filter filter, List<Course> allCourses,
+  public RecommendationExecutor(User user, Filter filter, List<Course> allCourses,
       CourseDataCache cache) {
     this.user = user;
     this.filter = filter;
@@ -45,14 +45,21 @@ public class ReccomendationExecutor implements Reccomend<ReccomendationDatum> {
   }
 
   @Override
-  public List<ReccomendationDatum> getReccomendations() {
-    List<ReccomendationDatum> toReturn = new ArrayList<>();
-    WritCourseReccomendations wc = new WritCourseReccomendations(user, filter,
+  public List<RecommendationDatum> getReccomendations() {
+    List<RecommendationDatum> toReturn = new ArrayList<>();
+    WritCourseRecommendations wc = new WritCourseRecommendations(user, filter,
         cache.getAllCourses());
     List<Course> wcReccomendations = wc.getReccomendations();
-    ReccomendationDatum writRd = new ReccomendationDatum(
+    RecommendationDatum writRd = new RecommendationDatum(
         "WRIT Courses Based on Your Interests", wcReccomendations);
     toReturn.add(writRd);
+
+    ClassYearRecommendations cyr = new ClassYearRecommendations(user, filter,
+        cache.getAllCourses());
+    List<Course> cyReccomendations = cyr.getReccomendations();
+    RecommendationDatum cyRec = new RecommendationDatum(
+        "Good Courses For Your Class Year", cyReccomendations);
+    toReturn.add(cyRec);
 
     return toReturn;
   }

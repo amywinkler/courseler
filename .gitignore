@@ -81,3 +81,4 @@ local.properties
 .DS_Store
 config/checkstyle.xml
 .checkstyle
+test_users_1.sqlite3

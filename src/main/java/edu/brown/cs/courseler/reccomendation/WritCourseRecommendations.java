@@ -6,7 +6,7 @@ import java.util.List;
 import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.coursler.userinfo.User;
 
-public class WritCourseReccomendations implements Reccomend<Course> {
+public class WritCourseRecommendations implements Recommend<Course> {
   private User user;
   private Filter filter;
   private List<Course> allCourses;
@@ -19,7 +19,7 @@ public class WritCourseReccomendations implements Reccomend<Course> {
    * @param filter
    *          the filter
    */
-  public WritCourseReccomendations(User user, Filter filter,
+  public WritCourseRecommendations(User user, Filter filter,
       List<Course> allCourses) {
     this.user = user;
     this.filter = filter;
@@ -37,7 +37,6 @@ public class WritCourseReccomendations implements Reccomend<Course> {
     for (Course wc : writCourses) {
       if (interests.contains(wc.getDepartment())) {
         orderedResults.add(wc);
-        interests.remove(wc);
       }
     }
 
@@ -45,7 +44,9 @@ public class WritCourseReccomendations implements Reccomend<Course> {
     writCourses.sort(Course.getCrCompCScore());
 
     for (Course wc : writCourses) {
-      orderedResults.add(wc);
+      if (!orderedResults.contains(wc)) {
+        orderedResults.add(wc);
+      }
     }
 
     return filter.getFilteredListOfCourses(orderedResults);

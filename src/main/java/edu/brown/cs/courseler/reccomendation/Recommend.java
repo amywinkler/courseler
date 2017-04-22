@@ -10,7 +10,7 @@ import java.util.List;
  * @param <T>
  *          the type of reccomendations
  */
-public interface Reccomend<T> {
+public interface Recommend<T> {
   /**
    * Method to get the reccomendations.
    *
