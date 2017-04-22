@@ -227,15 +227,11 @@ export class API {
 
   // callback has 1 param, a calendar json
   getCalendar(callback) {
-    fakeDelay(() => {
-      callback(calendar);
-    })
-    // this.post('/getCart', {id: localStorage.userId}, (result) => {
-    //   if (result.status === 'success') {
-    //     console.log(result);
-    //     callback(result);
-    //   }
-    // });
+    this.post('/getCart', {id: localStorage.userId}, (result) => {
+      if (result.status === 'success') {
+        callback(result);
+      }
+    });
   }
 
   // ADD COURSES UI apis
@@ -265,29 +261,11 @@ export class API {
 
   // adds one of the two sections to the backend calendar
   addToCart(sectionCode, callback) {
-    fakeDelay(() => {
-      //this is very fake
-      calendar.sections = copy(calendar.sections);
-      if (sectionCode==='CSCI 0320 S01') {
-        calendar.sections.push(cs032_s01);
-      } else if (sectionCode==='CSCI 0320 S02') {
-        calendar.sections.push(cs032_s02);
-      }
-      callback(sectionCode);
-    });
-
-    // this.post('/addSection', {id: localStorage.userId, section: sectionCode})
+    this.post('/addSection', {id: localStorage.userId, section: sectionCode}, callback)
   }
 
   removeFromCart(sectionCode, callback) {
-    fakeDelay(() => {
-      if (calendar.sections.filter(function(section) {return section.sectionId===sectionCode})) {
-        calendar.sections = calendar.sections.filter(function(section) {return section.sectionId!=sectionCode});
-        callback(sectionCode);
-      }
-    });
-
-    // this.post('/removeSection', {id: localStorage.userId, section: sectionCode})
+    this.post('/removeSection', {id: localStorage.userId, section: sectionCode}, callback)
   }
 
   // gets all the departments.
