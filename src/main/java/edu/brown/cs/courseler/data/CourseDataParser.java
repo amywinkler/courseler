@@ -427,7 +427,7 @@ public class CourseDataParser {
         Course currCourse = cache.getCourseFomCache(courseCode);
         if (currCourse != null) {
           currCourse.addToFunAndCool("alternate_titles", nextLine[5]);
-          // currCourse.addToFunAndCool("emojis", nextLine[4]);
+          currCourse.addToFunAndCool("emojis", nextLine[4]);
           String[] wordsToDescribe = nextLine[3].split(", ");
           for (int i = 0; i < wordsToDescribe.length; i++) {
             currCourse.addToFunAndCool("descriptions", wordsToDescribe[i]);

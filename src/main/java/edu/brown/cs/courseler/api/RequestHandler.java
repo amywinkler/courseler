@@ -390,7 +390,6 @@ public final class RequestHandler {
       QueryParamsMap qm = req.queryMap();
       String courseId = qm.value("courseId");
       Course currCourse = courseCache.getCourseFomCache(courseId);
-
       return GSON.toJson(currCourse);
     }
   }
@@ -446,6 +445,7 @@ public final class RequestHandler {
           smallCoursesFilter);
       RecommendationExecutor allRecs =
           new RecommendationExecutor(currUser, filter, allCourses, courseCache);
+
 
       return GSON.toJson(allRecs.getReccomendations());
     }
