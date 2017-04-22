@@ -245,9 +245,13 @@ a {
   display: block;
 }
 
+.results {
+  display: flex;
+  flex-wrap: wrap;
+}
+
 .results .CourseCell {
-  display: inline-block;
-  vertical-align: top;
+  
 }
 
 @media screen and (max-width: 500px) {

@@ -40,11 +40,23 @@ public class User {
     sectionsInCart = new ArrayList<>();
   }
 
+  /**
+   * Sets class year of user.
+   *
+   * @param year
+   *          the year of the user.
+   */
   public void setClassYear(String year) {
     this.classYear = year;
   }
 
-  void setConcentration(String conc) {
+  /**
+   * Sets the user's concentration.
+   *
+   * @param conc
+   *          the concentration of the user.
+   */
+  public void setConcentration(String conc) {
     this.concentration = conc;
   }
 
@@ -56,7 +68,12 @@ public class User {
   // this.password = pw;
   // }
 
-  // TODO: is it ok that this is public?
+  /**
+   * Sets user interests.
+   *
+   * @param interests
+   *          the interests of the user.
+   */
   public void setInterests(List<String> interests) {
     this.interests = interests;
   }
@@ -80,10 +97,13 @@ public class User {
    *
    * @param sectionId
    *          the id of the section.
+   *
    */
   public void removeFromCart(String sectionId) {
     if (sectionsInCart.contains(sectionId)) {
       this.sectionsInCart.remove(sectionId);
+    } else {
+      throw new IllegalArgumentException("No such section in cart");
     }
   }
 
