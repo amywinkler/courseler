@@ -66,6 +66,20 @@ public class Section {
   }
 
   /**
+   * @return the isMainSection boolean
+   */
+  public boolean getIsMainSection() {
+    return isMainSection;
+  }
+
+  /**
+   * @return the course code
+   */
+  public String getCourseCode() {
+    return courseCode;
+  }
+
+  /**
    * @param overlappingTimeSlots
    *          the overlappingTimeSlots to set
    */

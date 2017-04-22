@@ -208,6 +208,13 @@ public class Course {
     return department;
   }
 
+  /**
+   * @return The sections of a course
+   */
+  public List<Section> getSections() {
+    return sections;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (o instanceof Course) {
