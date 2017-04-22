@@ -15,6 +15,7 @@ public class User {
   private String loginIdToken; // e.g. AxW67yh
   private List<String> interests; // e.g. CSCI, VISA
   private List<String> sectionsInCart;
+  private String shareId;
 
   /**
    * User constructor. We only pass in the login token then add additional info.
@@ -33,6 +34,26 @@ public class User {
     concentration = null;
     interests = new ArrayList<>();
     sectionsInCart = new ArrayList<>();
+    shareId = null;
+  }
+
+  /**
+   * Sets the share id of the user.
+   *
+   * @param id
+   *          the id of the user.
+   */
+  public void setShareId(String id) {
+    shareId = id;
+  }
+
+  /**
+   * Get the share id of the user.
+   *
+   * @return the share id.
+   */
+  public String getShareId() {
+    return shareId;
   }
 
   /**

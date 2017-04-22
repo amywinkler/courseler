@@ -11,16 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import spark.ExceptionHandler;
-import spark.ModelAndView;
-import spark.QueryParamsMap;
-import spark.Request;
-import spark.Response;
-import spark.Route;
-import spark.Spark;
-import spark.TemplateViewRoute;
-import spark.template.freemarker.FreeMarkerEngine;
-
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -35,6 +25,15 @@ import edu.brown.cs.coursler.userinfo.DbProxy;
 import edu.brown.cs.coursler.userinfo.User;
 import edu.brown.cs.coursler.userinfo.UserCache;
 import freemarker.template.Configuration;
+import spark.ExceptionHandler;
+import spark.ModelAndView;
+import spark.QueryParamsMap;
+import spark.Request;
+import spark.Response;
+import spark.Route;
+import spark.Spark;
+import spark.TemplateViewRoute;
+import spark.template.freemarker.FreeMarkerEngine;
 
 /**
  * The main request handler class where all API calls can be called. All calls
@@ -93,6 +92,7 @@ public final class RequestHandler {
     Spark.post("/search", new SearchHandler());
     Spark.post("/getUserPrefs", new UserPrefHandler());
     Spark.post("/setUserPrefs", new SetUserPrefHandler());
+    Spark.post("/getShareId", new GetShareIdHandler());
   }
 
   /**
@@ -106,6 +106,29 @@ public final class RequestHandler {
     public ModelAndView handle(Request req, Response res) {
       HashMap<String, Object> variables = new HashMap<String, Object>();
       return new ModelAndView(variables, "main.ftl");
+    }
+  }
+
+  /**
+   * Get Share Id API for a user.
+   *
+   * @author adevor
+   *
+   */
+  private final class GetShareIdHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+      Map<String, Object> variables;
+      QueryParamsMap qm = req.queryMap();
+      String id = qm.value("id");
+      User user = userCache.getUserForId(id);
+      if (user == null) {
+        variables = ImmutableMap.of("status", "no_such_user");
+      } else {
+        String shareId = user.getShareId();
+        variables = ImmutableMap.of("status", "success", "share_id", shareId);
+      }
+      return GSON.toJson(variables);
     }
   }
 
@@ -442,8 +465,7 @@ public final class RequestHandler {
 
       List<Course> allCourses = courseCache.getAllCourses();
       Filter filter = new Filter(courseCache, currUser, openFilter,
-          lessThanTenHoursFilter,
-          smallCoursesFilter);
+          lessThanTenHoursFilter, smallCoursesFilter);
       RecommendationExecutor allRecs =
           new RecommendationExecutor(currUser, filter, allCourses, courseCache);
 
