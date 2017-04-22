@@ -11,6 +11,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
+import org.mindrot.jbcrypt.BCrypt;
+
 /**
  * This is the class where we control the db. We get info about the user here!
  *
@@ -85,6 +87,8 @@ public class DbProxy {
     String id = generateRandomId();
     User user = new User(id);
 
+    String hashedPw = BCrypt.hashpw(password, BCrypt.gensalt());
+
     // Put into DB
     String query = "INSERT INTO users (email, password, id) VALUES(?, ?, ?);";
 
@@ -92,7 +96,7 @@ public class DbProxy {
     try {
       prep = conn.prepareStatement(query);
       prep.setString(1, email);
-      prep.setString(2, password);
+      prep.setString(2, hashedPw);
       prep.setString(3, id);
       prep.executeUpdate();
       prep.close();
@@ -195,10 +199,8 @@ public class DbProxy {
       ResultSet rs = prep.executeQuery();
 
       while (rs.next()) {
-        if (rs.getString("password").equals(password)) {
+        if (BCrypt.checkpw(password, rs.getString("password"))) {
           user = new User(rs.getString("id"));
-          // user.setEmail(rs.getString("email"));
-          // user.setPassword(rs.getString("password"));
           user.setConcentration(rs.getString("concentration"));
           user.setClassYear(rs.getString("year"));
 
@@ -249,8 +251,6 @@ public class DbProxy {
 
       while (rs.next()) {
         user.setClassYear(rs.getString("year"));
-        // user.setEmail(rs.getString("email"));
-        // user.setPassword(rs.getString("password"));
         user.setConcentration(rs.getString("concentration"));
         user.setClassYear(rs.getString("year"));
         String interests = rs.getString("interests");
