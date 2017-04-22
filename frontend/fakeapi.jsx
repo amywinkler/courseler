@@ -135,7 +135,7 @@ let signupFailureAlreadyRegistered = {
 // /search?query=???
 let searchResults = [cs32, cs32, cs32, cs32, cs32];
 
-// /recommend?id=verySecureId123|open=true|false&less_than_10_hours=true|false&small_courses=true|false
+// /recommend?open=true|false&less_than_10_hours=true|false&small_courses=true|false
 let recommended = [
   {name: 'Based on Your Cart', courses: [cs32, cs32, cs32, cs32]},
   {name: 'In Your Concentration', courses: [cs32, cs32, cs32]},
@@ -149,55 +149,51 @@ let fakeDelay = function(callback) {
   }, Math.random() * 0.7);
 }
 
-let copy = function(x) {
-  return JSON.parse(JSON.stringify(x));
-}
-
 export class API {
   constructor() {
 
-  }
-  
-  post(endpoint, params, callback) {
-    let url = endpoint + '?' + Object.keys(params).map((k) => k + '=' + encodeURIComponent(params[k])).join('&');
-    $.ajax({
-      method: 'POST',
-      url: url,
-      success: (response) => {
-        callback(JSON.parse(response));
-      },
-      error: (err) => {
-        console.log(err);
-      }
-    });
   }
 
   // LOGIN METHODS:
 
   isLoggedIn() {
-    return !!localStorage.userId;
+    return localStorage.loggedIn === 'true';
+  }
+
+  getToken() {
+    return this.isLoggedIn() ? 'token' : null;
   }
 
   logOut() {
-    delete localStorage.userId;
+    localStorage.loggedIn = 'false';
   }
 
   logIn(email, password, callback) {
-    this.post('/login', {email: email, password: password}, (result) => {
-      if (result.status === 'success') {
-        localStorage.userId = result.id;
+    fakeDelay(() => {
+      if (fakeAccounts[email]) {
+        if (fakeAccounts[email] === password) {
+          localStorage.loggedIn = 'true';
+          localStorage.accountPrefs = JSON.stringify(loginSuccess.preferences);
+          callback(loginSuccess);
+        } else {
+          callback(loginFailureWrongPassword);
+        }
+      } else {
+        callback(loginFailureUnregistered);
       }
-      callback(result);
-    });
+    })
   }
 
   signUp(email, password, callback) {
-    this.post('/signup', {email: email, password: password}, (result) => {
-      if (result.status === 'success') {
-        localStorage.userId = result.id;
+    fakeDelay(() => {
+      if (fakeAccounts[email]) {
+        callback(signupFailureAlreadyRegistered);
+      } else {
+        fakeAccounts[email] = password;
+        localStorage.loggedIn = 'true';
+        callback(signupSuccess);
       }
-      callback(result);
-    });
+    })
   }
 
   // ACCOUNT PREFS:
@@ -227,11 +223,9 @@ export class API {
 
   // callback has 1 param, a calendar json
   getCalendar(callback) {
-    this.post('/getCart', {id: localStorage.userId}, (result) => {
-      if (result.status === 'success') {
-        callback(result);
-      }
-    });
+    fakeDelay(() => {
+      callback(calendar);
+    })
   }
 
   // ADD COURSES UI apis
@@ -250,22 +244,45 @@ export class API {
   }
 
   search(filters, query, callback) {
-    this.post('/search', {query: query}, callback);
+    fakeDelay(() => {
+      callback(searchResults);
+    });
   }
 
   // Gets course info
   // callback has 1 param, the course object
   courseInfo(courseCode, callback) {
-    this.post('/course', {courseId: courseCode}, callback);
+    fakeDelay(() => {
+      callback(courses[courseCode]);
+    });
+    const postParameters = {courseId: 'VISA 0100'};
+    $.post("/course", postParameters, responseJSON => {
+      // Parse the JSON response into a JavaScript object.
+      const responseObject = JSON.parse(responseJSON);
+      console.log(responseObject);
+    });
   }
 
   // adds one of the two sections to the backend calendar
   addToCart(sectionCode, callback) {
-    this.post('/addSection', {id: localStorage.userId, section: sectionCode}, callback)
+    fakeDelay(() => {
+      //this is very fake
+      if (sectionCode==='CSCI 0320 S01') {
+        calendar.sections.push(cs032_s01);
+      } else if (sectionCode==='CSCI 0320 S02') {
+        calendar.sections.push(cs032_s02);
+      }
+      callback(sectionCode);
+    });
   }
 
   removeFromCart(sectionCode, callback) {
-    this.post('/removeSection', {id: localStorage.userId, section: sectionCode}, callback)
+    fakeDelay(() => {
+      if (calendar.sections.filter(function(section) {return section.sectionId===sectionCode})) {
+        calendar.sections = calendar.sections.filter(function(section) {return section.sectionId!=sectionCode});
+        callback(sectionCode); 
+      }
+    });
   }
 
   // gets all the departments.
@@ -275,4 +292,5 @@ export class API {
       callback(responseObject);
     });
   }
+
 }

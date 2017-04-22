@@ -24,7 +24,7 @@ public class ClassYearReccomendationsTest {
     user.setInterests(interests);
     user.setClassYear("Freshman");
     user.setConcentration("Undecided");
-    Filter filter = new Filter(user, false, false, false);
+    Filter filter = new Filter(cdc, user, false, false, false);
     ClassYearRecommendations cyr = new ClassYearRecommendations(user, filter,
         cdc.getAllCourses());
     List<Course> recs = cyr.getReccomendations();

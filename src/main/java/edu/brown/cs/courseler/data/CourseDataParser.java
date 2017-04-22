@@ -222,6 +222,7 @@ public class CourseDataParser {
           currCourse.setPreReq(prereq);
         }
 
+        currCourse.setTerm((String) courseJSON.get("tdesc"));
         currCourse.setDescription((String) courseJSON.get("description"));
         currCourse.addSectionObject(sect);
         cache.addToCourseCache(courseId, currCourse);
