@@ -12,7 +12,7 @@ import edu.brown.cs.coursler.userinfo.User;
  * @author amywinkler
  *
  */
-public class ClassYearReccomendations implements Reccomend<Course> {
+public class ClassYearRecommendations implements Recommend<Course> {
 
   private static final double PERCENT_TO_CHECK = 0.4;
   private User user;
@@ -29,7 +29,7 @@ public class ClassYearReccomendations implements Reccomend<Course> {
    * @param filter
    *          the filter
    */
-  public ClassYearReccomendations(User user, Filter filter,
+  public ClassYearRecommendations(User user, Filter filter,
       List<Course> allCourses) {
     this.user = user;
     this.filter = filter;
@@ -53,8 +53,6 @@ public class ClassYearReccomendations implements Reccomend<Course> {
       percentName = "percent_grad";
     }
 
-
-
     List<Course> goodForClassYear = new ArrayList<>();
     List<Course> toReturn = new ArrayList<Course>();
 
@@ -73,8 +71,6 @@ public class ClassYearReccomendations implements Reccomend<Course> {
         toReturn.add(c);
       }
     }
-
-
 
     for (Course c : goodForClassYear) {
       if (!toReturn.contains(c)) {

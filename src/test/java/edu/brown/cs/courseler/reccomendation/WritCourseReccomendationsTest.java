@@ -25,7 +25,7 @@ public class WritCourseReccomendationsTest {
     user.setConcentration("Undecided");
     user.setInterests(interests);
     Filter filter = new Filter(user, false, false, false);
-    WritCourseReccomendations wc = new WritCourseReccomendations(user, filter,
+    WritCourseRecommendations wc = new WritCourseRecommendations(user, filter,
         cdc.getAllCourses());
     List<Course> recs = wc.getReccomendations();
     assertEquals(recs.size(), 232);

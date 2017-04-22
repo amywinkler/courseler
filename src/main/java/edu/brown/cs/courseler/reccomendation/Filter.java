@@ -45,9 +45,20 @@ public class Filter {
     return null;
   }
 
+  private void filterOnLessThanTenHours(List<Course> currentListOfCourses) {
+    for (Course c : currentListOfCourses) {
+      if (c.getCrData() == null
+          || c.getCrData().getHoursPerWeek().get("average_hours") > 10) {
+        currentListOfCourses.remove(c);
+      }
+    }
+  }
+
   public List<Course> getFilteredListOfCourses(List<Course> currentListOfCourses) {
     // TODO: filter must apply all the filters and then return max 15 courses
     // automatically filter by classes that are not in your cart
+    // automatically filter by max 15 courses
+
     return currentListOfCourses;
   }
 

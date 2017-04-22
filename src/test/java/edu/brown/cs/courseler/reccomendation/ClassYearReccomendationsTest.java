@@ -23,8 +23,9 @@ public class ClassYearReccomendationsTest {
     interests.add("HIST");
     user.setInterests(interests);
     user.setClassYear("Freshman");
+    user.setConcentration("Undecided");
     Filter filter = new Filter(user, false, false, false);
-    ClassYearReccomendations cyr = new ClassYearReccomendations(user, filter,
+    ClassYearRecommendations cyr = new ClassYearRecommendations(user, filter,
         cdc.getAllCourses());
     List<Course> recs = cyr.getReccomendations();
     assertEquals(recs.size(), 46);
