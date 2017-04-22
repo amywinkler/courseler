@@ -17,7 +17,7 @@ public class Section {
   private SectionTime times;
   private MeetingLocation meetingLocations;
   private transient List<TimeSlot> overlappingTimeSlots;
-  private transient boolean isMainSection;
+  private boolean isMainSection;
 
   /**
    * Constructor for a section.
