@@ -237,7 +237,10 @@ public final class RequestHandler {
         List<String> sections = user.getSectionsInCart();
         List<Section> sectionList = new ArrayList<>();
         for (String section : sections) {
-          sectionList.add(courseCache.getSectionFromCache(section));
+          Section sect = courseCache.getSectionFromCache(section);
+          if (sect != null) {
+            sectionList.add(sect);
+          }
         }
         variables =
             ImmutableMap.of("status", "success", "sections", sectionList);
