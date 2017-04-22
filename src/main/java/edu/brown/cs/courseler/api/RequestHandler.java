@@ -26,6 +26,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import edu.brown.cs.courseler.courseinfo.Course;
+import edu.brown.cs.courseler.courseinfo.Section;
 import edu.brown.cs.courseler.data.CourseDataCache;
 import edu.brown.cs.courseler.reccomendation.Filter;
 import edu.brown.cs.courseler.reccomendation.RecommendationExecutor;
@@ -235,7 +236,15 @@ public final class RequestHandler {
         variables = ImmutableMap.of("status", "no_such_user");
       } else {
         List<String> sections = user.getSectionsInCart();
-        variables = ImmutableMap.of("status", "success", "sections", sections);
+        List<Section> sectionList = new ArrayList<>();
+        for (String section : sections) {
+          Section sect = courseCache.getSectionFromCache(section);
+          if (sect != null) {
+            sectionList.add(sect);
+          }
+        }
+        variables =
+            ImmutableMap.of("status", "success", "sections", sectionList);
       }
       return GSON.toJson(variables);
     }
@@ -435,8 +444,8 @@ public final class RequestHandler {
       Filter filter = new Filter(courseCache, currUser, openFilter,
           lessThanTenHoursFilter,
           smallCoursesFilter);
-      RecommendationExecutor allRecs = new RecommendationExecutor(currUser,
-          filter, allCourses, courseCache);
+      RecommendationExecutor allRecs =
+          new RecommendationExecutor(currUser, filter, allCourses, courseCache);
 
       return GSON.toJson(allRecs.getReccomendations());
     }
