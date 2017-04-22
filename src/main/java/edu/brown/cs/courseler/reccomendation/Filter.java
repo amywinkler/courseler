@@ -13,6 +13,7 @@ import edu.brown.cs.coursler.userinfo.User;
  *
  */
 public class Filter {
+  private static final int MAX_NUM_RECCOMENDATIONS = 15;
   private User user;
   private boolean openFilter;
   private boolean lessThanTenHoursFilter;
@@ -32,6 +33,7 @@ public class Filter {
   public Filter(User user, boolean openFilter,
       boolean lessThanTenHoursFilter,
       boolean smallCoursesFilter) {
+
     this.user = user;
     this.openFilter = openFilter;
     this.lessThanTenHoursFilter = lessThanTenHoursFilter;
@@ -43,6 +45,25 @@ public class Filter {
   private List<TimeSlot> getOpenTimeslots() {
     // TODO: go through each section id and remove from list of all timeslots
     return null;
+  }
+
+  private void filterOnClassesNotInCart() {
+    // TODO: make this actually do something lmao
+  }
+
+  private void filterOnMaxNumReccomendations(List<Course> currentListOfCourses) {
+    while (currentListOfCourses.size() > MAX_NUM_RECCOMENDATIONS) {
+      currentListOfCourses.remove(currentListOfCourses.size() - 1);
+    }
+
+  }
+
+  private void filterOnSmallCourses(List<Course> currentListOfCourses) {
+
+  }
+
+  private void filterOnOpenTimeSlots(List<Course> currentListOfCourses) {
+    // TODO: make this actually do something lmao
   }
 
   private void filterOnLessThanTenHours(List<Course> currentListOfCourses) {
@@ -58,6 +79,8 @@ public class Filter {
     // TODO: filter must apply all the filters and then return max 15 courses
     // automatically filter by classes that are not in your cart
     // automatically filter by max 15 courses
+
+    filterOnMaxNumReccomendations(currentListOfCourses);
 
     return currentListOfCourses;
   }
