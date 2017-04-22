@@ -28,7 +28,7 @@ public class WritCourseReccomendationsTest {
     WritCourseRecommendations wc = new WritCourseRecommendations(user, filter,
         cdc.getAllCourses());
     List<Course> recs = wc.getReccomendations();
-    assertEquals(recs.size(), 232);
+    assertEquals(recs.size(), 15);
     assertTrue(recs.get(0).getDepartment().equals("HIST"));
   }
 
