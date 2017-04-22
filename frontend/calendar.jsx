@@ -74,7 +74,14 @@ export default class Calendar extends React.Component {
 	}
   
   gotCalendar(calendar) {
-		// Puts a single section into the appropriate day (see the next function) 
+  	// Clear the calendar first
+  	this.setState({"monday" : []});
+  	this.setState({"tuesday" : []});
+  	this.setState({"wednesday" : []});
+  	this.setState({"thursday" : []});
+  	this.setState({"friday" : []});
+
+		// Puts a single section into the appropriate day
 		let loadDay = (day, timeObject, sectionObject) => {
 			let startString = day+"Start";
 			let endString = day+"End";

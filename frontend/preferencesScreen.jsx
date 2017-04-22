@@ -27,6 +27,7 @@ export default class PreferencesScreen extends React.Component {
     let departmentalInterestsField = <input type='text' value={this.state.departmentalInterests} onChange={ (e) => {this.setState({departmentalInterests: e.target.value})} } />;
     let concentrationField = (
       <select name="deptInterests" onChange={ (e) => {console.log(e.target.value)}}> 
+        {this.state.departments}
       </select>
     );
 
