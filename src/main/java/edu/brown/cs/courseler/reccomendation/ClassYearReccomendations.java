@@ -68,9 +68,9 @@ public class ClassYearReccomendations implements Reccomend<Course> {
     goodForClassYear.sort(Course.getCrCompCScore());
 
     for (Course c : goodForClassYear) {
-      if (user.getInterests().contains(c.getDepartment())) {
+      if (user.getInterests().contains(c.getDepartment())
+          || user.getConcentration().equals(c.getDepartment())) {
         toReturn.add(c);
-        // goodForClassYear.remove(c);
       }
     }
 

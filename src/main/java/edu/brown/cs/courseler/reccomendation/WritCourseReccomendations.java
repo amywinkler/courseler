@@ -37,7 +37,6 @@ public class WritCourseReccomendations implements Reccomend<Course> {
     for (Course wc : writCourses) {
       if (interests.contains(wc.getDepartment())) {
         orderedResults.add(wc);
-        interests.remove(wc);
       }
     }
 
@@ -45,7 +44,9 @@ public class WritCourseReccomendations implements Reccomend<Course> {
     writCourses.sort(Course.getCrCompCScore());
 
     for (Course wc : writCourses) {
-      orderedResults.add(wc);
+      if (!orderedResults.contains(wc)) {
+        orderedResults.add(wc);
+      }
     }
 
     return filter.getFilteredListOfCourses(orderedResults);

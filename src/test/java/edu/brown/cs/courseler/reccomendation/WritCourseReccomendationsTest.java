@@ -22,6 +22,7 @@ public class WritCourseReccomendationsTest {
     List<String> interests = new ArrayList<>();
     interests.add("APMA");
     interests.add("HIST");
+    user.setConcentration("Undecided");
     user.setInterests(interests);
     Filter filter = new Filter(user, false, false, false);
     WritCourseReccomendations wc = new WritCourseReccomendations(user, filter,

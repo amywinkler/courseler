@@ -54,6 +54,13 @@ public class ReccomendationExecutor implements Reccomend<ReccomendationDatum> {
         "WRIT Courses Based on Your Interests", wcReccomendations);
     toReturn.add(writRd);
 
+    ClassYearReccomendations cyr = new ClassYearReccomendations(user, filter,
+        cache.getAllCourses());
+    List<Course> cyReccomendations = cyr.getReccomendations();
+    ReccomendationDatum cyRec = new ReccomendationDatum(
+        "Good Courses For Your Class Year", cyReccomendations);
+    toReturn.add(cyRec);
+
     return toReturn;
   }
 
