@@ -218,8 +218,8 @@ export class API {
   getPrefs(callback) {
     this.post('/getUserPrefs', {id: localStorage.userId}, (result) => {
       if (result.status === 'success') {
-        console.log(result);
-        callback(result);
+        // console.log(result);
+        callback(result.preferences);
       }
     });
   }
