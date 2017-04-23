@@ -30,25 +30,25 @@ public class RecommendationExecutor implements Recommend<RecommendationDatum> {
   }
 
   @Override
-  public List<RecommendationDatum> getReccomendations() {
+  public List<RecommendationDatum> getRecommendations() {
     List<RecommendationDatum> toReturn = new ArrayList<>();
     WritCourseRecommendations wc = new WritCourseRecommendations(user, filter,
         cache.getAllCourses());
-    List<Course> wcReccomendations = wc.getReccomendations();
+    List<Course> wcReccomendations = wc.getRecommendations();
     RecommendationDatum writRd = new RecommendationDatum(
         "WRIT Courses Based on Your Interests", wcReccomendations);
     toReturn.add(writRd);
 
     ClassYearRecommendations cyr = new ClassYearRecommendations(user, filter,
         cache.getAllCourses());
-    List<Course> cyReccomendations = cyr.getReccomendations();
+    List<Course> cyReccomendations = cyr.getRecommendations();
     RecommendationDatum cyRec = new RecommendationDatum(
         "Good Courses For Your Class Year", cyReccomendations);
     toReturn.add(cyRec);
 
     ConcentrationRecommendations cr = new ConcentrationRecommendations(user,
         filter, cache.getAllCourses());
-    List<Course> crRecs = cr.getReccomendations();
+    List<Course> crRecs = cr.getRecommendations();
     RecommendationDatum crRecDatum = new RecommendationDatum(
         "Reccomended Courses in Your Concentration", crRecs);
     toReturn.add(crRecDatum);

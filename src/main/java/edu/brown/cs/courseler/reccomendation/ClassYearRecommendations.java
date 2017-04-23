@@ -38,7 +38,7 @@ public class ClassYearRecommendations implements Recommend<Course> {
   }
 
   @Override
-  public List<Course> getReccomendations() {
+  public List<Course> getRecommendations() {
     List<Course> toReturn = new ArrayList<Course>();
     if (classYear != null) {
 

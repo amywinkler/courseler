@@ -273,6 +273,8 @@ a {
 .hscroll > div > div {
   display: inline-block;
   white-space: normal;
+  height: 9em;
+  overflow-y: hidden;
 }
 
 .CourseCell {
@@ -332,4 +334,36 @@ a {
   }
 
 }
+
+/* POPUP MENU */
+
+.PopupMenuSource {
+  position: relative;
+  display: inline-block;
+}
+
+.PopupMenu {
+  background-color: #111;
+  color: white;
+  padding: 10px;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-top: 10px;
+  margin-left: -10px;
+  width: 70vw;
+  max-width: 200px;
+}
+
+.PopupMenu:before {
+  content: " ";
+  background-color: #111;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  left: 10px;
+  top: -5px;
+  transform: rotate(45deg);
+}
+
 

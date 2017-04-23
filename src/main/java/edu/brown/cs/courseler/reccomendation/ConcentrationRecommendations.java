@@ -37,7 +37,7 @@ public class ConcentrationRecommendations implements Recommend<Course> {
   }
 
   @Override
-  public List<Course> getReccomendations() {
+  public List<Course> getRecommendations() {
     List<Course> toReturn = new ArrayList<>();
 
     if (concentration == null

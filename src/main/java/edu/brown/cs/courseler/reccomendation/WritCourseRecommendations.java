@@ -27,9 +27,7 @@ public class WritCourseRecommendations implements Recommend<Course> {
   }
 
   @Override
-  public List<Course> getReccomendations() {
-    // TODO: get all writ courses, then find if any are in your interests, then
-    // just add highest remaining writ courses
+  public List<Course> getRecommendations() {
     List<Course> writCourses = getOnlyWritCourses();
     List<String> interests = user.getInterests();
     List<Course> orderedResults = new ArrayList<>();

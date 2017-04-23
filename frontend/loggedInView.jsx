@@ -5,6 +5,7 @@ import Calendar from './calendar.jsx';
 import PreferencesScreen from './preferencesScreen.jsx';
 import AddCoursesScreen from './addCoursesScreen.jsx';
 import CourseInfoScreen from './courseInfoScreen.jsx';
+import PopupMenu from './popupMenu.jsx';
 import { currentRoute, navigateToRoute } from './routing.jsx';
 
 export default class LoggedInView extends React.Component {
@@ -19,7 +20,6 @@ export default class LoggedInView extends React.Component {
    reloadCalendar() {
      api.getCalendar((calendar) => {
        this.setState({calendar: calendar});
-       // this.setState({screen: 'calendar'});
      });
    }
    
@@ -37,18 +37,10 @@ export default class LoggedInView extends React.Component {
        return (
          <div className='calendar-screen'>
            <div className='header'>
-             <div className='menu-button' onClick={() => navigateToRoute({screen: 'menu'})}>Menu</div>
+             <PopupMenu menu={this.renderMenuContent()}>Menu</PopupMenu>
            </div>
            <Calendar calendar={this.state.calendar} route={this.props.route} reloadCalendar={this.reloadCalendar.bind(this)} />          
            <div className='add-courses-button floating-button' onClick={() => navigateToRoute({screen: 'add-courses'})}>Add Courses</div>
-         </div>
-       )
-     } else if (screen === 'menu') {
-       return (
-         <div className='menu-screen'>
-           <div onClick={() => navigateToRoute({})}>Calendar</div>
-           <div onClick={() => navigateToRoute({screen: 'preferences'})}>Account preferences</div>
-           <div onClick={() => this.logOut()}>Log out</div>
          </div>
        )
      } else if (screen === 'preferences') {
@@ -58,6 +50,15 @@ export default class LoggedInView extends React.Component {
      } else if (screen === 'course') {
        return <CourseInfoScreen courseCode={this.props.route.courseCode} calendar={this.state.calendar} reloadCalendar={this.reloadCalendar.bind(this)} />
      }
+   }
+   
+   renderMenuContent() {
+     return (
+       <div>
+         <div onClick={() => navigateToRoute({screen: 'preferences'})}>Account preferences</div>
+         <div onClick={() => this.logOut()}>Log out</div>
+       </div>
+     )
    }
    
    logOut() {
