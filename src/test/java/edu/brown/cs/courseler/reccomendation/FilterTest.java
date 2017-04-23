@@ -23,7 +23,6 @@ public class FilterTest {
     Filter f = new Filter(cdc, u, true, false, false);
     List<Course> lstToFilter = new ArrayList<>();
     lstToFilter.add(cdc.getCourseFomCache("CSCI 0330"));
-    assertEquals(lstToFilter, 1);
 
     List<Course> filtered = f.getFilteredListOfCourses(lstToFilter);
     assertEquals(filtered.size(), 0);

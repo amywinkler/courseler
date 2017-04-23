@@ -89,7 +89,7 @@ public final class RequestHandler {
     Spark.post("/removeSection", new RemoveCartSectionHandler());
     Spark.post("/getCart", new GetCartHandler());
     Spark.get("/departments", new DepartmentHandler());
-    Spark.post("/reccomend", new ReccomendationHandler());
+    Spark.post("/recommend", new ReccomendationHandler());
     Spark.post("/search", new SearchHandler());
     Spark.post("/getUserPrefs", new UserPrefHandler());
     Spark.post("/setUserPrefs", new SetUserPrefHandler());
