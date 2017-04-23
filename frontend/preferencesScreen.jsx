@@ -49,7 +49,7 @@ export default class PreferencesScreen extends React.Component {
         <select name="departmentalInterests" 
             value={this.state.departmentalInterests} 
             onChange={ (e) => {
-              this.setState({departmentalInterests: this.state.departmentalInterests + "," + e.target.value})
+              this.setState({departmentalInterests: e.target.value})
             } }> 
           {this.state.departments}
         </select>
