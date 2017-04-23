@@ -3,6 +3,17 @@ import ReactDOM from 'react-dom';
 import api from './api.jsx';
 import SectionInfo from './sectionInfo.jsx';
 
+
+class DemographicsSection extends React.Component {
+  render() {
+    return (
+      <div>Hi</div>
+    )
+  }
+}
+
+
+
 export default class CourseInfoScreen extends React.Component {
 
 	constructor(props) {
@@ -19,18 +30,14 @@ export default class CourseInfoScreen extends React.Component {
 	render() {
     if (this.state.info) {
 
+      console.log(this.state.info);
+
       let info = this.state.info;
       let term = info.term;
   		let title = info.title;
   		let code = info.courseCode;
   		let description = info.description;
       let emojis = this.state.info.funAndCool.emojis;
-
-      let stats;
-      if (info.crData) {
-        let stats = info.crData.demographics;
-
-      }
 
    		let mySections = this.props.calendar ? this.props.calendar.sections : [];
       let mySectionIds = mySections.map((s) => s.sectionId);
@@ -39,15 +46,20 @@ export default class CourseInfoScreen extends React.Component {
         if (this.state.info.crData) {
           return (
             <div className="demographicsSection">
-            <div className="line"></div>
-            <label>Demographics</label>
-            <div className="demographics">
-              <div className="freshmen" style={{width:info.crData.demographics.percent_freshmen*100+"%", backgroundColor: "#444"}}></div>
-              <div className="sophomores" style={{width:info.crData.demographics.percent_sophomores*100+"%", backgroundColor: "#777"}}></div>
-              <div className="junior" style={{width:info.crData.demographics.percent_juniors*100+"%", backgroundColor: "#999"}}></div>
-              <div className="senior" style={{width:info.crData.demographics.percent_seniors*100+"%", backgroundColor: "#aaa"}}></div>
-              <div className="other" style={{width:info.crData.demographics.percent_grad*100+"%", backgroundColor: "#ccc"}}></div>
-            </div>
+              <div className="line"></div>
+              <label>Demographics</label>
+              <div className="classYearDemographics">
+                <div className="freshmen" style={{width:info.crData.demographics.percent_freshmen*100+"%", backgroundColor: "#444"}}></div>
+                <div className="sophomores" style={{width:info.crData.demographics.percent_sophomores*100+"%", backgroundColor: "#777"}}></div>
+                <div className="junior" style={{width:info.crData.demographics.percent_juniors*100+"%", backgroundColor: "#999"}}></div>
+                <div className="senior" style={{width:info.crData.demographics.percent_seniors*100+"%", backgroundColor: "#aaa"}}></div>
+                <div className="other" style={{width:info.crData.demographics.percent_grad*100+"%", backgroundColor: "#ccc"}}></div>
+              </div>
+              <div className="classYearDemographics">
+                <div className="conc" style={{width:info.crData.demographics.percent_concentrators*100+"%", backgroundColor: "#444"}}></div>
+                <div className="nonconc" style={{width:info.crData.demographics.percent_non_concentrators*100+"%", backgroundColor: "#777"}}></div>
+                <div className="undecided" style={{width:info.crData.demographics.percent_undecided*100+"%", backgroundColor: "#999"}}></div>
+              </div>
             </div>
           )
         } else {
@@ -57,6 +69,7 @@ export default class CourseInfoScreen extends React.Component {
       
 
   		let sectionInfo = info.sections.map((section, index) => {
+        console.log(section);
   			// Checks whether the current cart has this section in it already
         let inCart = mySectionIds.indexOf(section.sectionId) >= 0;
         return <SectionInfo key={index} 

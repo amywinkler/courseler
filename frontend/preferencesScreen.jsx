@@ -24,11 +24,11 @@ export default class PreferencesScreen extends React.Component {
         <select name="classYear" 
             value={this.state.classYear} 
             onChange={ (e) => {this.setState({classYear: e.target.value})} }> 
-          <option value="freshman">Freshman</option>
-          <option value="sophomore">Sophomore</option>
-          <option value="junior">Junior</option>
-          <option value="senior">Senior</option>
-          <option value="grad">Grad</option>
+          <option value="Freshman">Freshman</option>
+          <option value="Sophomore">Sophomore</option>
+          <option value="Junior">Junior</option>
+          <option value="Senior">Senior</option>
+          <option value="Graduate Student">Grad</option>
         </select>
       </div>
     );
@@ -49,7 +49,7 @@ export default class PreferencesScreen extends React.Component {
         <select name="departmentalInterests" 
             value={this.state.departmentalInterests} 
             onChange={ (e) => {
-              this.setState({departmentalInterests: this.state.departmentalInterests + "," + e.target.value})
+              this.setState({departmentalInterests: e.target.value})
             } }> 
           {this.state.departments}
         </select>
@@ -98,9 +98,9 @@ export default class PreferencesScreen extends React.Component {
   */
   post() {
     let prefs = {
-      class_year: this.state.classYear,
+      year: this.state.classYear,
       concentration: this.state.concentration,
-      dept_interests: this.state.departmentalInterests
+      interests: this.state.departmentalInterests
     };
     api.postPrefs(prefs);
   }
