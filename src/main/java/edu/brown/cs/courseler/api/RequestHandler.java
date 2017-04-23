@@ -11,16 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import spark.ExceptionHandler;
-import spark.ModelAndView;
-import spark.QueryParamsMap;
-import spark.Request;
-import spark.Response;
-import spark.Route;
-import spark.Spark;
-import spark.TemplateViewRoute;
-import spark.template.freemarker.FreeMarkerEngine;
-
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -35,6 +25,15 @@ import edu.brown.cs.coursler.userinfo.DbProxy;
 import edu.brown.cs.coursler.userinfo.User;
 import edu.brown.cs.coursler.userinfo.UserCache;
 import freemarker.template.Configuration;
+import spark.ExceptionHandler;
+import spark.ModelAndView;
+import spark.QueryParamsMap;
+import spark.Request;
+import spark.Response;
+import spark.Route;
+import spark.Spark;
+import spark.TemplateViewRoute;
+import spark.template.freemarker.FreeMarkerEngine;
 
 /**
  * The main request handler class where all API calls can be called. All calls
@@ -88,12 +87,14 @@ public final class RequestHandler {
     Spark.post("/addSection", new AddCartSectionHandler());
     Spark.post("/removeSection", new RemoveCartSectionHandler());
     Spark.post("/getCart", new GetCartHandler());
+    Spark.post("/getSharedCart", new GetSharableCartHandler());
     Spark.get("/departments", new DepartmentHandler());
     Spark.post("/recommend", new ReccomendationHandler());
     Spark.post("/search", new SearchHandler());
     Spark.post("/getUserPrefs", new UserPrefHandler());
     Spark.post("/setUserPrefs", new SetUserPrefHandler());
     Spark.post("/getShareId", new GetShareIdHandler());
+    Spark.get("/user/:userId", new GuestCartHandler(), freeMarker);
   }
 
   /**
@@ -107,6 +108,20 @@ public final class RequestHandler {
     public ModelAndView handle(Request req, Response res) {
       HashMap<String, Object> variables = new HashMap<String, Object>();
       return new ModelAndView(variables, "main.ftl");
+    }
+  }
+
+  /**
+   * Guest cart page.
+   *
+   * @author adevor
+   *
+   */
+  private static final class GuestCartHandler implements TemplateViewRoute {
+    @Override
+    public ModelAndView handle(Request req, Response res) {
+      HashMap<String, Object> variables = new HashMap<String, Object>();
+      return new ModelAndView(variables, "guest_cart.ftl");
     }
   }
 
@@ -238,6 +253,33 @@ public final class RequestHandler {
         variables =
             ImmutableMap.of("status", "success", "id", user.getTokenId());
       }
+      return GSON.toJson(variables);
+    }
+  }
+
+  /**
+   * Processes a request to get cart for share id!
+   *
+   * @author adevor
+   *
+   */
+  private class GetSharableCartHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+
+      Map<String, Object> variables;
+      QueryParamsMap qm = req.queryMap();
+      String shareId = qm.value("id");
+      List<String> sections = db.getSectionsFromShareId(shareId);
+      List<Section> sectionList = new ArrayList<>();
+      for (String section : sections) {
+        Section sect = courseCache.getSectionFromCache(section);
+        if (sect != null) {
+          sectionList.add(sect);
+        }
+
+      }
+      variables = ImmutableMap.of("status", "success", "sections", sectionList);
       return GSON.toJson(variables);
     }
   }
@@ -468,7 +510,6 @@ public final class RequestHandler {
           lessThanTenHoursFilter, smallCoursesFilter);
       RecommendationExecutor allRecs =
           new RecommendationExecutor(currUser, filter, allCourses, courseCache);
-
 
       return GSON.toJson(allRecs.getRecommendations());
     }
