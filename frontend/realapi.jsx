@@ -288,4 +288,8 @@ export class API {
       callback(responseObject);
     });
   }
+  
+  getSharedCart(id, callback) {
+    this.post('/getSharedCart', {id: id}, callback);
+  }
 }
