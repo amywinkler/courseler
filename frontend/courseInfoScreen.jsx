@@ -18,7 +18,7 @@ export default class CourseInfoScreen extends React.Component {
 
 	render() {
     if (this.state.info) {
-      console.log(this.state.info);
+
       let info = this.state.info;
       let term = info.term;
   		let title = info.title;
@@ -39,6 +39,7 @@ export default class CourseInfoScreen extends React.Component {
         if (this.state.info.crData) {
           return (
             <div className="demographicsSection">
+            <div className="line"></div>
             <label>Demographics</label>
             <div className="demographics">
               <div className="freshmen" style={{width:info.crData.demographics.percent_freshmen*100+"%", backgroundColor: "#444"}}></div>
@@ -71,14 +72,19 @@ export default class CourseInfoScreen extends React.Component {
       return (
   			<div className='courseInfo'>
   				{calendarButton}
-          <div></div>
-          <label>{term}</label> <div className='emojis'>{emojis}</div>
-  				<h3>{code}: {title}</h3>
-          <label>Course Description</label>
-  				  <p>{description}</p>
-          <label>Hours Per Week</label>
-            <p>lots of hours</p>
+          <div className ="courseInfoHeader">
+            <label>{term}</label> 
+            <div className='emojis'>{emojis}</div>
+          </div>
+  				<h2>{code}: {title}</h2>
+          <div className="line"></div>
+            <label>Course Description</label>
+    				  <p>{description}</p>
+          <div className="line"></div>
+            <label>Hours Per Week</label>
+              <p>lots of hours</p>
           {demographics()}
+          <div className="line"></div>
           <label>Sections</label> 
             <div className ='sections'>
               {sectionInfo}

@@ -10,6 +10,14 @@ a {
   color: inherit;
 }
 
+.line {
+  width: 100%;
+  height: 1px;
+  background-color: #ddd;
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
 /* LOG IN / SIGN UP */
 
 .LoggedOutView {
@@ -140,6 +148,10 @@ a {
 
 .emojis {
   display: inline-block;
+  font-size: 28px;
+  letter-spacing: .3em;
+  margin-left: 16px;
+  /*margin-right: 8px;*/
 }
 
 .courseInfo {
@@ -151,14 +163,18 @@ a {
   margin-top: 40px;
 }
 
-.courseInfo>label {
+.courseInfoHeader {
+  margin-top: 20px;
+}
+
+.courseInfo label {
   font-size: 14px;
   font-family: 'Roboto Mono';
   opacity: 0.5;
 }
 
-.courseInfo>p {
-  line-height: 1.4em;
+.courseInfo p {
+  line-height: 1.45em;
   font-size: 14px;
 }
 
@@ -201,7 +217,21 @@ a {
 /* PREFERENCES UI */
 
 .preferences {
-  padding: 20px;
+  max-width: 480px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 40px;
+}
+
+.preferences label {
+  font-size: 14px;
+  font-family: 'Roboto Mono';
+  opacity: 0.5;
+}
+
+.prefSection {
+  margin-top: 20px;
 }
 
 /* SEARCH/RECOMMENDATIONS */

@@ -22,7 +22,7 @@ export default class SectionInfo extends React.Component {
 		return (
 			<div className="section">
 				<h4 className="sectionName">{sectionId}</h4> 
-				put time here {addRemoveButton}
+				<p>put time here</p> {addRemoveButton}
 			</div>
 		)	
 	}

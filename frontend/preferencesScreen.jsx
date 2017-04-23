@@ -10,9 +10,8 @@ export default class PreferencesScreen extends React.Component {
      this.state = {
        classYear: '',
        concentration: '',
-       favoriteClass: '',
        departmentalInterests: '',
-       departments: []
+       departments: [] //for the dropdown
      };
      this.displayExistingPreferences();
      this.loadDepartments();
@@ -20,39 +19,67 @@ export default class PreferencesScreen extends React.Component {
 
   render() {
 
-    // console.log(this.state.departments);
+    let classYearField = (
+      <div className="classYear">
+        <select name="classYear" 
+            value={this.state.classYear} 
+            onChange={ (e) => {this.setState({classYear: e.target.value})} }> 
+          <option value="freshman">Freshman</option>
+          <option value="sophomore">Sophomore</option>
+          <option value="junior">Junior</option>
+          <option value="senior">Senior</option>
+          <option value="grad">Grad</option>
+        </select>
+      </div>
+    );
 
-    let classYearField = <input type='text' value={this.state.classYear} onChange={ (e) => {this.setState({classYear: e.target.value})} } />;
-    let favoriteClassField = <input type='text' value={this.state.favoriteClass} onChange={ (e) => {this.setState({favoriteClass: e.target.value})} } />;
-    let departmentalInterestsField = <input type='text' value={this.state.departmentalInterests} onChange={ (e) => {this.setState({departmentalInterests: e.target.value})} } />;
     let concentrationField = (
-      <select name="deptInterests" onChange={ (e) => {console.log(e.target.value)}}> 
-        {this.state.departments}
-      </select>
+      <div className="concentration">
+        <select name="concentration" 
+            value={this.state.concentration} 
+            onChange={ (e) => {this.setState({concentration: e.target.value})} }> 
+          {this.state.departments}
+        </select>
+      </div>
+    );
+
+    // let departmentalInterestsField = <input type='text' value={this.state.departmentalInterests} onChange={ (e) => {this.setState({departmentalInterests: e.target.value})} } />;
+    let departmentalInterestsField = (
+      <div className="departmentalInterests">
+        <select name="departmentalInterests" 
+            value={this.state.departmentalInterests} 
+            onChange={ (e) => {
+              this.setState({departmentalInterests: this.state.departmentalInterests + "," + e.target.value})
+            } }> 
+          {this.state.departments}
+        </select>
+        <div className='addMoreInterests'>+</div>
+      </div>
     );
 
     let doneButton = <a href='#' onClick={() => this.done()}>done</a>;
 
     return (
       <div className='preferences'>
-        <h1>User Preferences! </h1>
-        <div>
+        <h3>Preferences</h3>
+        <div className="line"></div>
+        <div className="prefSection">
           <label>Class Year</label>
-          {classYearField}
+            {classYearField}
         </div>
-        <div>
+        <div className="line"></div>
+        <div className="prefSection">
           <label>Concentration</label>
-          {concentrationField}
+            {concentrationField}
         </div>
-        <div>
-          <label>Favorite Class</label>
-          {favoriteClassField}
-        </div>
-        <div>
+        <div className="line"></div>
+        <div className="prefSection">
           <label>Departmental Interests</label>
-          {departmentalInterestsField}
+            {departmentalInterestsField}
         </div>
-        {doneButton}
+        <div className="prefSection">
+          {doneButton}
+        </div>
       </div>
     )
   }
@@ -73,7 +100,6 @@ export default class PreferencesScreen extends React.Component {
     let prefs = {
       class_year: this.state.classYear,
       concentration: this.state.concentration,
-      favorite_class: this.state.favoriteClass,
       dept_interests: this.state.departmentalInterests
     };
     api.postPrefs(prefs);
@@ -84,15 +110,17 @@ export default class PreferencesScreen extends React.Component {
     Displays any existing user preferences using the api call.
   */
   displayExistingPreferences() {
-    let display = (preferences) => {
-      this.setState({classYear: preferences.class_year});
-      this.setState({concentration: preferences.concentration});
-      this.setState({favoriteClass: preferences.favorite_class});
-      this.setState({departmentalInterests: preferences.dept_interests});
+    let display = (prefs) => {
+      this.setState({classYear: prefs.class_year==undefined ? '' : prefs.class_year});
+      this.setState({concentration: prefs.concentration==undefined ? '' : prefs.concentration});
+      this.setState({departmentalInterests: prefs.dept_interests==undefined ? '' : prefs.dept_interests});
     }
     api.getPrefs(display);
   }
 
+  /*
+    Loads the list of departments into the dropdowns using the api call.
+  */
   loadDepartments() {
     let departmentDropdown = (departments) => {
       this.setState({departments: departments.map((department, index) => {
@@ -101,6 +129,5 @@ export default class PreferencesScreen extends React.Component {
     };
     api.getDepartments(departmentDropdown);
   }
-
 
 }
