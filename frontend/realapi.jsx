@@ -251,9 +251,15 @@ export class API {
   */
 
   getRecommendations(filters, callback) {
-    fakeDelay(() => {
-      callback(recommended);
-    });
+    // /recommend?id=verySecureId123|open=true|false&less_than_10_hours=true|false&small_courses=true|false
+    let boolString = (bool) => bool ? 'true' : 'false';
+    let params = {
+      id: localStorage.userId,
+      open: boolString(filters.open),
+      less_than_10_hours: boolString(filters.less_than_10_hours),
+      small_courses: boolString(filters.less_than_10_hours)
+    }
+    this.post('/recommend', params, callback);
   }
 
   search(filters, query, callback) {
