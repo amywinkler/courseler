@@ -16,6 +16,6 @@ public interface Recommend<T> {
    *
    * @return an ordered list of reccomendations
    */
-  List<T> getReccomendations();
+  List<T> getRecommendations();
 
 }

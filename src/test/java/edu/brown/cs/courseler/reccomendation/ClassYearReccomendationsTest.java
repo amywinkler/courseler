@@ -27,7 +27,7 @@ public class ClassYearReccomendationsTest {
     Filter filter = new Filter(cdc, user, false, false, false);
     ClassYearRecommendations cyr = new ClassYearRecommendations(user, filter,
         cdc.getAllCourses());
-    List<Course> recs = cyr.getReccomendations();
+    List<Course> recs = cyr.getRecommendations();
     assertEquals(recs.size(), 15);
     assertTrue(recs.get(0).getDepartment().equals("HIST"));
   }
