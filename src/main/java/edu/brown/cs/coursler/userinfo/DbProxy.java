@@ -260,6 +260,40 @@ public class DbProxy {
   }
 
   /**
+   * Gets sections in cart given a user's share id.
+   *
+   * @param shareId
+   *          the share id of the user we're getting all of the data from
+   * @return a list of course sections
+   */
+  public List<String> getSectionsFromShareId(String shareId) {
+    if (conn == null) {
+      return null;
+    }
+    String query = "SELECT sections_in_cart FROM users WHERE share_id  == ?";
+    PreparedStatement prep;
+    List<String> sectionList = new ArrayList<>();
+    try {
+      prep = conn.prepareStatement(query);
+      prep.setString(1, shareId);
+      ResultSet rs = prep.executeQuery();
+
+      while (rs.next()) {
+        String sections = rs.getString("sections_in_cart");
+
+        if (sections != null && sections.length() > 1) {
+          sectionList = new ArrayList<>(Arrays.asList(sections.split(",")));
+        }
+      }
+      rs.close();
+      prep.close();
+    } catch (SQLException e) {
+      return null;
+    }
+    return sectionList;
+  }
+
+  /**
    * Gets user including all available data given its id.
    *
    * @param id

@@ -87,6 +87,7 @@ public final class RequestHandler {
     Spark.post("/addSection", new AddCartSectionHandler());
     Spark.post("/removeSection", new RemoveCartSectionHandler());
     Spark.post("/getCart", new GetCartHandler());
+    Spark.post("/getSharedCart", new GetSharableCartHandler());
     Spark.get("/departments", new DepartmentHandler());
     Spark.post("/recommend", new ReccomendationHandler());
     Spark.post("/search", new SearchHandler());
@@ -252,6 +253,33 @@ public final class RequestHandler {
         variables =
             ImmutableMap.of("status", "success", "id", user.getTokenId());
       }
+      return GSON.toJson(variables);
+    }
+  }
+
+  /**
+   * Processes a request to get cart for share id!
+   *
+   * @author adevor
+   *
+   */
+  private class GetSharableCartHandler implements Route {
+    @Override
+    public String handle(Request req, Response res) {
+
+      Map<String, Object> variables;
+      QueryParamsMap qm = req.queryMap();
+      String shareId = qm.value("id");
+      List<String> sections = db.getSectionsFromShareId(shareId);
+      List<Section> sectionList = new ArrayList<>();
+      for (String section : sections) {
+        Section sect = courseCache.getSectionFromCache(section);
+        if (sect != null) {
+          sectionList.add(sect);
+        }
+
+      }
+      variables = ImmutableMap.of("status", "success", "sections", sectionList);
       return GSON.toJson(variables);
     }
   }
