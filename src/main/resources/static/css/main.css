@@ -273,6 +273,8 @@ a {
 .hscroll > div > div {
   display: inline-block;
   white-space: normal;
+  height: 9em;
+  overflow-y: hidden;
 }
 
 .CourseCell {
