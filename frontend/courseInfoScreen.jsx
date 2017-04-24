@@ -4,6 +4,31 @@ import api from './api.jsx';
 import SectionInfo from './sectionInfo.jsx';
 
 
+class CourseInfoSection extends React.Component {
+  
+  // props should be label and content 
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    console.log(this.props.content);
+
+    if (this.props.content != null) {
+      return (
+        <div className="courseInfoSection">
+          <div className="line"></div>
+             <label>{this.props.label}</label>
+             <div>{this.props.content}</div>
+        </div>
+      )
+    } else {
+      return null;
+    }
+  }
+}
+
+
 class DemographicsSection extends React.Component {
   render() {
     return (
@@ -19,7 +44,9 @@ export default class CourseInfoScreen extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-      info: null
+      info: null,
+      place: '',
+      time: ''
     };
     api.courseInfo(this.props.courseCode, (info) => {
       console.log(info);
@@ -41,13 +68,11 @@ export default class CourseInfoScreen extends React.Component {
 
    		let mySections = this.props.calendar ? this.props.calendar.sections : [];
       let mySectionIds = mySections.map((s) => s.sectionId);
-            
-      let demographics = () => {
+      
+      let getDemographicsContent = () => {
         if (this.state.info.crData) {
           return (
             <div className="demographicsSection">
-              <div className="line"></div>
-              <label>Demographics</label>
               <div className="classYearDemographics">
                 <div className="freshmen" style={{width:info.crData.demographics.percent_freshmen*100+"%", backgroundColor: "#444"}}></div>
                 <div className="sophomores" style={{width:info.crData.demographics.percent_sophomores*100+"%", backgroundColor: "#777"}}></div>
@@ -55,7 +80,7 @@ export default class CourseInfoScreen extends React.Component {
                 <div className="senior" style={{width:info.crData.demographics.percent_seniors*100+"%", backgroundColor: "#aaa"}}></div>
                 <div className="other" style={{width:info.crData.demographics.percent_grad*100+"%", backgroundColor: "#ccc"}}></div>
               </div>
-              <div className="classYearDemographics">
+              <div className="concentratorDemographics">
                 <div className="conc" style={{width:info.crData.demographics.percent_concentrators*100+"%", backgroundColor: "#444"}}></div>
                 <div className="nonconc" style={{width:info.crData.demographics.percent_non_concentrators*100+"%", backgroundColor: "#777"}}></div>
                 <div className="undecided" style={{width:info.crData.demographics.percent_undecided*100+"%", backgroundColor: "#999"}}></div>
@@ -68,20 +93,30 @@ export default class CourseInfoScreen extends React.Component {
       }
       
 
-  		let sectionInfo = info.sections.map((section, index) => {
-        console.log(section);
+  		let sectionContent = info.sections.map((section, index) => {
+
+        if (section.isMainSection) {
+          console.log(section.meetingLocations);
+          console.log(section.professors);
+        } 
+
   			// Checks whether the current cart has this section in it already
         let inCart = mySectionIds.indexOf(section.sectionId) >= 0;
         return <SectionInfo key={index} 
                   sectionId={section.sectionId} 
-                  time={section.times} 
+                  times={section.times} 
                   inCart = {inCart} 
                   onAdd={this.props.reloadCalendar} 
-                  onRemove={this.props.reloadCalendar} />
+                  onRemove={this.props.reloadCalendar} 
+                  professors = {section.professors} 
+                  locations = {section.meetingLocations} />
       });
 
+
   		let calendarButton = <a href='#' onClick={this.back.bind()}>Back</a>;
-  		
+      let courseDescriptionContent = <p>{info.description}</p>
+      let hoursPerWeekContent = <p>Hours Per Week Lots</p>
+
       return (
   			<div className='courseInfo'>
   				{calendarButton}
@@ -90,18 +125,10 @@ export default class CourseInfoScreen extends React.Component {
             <div className='emojis'>{emojis}</div>
           </div>
   				<h2>{code}: {title}</h2>
-          <div className="line"></div>
-            <label>Course Description</label>
-    				  <p>{description}</p>
-          <div className="line"></div>
-            <label>Hours Per Week</label>
-              <p>lots of hours</p>
-          {demographics()}
-          <div className="line"></div>
-          <label>Sections</label> 
-            <div className ='sections'>
-              {sectionInfo}
-            </div>
+          <CourseInfoSection label='Sections' content={sectionContent} />
+          <CourseInfoSection label='Description' content={courseDescriptionContent} />
+          <CourseInfoSection label='Hours Per Week' content={hoursPerWeekContent} />
+          <CourseInfoSection label='Demographics' content={getDemographicsContent()} />
   			</div>
   		)	
     } else {
