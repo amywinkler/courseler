@@ -288,4 +288,16 @@ export class API {
       callback(responseObject);
     });
   }
+  
+  getSharedCart(id, callback) {
+    this.post('/getSharedCart', {id: id}, callback);
+  }
+  
+  getSharedCartUrl(callback) {
+    this.post('/getShareId', {id: localStorage.userId}, (response) => {
+      let id = response.share_id;
+      let url = 'http://' + location.host + '/user/' + id;
+      callback(url);
+    })
+  }
 }

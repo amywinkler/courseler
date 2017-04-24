@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import api from './api.jsx';
 import { currentRoute, navigateToRoute } from './routing.jsx';
+import { descriptionForCourseTimes } from './timeFormatter.jsx';
 
 // from http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
 function hashCode(string) {
@@ -33,12 +34,12 @@ class CourseCell extends React.Component {
     return (
       <div className='CourseCell' onClick={this.props.onClick} style={style}>
         <h4>{this.props.course.courseCode}: { this.props.course.title }</h4>
-        <p>{ this.props.course.course_code } - {this.courseTimes()}</p>
+        <p>{this.courseTimes()}</p>
       </div>
     )
   }
   courseTimes() {
-    return "MWF 10:00–10:50 THIS IS FAKE";
+    return descriptionForCourseTimes(this.props.course);
   }
 }
 

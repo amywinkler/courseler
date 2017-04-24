@@ -144,6 +144,59 @@
           <showDeprecation>true</showDeprecation>
         </configuration>
       </plugin>
+      
+      <!--Deployment -->
+	  <plugin>
+	    <groupId>com.google.cloud.tools</groupId>
+	    <artifactId>appengine-maven-plugin</artifactId>
+	    <version>1.2.1</version>
+	  </plugin>
+	  <plugin>
+	    <groupId>org.eclipse.jetty</groupId>
+	    <artifactId>jetty-maven-plugin</artifactId>
+	    <version>9.3.7.v20160115</version>
+	  </plugin>
+	  
+<!-- 	  <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.0.2</version>
+        <configuration>
+          <archive>
+            <manifest>
+            	<mainClass>edu.brown.cs.courseler.repl.Main</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+      </plugin>
+      
+      
+       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.0.0</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+              <artifactSet>
+                <excludes>
+                  <exclude>classworlds:classworlds</exclude>
+                  <exclude>junit:junit</exclude>
+                  <exclude>jmock:*</exclude>
+                  <exclude>*:xml-apis</exclude>
+                  <exclude>org.apache.maven:lib:tests</exclude>
+                  <exclude>log4j:log4j:jar:</exclude>
+                </excludes>
+              </artifactSet>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin> -->
+      
     </plugins>
   </build>
 

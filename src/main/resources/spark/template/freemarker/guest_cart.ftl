@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="/css/main.css"/>
   </head>
   <body>
-  	<div id='app'></div>
+  	<div id='sharedCartApp'></div>
     <script src="/js/jquery-2.1.1.js"></script>
   	<script src='/js/app.js'></script>
   </body>

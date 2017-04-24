@@ -196,14 +196,14 @@ a {
   margin-top: 4px;
 }
 
-.demographics {
+.classYearDemographics {
   margin-top: 20px;
   margin-bottom: 20px;
   width: 100%;
-  height: 32px;
+  height: 24px;
 }
 
-.demographics>div{
+.classYearDemographics>div{
   display: inline-block;
   height: 100%;
 }
@@ -273,6 +273,8 @@ a {
 .hscroll > div > div {
   display: inline-block;
   white-space: normal;
+  height: 9em;
+  overflow-y: hidden;
 }
 
 .CourseCell {
@@ -291,7 +293,8 @@ a {
   margin: 0.4em;
 }
 
-.CourseCell {
+.CourseCell,
+.calendarSectionObject {
   transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
   box-shadow: 0px 0px 0px rgba(0,0,0,255);
 }
@@ -329,6 +332,7 @@ a {
   .CourseCell {
     width: 160px;
   }
+
 }
 
 /* POPUP MENU */
@@ -363,3 +367,35 @@ a {
 }
 
 
+/* MODALS */
+
+.Modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;;
+  bottom: 0;
+  background-color: rgba(0,0,0,0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.Modal > div {
+  width: 70%;
+  max-width: 600px;
+  background-color: white;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.5);
+  padding: 20px;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+/* SHARE SHEET */
+
+.ShareSheet input {
+  appearance: none;
+  font-size: 16px;
+  padding: 1em;
+  width: 70%;
+}

@@ -26,6 +26,7 @@ export default class Calendar extends React.Component {
   
   componentDidMount() {
     if (this.props.calendar) this.gotCalendar(this.props.calendar);
+    this.getToday();
   }
 
 	render() {
@@ -114,5 +115,10 @@ export default class Calendar extends React.Component {
 			loadDay("friday", section.times, section);
 			this.setState({currentCart: this.state.currentCart.concat([section.sectionId])});
 		}, this);
+  }
+
+  getToday() {
+  	let today = new Date().getDay();
+		console.log(today);
   }
 }

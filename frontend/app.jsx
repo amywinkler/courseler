@@ -4,6 +4,7 @@ import LoggedInView from './loggedInView.jsx';
 import LoggedOutView from './loggedOutView.jsx';
 import api from './api.jsx';
 import { currentRoute, navigateToRoute } from './routing.jsx';
+import SharedCartApp from './sharedCartApp.jsx';
 
 class App extends React.Component {
   constructor(props) {
@@ -26,7 +27,16 @@ class App extends React.Component {
    }
 }
 
-ReactDOM.render(
-  <App />,
-  document.getElementById('app')
-);
+if (document.getElementById('app')) {
+  ReactDOM.render(
+    <App />,
+    document.getElementById('app')
+  );
+}
+
+if (document.getElementById('sharedCartApp')) {
+  ReactDOM.render(
+    <SharedCartApp />,
+    document.getElementById('sharedCartApp')
+  );
+}
