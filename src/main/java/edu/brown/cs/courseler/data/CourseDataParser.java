@@ -79,8 +79,9 @@ public class CourseDataParser {
       while (sc.hasNextLine()) {
         String str = sc.nextLine();
         String[] deptNameArr = str.split(",");
-        cache.addToDepartmentMap(deptNameArr[1], deptNameArr[0]);
+        cache.addToDepartmentMap(deptNameArr[1].trim(), deptNameArr[0]);
         cache.addToDepartmentFullNameList(deptNameArr[0]);
+        cache.addToCorpus(deptNameArr[1].trim().toLowerCase());
       }
     } catch (FileNotFoundException e) {
       // TODO Auto-generated catch block
@@ -231,6 +232,7 @@ public class CourseDataParser {
         //Course hasn't been seen before, need to parse all course info
 
         currCourse = new Course(courseId);
+        cache.addToCorpus(courseId.toLowerCase());
         currCourse.setTitle(title);
         currCourse.setDepartment(cache.lookUpFullName(nameArr[0]));
         currCourse.setCap(Integer.parseInt(courseJSON.get(

@@ -64,10 +64,10 @@ Russian,RUSS
 Sanskrit,SANS 
 Science and Society,SCSO 
 American Sign Language,SIGN 
-Sociology,SOC 
-Swedish,SWED 
-Theatre Arts and Performance Studies,TAPS 
-Turkish,TKSH 
+Sociology,SOC
+Swedish,SWED
+Theatre Arts and Performance Studies,TAPS
+Turkish,TKSH
 Urban Studies,URBN 
 Undecided,Undecided 
 Visual Art,VISA

@@ -6,6 +6,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.google.common.collect.HashMultiset;
+import com.google.common.collect.Multiset;
+
 import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.courseinfo.Section;
 import edu.brown.cs.courseler.courseinfo.SectionTime;
@@ -23,6 +26,7 @@ public class CourseDataCache {
   private List<Course> allCourses;
   private Map<String, String> departmentMap;
   private List<String> departmentFullNameList;
+  private Multiset<String> corpus;
 
   /**
    * Constructor for CourseDataCache.
@@ -34,6 +38,16 @@ public class CourseDataCache {
     allCourses = new ArrayList<>();
     departmentMap = new HashMap<>();
     departmentFullNameList = new ArrayList<>();
+    corpus = HashMultiset.create();
+
+  }
+
+  public void addToCorpus(String word) {
+    corpus.add(word);
+  }
+
+  public Multiset<String> getCorpus() {
+    return corpus;
   }
 
   /**
