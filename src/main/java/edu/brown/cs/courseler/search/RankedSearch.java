@@ -1,9 +1,12 @@
 package edu.brown.cs.courseler.search;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.google.common.collect.Multiset;
 
@@ -20,6 +23,8 @@ public class RankedSearch {
   private CourseDataCache cache;
   private Multiset<String> corpus;
   private Map<String, List<String>> whitespaceSuggestions;
+  private Map<String, String> courseMappings;
+  private Set<String> shortenings;
 
   private DescriptionSearch descriptionSearch;
   private CourseCodeSearch courseCodeSearch;
@@ -33,10 +38,23 @@ public class RankedSearch {
   public RankedSearch(CourseDataCache cache) {
     this.cache = cache;
     this.corpus = cache.getCorpus();
+
+
+    setUpMappingsAndShortenings();
     this.whitespaceSuggestions = new HashMap<>();
-    descriptionSearch = new DescriptionSearch(cache);
-    courseCodeSearch = new CourseCodeSearch(cache);
-    titleSearch = new TitleSearch(cache);
+    this.descriptionSearch = new DescriptionSearch(cache);
+    this.courseCodeSearch = new CourseCodeSearch(cache);
+    this.titleSearch = new TitleSearch(cache);
+  }
+
+  private void setUpMappingsAndShortenings() {
+    this.shortenings = new HashSet<>(Arrays.asList("cs", "bio", "geo", "taps"));
+    this.courseMappings = new HashMap<>();
+    courseMappings.put("cs", "csci");
+    courseMappings.put("bio", "biol");
+    courseMappings.put("geo", "geol");
+    courseMappings.put("ta", "taps");
+
   }
 
   private List<String> getWhitespaceSuggestions(String word) {
@@ -65,8 +83,12 @@ public class RankedSearch {
 
       // Math.floor(Math.log10(number) + 1)
 
-      if (givenWord.substring(0, i).equals("cs") && !givenWord.contains("csci")) {
-        whitespaceWords.add("csci " + givenWord.substring(i));
+      if (shortenings.contains(givenWord.substring(0, i))) {
+        String fullWord = courseMappings.get(givenWord.substring(0, i));
+        if (!givenWord.contains(fullWord)) {
+          whitespaceWords.add(fullWord + " " + givenWord.substring(i));
+        }
+
       }
 
     }
@@ -78,23 +100,21 @@ public class RankedSearch {
       List<Course> finalCourseList, List<String> wordsToSearch) {
     for (int i = 0; i < wordsToSearch.size(); i++) {
       // search on the whole word then the whitspace suggestions
-      List<Course> tempLst1 = criteria.suggest(wordsToSearch.get(i));
-      for (Course c : tempLst1) {
-        if (!finalCourseList.contains(c)) {
-          finalCourseList.add(c);
-        }
-      }
 
       List<String> whitespaceWords = getWhitespaceSuggestions(wordsToSearch
           .get(i));
+      whitespaceWords.add(wordsToSearch.get(i));
 
       for (String sugg : whitespaceWords) {
-        tempLst1 = criteria.suggest(sugg);
+
+        List<Course> tempLst1 = criteria.suggest(sugg);
         for (Course c : tempLst1) {
           if (!finalCourseList.contains(c)) {
             finalCourseList.add(c);
           }
         }
+
+        // get numberParsedForm and suggest on that
       }
     }
 

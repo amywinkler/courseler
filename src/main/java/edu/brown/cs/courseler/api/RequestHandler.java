@@ -168,7 +168,9 @@ public final class RequestHandler {
       } else {
         String concentration = qm.value("concentration");
         if (concentration != null) {
-          user.setConcentration(concentration);
+          List<String> concList = new ArrayList<>(Arrays.asList(concentration
+              .split(",")));
+          user.setConcentration(concList);
         }
         String interests = qm.value("interests");
         if (interests != null) {
@@ -215,10 +217,7 @@ public final class RequestHandler {
         if (year == null) {
           year = "";
         }
-        String concentration = user.getConcentration();
-        if (concentration == null) {
-          concentration = "";
-        }
+        List<String> concentration = user.getConcentration();
 
         List<String> interests = user.getInterests();
 

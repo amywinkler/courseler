@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.google.common.collect.ImmutableList;
+
 import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.data.CourseDataCache;
 import edu.brown.cs.courseler.data.CourseDataParser;
@@ -23,7 +25,7 @@ public class ClassYearReccomendationsTest {
     interests.add("History");
     user.setInterests(interests);
     user.setClassYear("Freshman");
-    user.setConcentration("Undecided");
+    user.setConcentration(ImmutableList.of("Undecided"));
     Filter filter = new Filter(cdc, user, false, false, false);
     ClassYearRecommendations cyr = new ClassYearRecommendations(user, filter,
         cdc.getAllCourses());

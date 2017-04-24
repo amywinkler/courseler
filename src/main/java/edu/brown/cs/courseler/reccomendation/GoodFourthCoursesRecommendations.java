@@ -15,7 +15,7 @@ public class GoodFourthCoursesRecommendations implements Recommend<Course> {
   private User user;
   private Filter filter;
   private List<Course> allCourses;
-  private String concentration;
+  private List<String> concentration;
 
   /**
    * Constructor for fourth course reccomendations.

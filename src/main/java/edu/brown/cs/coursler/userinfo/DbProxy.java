@@ -190,12 +190,24 @@ public class DbProxy {
       interestString = interests.toString();
     }
 
+    StringBuilder concentrations = new StringBuilder();
+    for (String conc : user.getConcentration()) {
+      concentrations.append(conc);
+      concentrations.append(",");
+    }
+    String concentrationString = "";
+    if (concentrations.length() > 1) {
+      concentrations.deleteCharAt(concentrations.length() - 1); // delete the
+                                                                // last comma
+      concentrationString = concentrations.toString();
+    }
+
     // Put into DB
     String update = "UPDATE users SET concentration = ?,"
         + " interests = ?, year = ?" + " WHERE id == ?;";
 
     PreparedStatement prep = conn.prepareStatement(update);
-    prep.setString(1, user.getConcentration());
+    prep.setString(1, concentrationString);
     prep.setString(2, interestString);
     prep.setString(3, user.getClassYear());
     prep.setString(4, user.getTokenId());
@@ -230,8 +242,16 @@ public class DbProxy {
       while (rs.next()) {
         if (BCrypt.checkpw(password, rs.getString("password"))) {
           user = new User(rs.getString("id"));
-          user.setConcentration(rs.getString("concentration"));
+          String concentration = rs.getString("concentration");
           user.setClassYear(rs.getString("year"));
+
+          if (concentration != null && concentration.length() > 1) {
+            List<String> concentrationList = new ArrayList<>(
+                Arrays.asList(concentration.split(",")));
+            user.setConcentration(concentrationList);
+          } else {
+            user.setConcentration(new ArrayList<>());
+          }
 
           String interests = rs.getString("interests");
           if (interests != null) {
@@ -314,7 +334,7 @@ public class DbProxy {
 
       while (rs.next()) {
         user.setClassYear(rs.getString("year"));
-        user.setConcentration(rs.getString("concentration"));
+        String concentration = rs.getString("concentration");
         user.setClassYear(rs.getString("year"));
         String interests = rs.getString("interests");
         user.setShareId(rs.getString("share_id"));
@@ -327,6 +347,24 @@ public class DbProxy {
         } else {
           user.setCart(new ArrayList<>());
         }
+
+        if (concentration != null && concentration.length() > 1) {
+          List<String> concentrationList = new ArrayList<>(
+              Arrays.asList(concentration
+              .split(",")));
+          user.setConcentration(concentrationList);
+        } else {
+          user.setConcentration(new ArrayList<>());
+        }
+
+        if (interests != null && interests.length() > 1) {
+          List<String> interestList = new ArrayList<>(Arrays.asList(interests
+              .split(",")));
+          user.setInterests(interestList);
+        } else {
+          user.setInterests(new ArrayList<>());
+        }
+
         if (interests != null && interests.length() > 1) {
           List<String> interestList =
               new ArrayList<>(Arrays.asList(interests.split(",")));
