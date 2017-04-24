@@ -59,8 +59,17 @@ public class RankedSearch {
             + givenWord.substring(i));
       } else if (corpus.contains(givenWord.substring(0, i))){
         whitespaceWords.add(givenWord.substring(0, i));
+      } else if (corpus.contains(givenWord.substring(i))) {
+        whitespaceWords.add(givenWord.substring(i));
       }
-      // TODO: add an else if, check on other courses
+
+      // Math.floor(Math.log10(number) + 1)
+
+      if (givenWord.substring(0, i).equals("cs") && !givenWord.contains("csci")) {
+        whitespaceWords.add("csci " + givenWord.substring(i));
+        whitespaceWords.add("csci");
+      }
+
     }
 
     return whitespaceWords;

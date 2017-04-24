@@ -8,7 +8,7 @@ import edu.brown.cs.courseler.data.CourseDataCache;
 
 /**
  * Search on the description and title of a query.
- * 
+ *
  * @author amywinkler
  *
  */
