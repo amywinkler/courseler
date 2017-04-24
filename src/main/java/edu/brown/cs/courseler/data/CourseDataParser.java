@@ -1,11 +1,13 @@
 package edu.brown.cs.courseler.data;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 
 import org.json.simple.JSONArray;
@@ -64,11 +66,29 @@ public class CourseDataParser {
    */
   public CourseDataParser(CourseDataCache cache) {
     this.cache = cache;
+    parseDeptData();
     parseBannerData();
-    cache.sortDeptList();
     parseCritReviewData();
-
     parseGoogleFormData();
+  }
+
+  private void parseDeptData() {
+    File file = new File("data/department_codes.txt");
+
+    try (Scanner sc = new Scanner(file)) {
+      while (sc.hasNextLine()) {
+        String str = sc.nextLine();
+        String[] deptNameArr = str.split(",");
+        cache.addToDepartmentMap(deptNameArr[1], deptNameArr[0]);
+        cache.addToDepartmentFullNameList(deptNameArr[0]);
+      }
+    } catch (FileNotFoundException e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+
+
+
   }
 
   private void addTimesAndLocations(JSONArray meetingTimes,
@@ -212,8 +232,7 @@ public class CourseDataParser {
 
         currCourse = new Course(courseId);
         currCourse.setTitle(title);
-        currCourse.setDepartment(nameArr[0]);
-        cache.addToDepartmentList(nameArr[0]);
+        currCourse.setDepartment(cache.lookUpFullName(nameArr[0]));
         currCourse.setCap(Integer.parseInt(courseJSON.get(
             "maxregallowed").toString()));
         currCourse.setCoursesDotBrownLink((String)

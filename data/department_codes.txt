@@ -1,8 +1,8 @@
 Africana Studies,AFRI 
 American Studies,AMST
 Anthropolgy,ANTH
-Applied Math,APMA
-Arabic,ARAB 
+Applied Mathematics,APMA
+Arabic,ARAB
 Archeology,ARCH
 Assyriology,ASYR
 Buisness Entrepreneurship & Organizations,BEO
@@ -13,61 +13,61 @@ Classics,CLAS
 Cognitive Linguistic & Psychological Sciences,CLPS
 Comparative Literature,COLT
 Contemptlative Studies,COST
-Computer Science,CSCI, 
+Computer Science,CSCI 
 Czech,CZCH
 Development Studies,DEVL
-EAST, 
+East Asian Studies,EAST 
 Economics,ECON 
 Education,EDUC 
 Egyptology,EGYT 
-EINT, 
-ENGL, 
-ENGN, 
-ENVS, 
-ETHN, 
-FREN, 
-GEOL, 
-GNSS, 
-GREK, 
-GRMN, 
-HIAA, 
-HISP, 
-HIST, 
-HMAN, 
-HNDI, 
-INTL, 
-ITAL, 
-Independent Concentration, 
-JAPN, 
-JUDS, 
-KREA, 
-LATN, 
-LITR, 
-MATH, 
-MCM, 
-MED, 
-MES, 
-MGRK, 
-MUSC, 
-NEUR, 
-PHIL, 
-PHP, 
-PHYS, 
-PLCY, 
-PLME, 
-PLSH, 
-POBS, 
-POLS, 
-PRSN, 
-RELS, 
-RUSS, 
-SANS, 
-SCSO, 
-SIGN, 
-SOC, 
-SWED, 
-TAPS, 
-TKSH, 
-URBN, 
-Undecided, 
-VISA
+English for Internationals,EINT 
+English,ENGL 
+Engineering,ENGN
+Environmental Science,ENVS
+Ethnic Studies,ETHN
+French,FREN 
+Geology,GEOL
+Gender and Sexuality Studies,GNSS 
+Greek,GREK
+German,GRMN 
+History of Art and Architecture,HIAA
+Hispanic Studies,HISP 
+History,HIST 
+Humanities,HMAN 
+Hindi-Urdu,HNDI
+International Relations,INTL 
+Italian,ITAL
+Independent Concentration,Independent Concentration 
+Japanese,JAPN 
+Judaic Studies,JUDS 
+Korean,KREA 
+Latin,LATN 
+Literary Arts,LITR
+Mathematics,MATH 
+Modern Culture and Media,MCM
+Medical Education,MED
+Middle East Studies,MES 
+Modern Greek,MGRK 
+Music,MUSC 
+BioMed-Neuroscience,NEUR 
+Philosophy,PHIL 
+Public Health,PHP 
+Physics,PHYS 
+Public Policy,PLCY 
+Program in Libreral Medical Education,PLME 
+Polish,PLSH 
+Portugese and Brazilian Studies,POBS 
+Political Science,POLS 
+Persian,PRSN 
+Religious Studies,RELS 
+Russian,RUSS 
+Sanskrit,SANS 
+Science and Society,SCSO 
+American Sign Language,SIGN 
+Sociology,SOC 
+Swedish,SWED 
+Theatre Arts and Performance Studies,TAPS 
+Turkish,TKSH 
+Urban Studies,URBN 
+Undecided,Undecided 
+Visual Art,VISA

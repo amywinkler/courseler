@@ -1,7 +1,6 @@
 package edu.brown.cs.courseler.data;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
@@ -22,7 +21,8 @@ public class CourseDataCache {
   private Map<String, Course> courseIdToCourse;
   private Map<String, Section> sectionIdToSection;
   private List<Course> allCourses;
-  private List<String> departmentList;
+  private Map<String, String> departmentMap;
+  private List<String> departmentFullNameList;
 
   /**
    * Constructor for CourseDataCache.
@@ -32,9 +32,8 @@ public class CourseDataCache {
     courseIdToCourse = new HashMap<>();
     sectionIdToSection = new HashMap<>();
     allCourses = new ArrayList<>();
-    departmentList = new ArrayList<>();
-    departmentList.add("Undecided");
-    departmentList.add("Independent Concentration");
+    departmentMap = new HashMap<>();
+    departmentFullNameList = new ArrayList<>();
   }
 
   /**
@@ -63,9 +62,6 @@ public class CourseDataCache {
     return timeSlotToTimes.get(t);
   }
 
-  public List<String> getDepartmentList() {
-    return departmentList;
-  }
 
   public boolean sectionCacheContains(String sectionId) {
     return sectionIdToSection.containsKey(sectionId);
@@ -75,18 +71,23 @@ public class CourseDataCache {
     courseIdToCourse.put(id, c);
   }
 
-  public void addToDepartmentList(String deptCode) {
-    if (!departmentList.contains(deptCode)) {
-      departmentList.add(deptCode);
-    }
+  public void addToDepartmentMap(String code, String fullName) {
+    departmentMap.put(code, fullName);
   }
 
-  /**
-   * Sorts the department list in alphabetical order.
-   */
-  public void sortDeptList() {
-    Collections.sort(departmentList);
+  public String lookUpFullName(String code) {
+    return departmentMap.get(code);
   }
+
+  public void addToDepartmentFullNameList(String fullName) {
+    departmentFullNameList.add(fullName);
+  }
+
+  public List<String> getDepartmentFullNameList() {
+
+    return departmentFullNameList;
+  }
+
 
   /**
    * Gets all the courses that are currently in the cache.

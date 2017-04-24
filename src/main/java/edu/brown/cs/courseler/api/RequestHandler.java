@@ -11,6 +11,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import spark.ExceptionHandler;
+import spark.ModelAndView;
+import spark.QueryParamsMap;
+import spark.Request;
+import spark.Response;
+import spark.Route;
+import spark.Spark;
+import spark.TemplateViewRoute;
+import spark.template.freemarker.FreeMarkerEngine;
+
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -25,15 +35,6 @@ import edu.brown.cs.coursler.userinfo.DbProxy;
 import edu.brown.cs.coursler.userinfo.User;
 import edu.brown.cs.coursler.userinfo.UserCache;
 import freemarker.template.Configuration;
-import spark.ExceptionHandler;
-import spark.ModelAndView;
-import spark.QueryParamsMap;
-import spark.Request;
-import spark.Response;
-import spark.Route;
-import spark.Spark;
-import spark.TemplateViewRoute;
-import spark.template.freemarker.FreeMarkerEngine;
 
 /**
  * The main request handler class where all API calls can be called. All calls
@@ -469,8 +470,8 @@ public final class RequestHandler {
   private class DepartmentHandler implements Route {
     @Override
     public String handle(Request req, Response res) {
-      List<String> dept = courseCache.getDepartmentList();
-      return GSON.toJson(dept);
+      List<String> deptNames = courseCache.getDepartmentFullNameList();
+      return GSON.toJson(deptNames);
     }
   }
 
