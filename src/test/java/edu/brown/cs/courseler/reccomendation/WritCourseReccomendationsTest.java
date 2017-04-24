@@ -20,8 +20,7 @@ public class WritCourseReccomendationsTest {
     CourseDataParser cdp = new CourseDataParser(cdc);
     User user = new User("1234");
     List<String> interests = new ArrayList<>();
-    interests.add("APMA");
-    interests.add("HIST");
+    interests.add("History");
     user.setConcentration("Undecided");
     user.setInterests(interests);
     Filter filter = new Filter(cdc, user, false, false, false);
@@ -29,7 +28,7 @@ public class WritCourseReccomendationsTest {
         cdc.getAllCourses());
     List<Course> recs = wc.getRecommendations();
     assertEquals(recs.size(), 15);
-    assertTrue(recs.get(0).getDepartment().equals("HIST"));
+    assertTrue(recs.get(0).getDepartment().equals("History"));
   }
 
 }

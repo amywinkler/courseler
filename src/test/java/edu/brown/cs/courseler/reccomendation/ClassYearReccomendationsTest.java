@@ -20,7 +20,7 @@ public class ClassYearReccomendationsTest {
     CourseDataParser cdp = new CourseDataParser(cdc);
     User user = new User("1234");
     List<String> interests = new ArrayList<>();
-    interests.add("HIST");
+    interests.add("History");
     user.setInterests(interests);
     user.setClassYear("Freshman");
     user.setConcentration("Undecided");
@@ -29,7 +29,7 @@ public class ClassYearReccomendationsTest {
         cdc.getAllCourses());
     List<Course> recs = cyr.getRecommendations();
     assertEquals(recs.size(), 15);
-    assertTrue(recs.get(0).getDepartment().equals("HIST"));
+    assertTrue(recs.get(0).getDepartment().equals("History"));
   }
 
 }
