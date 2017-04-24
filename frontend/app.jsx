@@ -37,6 +37,6 @@ if (document.getElementById('app')) {
 if (document.getElementById('sharedCartApp')) {
   ReactDOM.render(
     <SharedCartApp />,
-    document.getElementById('app')
+    document.getElementById('sharedCartApp')
   );
 }
