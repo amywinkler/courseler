@@ -469,8 +469,8 @@ public final class RequestHandler {
   private class DepartmentHandler implements Route {
     @Override
     public String handle(Request req, Response res) {
-
-      return GSON.toJson(courseCache.getDepartmentList());
+      List<String> dept = courseCache.getDepartmentList();
+      return GSON.toJson(dept);
     }
   }
 

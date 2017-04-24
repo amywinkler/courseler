@@ -1,0 +1,73 @@
+Africana Studies,AFRI 
+American Studies,AMST
+Anthropolgy,ANTH
+Applied Math,APMA
+Arabic,ARAB 
+Archeology,ARCH
+Assyriology,ASYR
+Buisness Entrepreneurship & Organizations,BEO
+Biology,BIOL
+Chemistry,CHEM
+Chinese,CHIN 
+Classics,CLAS
+Cognitive Linguistic & Psychological Sciences,CLPS
+Comparative Literature,COLT
+Contemptlative Studies,COST
+Computer Science,CSCI, 
+Czech,CZCH
+Development Studies,DEVL
+EAST, 
+Economics,ECON 
+Education,EDUC 
+Egyptology,EGYT 
+EINT, 
+ENGL, 
+ENGN, 
+ENVS, 
+ETHN, 
+FREN, 
+GEOL, 
+GNSS, 
+GREK, 
+GRMN, 
+HIAA, 
+HISP, 
+HIST, 
+HMAN, 
+HNDI, 
+INTL, 
+ITAL, 
+Independent Concentration, 
+JAPN, 
+JUDS, 
+KREA, 
+LATN, 
+LITR, 
+MATH, 
+MCM, 
+MED, 
+MES, 
+MGRK, 
+MUSC, 
+NEUR, 
+PHIL, 
+PHP, 
+PHYS, 
+PLCY, 
+PLME, 
+PLSH, 
+POBS, 
+POLS, 
+PRSN, 
+RELS, 
+RUSS, 
+SANS, 
+SCSO, 
+SIGN, 
+SOC, 
+SWED, 
+TAPS, 
+TKSH, 
+URBN, 
+Undecided, 
+VISA
