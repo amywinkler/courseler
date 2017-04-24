@@ -43,6 +43,36 @@ class CourseCell extends React.Component {
   }
 }
 
+class FilterEditor extends React.Component {
+  options() {
+    return [
+      {key: 'open', values: [false, true], labels: ['Open or full', 'Open only']},
+      {key: 'less_than_10_hours', values: [false, true], labels: ['Any workload', 'Less than 10 hours/wk']},
+      {key: 'small_courses', values: [false, true], labels: ['Any size', 'Small courses only']}
+    ]
+  }
+  render() {
+    let items = this.options().map((o) => this.renderField(o));
+    return <div className='FilterEditor'>{items}</div>;
+  }
+  renderField(item) {
+    let fieldVal = this.props.filters[item.key];
+    let options = item.values.map((val, i) => {
+      return <option key={i} value={val}>{ item.labels[i] }</option>;
+    });
+    let onChange = (e) => {
+      let i = e.target.selectedIndex;
+      if (i >= 0) this.updateFilter(item.key, item.values[i]);
+    }
+    return <select key={item.key} onChange={onChange} value={fieldVal}>{options}</select>
+  }
+  updateFilter(key, value) {
+    let f = JSON.parse(JSON.stringify(this.props.filters || {}));
+    f[key] = value;
+    this.props.onFiltersChanged(f);
+  }
+}
+
 class SectionCell extends React.Component {
   render() {
     let courseCells = this.props.section.courses.map((course, i) => {
@@ -90,17 +120,6 @@ export default class AddCoursesScreen extends React.Component {
     }
   }
   
-  updateFilters(key,value) {
-    let copy = JSON.parse(JSON.stringify(this.state.filters));
-    if (value) {
-      copy[key] = value;
-    } else {
-      delete copy[key];
-    }
-    this.setState({filters: copy});
-    loadRecommendations(copy);
-  }
-  
   // doing requests:
   loadRecommendations(filters) {
     api.getRecommendations(filters, (results) => {
@@ -130,7 +149,14 @@ export default class AddCoursesScreen extends React.Component {
     let sectionCells = sections.map((section, i) => {
       return <SectionCell key={i} section={section} onClickedCourse={(course) => this.clickedCourse(course)} />;
     });
-    return <div className='recommendations'>{sectionCells}</div>;
+    let updateFilters = (filters) => {
+      this.setState({filters: filters});
+      this.loadRecommendations(filters);
+    };
+    return <div className='recommendations'>
+              <FilterEditor filters={this.state.filters} onFiltersChanged={updateFilters} />
+              {sectionCells}
+           </div>;
   }
   renderSearchResults() {
     let cells = (this.state.results || []).map((course, i) => {
