@@ -226,8 +226,7 @@ export class API {
   postPrefs(prefs) {
     prefs.id = localStorage.userId;
     this.post('/setUserPrefs', prefs, (result) => {
-      console.log(prefs);
-      console.log(result);
+
     });
   }
 

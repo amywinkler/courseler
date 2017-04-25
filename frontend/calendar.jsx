@@ -107,7 +107,6 @@ export default class Calendar extends React.Component {
 			}
     }
 		calendar.sections.map(function(section) {
-			// console.log(section);
 			loadDay("monday", section.times, section);
 			loadDay("tuesday", section.times, section);
 			loadDay("wednesday", section.times, section);
@@ -119,6 +118,5 @@ export default class Calendar extends React.Component {
 
   getToday() {
   	let today = new Date().getDay();
-		console.log(today);
   }
 }

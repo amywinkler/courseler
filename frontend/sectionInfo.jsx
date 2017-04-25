@@ -22,8 +22,6 @@ export default class SectionInfo extends React.Component {
 	    let professors = this.props.professors;
 	    let locations = this.getLocationString(this.props.locations);
 
-	    console.log(times);
-
 		// Button to either add this section to the cart, or remove it
 		let buttonTitle = this.state.inCart ? 'Remove' : 'Add to Cart';
 	    // let addRemoveButton = <input type='submit' value={ buttonTitle } onClick={this.addOrRemove.bind(this)}/>;

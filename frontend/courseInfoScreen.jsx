@@ -12,7 +12,6 @@ class CourseInfoSection extends React.Component {
   }
 
   render() {
-    console.log(this.props.content);
 
     if (this.props.content != null) {
       return (
@@ -49,15 +48,12 @@ export default class CourseInfoScreen extends React.Component {
       time: ''
     };
     api.courseInfo(this.props.courseCode, (info) => {
-      console.log(info);
       this.setState({info: info});
     });
   }
 
 	render() {
     if (this.state.info) {
-
-      console.log(this.state.info);
 
       let info = this.state.info;
       let term = info.term;
@@ -96,8 +92,7 @@ export default class CourseInfoScreen extends React.Component {
   		let sectionContent = info.sections.map((section, index) => {
 
         if (section.isMainSection) {
-          console.log(section.meetingLocations);
-          console.log(section.professors);
+          
         } 
 
   			// Checks whether the current cart has this section in it already
