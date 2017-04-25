@@ -53,6 +53,13 @@ public class RecommendationExecutor implements Recommend<RecommendationDatum> {
         "Reccomended Courses in Your Concentration", crRecs);
     toReturn.add(crRecDatum);
 
+    GoodFourthCoursesRecommendations gfc = new GoodFourthCoursesRecommendations(
+        user, filter, cache.getAllCourses());
+    List<Course> gfcRecs = gfc.getRecommendations();
+    RecommendationDatum gfcRecDatum = new RecommendationDatum(
+        "Good Fourth Classes", gfcRecs);
+    toReturn.add(gfcRecDatum);
+
     return toReturn;
   }
 

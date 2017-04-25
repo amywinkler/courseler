@@ -1,5 +1,6 @@
 package edu.brown.cs.courseler.reccomendation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.brown.cs.courseler.courseinfo.Course;
@@ -39,26 +40,23 @@ public class GoodFourthCoursesRecommendations implements Recommend<Course> {
   public List<Course> getRecommendations() {
 
     // TODO: get courses where avg is less than 10, max is less than 15, and
-    // where loved is greater than .5 and not in concentration
-//    List<Course> toReturn = new ArrayList<>();
-//
-//    if (concentration == null
-//        || concentration.equals("Independent Concentration")
-//        || concentration.equals("Undecided")) {
-//      return toReturn;
-//    } else {
-//      for (Course c : allCourses) {
-//        if (concentration.equals(c.getDepartment())) {
-//          toReturn.add(c);
-//        }
-//      }
-//
-//      toReturn.sort(Course.getCrCompCScore());
-//
-//      return filter.getFilteredListOfCourses(toReturn);
-//
-//    }
-    return null;
+    List<Course> toReturn = new ArrayList<>();
+
+    for (Course c : allCourses) {
+      if (!concentration.contains(c.getDepartment())) {
+        if (c.getCrData() != null
+            && c.getCrData().getHoursPerWeek().get("maximum") < 15
+            && c.getCrData().getHoursPerWeek().get("average") < 10
+            && c.getCrData().getEnjoyed() > .5) {
+          toReturn.add(c);
+        }
+      }
+    }
+
+    toReturn.sort(Course.getCrCompCScore());
+
+    return filter.getFilteredListOfCourses(toReturn);
+
   }
 
 }
