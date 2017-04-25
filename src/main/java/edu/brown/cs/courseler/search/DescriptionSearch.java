@@ -11,14 +11,14 @@ import edu.brown.cs.courseler.data.CourseDataCache;
  * @author amywinkler
  *
  */
-public class DescriptionTitleSearch implements SearchSuggestions<Course> {
+public class DescriptionSearch implements SearchSuggestions<Course> {
   private CourseDataCache cache;
 
   /**
    * Constructor for searching on description and titles.
    * @param cache the course cache
    */
-  public DescriptionTitleSearch(CourseDataCache cache) {
+  public DescriptionSearch(CourseDataCache cache) {
     this.cache = cache;
   }
 
@@ -28,9 +28,7 @@ public class DescriptionTitleSearch implements SearchSuggestions<Course> {
     List<Course> toReturn =  new ArrayList<>();
 
     for (Course c: allCourses) {
-      if (c.getTitle().toLowerCase().contains(searchTerm)) {
-        toReturn.add(c);
-      } else if (c.getDescription() != null
+      if (c.getDescription() != null
           && (c.getDescription().toLowerCase().
             contains(" " + searchTerm) || c.getDescription().toLowerCase().
             contains(searchTerm + " "))) {

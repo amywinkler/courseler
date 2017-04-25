@@ -5,6 +5,7 @@ import LoggedOutView from './loggedOutView.jsx';
 import api from './api.jsx';
 import { currentRoute, navigateToRoute } from './routing.jsx';
 import Calendar from './calendar.jsx';
+import CourseInfoScreen from './courseInfoScreen.jsx';
 
 export default class SharedCartApp extends React.Component {
   constructor(props) {
@@ -37,7 +38,7 @@ export default class SharedCartApp extends React.Component {
      if (screen === 'calendar') {
        return <Calendar calendar={this.state.calendar} locked={true} />;
      } else if (screen === 'course') {
-       return <CourseInfoScreen courseCode={this.props.route.courseCode} calendar={this.state.calendar} reloadCalendar={this.reloadCalendar.bind(this)} />;
+       return <CourseInfoScreen courseCode={this.state.route.courseCode} calendar={this.state.calendar} reloadCalendar={this.reloadCalendar.bind(this)} />;
      }
    }
 }

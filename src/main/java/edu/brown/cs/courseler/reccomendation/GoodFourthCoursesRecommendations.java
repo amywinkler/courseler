@@ -1,5 +1,6 @@
 package edu.brown.cs.courseler.reccomendation;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import edu.brown.cs.courseler.courseinfo.Course;
@@ -15,7 +16,11 @@ public class GoodFourthCoursesRecommendations implements Recommend<Course> {
   private User user;
   private Filter filter;
   private List<Course> allCourses;
-  private String concentration;
+  private List<String> concentration;
+  private static final int MAX_HOURS = 14;
+  private static final int AVG_HOURS = 10;
+  private static final double PERCENT_ENJOYED = 0.5;
+  private static final double PERCENT_DIFFICULTY = 0.5;
 
   /**
    * Constructor for fourth course reccomendations.
@@ -38,27 +43,24 @@ public class GoodFourthCoursesRecommendations implements Recommend<Course> {
   @Override
   public List<Course> getRecommendations() {
 
-    // TODO: get courses where avg is less than 10, max is less than 15, and
-    // where loved is greater than .5 and not in concentration
-//    List<Course> toReturn = new ArrayList<>();
-//
-//    if (concentration == null
-//        || concentration.equals("Independent Concentration")
-//        || concentration.equals("Undecided")) {
-//      return toReturn;
-//    } else {
-//      for (Course c : allCourses) {
-//        if (concentration.equals(c.getDepartment())) {
-//          toReturn.add(c);
-//        }
-//      }
-//
-//      toReturn.sort(Course.getCrCompCScore());
-//
-//      return filter.getFilteredListOfCourses(toReturn);
-//
-//    }
-    return null;
+    List<Course> toReturn = new ArrayList<>();
+
+    for (Course c : allCourses) {
+      if (!concentration.contains(c.getDepartment())) {
+        if (c.getCrData() != null
+            && c.getCrData().getHoursPerWeek().get("maximum") < MAX_HOURS
+            && c.getCrData().getHoursPerWeek().get("average") < AVG_HOURS
+            && c.getCrData().getEnjoyed() > PERCENT_ENJOYED
+            && c.getCrData().getDifficulty() < PERCENT_DIFFICULTY) {
+          toReturn.add(c);
+        }
+      }
+    }
+
+    toReturn.sort(Course.getCrCompCScore());
+
+    return filter.getFilteredListOfCourses(toReturn);
+
   }
 
 }

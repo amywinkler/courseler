@@ -65,7 +65,7 @@ public class DbProxyTest {
     DbProxy proxy = new DbProxy("test_users_1.sqlite3");
     User alberta = proxy.createNewUser("alberta_devor1@brown.edu", "i_love_JJ");
     alberta.setInterests(ImmutableList.of("CSCI", "VISA", "HIAA"));
-    alberta.setConcentration("CSCI");
+    alberta.setConcentration(ImmutableList.of("CSCI"));
     alberta.setClassYear("2019");
     try {
       proxy.setUserPreferenceData(alberta);
@@ -81,7 +81,7 @@ public class DbProxyTest {
       e.printStackTrace();
     }
 
-    assertTrue(alberta2.getConcentration().equals("CSCI"));
+    assertTrue(alberta2.getConcentration().get(0).equals("CSCI"));
     assertTrue(alberta2.getInterests().contains("VISA"));
     assertTrue(alberta2.getClassYear().equals("2019"));
   }
@@ -94,7 +94,7 @@ public class DbProxyTest {
     DbProxy proxy = new DbProxy("test_users_1.sqlite3");
     User alberta = proxy.createNewUser("alberta_devor1@brown.edu", "i_love_JJ");
     alberta.setInterests(ImmutableList.of("CSCI", "VISA", "HIAA"));
-    alberta.setConcentration("CSCI");
+    alberta.setConcentration(ImmutableList.of("CSCI"));
     alberta.setClassYear("2019");
     try {
       proxy.setUserPreferenceData(alberta);
@@ -109,7 +109,7 @@ public class DbProxyTest {
       e.printStackTrace();
     }
 
-    assertTrue(alberta2.getConcentration().equals("CSCI"));
+    assertTrue(alberta2.getConcentration().get(0).equals("CSCI"));
     assertTrue(alberta2.getInterests().contains("VISA"));
     assertTrue(alberta2.getClassYear().equals("2019"));
   }

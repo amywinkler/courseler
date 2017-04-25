@@ -1,7 +1,14 @@
 package edu.brown.cs.courseler.search;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import com.google.common.collect.Multiset;
 
 import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.data.CourseDataCache;
@@ -14,7 +21,14 @@ import edu.brown.cs.courseler.data.CourseDataCache;
  */
 public class RankedSearch {
   private CourseDataCache cache;
+  private Multiset<String> corpus;
+  private Map<String, List<String>> whitespaceSuggestions;
+  private Map<String, String> courseMappings;
+  private Set<String> shortenings;
 
+  private DescriptionSearch descriptionSearch;
+  private CourseCodeSearch courseCodeSearch;
+  private TitleSearch titleSearch;
   /**
    * Constructor for search object.
    *
@@ -23,7 +37,97 @@ public class RankedSearch {
    */
   public RankedSearch(CourseDataCache cache) {
     this.cache = cache;
+    this.corpus = cache.getCorpus();
+
+
+    setUpMappingsAndShortenings();
+    this.whitespaceSuggestions = new HashMap<>();
+    this.descriptionSearch = new DescriptionSearch(cache);
+    this.courseCodeSearch = new CourseCodeSearch(cache);
+    this.titleSearch = new TitleSearch(cache);
   }
+
+  private void setUpMappingsAndShortenings() {
+    this.shortenings = new HashSet<>(Arrays.asList("cs", "bio", "geo", "taps"));
+    this.courseMappings = new HashMap<>();
+    courseMappings.put("cs", "csci");
+    courseMappings.put("bio", "biol");
+    courseMappings.put("geo", "geol");
+    courseMappings.put("ta", "taps");
+
+  }
+
+  private List<String> getWhitespaceSuggestions(String word) {
+    List<String> toReturn = whitespaceSuggestions.get(word);
+    if (toReturn == null) {
+      toReturn = whitespaceSuggestions(word);
+      whitespaceSuggestions.put(word, toReturn);
+    }
+
+    return toReturn;
+  }
+
+  private List<String> whitespaceSuggestions(String givenWord) {
+    // store possible whitespace suggesitons in a list
+    List<String> whitespaceWords = new ArrayList<>();
+    for (int i = 1; i < givenWord.length() - 1; i++) {
+      if (corpus.contains(givenWord.substring(0, i) + " "
+          + givenWord.substring(i))) {
+        whitespaceWords.add(givenWord.substring(0, i) + " "
+            + givenWord.substring(i));
+      } else if (corpus.contains(givenWord.substring(0, i))){
+        whitespaceWords.add(givenWord.substring(0, i));
+      } else if (corpus.contains(givenWord.substring(i))) {
+        whitespaceWords.add(givenWord.substring(i));
+      }
+
+      // Math.floor(Math.log10(number) + 1)
+
+      if (shortenings.contains(givenWord.substring(0, i))) {
+        String fullWord = courseMappings.get(givenWord.substring(0, i));
+        if (!givenWord.contains(fullWord)) {
+          whitespaceWords.add(fullWord + " " + givenWord.substring(i));
+        }
+
+      }
+
+    }
+
+    return whitespaceWords;
+  }
+
+  private void searchOnCriteria(SearchSuggestions<Course> criteria,
+      List<Course> finalCourseList, List<String> wordsToSearch) {
+    for (int i = 0; i < wordsToSearch.size(); i++) {
+      // search on the whole word then the whitspace suggestions
+
+      List<String> whitespaceWords = getWhitespaceSuggestions(wordsToSearch
+          .get(i));
+      whitespaceWords.add(wordsToSearch.get(i));
+
+      for (String sugg : whitespaceWords) {
+
+        List<Course> tempLst1 = criteria.suggest(sugg);
+        for (Course c : tempLst1) {
+          if (!finalCourseList.contains(c)) {
+            finalCourseList.add(c);
+          }
+        }
+
+        // get numberParsedForm and suggest on that
+      }
+    }
+
+  }
+
+  private void searchIndividualWords(List<Course> finalCourseList,
+      List<String> wordsToSearch) {
+    searchOnCriteria(courseCodeSearch, finalCourseList, wordsToSearch);
+    searchOnCriteria(titleSearch, finalCourseList, wordsToSearch);
+    searchOnCriteria(descriptionSearch, finalCourseList, wordsToSearch);
+  }
+
+
 
   /**
    * Method to do a keyword search. Returns the resulting courses in ranked
@@ -35,53 +139,47 @@ public class RankedSearch {
    */
   public List<Course> rankedKeywordSearch(String entireSearch){
     entireSearch = entireSearch.toLowerCase();
-    DescriptionTitleSearch dt = new DescriptionTitleSearch(cache);
-    CourseCodeSearch cc = new CourseCodeSearch(cache);
+
 
     List<Course> finalCourseList = new ArrayList<>();
-    finalCourseList = cc.suggest(entireSearch);
+    finalCourseList = courseCodeSearch.suggest(entireSearch);
 
-    List<Course> descTitleSug = dt.suggest(entireSearch);
-    for (Course c : descTitleSug) {
+    List<Course> titleSuggestionsFull = descriptionSearch.suggest(entireSearch);
+    for (Course c : titleSuggestionsFull) {
+      if (!finalCourseList.contains(c)) {
+        finalCourseList.add(c);
+      }
+    }
+
+    List<Course> descriptionSuggestionsFull = descriptionSearch
+        .suggest(entireSearch);
+    for (Course c : descriptionSuggestionsFull) {
       if (!finalCourseList.contains(c)) {
         finalCourseList.add(c);
       }
     }
 
     String[] searchWordsSplit = entireSearch.split(" ");
+    List<String> wordsToSearch = new ArrayList<>();
     if (searchWordsSplit.length <= 5) {
       //search on each word
-      for (int i = searchWordsSplit.length - 1; i > 0; i--) {
-
-        List<Course> tempLst1 = cc.suggest(searchWordsSplit[i]);
-        for (Course c : tempLst1) {
-          if (!finalCourseList.contains(c)) {
-            finalCourseList.add(c);
-          }
-        }
-
+      for (int i = 0; i < searchWordsSplit.length; i++) {
+        wordsToSearch.add(searchWordsSplit[i]);
+        searchIndividualWords(finalCourseList, wordsToSearch);
       }
 
-      for (int i = searchWordsSplit.length - 1; i > 0; i--) {
-        List<Course> tempLst2 = dt.suggest(searchWordsSplit[i]);
-        for (Course c : tempLst2) {
-          if (!finalCourseList.contains(c)) {
-            finalCourseList.add(c);
-          }
-        }
-      }
     } else {
-      for (int i = searchWordsSplit.length - 1; i > searchWordsSplit.length - 5;
-          i--) {
-        List<Course> tempLst = dt.suggest(searchWordsSplit[i]);
-        for (Course c: tempLst) {
-          if (!finalCourseList.contains(c)) {
-            finalCourseList.add(c);
-          }
-        }
+      // search on only the last 5 words
+      for (int i = searchWordsSplit.length - 1; i > searchWordsSplit.length - 5; i--) {
+        wordsToSearch.add(searchWordsSplit[i]);
+        searchIndividualWords(finalCourseList, wordsToSearch);
       }
-      //search on only the last 5 words
+
+
     }
+
+    // if there aren't 25 results already, do an autocorrect search
+    // SuggestionMethods sm = new SuggestionMethods();
 
     return finalCourseList;
   }

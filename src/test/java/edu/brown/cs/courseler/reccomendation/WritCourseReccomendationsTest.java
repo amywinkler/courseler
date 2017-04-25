@@ -8,6 +8,8 @@ import java.util.List;
 
 import org.junit.Test;
 
+import com.google.common.collect.ImmutableList;
+
 import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.data.CourseDataCache;
 import edu.brown.cs.courseler.data.CourseDataParser;
@@ -20,16 +22,15 @@ public class WritCourseReccomendationsTest {
     CourseDataParser cdp = new CourseDataParser(cdc);
     User user = new User("1234");
     List<String> interests = new ArrayList<>();
-    interests.add("APMA");
-    interests.add("HIST");
-    user.setConcentration("Undecided");
+    interests.add("History");
+    user.setConcentration(ImmutableList.of("Undecided"));
     user.setInterests(interests);
     Filter filter = new Filter(cdc, user, false, false, false);
     WritCourseRecommendations wc = new WritCourseRecommendations(user, filter,
         cdc.getAllCourses());
     List<Course> recs = wc.getRecommendations();
     assertEquals(recs.size(), 15);
-    assertTrue(recs.get(0).getDepartment().equals("HIST"));
+    assertTrue(recs.get(0).getDepartment().equals("History"));
   }
 
 }

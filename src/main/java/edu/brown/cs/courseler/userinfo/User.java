@@ -11,7 +11,7 @@ import java.util.List;
 public class User {
 
   private String classYear; // "Freshman", "Sophomore", "Junior", "Senior"
-  private String concentration; // e.g. "CSCI"
+  private List<String> concentration; // e.g. "CSCI"
   private String loginIdToken; // e.g. AxW67yh
   private List<String> interests; // e.g. CSCI, VISA
   private List<String> sectionsInCart;
@@ -31,7 +31,7 @@ public class User {
     }
     this.loginIdToken = token;
     classYear = null;
-    concentration = null;
+    concentration = new ArrayList<>();
     interests = new ArrayList<>();
     sectionsInCart = new ArrayList<>();
     shareId = null;
@@ -72,7 +72,7 @@ public class User {
    * @param conc
    *          the concentration of the user.
    */
-  public void setConcentration(String conc) {
+  public void setConcentration(List<String> conc) {
     this.concentration = conc;
   }
 
@@ -138,7 +138,7 @@ public class User {
    *
    * @return concentration
    */
-  public String getConcentration() {
+  public List<String> getConcentration() {
     return concentration;
   }
 

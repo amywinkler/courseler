@@ -16,7 +16,7 @@ public class ConcentrationRecommendations implements Recommend<Course> {
   private User user;
   private Filter filter;
   private List<Course> allCourses;
-  private String concentration;
+  private List<String> concentration;
 
   /**
    * Constructor for class year reccomendations.
@@ -41,12 +41,13 @@ public class ConcentrationRecommendations implements Recommend<Course> {
     List<Course> toReturn = new ArrayList<>();
 
     if (concentration == null
-        || concentration.equals("Independent Concentration")
-        || concentration.equals("Undecided")) {
+        || ((concentration.size() == 1) && ((concentration.get(0).equals(
+            "Independent Concentration") || concentration.get(0).equals(
+            "Undecided"))))) {
       return toReturn;
     } else {
       for (Course c : allCourses) {
-        if (concentration.equals(c.getDepartment())) {
+        if (concentration.contains(c.getDepartment())) {
           toReturn.add(c);
         }
       }
