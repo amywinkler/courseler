@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import api from './api.jsx';
 import SectionInfo from './sectionInfo.jsx';
-
+import { currentRoute, navigateToRoute } from './routing.jsx';
 
 class CourseInfoSection extends React.Component {
   
@@ -92,7 +92,7 @@ export default class CourseInfoScreen extends React.Component {
   		let sectionContent = info.sections.map((section, index) => {
 
         if (section.isMainSection) {
-          
+
         } 
 
   			// Checks whether the current cart has this section in it already
@@ -106,7 +106,6 @@ export default class CourseInfoScreen extends React.Component {
                   professors = {section.professors} 
                   locations = {section.meetingLocations} />
       });
-
 
   		let calendarButton = <a href='#' onClick={this.back.bind()}>Back</a>;
       let courseDescriptionContent = <p>{info.description}</p>

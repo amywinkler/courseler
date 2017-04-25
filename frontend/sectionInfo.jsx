@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import api from './api.jsx';
 import { descriptionForSectionTimes } from './timeFormatter.jsx';
+import { currentRoute, navigateToRoute } from './routing.jsx';
 
 export default class SectionInfo extends React.Component {
 
@@ -42,9 +43,11 @@ export default class SectionInfo extends React.Component {
 		if (this.state.inCart) {
 			api.removeFromCart(this.props.sectionId, this.props.onAdd);
 			this.setState({inCart: false});
+			navigateToRoute({});
 		}	else {
 			api.addToCart(this.props.sectionId, this.props.onRemove);
 			this.setState({inCart: true});
+			navigateToRoute({});
 		}
 	}
 
