@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import edu.brown.cs.courseler.courseinfo.Course;
-import edu.brown.cs.coursler.userinfo.User;
+import edu.brown.cs.courseler.userinfo.User;
 
 /**
  * Class to recommend based on courses that are already in your cart.
