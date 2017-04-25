@@ -39,6 +39,13 @@ public class RecommendationExecutor implements Recommend<RecommendationDatum> {
         "WRIT Courses Based on Your Interests", wcReccomendations);
     toReturn.add(writRd);
 
+    BasedOnCartReccomendations bOnCartR = new BasedOnCartReccomendations(user,
+        filter, cache.getAllCourses());
+    List<Course> bcReccomendations = bOnCartR.getRecommendations();
+    RecommendationDatum bcRec = new RecommendationDatum(
+        "Courses Based on Your Cart", bcReccomendations);
+    toReturn.add(bcRec);
+
     ClassYearRecommendations cyr = new ClassYearRecommendations(user, filter,
         cache.getAllCourses());
     List<Course> cyReccomendations = cyr.getRecommendations();

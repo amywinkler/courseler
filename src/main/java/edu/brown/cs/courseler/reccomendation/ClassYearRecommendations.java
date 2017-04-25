@@ -14,7 +14,7 @@ import edu.brown.cs.coursler.userinfo.User;
  */
 public class ClassYearRecommendations implements Recommend<Course> {
 
-  private static final double PERCENT_TO_CHECK = 0.4;
+  private static final double PERCENT_TO_CHECK = 0.3;
   private User user;
   private Filter filter;
   private List<Course> allCourses;
