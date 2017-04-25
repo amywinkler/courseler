@@ -10,7 +10,7 @@ import org.junit.Test;
 import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.data.CourseDataCache;
 import edu.brown.cs.courseler.data.CourseDataParser;
-import edu.brown.cs.coursler.userinfo.User;
+import edu.brown.cs.courseler.userinfo.User;
 
 public class FilterTest {
   @Test

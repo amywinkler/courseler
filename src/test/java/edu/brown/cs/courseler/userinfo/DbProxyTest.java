@@ -8,8 +8,8 @@ import org.junit.Test;
 
 import com.google.common.collect.ImmutableList;
 
-import edu.brown.cs.coursler.userinfo.DbProxy;
-import edu.brown.cs.coursler.userinfo.User;
+import edu.brown.cs.courseler.userinfo.DbProxy;
+import edu.brown.cs.courseler.userinfo.User;
 
 /**
  * JUnit testing for the db proxy.

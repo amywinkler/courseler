@@ -8,7 +8,7 @@ import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.courseinfo.Section;
 import edu.brown.cs.courseler.courseinfo.TimeSlot;
 import edu.brown.cs.courseler.data.CourseDataCache;
-import edu.brown.cs.coursler.userinfo.User;
+import edu.brown.cs.courseler.userinfo.User;
 
 /**
  * Class to do a filter on reccoemndations.

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.brown.cs.courseler.courseinfo.Course;
-import edu.brown.cs.coursler.userinfo.User;
+import edu.brown.cs.courseler.userinfo.User;
 
 public class WritCourseRecommendations implements Recommend<Course> {
   private User user;

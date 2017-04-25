@@ -5,7 +5,7 @@ import java.util.List;
 
 import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.data.CourseDataCache;
-import edu.brown.cs.coursler.userinfo.User;
+import edu.brown.cs.courseler.userinfo.User;
 
 public class RecommendationExecutor implements Recommend<RecommendationDatum> {
   private User user;

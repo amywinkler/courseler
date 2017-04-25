@@ -3,7 +3,7 @@ package edu.brown.cs.courseler.reccomendation;
 import java.util.List;
 
 import edu.brown.cs.courseler.courseinfo.Course;
-import edu.brown.cs.coursler.userinfo.User;
+import edu.brown.cs.courseler.userinfo.User;
 
 /**
  * Reccomend based on good fourth couses.
