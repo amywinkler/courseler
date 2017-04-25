@@ -3,6 +3,33 @@ import ReactDOM from 'react-dom';
 import api from './api.jsx';
 import { currentRoute, navigateToRoute } from './routing.jsx';
 
+class InterestField extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      interest: ''
+    }
+  }
+  componentWillReceiveProps() {
+    this.setState({interest: this.props.interests[this.props.index]});
+  }
+  render() {
+    return (
+      <select name="interest" 
+          value={this.state.interest} 
+          onChange={ (e) => {
+            this.changeInterest(e);
+          } }> 
+        {this.props.departments}
+      </select>
+    )
+  }
+  changeInterest(e) {
+    this.setState({interest: [e.target.value]});
+    this.props.onchange(e.target.value, this.props.index);
+  }
+}
+
 class ConcentrationField extends React.Component {
   constructor(props) {
     super(props);
@@ -59,8 +86,6 @@ export default class PreferencesScreen extends React.Component {
       </select>
     );
 
-    // janky
-
     let concentrationFields = (
       <div className="concentrationFields">
       <ConcentrationField 
@@ -81,15 +106,35 @@ export default class PreferencesScreen extends React.Component {
       </div>
     )
 
-    let departmentalInterestsField = (
-      <select name="departmentalInterests" 
-          value={this.state.departmentalInterests[0]} 
-          onChange={ (e) => {
-            this.setState({departmentalInterests: [e.target.value]})
-          } }>
-        {this.state.departments}
-      </select>
-    );
+    let interestsFields = (
+      <div className="interestsFields">
+      <InterestField 
+        index='0' 
+        interests={this.state.departmentalInterests}
+        departments={this.state.departments} 
+        onchange={this.updateInterest.bind(this)}/>
+      <InterestField 
+        index='1' 
+        interests={this.state.departmentalInterests}
+        departments={this.state.departments} 
+        onchange={this.updateInterest.bind(this)}/>
+      <InterestField 
+        index='2' 
+        interests={this.state.departmentalInterests}
+        departments={this.state.departments} 
+        onchange={this.updateInterest.bind(this)}/>
+      <InterestField 
+        index='3' 
+        interests={this.state.departmentalInterests}
+        departments={this.state.departments} 
+        onchange={this.updateInterest.bind(this)}/>
+      <InterestField 
+        index='4' 
+        interests={this.state.departmentalInterests}
+        departments={this.state.departments} 
+        onchange={this.updateInterest.bind(this)}/>
+      </div>
+    )
 
     let doneButton = <a href='#' onClick={() => this.done()}>done</a>;
     let addConcentrationButton = <div className='addMore' onClick={() => this.updateConcentration('', this.state.concentration.length+1)} >+</div>;
@@ -107,15 +152,11 @@ export default class PreferencesScreen extends React.Component {
         <div className="prefSection">
           <label>Concentration</label>
           {concentrationFields}
-          {addConcentrationButton}
         </div>
         <div className="line"></div>
         <div className="prefSection">
           <label>Departmental Interests</label>
-          {departmentalInterestsField}
-          {departmentalInterestsField}
-          {departmentalInterestsField}
-          {addInterestButton}
+          {interestsFields}
         </div>
         <div className="prefSection">
           {doneButton}
@@ -142,7 +183,6 @@ export default class PreferencesScreen extends React.Component {
       concentration: this.state.concentration.join(','),
       interests: this.state.departmentalInterests.join(',')
     };
-    console.log(prefs);
     api.postPrefs(prefs);
   }
 
@@ -171,11 +211,24 @@ export default class PreferencesScreen extends React.Component {
     api.getDepartments(departmentDropdown);
   }
 
+  /*
+    Updates the current list of concentrations in the state
+    Called when a concentration dropdown field is changed
+  */
   updateConcentration(newConc, index) {
     let newConcentrationArray = this.state.concentration;
     newConcentrationArray[index] = newConc;
     this.setState({concentration: newConcentrationArray});
-    console.log(this.state.concentration);
+  }
+
+  /*
+    Updates the current list of departmental interests in the state
+    Called when an interest dropdown field is changed
+  */
+  updateInterest(newInterest, index) {
+    let newInterestArray = this.state.departmentalInterests;
+    newInterestArray[index] = newInterest;
+    this.setState({departmentalInterests: newInterestArray});
   }
 
 }
