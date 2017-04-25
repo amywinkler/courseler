@@ -4,15 +4,19 @@ import api from './api.jsx';
 import SectionInfo from './sectionInfo.jsx';
 import { currentRoute, navigateToRoute } from './routing.jsx';
 
+
+/*
+  A single section of the Course Info screen, 
+  like "Hours per week" or "Demographics"
+*/
 class CourseInfoSection extends React.Component {
   
-  // props should be label and content 
+  // Props are 'label' and 'content'
   constructor(props) {
     super(props);
   }
 
   render() {
-
     if (this.props.content != null) {
       return (
         <div className="courseInfoSection">
@@ -26,16 +30,6 @@ class CourseInfoSection extends React.Component {
     }
   }
 }
-
-
-class DemographicsSection extends React.Component {
-  render() {
-    return (
-      <div>Hi</div>
-    )
-  }
-}
-
 
 
 export default class CourseInfoScreen extends React.Component {
@@ -92,7 +86,6 @@ export default class CourseInfoScreen extends React.Component {
   		let sectionContent = info.sections.map((section, index) => {
 
         if (section.isMainSection) {
-
         } 
 
   			// Checks whether the current cart has this section in it already
@@ -129,10 +122,6 @@ export default class CourseInfoScreen extends React.Component {
       return null;
     }
 	}
-
-  demographics() {
-    
-  }
 
 
   back() {

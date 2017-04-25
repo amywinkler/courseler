@@ -18,7 +18,7 @@ export default class SectionInfo extends React.Component {
 
 	    // Section info 
 	    let sectionId = this.props.sectionId;
-	    let style = {backgroundColor: 'white'};
+	    let style = this.getStyle();
 	    let times = descriptionForSectionTimes(this.props.times);
 	    let professors = this.props.professors;
 	    let locations = this.getLocationString(this.props.locations);
@@ -63,5 +63,13 @@ export default class SectionInfo extends React.Component {
     	return Array.from(locationArray).join(', ');
 	}
 
+	// visual marker for sections already in cart
+	getStyle = () => {
+		if (this.state.inCart) {
+			return {border: '1px dashed #FC54B8', borderRadius:'4px'};
+		} else {
+			return {};
+		}
+	}
 
 }
