@@ -135,10 +135,12 @@ a {
   padding: 1px 5px;
   font-size: 14px;
   font-weight: bolder;
+  opacity: 0.5;
 }
 
 .removeSection:hover {
   cursor: pointer;
+  opacity: 1;
 }
 
 .calendar {
