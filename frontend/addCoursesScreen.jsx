@@ -91,12 +91,15 @@ export default class AddCoursesScreen extends React.Component {
   constructor(props) {
      super(props);
      this.state = {
-       search: '',
+       search: localStorage.searchQuery || '',
        recommendations: null,
        results: null,
-       filters: {}
+       filters: JSON.parse(localStorage.filters || '{}')
      };
-     this.loadRecommendations({});
+     if (this.state.search) {
+       this.loadSearchResults(this.state.search);
+     }
+     this.loadRecommendations(this.state.filters);
    }
    
   render() {
@@ -112,7 +115,8 @@ export default class AddCoursesScreen extends React.Component {
   }
   
   updateSearchQuery(e) {
-    let text = e.target.value
+    let text = e.target.value;
+    localStorage.searchQuery = text;
     this.setState({search: text});
     if (text) {
       // update search results:
@@ -151,6 +155,7 @@ export default class AddCoursesScreen extends React.Component {
     });
     let updateFilters = (filters) => {
       this.setState({filters: filters});
+      localStorage.filters = JSON.stringify(filters);
       this.loadRecommendations(filters);
     };
     return <div className='recommendations'>
