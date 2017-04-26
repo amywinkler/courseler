@@ -234,6 +234,7 @@ public class CourseDataCache {
     timeSlotW.setSectionTime("thursdayEnd", 2200);
     timeSlotToTimes.put(TimeSlot.W, timeSlotW);
 
+
   }
 
 }

@@ -57,7 +57,7 @@ public class RecommendationExecutor implements Recommend<RecommendationDatum> {
         filter, cache.getAllCourses());
     List<Course> crRecs = cr.getRecommendations();
     RecommendationDatum crRecDatum = new RecommendationDatum(
-        "Reccomended Courses in Your Concentration", crRecs);
+        "Recommended Courses in Your Concentration", crRecs);
     toReturn.add(crRecDatum);
 
     GoodFourthCoursesRecommendations gfc = new GoodFourthCoursesRecommendations(
