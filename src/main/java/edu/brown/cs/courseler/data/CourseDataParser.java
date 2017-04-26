@@ -184,6 +184,14 @@ public class CourseDataParser {
           locations.setLoc("M", meetingLocation);
           locations.setLoc("W", meetingLocation);
           break;
+        case "WF":
+          sectionTime.setSectionTime("fridayStart", startTime);
+          sectionTime.setSectionTime("fridayEnd", endTime);
+          sectionTime.setSectionTime("wednesdayStart", startTime);
+          sectionTime.setSectionTime("wednesdayEnd", endTime);
+          locations.setLoc("F", meetingLocation);
+          locations.setLoc("W", meetingLocation);
+          break;
         default:
           break;
       }
