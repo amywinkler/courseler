@@ -86,7 +86,11 @@ a {
   background-color: #333;
   color: white;
   padding: 15px 20px;
+  box-sizing: border-box;
   flex-direction: row;
+  position: fixed;
+  top: 0;
+  z-index: 10;
 }
 
 /* CALENDAR UI */
@@ -140,6 +144,25 @@ a {
 .calendar {
   width: 90%;
   margin: 0 auto;
+  margin-top: 50px;
+}
+
+@media screen and (max-width: 500px) {
+  .calendar {
+    width: 100%;
+    overflow-x: scroll;
+    -webkit-overflow-scrolling: touch;
+    white-space: nowrap;
+    -webkit-scroll-snap-type: mandatory;
+    -webkit-scroll-snap-points-x: repeat(80vw);
+  }
+  .calendarDayView {
+    width: 80vw;
+    padding-left: 10px;
+    padding-top: 1em;
+    box-sizing: border-box;
+    white-space: normal;
+  }
 }
 
 .dayLabel {
