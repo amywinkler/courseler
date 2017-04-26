@@ -202,6 +202,9 @@ public class CourseDataParser {
   private void parseCourseSectionFromBanner(JSONObject courseJSON) {
 
     String sectionId = (String) courseJSON.get("subject");
+    if (sectionId.equals("CSCI 1250 S01")) {
+      System.out.println("hi");
+    }
     if (!cache.sectionCacheContains(sectionId)) {
       String[] nameArr = sectionId.split(" ");
       String courseId = nameArr[0] + " " + nameArr[1];
