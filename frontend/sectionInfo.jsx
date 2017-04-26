@@ -16,6 +16,8 @@ export default class SectionInfo extends React.Component {
 
 	render() {
 
+		console.log(this.props.times);
+
 	    // Section info 
 	    let sectionId = this.props.sectionId;
 	    let style = this.getStyle();
@@ -26,7 +28,7 @@ export default class SectionInfo extends React.Component {
 		// Button to either add this section to the cart, or remove it
 		let buttonTitle = this.state.inCart ? 'Remove' : 'Add to Cart';
 	    // let addRemoveButton = <input type='submit' value={ buttonTitle } onClick={this.addOrRemove.bind(this)}/>;
-	    let addRemoveButton = <div className="addRemove" onClick={this.addOrRemove.bind(this)}>{buttonTitle}</div>	
+	    let addRemoveButton = times ? <div className="addRemove" onClick={this.addOrRemove.bind(this)}>{buttonTitle}</div> : null
 
 		return (
 			<div className="sectionInfo" style={style}>
@@ -66,7 +68,9 @@ export default class SectionInfo extends React.Component {
 	// visual marker for sections already in cart
 	getStyle = () => {
 		if (this.state.inCart) {
-			return {border: '1px dashed #FC54B8', borderRadius:'4px'};
+			return {border: '1px dotted #aaa', borderRadius: '4px'};
+			// return {backgroundColor: 'rgb(252,84,184)'};
+			// #FC54B8
 		} else {
 			return {};
 		}
