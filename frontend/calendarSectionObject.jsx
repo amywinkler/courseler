@@ -10,8 +10,7 @@ export default class CalendarSectionObject extends React.Component {
 		super(props);
 		this.state = {
 			selected: false,
-			overlaps: false,
-			removed: false
+			overlaps: false
 		};
   }
 
@@ -20,9 +19,12 @@ export default class CalendarSectionObject extends React.Component {
 		let start = militaryTimeIntToString(this.props.start);
 		let end = militaryTimeIntToString(this.props.end);
 		let removeButton = <div className='removeSection' onClick={this.removeSection.bind(this)}>x</div>
+		let style={
+			backgroundColor: '#FC54B8'
+		}
 
 		return (
-		  <div className='calendarSectionObject' onClick={ this.props.click }>
+		  <div className='calendarSectionObject' onClick={ this.props.click} style={style}>
 		  	{removeButton}
 				<h4>{title}</h4>
 				<p>{start}–{end}</p>

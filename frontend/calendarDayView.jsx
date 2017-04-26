@@ -13,8 +13,10 @@ export default class CalendarDayView extends React.Component {
 	render() {
 		let day = this.props.day;
 		let sections = this.props.sections;
+		let style= (this.props.style) ? this.props.style : {};
+
 		return (
-			<div className='calendarDayView'>
+			<div className='calendarDayView' style={style}>
 				<h3 className='dayLabel'>{day}</h3>
 				<div className='courses'>
 					{sections}

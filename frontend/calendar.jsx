@@ -30,12 +30,15 @@ export default class Calendar extends React.Component {
   }
 
 	render() {
+		let style={
+			backgroundColor: '#f4f4f4'
+		};
 		return (
 			<div className = 'calendar'>
-				<CalendarDayView day="Monday" sections={this.state.monday} />
-				<CalendarDayView day="Tuesday" sections={this.state.tuesday} />
-				<CalendarDayView day="Wednesday" sections={this.state.wednesday} />
-				<CalendarDayView day="Thursday" sections={this.state.thursday} />
+				<CalendarDayView day="Monday" sections={this.state.monday}/>
+				<CalendarDayView day="Tuesday" sections={this.state.tuesday} style={style}/>
+				<CalendarDayView day="Wednesday" sections={this.state.wednesday}/>
+				<CalendarDayView day="Thursday" sections={this.state.thursday} style={style}/>
 				<CalendarDayView day="Friday" sections={this.state.friday} />
 			</div>
 		)
