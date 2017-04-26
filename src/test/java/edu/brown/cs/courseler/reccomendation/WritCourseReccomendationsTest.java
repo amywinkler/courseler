@@ -23,6 +23,7 @@ public class WritCourseReccomendationsTest {
     User user = new User("1234");
     List<String> interests = new ArrayList<>();
     interests.add("History");
+    user.setClassYear("Freshman");
     user.setConcentration(ImmutableList.of("Undecided"));
     user.setInterests(interests);
     Filter filter = new Filter(cdc, user, false, false, false);

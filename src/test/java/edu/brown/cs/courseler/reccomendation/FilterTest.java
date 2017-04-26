@@ -20,6 +20,7 @@ public class FilterTest {
 
     User u = new User("1234");
     u.addToCart("GREK 0100 S01");
+    u.setClassYear("Freshman");
     Filter f = new Filter(cdc, u, true, false, false);
     List<Course> lstToFilter = new ArrayList<>();
     lstToFilter.add(cdc.getCourseFomCache("CSCI 0330"));
