@@ -36,7 +36,6 @@ export default class CalendarSectionObject extends React.Component {
 
 	removeSection(e){
 		if (!e) var e = window.event;
-    e.cancelBubble = true;
     if (e.stopPropagation) e.stopPropagation();
 		api.removeFromCart(this.props.id, this.props.onRemove);
 	}
