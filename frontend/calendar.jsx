@@ -46,7 +46,6 @@ export default class Calendar extends React.Component {
 	*/
 	showCourseInfo(courseCode) {
 		navigateToRoute({screen: 'course', courseCode: courseCode});
-    // this.getCourseInfo(e);
 	}
 
 	/*
@@ -97,9 +96,11 @@ export default class Calendar extends React.Component {
 				let endTime = timeObject[endString]; 
 				let newSectionObject = <CalendarSectionObject 
 										key={sectionObject.sectionId} 
+										id={sectionObject.sectionId}
 										title={sectionObject.title} 
 										start={startTime} 
-										end={endTime} 
+										end={endTime}
+										onRemove={this.props.reloadCalendar} 
 										click={this.showCourseInfo.bind(this, courseId)}/>;
 				this.setState((state) => {
   				state[day] = state[day].concat([newSectionObject]).sort(orderSections);
@@ -119,4 +120,5 @@ export default class Calendar extends React.Component {
   getToday() {
   	let today = new Date().getDay();
   }
+
 }

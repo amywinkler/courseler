@@ -186,7 +186,6 @@ export default class PreferencesScreen extends React.Component {
     api.postPrefs(prefs);
   }
 
-
   /*
     Displays any existing user preferences using the api call.
   */
