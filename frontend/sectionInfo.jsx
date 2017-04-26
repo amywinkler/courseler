@@ -15,9 +15,7 @@ export default class SectionInfo extends React.Component {
   	}
 
 	render() {
-
-		console.log(this.props.times);
-
+		
 	    // Section info 
 	    let sectionId = this.props.sectionId;
 	    let style = this.getStyle();

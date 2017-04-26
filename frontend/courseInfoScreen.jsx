@@ -42,12 +42,15 @@ export default class CourseInfoScreen extends React.Component {
       time: ''
     };
     api.courseInfo(this.props.courseCode, (info) => {
+      console.log(info);
       this.setState({info: info});
     });
   }
 
 	render() {
     if (this.state.info) {
+
+      console.log(this.state.info);
 
       let info = this.state.info;
       let term = info.term;
@@ -81,7 +84,16 @@ export default class CourseInfoScreen extends React.Component {
           return null;
         };
       }
-      
+
+      let getHoursPerWeekContent = () => {
+        if (this.state.info.crData) {
+          let avg = this.state.info.crData.hoursPerWeek.average.toFixed(2);
+          let max = this.state.info.crData.hoursPerWeek.maximum.toFixed(2);
+          return <p>Average: {avg}, Maximum: {max}</p>;
+        } else {
+          return null;
+        }
+      }
 
   		let sectionContent = info.sections.map((section, index) => {
 
@@ -102,7 +114,6 @@ export default class CourseInfoScreen extends React.Component {
 
   		let calendarButton = <a href='#' onClick={this.back.bind()}>Back</a>;
       let courseDescriptionContent = <p>{info.description}</p>
-      let hoursPerWeekContent = <p>Hours Per Week Lots</p>
 
       return (
   			<div className='courseInfo'>
@@ -114,7 +125,7 @@ export default class CourseInfoScreen extends React.Component {
   				<h2>{code}: {title}</h2>
           <CourseInfoSection label='Sections' content={sectionContent} />
           <CourseInfoSection label='Description' content={courseDescriptionContent} />
-          <CourseInfoSection label='Hours Per Week' content={hoursPerWeekContent} />
+          <CourseInfoSection label='Hours Per Week' content={getHoursPerWeekContent()} />
           <CourseInfoSection label='Demographics' content={getDemographicsContent()} />
   			</div>
   		)	
