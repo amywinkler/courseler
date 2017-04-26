@@ -22,12 +22,14 @@ export default class CalendarSectionObject extends React.Component {
 		let style={
 			backgroundColor: '#FC54B8'
 		}
+		let locations = this.props.locations;
 
 		return (
 		  <div className='calendarSectionObject' onClick={ this.props.click} style={style}>
 		  	{removeButton}
 				<h4>{title}</h4>
 				<p>{start}–{end}</p>
+				<p>{locations}</p>
 		  </div>
 		)
 	}
