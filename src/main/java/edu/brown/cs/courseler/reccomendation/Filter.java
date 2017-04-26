@@ -88,6 +88,33 @@ public class Filter {
   }
 
   // TOOD: add a method to allow you to filter on fys
+  private void filterOnNoFys(List<Course> currentListOfCourses) {
+    List<Course> toRemove = new ArrayList<>();
+    for (Course c : currentListOfCourses) {
+      if (c.getDescription() != null && c.getDescription().contains(" FYS")) {
+        toRemove.add(c);
+      }
+    }
+
+    for (Course c : toRemove) {
+      currentListOfCourses.remove(c);
+    }
+
+  }
+
+  private void filterOnNoSoph(List<Course> currentListOfCourses) {
+    List<Course> toRemove = new ArrayList<>();
+    for (Course c : currentListOfCourses) {
+      if (c.getDescription() != null && c.getDescription().contains(" SOPH")) {
+        toRemove.add(c);
+      }
+    }
+
+    for (Course c : toRemove) {
+      currentListOfCourses.remove(c);
+    }
+
+  }
 
   private void filterOnClassesNotInCart(List<Course> currentListOfCourses) {
     List<Course> toRemove = new ArrayList<>();
@@ -196,6 +223,14 @@ public class Filter {
 
     filterOnClassesNotInCart(currentListOfCourses);
     filterOnMaxReccomendations(currentListOfCourses);
+
+    if (!user.getClassYear().equals("Freshman")) {
+      filterOnNoFys(currentListOfCourses);
+    }
+
+    if (!user.getClassYear().equals("Sophomore")) {
+      filterOnNoSoph(currentListOfCourses);
+    }
 
     return currentListOfCourses;
   }

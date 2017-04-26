@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import api from './api.jsx';
 import CalendarSectionObject from './calendarSectionObject.jsx';
 import CalendarDayView from './calendarDayView.jsx';
-import { currentRoute, navigateToRoute } from './routing.jsx';
 
 export default class Calendar extends React.Component {
 
@@ -103,6 +102,7 @@ export default class Calendar extends React.Component {
 										title={sectionObject.title} 
 										start={startTime} 
 										end={endTime}
+										locations={this.getLocationString(sectionObject.meetingLocations)}
 										onRemove={this.props.reloadCalendar} 
 										click={this.showCourseInfo.bind(this, courseId)}/>;
 				this.setState((state) => {
@@ -123,5 +123,17 @@ export default class Calendar extends React.Component {
   getToday() {
   	let today = new Date().getDay();
   }
+
+  getLocationString(locations){
+		let weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
+		let locationArray = new Set();
+		weekdays.forEach((weekday) => {
+	    	let loc = locations[weekday + 'MeetingLoc'];
+		    if (loc !== null) {
+	      		locationArray.add(loc);
+	    	};
+    	});
+    	return Array.from(locationArray).join(', ');
+	}
 
 }
