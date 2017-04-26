@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import api from './api.jsx';
 import CalendarSectionObject from './calendarSectionObject.jsx';
 import CalendarDayView from './calendarDayView.jsx';
+import { currentRoute, navigateToRoute } from './routing.jsx';
 
 export default class Calendar extends React.Component {
 
