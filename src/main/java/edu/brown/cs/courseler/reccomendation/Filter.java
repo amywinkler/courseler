@@ -8,7 +8,7 @@ import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.courseinfo.Section;
 import edu.brown.cs.courseler.courseinfo.TimeSlot;
 import edu.brown.cs.courseler.data.CourseDataCache;
-import edu.brown.cs.coursler.userinfo.User;
+import edu.brown.cs.courseler.userinfo.User;
 
 /**
  * Class to do a filter on reccoemndations.
@@ -55,7 +55,7 @@ public class Filter {
 
   }
 
-  private List<Section> getSectionsInUserCart() {
+  public List<Section> getSectionsInUserCart() {
     List<Section> toReturn = new ArrayList<>();
 
     for (String sectionId : user.getSectionsInCart()) {
@@ -65,7 +65,7 @@ public class Filter {
     return toReturn;
   }
 
-  private List<Course> getCoursesInCart() {
+  public List<Course> getCoursesInCart() {
     List<Course> toReturn = new ArrayList<>();
 
     for (Section s : sectionsInCart) {
@@ -86,6 +86,8 @@ public class Filter {
     }
     return toReturn;
   }
+
+  // TOOD: add a method to allow you to filter on fys
 
   private void filterOnClassesNotInCart(List<Course> currentListOfCourses) {
     List<Course> toRemove = new ArrayList<>();

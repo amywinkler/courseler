@@ -5,7 +5,7 @@ import java.util.List;
 
 import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.data.CourseDataCache;
-import edu.brown.cs.coursler.userinfo.User;
+import edu.brown.cs.courseler.userinfo.User;
 
 public class RecommendationExecutor implements Recommend<RecommendationDatum> {
   private User user;
@@ -39,6 +39,13 @@ public class RecommendationExecutor implements Recommend<RecommendationDatum> {
         "WRIT Courses Based on Your Interests", wcReccomendations);
     toReturn.add(writRd);
 
+    BasedOnCartReccomendations bOnCartR = new BasedOnCartReccomendations(user,
+        filter, cache.getAllCourses());
+    List<Course> bcReccomendations = bOnCartR.getRecommendations();
+    RecommendationDatum bcRec = new RecommendationDatum(
+        "Courses Based on Your Cart", bcReccomendations);
+    toReturn.add(bcRec);
+
     ClassYearRecommendations cyr = new ClassYearRecommendations(user, filter,
         cache.getAllCourses());
     List<Course> cyReccomendations = cyr.getRecommendations();
@@ -52,6 +59,13 @@ public class RecommendationExecutor implements Recommend<RecommendationDatum> {
     RecommendationDatum crRecDatum = new RecommendationDatum(
         "Reccomended Courses in Your Concentration", crRecs);
     toReturn.add(crRecDatum);
+
+    GoodFourthCoursesRecommendations gfc = new GoodFourthCoursesRecommendations(
+        user, filter, cache.getAllCourses());
+    List<Course> gfcRecs = gfc.getRecommendations();
+    RecommendationDatum gfcRecDatum = new RecommendationDatum(
+        "Good Fourth Classes", gfcRecs);
+    toReturn.add(gfcRecDatum);
 
     return toReturn;
   }

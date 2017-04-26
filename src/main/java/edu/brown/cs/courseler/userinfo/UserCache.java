@@ -1,4 +1,4 @@
-package edu.brown.cs.coursler.userinfo;
+package edu.brown.cs.courseler.userinfo;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.TimeUnit;
