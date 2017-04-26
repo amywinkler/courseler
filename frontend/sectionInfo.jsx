@@ -15,12 +15,12 @@ export default class SectionInfo extends React.Component {
   	}
 
 	render() {
-		
+
 	    // Section info 
 	    let sectionId = this.props.sectionId;
 	    let style = this.getStyle();
 	    let times = descriptionForSectionTimes(this.props.times);
-	    let professors = this.props.professors;
+	    let professors = this.props.professors.join(', ');
 	    let locations = this.getLocationString(this.props.locations);
 
 		// Button to either add this section to the cart, or remove it
