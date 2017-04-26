@@ -124,23 +124,28 @@ public class Filter {
     }
   }
 
+  private boolean openContainsAllElements(Section s) {
+    for (TimeSlot t : s.getOverlappingTimeSlots()) {
+      if (!openTimeSlots.contains(t)) {
+        return false;
+      }
+    }
+
+    return true;
+  }
+
   private void filterOnOpenTimeSlots(List<Course> currentListOfCourses) {
     List<Course> toRemove = new ArrayList<>();
 
     for (Course c : currentListOfCourses) {
       boolean oneMainSectionFitsInCart = false;
       for (Section s : c.getSections()) {
-        boolean fitsInCart = true;
-        if (s.getIsMainSection() && !oneMainSectionFitsInCart) {
-          for (TimeSlot t : s.getOverlappingTimeSlots()) {
-            if (!openTimeSlots.contains(t)) {
-              fitsInCart = false;
-            }
-          }
-        }
 
-        if (fitsInCart) {
-          oneMainSectionFitsInCart = true;
+        if (s.getIsMainSection() && !oneMainSectionFitsInCart) {
+          if (openContainsAllElements(s)) {
+            oneMainSectionFitsInCart = true;
+          }
+
         }
       }
 
