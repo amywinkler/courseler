@@ -18,7 +18,7 @@ export default class CalendarSectionObject extends React.Component {
 		let title = this.props.title;
 		let start = militaryTimeIntToString(this.props.start);
 		let end = militaryTimeIntToString(this.props.end);
-		let removeButton = <div className='removeSection' onClick={this.removeSection.bind(this)}>✕</div>
+		let removeButton = <div className='removeSection' onClick={this.removeSection.bind(this)}>×</div>
 		let style={
 			backgroundColor: '#FC54B8'
 		}
