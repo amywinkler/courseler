@@ -1,13 +1,17 @@
-@import url('https://fonts.googleapis.com/css?family=Roboto+Mono|Roboto:400,700');
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
 
 html, body, #app {
   margin: 0;
   height: 100%;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 a {
   color: inherit;
+}
+
+h4 {
+  font-weight: normal;
 }
 
 .line {
@@ -46,7 +50,6 @@ a {
 
 .LoggedOutView input[type=submit] {
   appearance: none;
-  font-family: 'Roboto Mono';
   padding: 8px 20px;
   background-color: #666;
   color: white;
@@ -69,7 +72,6 @@ a {
 
 .LoggedOutView input[type=email], .LoggedOutView input[type=password] {
   appearance: none;
-  font-family: 'Roboto Mono';
   background-color: transparent;
   border: none;
   border-bottom: 3px solid #ddd;
@@ -98,6 +100,11 @@ a {
   display: flex;
   flex-direction: row;
   text-transform: lowercase;
+  
+/*  background-image: linear-gradient(0deg, #FFB746 0%, #FFE0AD 100%);
+  box-shadow: 0 0 10px 0 #E06F7A;*/
+  background-color: rgba(0,0,0,0.05);
+  color: rgba(55, 81, 121, 0.8);
 }
 
 .header .flexible-space {
@@ -133,12 +140,23 @@ a {
   vertical-align: top;
   height: 100vh;
   box-sizing: border-box;
+  padding-top: 61px;
   /*background-color: #eee;*/
+}
+
+.calendarDayView:nth-child(even) {
+  background-color: rgba(0,0,0,0.02);
 }
 
 .courses {
   margin: 0 auto;
   width: 100%;
+}
+
+.calendar-screen {
+  background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(208,237,235,1) 100%);
+  height: 100vh;
+  margin-top: -51px;
 }
 
 .calendarSectionObject {
@@ -165,7 +183,6 @@ a {
   position: absolute;
   top: 8px;
   right: 8px;
-  font-family: 'Roboto Mono';
   /*color: #888;*/
   display: inline-block;
   padding: 1px 5px;
@@ -204,6 +221,8 @@ a {
 
 .dayLabel {
   /*text-align: center;*/
+  font-weight: normal;
+  opacity: 0.5;
 }
 
 .floating-button {
@@ -211,7 +230,6 @@ a {
   margin-left: -100px;
   left: 50%;
   bottom: 16px;
-  font-family: 'Roboto Mono';
   padding: 12px 20px;
   box-sizing: border-box;
   background-color: white;
@@ -251,7 +269,6 @@ a {
 
 .courseInfo label {
   font-size: 14px;
-  font-family: 'Roboto Mono';
   opacity: 0.5;
 }
 
@@ -365,7 +382,6 @@ a {
 
 .preferences label {
   font-size: 14px;
-  font-family: 'Roboto Mono';
   opacity: 0.5;
 }
 
@@ -446,19 +462,30 @@ a {
 
 .CourseCell,
 .calendarSectionObject {
-  transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
-  box-shadow: 0px 0px 0px rgba(0,0,0,255);
+  transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+  color: rgba(255,255,255,0.9);
+  border-radius: 3px;
+  box-shadow: 0px 0px 10px rgb(75, 115, 202);
+  background-image: linear-gradient(135deg, rgb(122, 91, 206) 0%, rgb(71, 117, 202) 100%);
+/*
+  background-image: linear-gradient(135deg, rgba(76,44,163,1) 0%, rgba(73,165,191,1) 100%);
+    
+  background-image: linear-gradient(135deg, rgb(78, 68, 234) 0%, rgb(33, 185, 228) 100%);*/
 }
 
 .CourseCell:hover,
 .calendarSectionObject:hover {
-  box-shadow: 4px 4px 0px rgba(0,0,0,255);
-  cursor: default;
-  transform: translate(-4px, -4px);
+/*  box-shadow: 0px 0px 10px rgb(40, 115, 136);
+*/  cursor: default;
+  transform: scale(1.04, 1.04);
+}
+
+.CourseCell p,
+.calendarSectionObject p {
+  opacity: 0.7;
 }
 
 .SectionCell label {
-  font-family: 'Roboto Mono';
   opacity: 0.5;
   margin: 0.8em;
   margin-bottom: 0;
