@@ -224,11 +224,11 @@ public class Filter {
     filterOnClassesNotInCart(currentListOfCourses);
     filterOnMaxReccomendations(currentListOfCourses);
 
-    if (!user.getClassYear().equals("Freshman")) {
+    if (user.getClassYear() != null && !user.getClassYear().equals("Freshman")) {
       filterOnNoFys(currentListOfCourses);
     }
 
-    if (!user.getClassYear().equals("Sophomore")) {
+    if (user.getClassYear() != null && !user.getClassYear().equals("Sophomore")) {
       filterOnNoSoph(currentListOfCourses);
     }
 

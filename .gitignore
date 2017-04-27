@@ -82,3 +82,4 @@ local.properties
 config/checkstyle.xml
 .checkstyle
 test_users_1.sqlite3
+users.sqlite3
