@@ -141,25 +141,36 @@ export default class PreferencesScreen extends React.Component {
     let addInterestButton = <div className='addMore'>+</div>;
 
     return (
-      <div className='preferences'>
-        <h3>Preferences</h3>
-        <div className="line"></div>
-        <div className="prefSection">
-          <label>Class Year</label>
-          {classYearField}
+      <div>
+        {this.renderHeader()}
+        <div className='preferences screen'>
+          <h3>Preferences</h3>
+          <div className="line"></div>
+          <div className="prefSection">
+            <label>Class Year</label>
+            {classYearField}
+          </div>
+          <div className="line"></div>
+          <div className="prefSection">
+            <label>Concentration</label>
+            {concentrationFields}
+          </div>
+          <div className="line"></div>
+          <div className="prefSection">
+            <label>Departmental Interests</label>
+            {interestsFields}
+          </div>
         </div>
-        <div className="line"></div>
-        <div className="prefSection">
-          <label>Concentration</label>
-          {concentrationFields}
-        </div>
-        <div className="line"></div>
-        <div className="prefSection">
-          <label>Departmental Interests</label>
-          {interestsFields}
-        </div>
-        <div className="prefSection">
-          {doneButton}
+      </div>
+    )
+  }
+  
+  renderHeader() {
+    return (
+      <div className='header'>
+        <div className='flexible-space' />
+        <div onClick={this.done.bind(this)}>
+          <label>Save</label><span className='fa fa-check' />
         </div>
       </div>
     )

@@ -39,11 +39,8 @@ export default class LoggedInView extends React.Component {
      if (screen === 'calendar') {
        return (
          <div className='calendar-screen'>
-           <div className='header'>
-             <PopupMenu menu={this.renderMenuContent()}>Menu</PopupMenu>
-           </div>
+           {this.renderHeader()}
            <Calendar calendar={this.state.calendar} route={this.props.route} reloadCalendar={this.reloadCalendar.bind(this)} />          
-           <div className='add-courses-button floating-button' onClick={() => navigateToRoute({screen: 'add-courses'})}>Add Courses</div>
            { this.renderShareSheet() }
          </div>
        )
@@ -54,6 +51,23 @@ export default class LoggedInView extends React.Component {
      } else if (screen === 'course') {
        return <CourseInfoScreen courseCode={this.props.route.courseCode} calendar={this.state.calendar} reloadCalendar={this.reloadCalendar.bind(this)} />
      }
+   }
+   
+   renderHeader() {
+     return (
+       <div className='header'>
+         <div onClick={() => navigateToRoute({ screen: 'preferences' })}>
+           <span className='fa fa-user-circle-o' /><label>Preferences</label>
+         </div>
+         <div onClick={() => this.setState({showShareSheet: true})}>
+           <span className='fa fa-send' /><label>Share Schedule</label>
+         </div>
+         <div className='flexible-space' />
+         <div onClick={() => navigateToRoute({ screen: 'add-courses' })}>
+           <label>Find Courses</label> <span className='fa fa-calendar-plus-o' />
+         </div>
+       </div>
+     )
    }
    
    renderMenuContent() {

@@ -34,7 +34,7 @@ export default class Calendar extends React.Component {
 			backgroundColor: '#f4f4f4'
 		};
 		return (
-			<div className = 'calendar'>
+			<div className='calendar screen'>
 				<CalendarDayView day="Monday" sections={this.state.monday}/>
 				<CalendarDayView day="Tuesday" sections={this.state.tuesday} style={style}/>
 				<CalendarDayView day="Wednesday" sections={this.state.wednesday}/>

@@ -114,28 +114,38 @@ export default class CourseInfoScreen extends React.Component {
                   locations = {section.meetingLocations} />
       });
 
-  		let calendarButton = <a href='#' onClick={this.back.bind()}>Back</a>;
       let courseDescriptionContent = <p>{info.description}</p>
 
       return (
-  			<div className='courseInfo'>
-  				{calendarButton}
-          <div className ="courseInfoHeader">
-            <label>{term}</label> 
-            <div className='emojis'>{emojis}</div>
-          </div>
-  				<h2>{code}: {title}</h2>
-          <CourseInfoSection label='Sections' content={sectionContent} />
-          <CourseInfoSection label='Description' content={courseDescriptionContent} />
-          <CourseInfoSection label='Hours Per Week' content={getHoursPerWeekContent()} />
-          <CourseInfoSection label='Demographics' content={getDemographicsContent()} />
-  			</div>
+        <div>
+          {this.renderHeader()}
+    			<div className='courseInfo screen'>
+            <div className ="courseInfoHeader">
+              <label>{term}</label> 
+              <div className='emojis'>{emojis}</div>
+            </div>
+    				<h2>{code}: {title}</h2>
+            <CourseInfoSection label='Sections' content={sectionContent} />
+            <CourseInfoSection label='Description' content={courseDescriptionContent} />
+            <CourseInfoSection label='Hours Per Week' content={getHoursPerWeekContent()} />
+            <CourseInfoSection label='Demographics' content={getDemographicsContent()} />
+    			</div>
+        </div>
   		)	
     } else {
       return null;
     }
 	}
-
+  
+  renderHeader() {
+    return (
+      <div className='header'>
+        <div onClick={ () => history.back() }>
+          <span className='fa fa-angle-left'/><label>Back</label>
+        </div>
+      </div>
+    )
+  }
 
   back() {
     history.back();
