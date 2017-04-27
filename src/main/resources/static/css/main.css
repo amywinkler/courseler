@@ -92,7 +92,7 @@ h4 {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: #333;
+  background-color: rgba(60, 146, 142, 0.09);
   color: white;
   box-sizing: border-box;
   flex-direction: row;
@@ -103,8 +103,13 @@ h4 {
   
 /*  background-image: linear-gradient(0deg, #FFB746 0%, #FFE0AD 100%);
   box-shadow: 0 0 10px 0 #E06F7A;*/
-  background-color: rgba(0,0,0,0.05);
-  color: rgba(55, 81, 121, 0.8);
+/*  background-color: rgba(0,0,0,0.05);
+*/ 
+  
+  color: rgba(50, 57, 78, 0.9);
+/*  background-image: url(/img/NavBar.png);
+  background-size: 100% 100%;
+  box-shadow: 0 0 10px 0 #78D4C6;*/
 }
 
 .header .flexible-space {
