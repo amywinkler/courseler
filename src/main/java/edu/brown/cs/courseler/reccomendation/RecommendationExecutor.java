@@ -37,35 +37,45 @@ public class RecommendationExecutor implements Recommend<RecommendationDatum> {
     List<Course> wcReccomendations = wc.getRecommendations();
     RecommendationDatum writRd = new RecommendationDatum(
         "WRIT Courses Based on Your Interests", wcReccomendations);
-    toReturn.add(writRd);
+    if (wcReccomendations.size() != 0) {
+      toReturn.add(writRd);
+    }
 
     BasedOnCartReccomendations bOnCartR = new BasedOnCartReccomendations(user,
         filter, cache.getAllCourses());
     List<Course> bcReccomendations = bOnCartR.getRecommendations();
     RecommendationDatum bcRec = new RecommendationDatum(
         "Courses Based on Your Cart", bcReccomendations);
-    toReturn.add(bcRec);
+    if (bcReccomendations.size() != 0) {
+      toReturn.add(bcRec);
+    }
 
     ClassYearRecommendations cyr = new ClassYearRecommendations(user, filter,
         cache.getAllCourses());
     List<Course> cyReccomendations = cyr.getRecommendations();
     RecommendationDatum cyRec = new RecommendationDatum(
         "Good Courses For Your Class Year", cyReccomendations);
-    toReturn.add(cyRec);
+    if (cyReccomendations.size() != 0) {
+      toReturn.add(cyRec);
+    }
 
     ConcentrationRecommendations cr = new ConcentrationRecommendations(user,
         filter, cache.getAllCourses());
     List<Course> crRecs = cr.getRecommendations();
     RecommendationDatum crRecDatum = new RecommendationDatum(
         "Recommended Courses in Your Concentration", crRecs);
-    toReturn.add(crRecDatum);
+    if (crRecs.size() != 0) {
+      toReturn.add(crRecDatum);
+    }
 
     GoodFourthCoursesRecommendations gfc = new GoodFourthCoursesRecommendations(
         user, filter, cache.getAllCourses());
     List<Course> gfcRecs = gfc.getRecommendations();
     RecommendationDatum gfcRecDatum = new RecommendationDatum(
         "Good Fourth Classes", gfcRecs);
-    toReturn.add(gfcRecDatum);
+    if (gfcRecs.size() != 0) {
+      toReturn.add(gfcRecDatum);
+    }
 
     return toReturn;
   }
