@@ -97,10 +97,11 @@ a {
 
 .calendarDayView {
   display: inline-block; 
-  width: 19%;
-  margin-right: 1%;
+  width: 20%;
+  padding: 10px;
   vertical-align: top;
   height: 100vh;
+  box-sizing: border-box;
   /*background-color: #eee;*/
 }
 
