@@ -125,6 +125,10 @@ a {
   font-size: 13px;
 }
 
+.calendarSectionObject>h4 {
+  width: 90%;
+}
+
 .removeSection {
   position: absolute;
   top: 8px;
