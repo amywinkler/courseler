@@ -104,12 +104,18 @@ export default class AddCoursesScreen extends React.Component {
    
   render() {
     return (
-    <div className='AddCourses'>
-      <form className='search' onSubmit={(e) => this.submit(e)}>
-        <input type='text' onChange={(e) => this.updateSearchQuery(e)} placeholder='Search courses...' value={this.state.search} className='search-field' placeholder='search for courses or departments' />
-      </form>
+    <div className='AddCourses screen'>
+      <div className='header'>
+        <form className='search' onSubmit={(e) => this.submit(e)}>
+          <span className='fa fa-search' />
+          <input type='text' onChange={(e) => this.updateSearchQuery(e)} placeholder='Search courses...' value={this.state.search} className='search-field' placeholder='search for courses or departments' />
+        </form>
+        <div className='flexible-space' />
+        <div onClick={this.done.bind('this')}>
+          <label>Done</label><span className='fa fa-check'/>
+        </div>
+      </div>
       { this.renderContent() }
-      <div className='back floating-button' onClick={() => this.done()}>Back to Calendar</div>
     </div>
     )
   }
