@@ -485,6 +485,21 @@ a {
   transform: rotate(45deg);
 }
 
+/* menu items */
+.PopupMenu > div > div {
+  padding: 4px 8px;
+  cursor: default;
+}
+
+.PopupMenu > div > div:hover {
+  opacity: 0.6;
+}
+
+.PopupMenu > div {
+  padding-top: 4px;
+  padding-bottom: 4px;
+}
+
 
 /* MODALS */
 
