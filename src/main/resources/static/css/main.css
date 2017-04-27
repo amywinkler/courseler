@@ -18,6 +18,10 @@ a {
   margin-top: 20px;
 }
 
+.screen {
+  margin-top: 50px !important;
+}
+
 /* LOG IN / SIGN UP */
 
 .LoggedOutView {
@@ -83,14 +87,43 @@ a {
 
 .header {
   width: 100%;
-  background-color: #333;
-  color: white;
-  padding: 15px 20px;
-  box-sizing: border-box;
-  flex-direction: row;
   position: fixed;
   top: 0;
+  left: 0;
+  background-color: #333;
+  color: white;
+  padding: 15px 0px;
+  box-sizing: border-box;
+  flex-direction: row;
   z-index: 10;
+  display: flex;
+  flex-direction: row;
+  text-transform: lowercase;
+}
+
+.header .flexible-space {
+  flex-grow: 1;
+}
+
+.header > div {
+  cursor: default;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.header > div:hover {
+  opacity: 0.5;
+}
+
+.header label {
+  padding-left: 8px;
+  padding-right: 8px;
+}
+
+@media screen and (max-width: 500px) {
+  .header label {
+    display: none;
+  }
 }
 
 /* CALENDAR UI */
@@ -151,7 +184,6 @@ a {
 .calendar {
   width: 90%;
   margin: 0 auto;
-  margin-top: 50px;
 }
 
 @media screen and (max-width: 500px) {
@@ -330,7 +362,7 @@ a {
   width: 80%;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 40px;
+  padding-top: 40px;
 }
 
 .preferences label {
