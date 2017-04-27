@@ -160,6 +160,10 @@ export default class PreferencesScreen extends React.Component {
             <label>Departmental Interests</label>
             {interestsFields}
           </div>
+          <div className="line" />
+          <div className="prefSection">
+            <div className='logOut' onClick={this.logOut.bind(this)}>Log out</div>
+          </div>
         </div>
       </div>
     )
@@ -174,6 +178,11 @@ export default class PreferencesScreen extends React.Component {
         </div>
       </div>
     )
+  }
+  
+  logOut() {
+    api.logOut();
+    this.props.onLogOut();
   }
 
   /*

@@ -45,7 +45,7 @@ export default class LoggedInView extends React.Component {
          </div>
        )
      } else if (screen === 'preferences') {
-       return <PreferencesScreen />;
+       return <PreferencesScreen onLogOut={this.props.onLogOut} />;
      } else if (screen === 'add-courses') {
        return <AddCoursesScreen />;
      } else if (screen === 'course') {
