@@ -1,7 +1,12 @@
 package edu.brown.cs.courseler.userinfo;
 
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.commons.codec.binary.Hex;
 
 /**
  * The user object.
@@ -29,12 +34,35 @@ public class User {
     if (token == null) {
       throw new NullPointerException("bad! no null input for user thanks!");
     }
+    String share = "";
+    try {
+      share = createShareHash(token);
+    } catch (NoSuchAlgorithmException e1) {
+      share = null;
+    }
+    setShareId(share);
+
     this.loginIdToken = token;
     classYear = null;
     concentration = new ArrayList<>();
     interests = new ArrayList<>();
     sectionsInCart = new ArrayList<>();
-    shareId = null;
+  }
+
+  /**
+   * Create a hash of user id for sharing link.
+   *
+   * @param id
+   *          the id of the user.
+   * @return the hashed id.
+   * @throws NoSuchAlgorithmException
+   */
+  private String createShareHash(String id) throws NoSuchAlgorithmException {
+    final MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+    messageDigest.reset();
+    messageDigest.update(id.getBytes(Charset.forName("UTF8")));
+    final byte[] resultByte = messageDigest.digest();
+    return new String(Hex.encodeHex(resultByte));
   }
 
   /**
