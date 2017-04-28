@@ -1,8 +1,5 @@
 package edu.brown.cs.courseler.userinfo;
 
-import java.nio.charset.Charset;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -14,7 +11,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.commons.codec.binary.Hex;
 import org.mindrot.jbcrypt.BCrypt;
 
 /**
@@ -35,22 +31,6 @@ public class DbProxy {
    */
   public DbProxy(String dbFile) {
     connectToUserDb(dbFile);
-  }
-
-  /**
-   * Create a hash of user id for sharing link.
-   *
-   * @param id
-   *          the id of the user.
-   * @return the hashed id.
-   * @throws NoSuchAlgorithmException
-   */
-  private String createShareHash(String id) throws NoSuchAlgorithmException {
-    final MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-    messageDigest.reset();
-    messageDigest.update(id.getBytes(Charset.forName("UTF8")));
-    final byte[] resultByte = messageDigest.digest();
-    return new String(Hex.encodeHex(resultByte));
   }
 
   /**
@@ -108,13 +88,6 @@ public class DbProxy {
     User user = new User(id);
 
     String hashedPw = BCrypt.hashpw(password, BCrypt.gensalt());
-    String shareId;
-    try {
-      shareId = createShareHash(id);
-    } catch (NoSuchAlgorithmException e1) {
-      shareId = null;
-    }
-    user.setShareId(shareId);
 
     // Put into DB
     String query = "INSERT INTO users (email, password, id, share_id)"
@@ -126,7 +99,7 @@ public class DbProxy {
       prep.setString(1, email);
       prep.setString(2, hashedPw);
       prep.setString(3, id);
-      prep.setString(4, shareId);
+      prep.setString(4, user.getShareId());
       prep.executeUpdate();
       prep.close();
     } catch (SQLException e) {
@@ -246,8 +219,8 @@ public class DbProxy {
           user.setClassYear(rs.getString("year"));
 
           if (concentration != null && concentration.length() > 1) {
-            List<String> concentrationList = new ArrayList<>(
-                Arrays.asList(concentration.split(",")));
+            List<String> concentrationList =
+                new ArrayList<>(Arrays.asList(concentration.split(",")));
             user.setConcentration(concentrationList);
           } else {
             user.setConcentration(new ArrayList<>());
@@ -349,17 +322,16 @@ public class DbProxy {
         }
 
         if (concentration != null && concentration.length() > 1) {
-          List<String> concentrationList = new ArrayList<>(
-              Arrays.asList(concentration
-              .split(",")));
+          List<String> concentrationList =
+              new ArrayList<>(Arrays.asList(concentration.split(",")));
           user.setConcentration(concentrationList);
         } else {
           user.setConcentration(new ArrayList<>());
         }
 
         if (interests != null && interests.length() > 1) {
-          List<String> interestList = new ArrayList<>(Arrays.asList(interests
-              .split(",")));
+          List<String> interestList =
+              new ArrayList<>(Arrays.asList(interests.split(",")));
           user.setInterests(interestList);
         } else {
           user.setInterests(new ArrayList<>());
