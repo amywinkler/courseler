@@ -46,9 +46,10 @@ class CourseCell extends React.Component {
 class FilterEditor extends React.Component {
   options() {
     return [
-      {key: 'open', values: [false, true], labels: ['Open or full', 'Open only']},
+      {key: 'open', values: [false, true], labels: ['Any time', 'Avoid time conflicts']},
       {key: 'less_than_10_hours', values: [false, true], labels: ['Any workload', 'Less than 10 hours/wk']},
-      {key: 'small_courses', values: [false, true], labels: ['Any size', 'Small courses only']}
+      {key: 'small_courses', values: [false, true], labels: ['Any size', 'Small courses only']},
+      {key: 'cap', values: [false, true], labels: ['Capped + uncapped', 'Capped classes only']}
     ]
   }
   render() {

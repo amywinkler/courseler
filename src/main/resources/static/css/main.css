@@ -428,7 +428,7 @@ h4 {
   border: none;
   outline: none;
   flex-grow: 1;
-  color: white;
+  color: inherit;
 }
 
 .search .fa {
