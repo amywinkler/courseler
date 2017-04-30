@@ -82,6 +82,7 @@ public class CourseDataParser {
         cache.addToDepartmentMap(deptNameArr[1].trim(), deptNameArr[0]);
         cache.addToDepartmentFullNameList(deptNameArr[0]);
         cache.addToCorpus(deptNameArr[1].trim().toLowerCase());
+        cache.addToDeptToEmojiMap(deptNameArr[0], deptNameArr[2]);
       }
     } catch (FileNotFoundException e) {
       // TODO Auto-generated catch block
@@ -199,9 +200,7 @@ public class CourseDataParser {
   private void parseCourseSectionFromBanner(JSONObject courseJSON) {
 
     String sectionId = (String) courseJSON.get("subject");
-    if (sectionId.equals("CSCI 1250 S01")) {
-      System.out.println("hi");
-    }
+
     if (!cache.sectionCacheContains(sectionId)) {
       String[] nameArr = sectionId.split(" ");
       String courseId = nameArr[0] + " " + nameArr[1];
@@ -243,6 +242,9 @@ public class CourseDataParser {
         cache.addToCorpus(courseId.toLowerCase());
         currCourse.setTitle(title);
         currCourse.setDepartment(cache.lookUpFullName(nameArr[0]));
+        String emoji = cache.getEmojiForDept(cache.lookUpFullName(nameArr[0]));
+        currCourse.setDeptEmoji(emoji);
+        currCourse.addToFunAndCool("emojis", emoji);
         currCourse.setCap(Integer.parseInt(courseJSON.get(
             "maxregallowed").toString()));
         currCourse.setCoursesDotBrownLink((String)

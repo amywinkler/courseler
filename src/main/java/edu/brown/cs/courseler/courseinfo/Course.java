@@ -16,6 +16,7 @@ public class Course {
   private String courseCode;
   private String title;
   private String department;
+  private String deptEmoji;
   private int cap;
   private String coursesDotBrownLink;
   private String prereq;
@@ -178,6 +179,10 @@ public class Course {
    */
   public void addSectionObject(Section s) {
     sections.add(s);
+  }
+
+  public void setDeptEmoji(String emoji) {
+    deptEmoji = emoji;
   }
 
   /**

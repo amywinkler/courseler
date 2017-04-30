@@ -27,6 +27,7 @@ public class CourseDataCache {
   private Map<String, String> departmentMap;
   private List<String> departmentFullNameList;
   private Multiset<String> corpus;
+  private Map<String, String> deptToEmojiMap;
 
   /**
    * Constructor for CourseDataCache.
@@ -39,7 +40,16 @@ public class CourseDataCache {
     departmentMap = new HashMap<>();
     departmentFullNameList = new ArrayList<>();
     corpus = HashMultiset.create();
+    deptToEmojiMap = new HashMap<>();
 
+  }
+
+  public void addToDeptToEmojiMap(String dept, String emoji) {
+    deptToEmojiMap.put(dept, emoji);
+  }
+
+  public String getEmojiForDept(String dept) {
+    return deptToEmojiMap.get(dept);
   }
 
   public void addToCorpus(String word) {

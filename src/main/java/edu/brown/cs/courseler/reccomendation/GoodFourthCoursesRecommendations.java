@@ -19,8 +19,8 @@ public class GoodFourthCoursesRecommendations implements Recommend<Course> {
   private List<String> concentration;
   private static final int MAX_HOURS = 14;
   private static final int AVG_HOURS = 10;
-  private static final double PERCENT_ENJOYED = 0.5;
-  private static final double PERCENT_DIFFICULTY = 0.5;
+  private static final double PERCENT_ENJOYED = 0.45;
+  private static final double PERCENT_DIFFICULTY = 0.55;
 
   /**
    * Constructor for fourth course reccomendations.
