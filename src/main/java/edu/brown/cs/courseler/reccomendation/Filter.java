@@ -26,6 +26,7 @@ public class Filter {
   private boolean openFilter;
   private boolean lessThanTenHoursFilter;
   private boolean smallCoursesFilter;
+  private boolean cappedCoursesFilter;
   private List<Section> sectionsInCart;
   private List<Course> coursesInCart;
   private EnumSet<TimeSlot> openTimeSlots;
@@ -42,13 +43,14 @@ public class Filter {
    *          filter for only small courses (leq 24 students)
    */
   public Filter(CourseDataCache cache, User user, boolean openFilter,
-      boolean lessThanTenHoursFilter,
-      boolean smallCoursesFilter) {
+      boolean lessThanTenHoursFilter, boolean smallCoursesFilter,
+      boolean cappedCoursesFilter) {
     this.cache = cache;
     this.user = user;
     this.openFilter = openFilter;
     this.lessThanTenHoursFilter = lessThanTenHoursFilter;
     this.smallCoursesFilter = smallCoursesFilter;
+    this.cappedCoursesFilter = cappedCoursesFilter;
     this.sectionsInCart = getSectionsInUserCart();
     this.openTimeSlots = getOpenTimeslots();
     this.coursesInCart = getCoursesInCart();
@@ -201,6 +203,51 @@ public class Filter {
     }
   }
 
+  private void filterOnOnlyCappedCourses(List<Course> currentListOfCourses) {
+    List<Course> toRemove = new ArrayList<>();
+    for (Course c : currentListOfCourses) {
+      if (c.getCap() == 999) {
+        toRemove.add(c);
+      }
+    }
+
+    for (Course c : toRemove) {
+      currentListOfCourses.remove(c);
+    }
+  }
+
+  private void filterOnFewFromClassYear(List<Course> currentListOfCourses,
+      String classYear) {
+    List<Course> toRemove = new ArrayList<>();
+    for (Course c : currentListOfCourses) {
+      String percentName;
+      if (classYear.equals("Freshman")) {
+        percentName = "percent_freshmen";
+      } else if (classYear.equals("Sophomore")) {
+        percentName = "percent_sophomores";
+      } else if (classYear.equals("Junior")) {
+        percentName = "percent_juniors";
+      } else if (classYear.equals("Senior")) {
+        percentName = "percent_seniors";
+      } else {
+        percentName = "percent_grad";
+      }
+
+      if (c.getCrData() != null
+          && c.getCrData().getDemographics().get(percentName) < .15) {
+        toRemove.add(c);
+      }
+    }
+
+    for (Course c : toRemove) {
+      currentListOfCourses.remove(c);
+    }
+
+    for (Course c : toRemove) {
+      currentListOfCourses.add(c);
+    }
+  }
+
   /**
    * Get the filtered list of courses based on the current filters.
    *
@@ -221,6 +268,10 @@ public class Filter {
       filterOnSmallCourses(currentListOfCourses);
     }
 
+    if (cappedCoursesFilter) {
+      filterOnOnlyCappedCourses(currentListOfCourses);
+    }
+
     filterOnClassesNotInCart(currentListOfCourses);
     filterOnMaxReccomendations(currentListOfCourses);
 
@@ -231,6 +282,11 @@ public class Filter {
     if (user.getClassYear() != null && !user.getClassYear().equals("Sophomore")) {
       filterOnNoSoph(currentListOfCourses);
     }
+
+    if (user.getClassYear() != null) {
+      filterOnFewFromClassYear(currentListOfCourses, user.getClassYear());
+    }
+
 
     return currentListOfCourses;
   }

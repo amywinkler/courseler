@@ -144,7 +144,7 @@ public class RankedSearch {
     List<Course> finalCourseList = new ArrayList<>();
     finalCourseList = courseCodeSearch.suggest(entireSearch);
 
-    List<Course> titleSuggestionsFull = descriptionSearch.suggest(entireSearch);
+    List<Course> titleSuggestionsFull = titleSearch.suggest(entireSearch);
     for (Course c : titleSuggestionsFull) {
       if (!finalCourseList.contains(c)) {
         finalCourseList.add(c);

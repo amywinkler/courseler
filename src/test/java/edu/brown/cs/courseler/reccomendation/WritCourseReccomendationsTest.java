@@ -26,7 +26,7 @@ public class WritCourseReccomendationsTest {
     user.setClassYear("Freshman");
     user.setConcentration(ImmutableList.of("Undecided"));
     user.setInterests(interests);
-    Filter filter = new Filter(cdc, user, false, false, false);
+    Filter filter = new Filter(cdc, user, false, false, false, false);
     WritCourseRecommendations wc = new WritCourseRecommendations(user, filter,
         cdc.getAllCourses());
     List<Course> recs = wc.getRecommendations();

@@ -482,7 +482,9 @@ public final class RequestHandler {
   private class ReccomendationHandler implements Route {
     @Override
     public String handle(Request req, Response res) {
+
       QueryParamsMap qm = req.queryMap();
+
       String userId = qm.value("id");
       User currUser = userCache.getUserForId(userId);
       // open=true|false&less_than_10_hours=true|false&small_courses=true|false
@@ -505,9 +507,15 @@ public final class RequestHandler {
         smallCoursesFilter = Boolean.parseBoolean(smallCourses);
       }
 
+      String cappedCourses = qm.value("cap");
+      boolean cappedCoursesFilter = false;
+      if (cappedCourses != null) {
+        cappedCoursesFilter = Boolean.parseBoolean(cappedCourses);
+      }
+
       List<Course> allCourses = courseCache.getAllCourses();
       Filter filter = new Filter(courseCache, currUser, openFilter,
-          lessThanTenHoursFilter, smallCoursesFilter);
+          lessThanTenHoursFilter, smallCoursesFilter, cappedCoursesFilter);
       RecommendationExecutor allRecs =
           new RecommendationExecutor(currUser, filter, allCourses, courseCache);
 
