@@ -10,7 +10,7 @@ a {
   color: inherit;
 }
 
-h4 {
+h1, h2, h3, h4 {
   font-weight: normal;
 }
 
@@ -52,7 +52,7 @@ h4 {
   text-align: center;
 }
 
-.LoggedOutView input[type=submit] {
+.LoggedOutView input[type=submit], .big-button {
   appearance: none;
   padding: 8px 20px;
   background-color: #666;
@@ -63,6 +63,8 @@ h4 {
   border-radius: 30px;
   margin-top: 1em;
   margin-bottom: 1em;
+  display: inline-block;
+  cursor: default;
 }
 
 .LoggedOutView label {
@@ -394,8 +396,18 @@ h4 {
   opacity: 0.5;
 }
 
+.preferences p {
+  opacity: 0.5;
+}
+
 .preferences .logOut {
   text-decoration: underline;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.preferences .done {
+  
 }
 
 .prefSection {
