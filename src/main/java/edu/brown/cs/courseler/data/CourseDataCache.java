@@ -44,6 +44,10 @@ public class CourseDataCache {
 
   }
 
+  public Map<TimeSlot, SectionTime> getTimeSlotToTimes() {
+    return timeSlotToTimes;
+  }
+
   public void addToDeptToEmojiMap(String dept, String emoji) {
     deptToEmojiMap.put(dept, emoji);
   }

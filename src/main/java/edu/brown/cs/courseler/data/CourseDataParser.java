@@ -297,7 +297,7 @@ public class CourseDataParser {
   /**
    * Gets the overlapping timeslots for a given section time.
    *
-   * @param st
+   * @param time
    *          The section time
    * @return a list of overlapping timselots
    */

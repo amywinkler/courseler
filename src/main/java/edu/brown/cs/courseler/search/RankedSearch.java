@@ -75,7 +75,7 @@ public class RankedSearch {
           + givenWord.substring(i))) {
         whitespaceWords.add(givenWord.substring(0, i) + " "
             + givenWord.substring(i));
-      } else if (corpus.contains(givenWord.substring(0, i))){
+      } else if (corpus.contains(givenWord.substring(0, i))) {
         whitespaceWords.add(givenWord.substring(0, i));
       } else if (corpus.contains(givenWord.substring(i))) {
         whitespaceWords.add(givenWord.substring(i));
@@ -137,7 +137,7 @@ public class RankedSearch {
    *          the entire search term
    * @return list of resulting courses in ranked order
    */
-  public List<Course> rankedKeywordSearch(String entireSearch){
+  public List<Course> rankedKeywordSearch(String entireSearch) {
     entireSearch = entireSearch.toLowerCase();
 
 
@@ -170,7 +170,8 @@ public class RankedSearch {
 
     } else {
       // search on only the last 5 words
-      for (int i = searchWordsSplit.length - 1; i > searchWordsSplit.length - 5; i--) {
+      for (int i = searchWordsSplit.length - 1;
+          i > searchWordsSplit.length - 5; i--) {
         wordsToSearch.add(searchWordsSplit[i]);
         searchIndividualWords(finalCourseList, wordsToSearch);
       }

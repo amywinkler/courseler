@@ -84,6 +84,7 @@ public final class RequestHandler {
     Spark.post("/login", new LoginHandler());
     Spark.post("/signup", new SignupHandler());
     Spark.get("/ipVerify", new IPVerificationHandler());
+    Spark.get("/timeslots", new TimeSlotHandler());
     Spark.post("/course", new CourseHandler());
     Spark.post("/addSection", new AddCartSectionHandler());
     Spark.post("/removeSection", new RemoveCartSectionHandler());
@@ -542,6 +543,21 @@ public final class RequestHandler {
       }
 
       return GSON.toJson(courses);
+
+    }
+  }
+
+  /**
+   * Handler for search.
+   *
+   * @author amywinkler
+   *
+   */
+  private class TimeSlotHandler implements Route {
+
+    @Override
+    public String handle(Request req, Response res) {
+      return GSON.toJson(courseCache.getTimeSlotToTimes());
 
     }
   }

@@ -16,7 +16,7 @@ public class Section {
   private List<String> professors;
   private SectionTime times;
   private MeetingLocation meetingLocations;
-  private transient List<TimeSlot> overlappingTimeSlots;
+  private List<TimeSlot> overlappingTimeSlots;
   private boolean isMainSection;
 
   /**
