@@ -29,6 +29,26 @@ public class CourseDataCache {
   private Multiset<String> corpus;
   private Map<String, String> deptToEmojiMap;
 
+  private static final int FIFTY_MINS = 50;
+  private static final int ONE_TWENTY_MINS = 120;
+  private static final int TWO_THIRTY_MINS = 230;
+
+  private static final int EIGHT_AM = 800;
+  private static final int NINE_AM = 900;
+  private static final int TEN_AM = 1000;
+  private static final int TEN_THIRTY_AM = 1030;
+  private static final int ELEVEN_AM = 1100;
+  private static final int TWELVE_PM = 1200;
+  private static final int ONE_PM = 1300;
+  private static final int TWO_PM = 1400;
+  private static final int TWO_THIRTY_PM = 1430;
+  private static final int THREE_PM = 1500;
+  private static final int FOUR_PM = 1600;
+  private static final int SIX_PM = 1800;
+  private static final int SIX_FORTY_PM = 1840;
+  private static final int EIGHT_PM = 2000;
+  private static final int TEN_PM = 2200;
+
   /**
    * Constructor for CourseDataCache.
    */
@@ -44,22 +64,49 @@ public class CourseDataCache {
 
   }
 
+  /**
+   * @return the map of timeslots to times they represent
+   */
   public Map<TimeSlot, SectionTime> getTimeSlotToTimes() {
     return timeSlotToTimes;
   }
 
+  /**
+   * Add a dept, emoji pair to the dept emoji map.
+   *
+   * @param dept
+   *          the department
+   * @param emoji
+   *          the emoji
+   */
   public void addToDeptToEmojiMap(String dept, String emoji) {
     deptToEmojiMap.put(dept, emoji);
   }
 
+  /**
+   * Get the emoji for a given dept.
+   *
+   * @param dept
+   *          the dept name
+   * @return the emoji string
+   */
   public String getEmojiForDept(String dept) {
     return deptToEmojiMap.get(dept);
   }
 
+  /**
+   * Add a word to the corpus of courses.
+   *
+   * @param word
+   *          the word to add (a course code)
+   */
   public void addToCorpus(String word) {
     corpus.add(word);
   }
 
+  /**
+   * @return the corpus of courses
+   */
   public Multiset<String> getCorpus() {
     return corpus;
   }
@@ -90,29 +137,66 @@ public class CourseDataCache {
     return timeSlotToTimes.get(t);
   }
 
-
+  /**
+   * Check if a section is contained in the section cache.
+   *
+   * @param sectionId
+   *          the section id
+   * @return a boolean representing whether it is contained or not
+   */
   public boolean sectionCacheContains(String sectionId) {
     return sectionIdToSection.containsKey(sectionId);
   }
 
+  /**
+   * Add something to the course cache.
+   *
+   * @param id
+   *          the id
+   * @param c
+   *          the course object
+   */
   public void addToCourseCache(String id, Course c) {
     courseIdToCourse.put(id, c);
   }
 
+  /**
+   * Add to the map of codes to full dept names.
+   *
+   * @param code
+   *          the dept code
+   * @param fullName
+   *          the full dept name
+   */
   public void addToDepartmentMap(String code, String fullName) {
     departmentMap.put(code, fullName);
   }
 
+  /**
+   * Look up the full name of a dept from the dept code.
+   *
+   * @param code
+   *          the dept code
+   * @return the full name of the dept
+   */
   public String lookUpFullName(String code) {
     return departmentMap.get(code);
   }
 
+  /**
+   * Add to the department full names list.
+   *
+   * @param fullName
+   *          the full name of the department.
+   */
   public void addToDepartmentFullNameList(String fullName) {
     departmentFullNameList.add(fullName);
   }
 
+  /**
+   * @return the list of full names of departments
+   */
   public List<String> getDepartmentFullNameList() {
-
     return departmentFullNameList;
   }
 
@@ -137,7 +221,15 @@ public class CourseDataCache {
     return courseIdToCourse.get(courseId);
   }
 
-  public void addToSectionCache(String id, Section s){
+  /**
+   * Add a section to the section cache.
+   *
+   * @param id
+   *          the section id
+   * @param s
+   *          the section object
+   */
+  public void addToSectionCache(String id, Section s) {
     sectionIdToSection.put(id, s);
   }
 
@@ -145,107 +237,107 @@ public class CourseDataCache {
   private void setUpTimeSlots() {
     timeSlotToTimes = new EnumMap<TimeSlot, SectionTime>(TimeSlot.class);
     SectionTime timeSlotA = new SectionTime();
-    timeSlotA.addMonWedFriTime(800, 850);
+    timeSlotA.addMonWedFriTime(EIGHT_AM, EIGHT_AM + FIFTY_MINS);
     timeSlotToTimes.put(TimeSlot.A, timeSlotA);
 
     SectionTime timeSlotB = new SectionTime();
-    timeSlotB.addMonWedFriTime(900, 950);
+    timeSlotB.addMonWedFriTime(NINE_AM, NINE_AM + FIFTY_MINS);
     timeSlotToTimes.put(TimeSlot.B, timeSlotB);
 
     SectionTime timeSlotC = new SectionTime();
-    timeSlotC.addMonWedFriTime(1000, 1050);
+    timeSlotC.addMonWedFriTime(TEN_AM, TEN_AM + FIFTY_MINS);
     timeSlotToTimes.put(TimeSlot.C, timeSlotC);
 
     SectionTime timeSlotD = new SectionTime();
-    timeSlotD.addMonWedFriTime(1100, 1150);
+    timeSlotD.addMonWedFriTime(ELEVEN_AM, ELEVEN_AM + FIFTY_MINS);
     timeSlotToTimes.put(TimeSlot.D, timeSlotD);
 
     SectionTime timeSlotE = new SectionTime();
-    timeSlotE.addMonWedFriTime(1200, 1250);
+    timeSlotE.addMonWedFriTime(TWELVE_PM, TWELVE_PM + FIFTY_MINS);
     timeSlotToTimes.put(TimeSlot.E, timeSlotE);
 
     SectionTime timeSlotF = new SectionTime();
-    timeSlotF.addMonWedFriTime(1300, 1350);
+    timeSlotF.addMonWedFriTime(ONE_PM, ONE_PM + FIFTY_MINS);
     timeSlotToTimes.put(TimeSlot.F, timeSlotF);
 
     SectionTime timeSlotG = new SectionTime();
-    timeSlotG.addMonWedFriTime(1400, 1450);
+    timeSlotG.addMonWedFriTime(TWO_PM, TWO_PM + FIFTY_MINS);
     timeSlotToTimes.put(TimeSlot.G, timeSlotG);
 
     SectionTime timeSlotH = new SectionTime();
-    timeSlotH.addTuesThursTime(900, 1020);
+    timeSlotH.addTuesThursTime(NINE_AM, NINE_AM + ONE_TWENTY_MINS);
     timeSlotToTimes.put(TimeSlot.H, timeSlotH);
 
     SectionTime timeSlotI = new SectionTime();
-    timeSlotI.addTuesThursTime(1030, 1150);
+    timeSlotI.addTuesThursTime(TEN_THIRTY_AM, TEN_THIRTY_AM + ONE_TWENTY_MINS);
     timeSlotToTimes.put(TimeSlot.I, timeSlotI);
 
     SectionTime timeSlotJ = new SectionTime();
-    timeSlotJ.addTuesThursTime(1300, 1420);
+    timeSlotJ.addTuesThursTime(ONE_PM, ONE_PM + ONE_TWENTY_MINS);
     timeSlotToTimes.put(TimeSlot.J, timeSlotJ);
 
     SectionTime timeSlotK = new SectionTime();
-    timeSlotK.addTuesThursTime(1430, 1550);
+    timeSlotK.addTuesThursTime(TWO_THIRTY_PM, TWO_THIRTY_PM + ONE_TWENTY_MINS);
     timeSlotToTimes.put(TimeSlot.K, timeSlotK);
 
     SectionTime timeSlotL = new SectionTime();
-    timeSlotL.addTuesThursTime(1840, 2000);
+    timeSlotL.addTuesThursTime(SIX_FORTY_PM, EIGHT_PM);
     timeSlotToTimes.put(TimeSlot.L, timeSlotL);
 
 
     SectionTime timeSlotM = new SectionTime();
-    timeSlotM.setSectionTime("mondayStart", 1500);
-    timeSlotM.setSectionTime("mondayEnd", 1730);
+    timeSlotM.setSectionTime("mondayStart", THREE_PM);
+    timeSlotM.setSectionTime("mondayEnd", THREE_PM + TWO_THIRTY_MINS);
     timeSlotToTimes.put(TimeSlot.M, timeSlotM);
 
     SectionTime timeSlotN = new SectionTime();
-    timeSlotN.setSectionTime("wednesdayStart", 1500);
-    timeSlotN.setSectionTime("wednesdayEnd", 1730);
+    timeSlotN.setSectionTime("wednesdayStart", THREE_PM);
+    timeSlotN.setSectionTime("wednesdayEnd", THREE_PM + TWO_THIRTY_MINS);
     timeSlotToTimes.put(TimeSlot.N, timeSlotN);
 
     SectionTime timeSlotO = new SectionTime();
-    timeSlotO.setSectionTime("fridayStart", 1500);
-    timeSlotO.setSectionTime("fridayEnd", 1730);
+    timeSlotO.setSectionTime("fridayStart", THREE_PM);
+    timeSlotO.setSectionTime("fridayEnd", THREE_PM + TWO_THIRTY_MINS);
     timeSlotToTimes.put(TimeSlot.O, timeSlotO);
 
     SectionTime timeSlotP = new SectionTime();
-    timeSlotP.setSectionTime("tuesdayStart", 1600);
-    timeSlotP.setSectionTime("tuesdayEnd", 1830);
+    timeSlotP.setSectionTime("tuesdayStart", FOUR_PM);
+    timeSlotP.setSectionTime("tuesdayEnd", FOUR_PM + TWO_THIRTY_MINS);
     timeSlotToTimes.put(TimeSlot.P, timeSlotP);
 
     SectionTime timeSlotQ = new SectionTime();
-    timeSlotQ.setSectionTime("thursdayStart", 1600);
-    timeSlotQ.setSectionTime("thursdayEnd", 1830);
+    timeSlotQ.setSectionTime("thursdayStart", FOUR_PM);
+    timeSlotQ.setSectionTime("thursdayEnd", FOUR_PM + TWO_THIRTY_MINS);
     timeSlotToTimes.put(TimeSlot.Q, timeSlotQ);
 
     SectionTime timeSlotR = new SectionTime();
-    timeSlotR.setSectionTime("tuesdayStart", 1200);
-    timeSlotR.setSectionTime("tuesdayEnd", 1250);
+    timeSlotR.setSectionTime("tuesdayStart", TWELVE_PM);
+    timeSlotR.setSectionTime("tuesdayEnd", TWELVE_PM + FIFTY_MINS);
     timeSlotToTimes.put(TimeSlot.R, timeSlotR);
 
     SectionTime timeSlotS = new SectionTime();
-    timeSlotS.setSectionTime("thursdayStart", 1200);
-    timeSlotS.setSectionTime("thursdayEnd", 1250);
+    timeSlotS.setSectionTime("thursdayStart", TWELVE_PM);
+    timeSlotS.setSectionTime("thursdayEnd", TWELVE_PM + FIFTY_MINS);
     timeSlotToTimes.put(TimeSlot.S, timeSlotS);
 
     SectionTime timeSlotT = new SectionTime();
-    timeSlotT.setSectionTime("mondayStart", 1800);
-    timeSlotT.setSectionTime("mondayEnd", 2200);
+    timeSlotT.setSectionTime("mondayStart", SIX_PM);
+    timeSlotT.setSectionTime("mondayEnd", TEN_PM);
     timeSlotToTimes.put(TimeSlot.T, timeSlotT);
 
     SectionTime timeSlotU = new SectionTime();
-    timeSlotU.setSectionTime("wednesdayStart", 1800);
-    timeSlotU.setSectionTime("wednesdayEnd", 2200);
+    timeSlotU.setSectionTime("wednesdayStart", SIX_PM);
+    timeSlotU.setSectionTime("wednesdayEnd", TEN_PM);
     timeSlotToTimes.put(TimeSlot.U, timeSlotU);
 
     SectionTime timeSlotV = new SectionTime();
-    timeSlotV.setSectionTime("tuesdayStart", 2000);
-    timeSlotV.setSectionTime("tuesdayEnd", 2200);
+    timeSlotV.setSectionTime("tuesdayStart", EIGHT_PM);
+    timeSlotV.setSectionTime("tuesdayEnd", TEN_PM);
     timeSlotToTimes.put(TimeSlot.V, timeSlotV);
 
     SectionTime timeSlotW = new SectionTime();
-    timeSlotW.setSectionTime("thursdayStart", 2000);
-    timeSlotW.setSectionTime("thursdayEnd", 2200);
+    timeSlotW.setSectionTime("thursdayStart", EIGHT_PM);
+    timeSlotW.setSectionTime("thursdayEnd", TEN_PM);
     timeSlotToTimes.put(TimeSlot.W, timeSlotW);
 
 

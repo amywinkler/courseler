@@ -21,6 +21,7 @@ public class Filter {
   private static final int SMALL_COURSE_SIZE = 24;
   private static final int AVG_HOURS_PER_WEEK = 10;
   private static final int CAP_SIZE = 999;
+  private static final double PERCENT_OF_CLASS_YEAR = 0.15;
 
   private CourseDataCache cache;
   private User user;
@@ -36,12 +37,18 @@ public class Filter {
   /**
    * Constructor for filter object.
    *
+   * @param cache
+   *          the course data cache
+   * @param user
+   *          the user
    * @param openFilter
    *          filter for only open courses
    * @param lessThanTenHoursFilter
    *          filter for only courses that take less than ten hours a week
    * @param smallCoursesFilter
    *          filter for only small courses (leq 24 students)
+   * @param cappedCoursesFilter
+   *           filter on capped courses
    */
   public Filter(CourseDataCache cache, User user, boolean openFilter,
       boolean lessThanTenHoursFilter, boolean smallCoursesFilter,
@@ -58,6 +65,11 @@ public class Filter {
 
   }
 
+  /**
+   * Get all the section objects in a user's cart.
+   *
+   * @return all the section objects in a user's cart
+   */
   public List<Section> getSectionsInUserCart() {
     List<Section> toReturn = new ArrayList<>();
 
@@ -68,6 +80,11 @@ public class Filter {
     return toReturn;
   }
 
+  /**
+   * Get all the courses in a user's cart.
+   *
+   * @return all the course objects in a user's cart
+   */
   public List<Course> getCoursesInCart() {
     List<Course> toReturn = new ArrayList<>();
 
@@ -90,7 +107,6 @@ public class Filter {
     return toReturn;
   }
 
-  // TOOD: add a method to allow you to filter on fys
   private void filterOnNoFys(List<Course> currentListOfCourses) {
     List<Course> toRemove = new ArrayList<>();
     for (Course c : currentListOfCourses) {
@@ -194,7 +210,8 @@ public class Filter {
     for (Course c : currentListOfCourses) {
 
       if (c.getCrData() == null
-          || c.getCrData().getHoursPerWeek().get("average") > AVG_HOURS_PER_WEEK) {
+          || c.getCrData().getHoursPerWeek().get("average")
+          > AVG_HOURS_PER_WEEK) {
         toRemove.add(c);
       }
     }
@@ -235,7 +252,8 @@ public class Filter {
       }
 
       if (c.getCrData() != null
-          && c.getCrData().getDemographics().get(percentName) < .15) {
+          && c.getCrData().getDemographics().get(percentName)
+          < PERCENT_OF_CLASS_YEAR) {
         toRemove.add(c);
       }
     }
@@ -256,7 +274,8 @@ public class Filter {
    *          the current list of courses
    * @return the filtered list of courses
    */
-  public List<Course> getFilteredListOfCourses(List<Course> currentListOfCourses) {
+  public List<Course> getFilteredListOfCourses(
+      List<Course> currentListOfCourses) {
     if (openFilter) {
       filterOnOpenTimeSlots(currentListOfCourses);
     }

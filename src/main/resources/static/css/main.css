@@ -10,7 +10,7 @@ a {
   color: inherit;
 }
 
-h4 {
+h1, h2, h3, h4 {
   font-weight: normal;
 }
 
@@ -36,6 +36,10 @@ h4 {
   align-items: center;
 }
 
+.LoggedOutView h1 {
+  font-weight: normal;
+}
+
 .logo {
   width: 100px;
   height: 100px;
@@ -48,7 +52,7 @@ h4 {
   text-align: center;
 }
 
-.LoggedOutView input[type=submit] {
+.LoggedOutView input[type=submit], .big-button {
   appearance: none;
   padding: 8px 20px;
   background-color: #666;
@@ -59,6 +63,8 @@ h4 {
   border-radius: 30px;
   margin-top: 1em;
   margin-bottom: 1em;
+  display: inline-block;
+  cursor: default;
 }
 
 .LoggedOutView label {
@@ -92,7 +98,7 @@ h4 {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(60, 146, 142, 0.09);
+  background-color: rgba(233, 247, 246, 0.9);
   color: white;
   box-sizing: border-box;
   flex-direction: row;
@@ -390,8 +396,18 @@ h4 {
   opacity: 0.5;
 }
 
+.preferences p {
+  opacity: 0.5;
+}
+
 .preferences .logOut {
   text-decoration: underline;
+  cursor: pointer;
+  opacity: 0.5;
+}
+
+.preferences .done {
+  
 }
 
 .prefSection {
@@ -455,10 +471,15 @@ h4 {
 
 .CourseCell {
   width: 220px;
+  margin: 0.8em;
+  position: relative;
 }
 
-.CourseCell {
-  margin: 0.8em;
+.CourseCell .emoji {
+  position: absolute;
+  right: 0.5em;
+  bottom: -0.1em;
+  opacity: 1;
 }
 
 .hscroll .CourseCell:not(:first-child) {

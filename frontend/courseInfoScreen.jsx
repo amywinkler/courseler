@@ -111,7 +111,8 @@ export default class CourseInfoScreen extends React.Component {
                   onAdd={this.props.reloadCalendar} 
                   onRemove={this.props.reloadCalendar} 
                   professors = {section.professors} 
-                  locations = {section.meetingLocations} />
+                  locations = {section.meetingLocations}
+                  locked={this.props.locked} />
       });
 
       let courseDescriptionContent = <p>{info.description}</p>
@@ -150,6 +151,4 @@ export default class CourseInfoScreen extends React.Component {
   back() {
     history.back();
   }
-
-
 }
