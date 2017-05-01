@@ -1,9 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
+/*@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');*/
+@import url('https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,500,600,700');
 
 html, body, #app {
   margin: 0;
   height: 100%;
-  font-family: 'Poppins', sans-serif;
+  /*font-family: 'Poppins', sans-serif;*/
+  font-family: 'Nunito Sans', sans-serif;
+  line-height: 1.4;
 }
 
 a {
