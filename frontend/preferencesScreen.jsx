@@ -41,14 +41,42 @@ class ConcentrationField extends React.Component {
     this.setState({concentration: this.props.concentrations[this.props.index]});
   }
   render() {
+
+    // For autocomplete dropdown 
+    $( function() {
+    var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];
+    $( "#tags" ).autocomplete({
+      source: availableTags
+    });
+    } );
+
     return (
-      <select name="concentration" 
-          value={this.state.concentration} 
-          onChange={ (e) => {
-            this.changeConcentration(e);
-          } }> 
-        {this.props.departments}
-      </select>
+      <div className="ui-widget">
+        <input id="tags" />
+      </div>
     )
   }
   changeConcentration(e) {
