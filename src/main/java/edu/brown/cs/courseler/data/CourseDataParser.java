@@ -38,23 +38,23 @@ import edu.brown.cs.courseler.courseinfo.TimeSlot;
  */
 public class CourseDataParser {
   private CourseDataCache cache;
-  private static final int deptCodeIdx = 1;
-  private static final int courseNumIdx = 2;
-  private static final int numRespIdx = 6;
-  private static final int froshIdx = 7;
-  private static final int sophIdx = 8;
-  private static final int junIdx = 9;
-  private static final int senIdx = 10;
-  private static final int gradIdx = 11;
-  private static final int totalStudIdx = 12;
-  private static final int concsIdx = 13;
-  private static final int nonconcsIdx = 14;
-  private static final int dunnoIdx = 15;
-  private static final int profScoreIdx = 16;
-  private static final int courseScoreIdx = 17;
-  private static final int meanAvgHoursIdx = 18;
-  private static final int meanMaxHoursIdx = 20;
-  private static final int tallyIdx = 22;
+  private static final int DEPT_CODE_IDX = 1;
+  private static final int COURSE_NUM_IDX = 2;
+  private static final int NUM_RESP_IDX = 6;
+  private static final int FROSH_IDX = 7;
+  private static final int SOPH_IDX = 8;
+  private static final int JUN_IDX = 9;
+  private static final int SEN_IDX = 10;
+  private static final int GRAD_IDX = 11;
+  private static final int TOTAL_STUD_IDX = 12;
+  private static final int CONCS_IDX = 13;
+  private static final int NON_CONCS_IDX = 14;
+  private static final int DUNNO_IDX = 15;
+  private static final int PROF_SCORE_IDX = 16;
+  private static final int COURSE_SCORE_IDX = 17;
+  private static final int MEAN_AVG_HOURS_IDX = 18;
+  private static final int MEAN_MAX_HOURS_IDX = 20;
+  private static final int TALLY_IDX = 22;
 
 
 
@@ -333,47 +333,49 @@ public class CourseDataParser {
 
       while ((nextLine = reader.readNext()) != null) {
         // nextLine[] is an array of values from the line
-        Course currCourse = cache.getCourseFomCache(nextLine[deptCodeIdx] + " "
-                + nextLine[courseNumIdx]);
+        Course currCourse = cache.getCourseFomCache(
+            nextLine[DEPT_CODE_IDX] + " "
+            + nextLine[COURSE_NUM_IDX]);
         if (currCourse != null) {
           CriticalReviewData cr = new CriticalReviewData();
           Double totalPeopleInClass = Double
-              .parseDouble(nextLine[totalStudIdx]);
+              .parseDouble(nextLine[TOTAL_STUD_IDX]);
           Double numRespondents = Double
-              .parseDouble(nextLine[numRespIdx]);
+              .parseDouble(nextLine[NUM_RESP_IDX]);
 
           // frosh, etc. is over total
           cr.addDemographic("percent_freshmen",
-              Double.parseDouble(nextLine[froshIdx]) / totalPeopleInClass);
+              Double.parseDouble(nextLine[FROSH_IDX]) / totalPeopleInClass);
           cr.addDemographic("percent_sophomores",
-              Double.parseDouble(nextLine[sophIdx]) / totalPeopleInClass);
+              Double.parseDouble(nextLine[SOPH_IDX]) / totalPeopleInClass);
           cr.addDemographic("percent_juniors",
-              Double.parseDouble(nextLine[junIdx]) / totalPeopleInClass);
+              Double.parseDouble(nextLine[JUN_IDX]) / totalPeopleInClass);
           cr.addDemographic("percent_seniors",
-              Double.parseDouble(nextLine[senIdx]) / totalPeopleInClass);
+              Double.parseDouble(nextLine[SEN_IDX]) / totalPeopleInClass);
           cr.addDemographic("percent_grad",
-              Double.parseDouble(nextLine[gradIdx]) / totalPeopleInClass);
+              Double.parseDouble(nextLine[GRAD_IDX]) / totalPeopleInClass);
 
           // conc nonconc is over respondents
           cr.addDemographic("percent_concentrators",
-              Double.parseDouble(nextLine[concsIdx]) / numRespondents);
+              Double.parseDouble(nextLine[CONCS_IDX]) / numRespondents);
           cr.addDemographic("percent_non_concentrators",
-              Double.parseDouble(nextLine[nonconcsIdx]) / numRespondents);
+              Double.parseDouble(nextLine[NON_CONCS_IDX]) / numRespondents);
           cr.addDemographic("percent_undecided",
-              Double.parseDouble(nextLine[dunnoIdx]) / numRespondents);
+              Double.parseDouble(nextLine[DUNNO_IDX]) / numRespondents);
 
           // add all the hours per week data
           cr.addHoursPerWeek("maximum",
-              Double.parseDouble(nextLine[meanMaxHoursIdx]));
+              Double.parseDouble(nextLine[MEAN_MAX_HOURS_IDX]));
           cr.addHoursPerWeek("average",
-              Double.parseDouble(nextLine[meanAvgHoursIdx]));
+              Double.parseDouble(nextLine[MEAN_AVG_HOURS_IDX]));
 
           // get the course and prof average.. set them during jsonarray
-          Double profAvg = Double.parseDouble(nextLine[profScoreIdx]) / 5.0;
-          Double courseAvg = Double.parseDouble(nextLine[courseScoreIdx]) / 5.0;
+          Double profAvg = Double.parseDouble(nextLine[PROF_SCORE_IDX]) / 5.0;
+          Double courseAvg =
+              Double.parseDouble(nextLine[COURSE_SCORE_IDX]) / 5.0;
 
           JsonParser parser = new JsonParser();
-          JsonElement parsed = parser.parse(nextLine[tallyIdx]);
+          JsonElement parsed = parser.parse(nextLine[TALLY_IDX]);
           JsonObject tallys = parsed.getAsJsonObject();
           Double recommendedToNonConcentrators =
               getAverage(tallys.get("non-concs").getAsJsonObject());
