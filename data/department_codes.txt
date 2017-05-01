@@ -12,7 +12,7 @@ Chinese,CHIN,🀄️
 Classics,CLAS,📜
 Cognitive Linguistic & Psychological Sciences,CLPS,👓
 Comparative Literature,COLT,📚
-Contemptlative Studies,COST,🔮
+Contemplative Studies,COST,🔮
 Computer Science,CSCI,🖥
 Czech,CZCH,🇨🇿
 Development Studies,DEVL,🐣
