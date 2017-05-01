@@ -51,7 +51,8 @@ public class GoodFourthCoursesRecommendations implements Recommend<Course> {
             && c.getCrData().getHoursPerWeek().get("maximum") < MAX_HOURS
             && c.getCrData().getHoursPerWeek().get("average") < AVG_HOURS
             && c.getCrData().getEnjoyed() > PERCENT_ENJOYED
-            && c.getCrData().getDifficulty() < PERCENT_DIFFICULTY) {
+            && c.getCrData().getDifficulty() < PERCENT_DIFFICULTY
+            && c.getPrereq() == null) {
           toReturn.add(c);
         }
       }

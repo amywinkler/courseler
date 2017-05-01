@@ -133,6 +133,13 @@ public class Course {
   }
 
   /**
+   * @return the prereq
+   */
+  public String getPrereq() {
+    return prereq;
+  }
+
+  /**
    * @param title
    *          the course title
    */
