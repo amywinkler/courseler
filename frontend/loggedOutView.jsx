@@ -34,12 +34,12 @@ export default class LoggedOutView extends React.Component {
     let error = null;
     if (this.state.error) error = <div className='error'>{this.state.error}</div>;
     
-    let title = this.state.showSignup ? 'Sign Up' : 'Log In';
+    let title = this.state.showSignup ? <h1>Sign up</h1> : <div className='logo' />;
     
     return (
       <div className='LoggedOutView'>
         <div className='inner'>
-          <div className='logo' />
+    {title}
           <form onSubmit={ (e) => this.submit(e) } autoComplete='off'>
             {error}
             <div>
