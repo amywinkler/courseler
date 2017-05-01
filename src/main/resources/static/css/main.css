@@ -98,7 +98,7 @@ h1, h2, h3, h4 {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(60, 146, 142, 0.09);
+  background-color: rgba(233, 247, 246, 0.9);
   color: white;
   box-sizing: border-box;
   flex-direction: row;
