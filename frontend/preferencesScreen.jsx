@@ -174,7 +174,7 @@ export default class PreferencesScreen extends React.Component {
         {this.renderHeader()}
         <div className='preferences screen'>
           <h2>Tell us about yourself</h2>
-          <p>We'll use this information to provide personalized recommendations, and show you interesting courses you might not know about.</p>
+          <p>We’ll use this information to provide personalized recommendations, and show you interesting courses you might not know about.</p>
           <div className="line"></div>
           <div className="prefSection">
             <label>Class Year</label><br/>

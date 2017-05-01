@@ -1,10 +1,9 @@
-/*@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');*/
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,500,600,700');
+@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
 
 html, body, #app {
   margin: 0;
   height: 100%;
-  /*font-family: 'Poppins', sans-serif;*/
   font-family: 'Nunito Sans', sans-serif;
   line-height: 1.4;
 }
@@ -168,7 +167,7 @@ h1, h2, h3, h4 {
 }
 
 .calendar-screen {
-  background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(208,237,235,1) 100%);
+  /*background: linear-gradient(135deg, rgba(255,255,255,1) 0%, rgba(208,237,235,1) 100%);*/
   height: 100vh;
   margin-top: -51px;
 }
@@ -426,6 +425,18 @@ h1, h2, h3, h4 {
   border-radius: 10px;
 }
 
+.ui-autocomplete {
+  background-color: white;
+  list-style: none;
+  padding-left: 0px;
+  margin-left: 0px;
+  width: 200px;
+}
+
+.ui-helper-hidden-accessible{
+  display: none;
+}
+
 /* SEARCH/RECOMMENDATIONS */
 
 .AddCourses {
@@ -498,7 +509,7 @@ h1, h2, h3, h4 {
   transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   color: rgba(255,255,255,0.9);
   border-radius: 3px;
-  box-shadow: 0px 0px 10px rgb(75, 115, 202);
+  /*box-shadow: 0px 0px 10px rgb(75, 115, 202);*/
   background-image: linear-gradient(135deg, rgb(122, 91, 206) 0%, rgb(71, 117, 202) 100%);
 /*
   background-image: linear-gradient(135deg, rgba(76,44,163,1) 0%, rgba(73,165,191,1) 100%);
