@@ -471,10 +471,15 @@ h1, h2, h3, h4 {
 
 .CourseCell {
   width: 220px;
+  margin: 0.8em;
+  position: relative;
 }
 
-.CourseCell {
-  margin: 0.8em;
+.CourseCell .emoji {
+  position: absolute;
+  right: 0.5em;
+  bottom: -0.1em;
+  opacity: 1;
 }
 
 .hscroll .CourseCell:not(:first-child) {
