@@ -28,6 +28,8 @@ public class ClassYearRecommendations implements Recommend<Course> {
    *          the user object
    * @param filter
    *          the filter
+   * @param allCourses
+   *          the list of all courses
    */
   public ClassYearRecommendations(User user, Filter filter,
       List<Course> allCourses) {
@@ -59,7 +61,8 @@ public class ClassYearRecommendations implements Recommend<Course> {
 
       for (Course c : allCourses) {
         if (c.getCrData() != null
-            && c.getCrData().getDemographics().get(percentName) >= PERCENT_TO_CHECK) {
+            && c.getCrData().getDemographics().get(percentName)
+            >= PERCENT_TO_CHECK) {
           goodForClassYear.add(c);
         }
       }

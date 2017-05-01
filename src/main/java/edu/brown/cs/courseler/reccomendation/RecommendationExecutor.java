@@ -7,6 +7,11 @@ import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.data.CourseDataCache;
 import edu.brown.cs.courseler.userinfo.User;
 
+/**
+ * Executor for reccomendations.
+ * @author amywinkler
+ *
+ */
 public class RecommendationExecutor implements Recommend<RecommendationDatum> {
   private User user;
   private Filter filter;
@@ -20,8 +25,13 @@ public class RecommendationExecutor implements Recommend<RecommendationDatum> {
    *          the user object
    * @param filter
    *          the filter
+   * @param allCourses
+   *          the list of all courses
+   * @param cache
+   *          the cache of courses
    */
-  public RecommendationExecutor(User user, Filter filter, List<Course> allCourses,
+  public RecommendationExecutor(User user, Filter filter,
+      List<Course> allCourses,
       CourseDataCache cache) {
     this.user = user;
     this.filter = filter;
@@ -32,14 +42,6 @@ public class RecommendationExecutor implements Recommend<RecommendationDatum> {
   @Override
   public List<RecommendationDatum> getRecommendations() {
     List<RecommendationDatum> toReturn = new ArrayList<>();
-    WritCourseRecommendations wc = new WritCourseRecommendations(user, filter,
-        cache.getAllCourses());
-    List<Course> wcReccomendations = wc.getRecommendations();
-    RecommendationDatum writRd = new RecommendationDatum(
-        "WRIT Courses Based on Your Interests", wcReccomendations);
-    if (wcReccomendations.size() != 0) {
-      toReturn.add(writRd);
-    }
 
     BasedOnCartReccomendations bOnCartR = new BasedOnCartReccomendations(user,
         filter, cache.getAllCourses());
@@ -75,6 +77,15 @@ public class RecommendationExecutor implements Recommend<RecommendationDatum> {
         "Good Fourth Classes", gfcRecs);
     if (gfcRecs.size() != 0) {
       toReturn.add(gfcRecDatum);
+    }
+
+    WritCourseRecommendations wc = new WritCourseRecommendations(user, filter,
+        cache.getAllCourses());
+    List<Course> wcReccomendations = wc.getRecommendations();
+    RecommendationDatum writRd = new RecommendationDatum(
+        "WRIT Courses Based on Your Interests", wcReccomendations);
+    if (wcReccomendations.size() != 0) {
+      toReturn.add(writRd);
     }
 
     return toReturn;

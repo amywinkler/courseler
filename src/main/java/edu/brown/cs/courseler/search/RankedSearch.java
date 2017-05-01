@@ -8,6 +8,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import org.apache.commons.lang3.StringUtils;
+
 import com.google.common.collect.Multiset;
 
 import edu.brown.cs.courseler.courseinfo.Course;
@@ -81,8 +83,6 @@ public class RankedSearch {
         whitespaceWords.add(givenWord.substring(i));
       }
 
-      // Math.floor(Math.log10(number) + 1)
-
       if (shortenings.contains(givenWord.substring(0, i))) {
         String fullWord = courseMappings.get(givenWord.substring(0, i));
         if (!givenWord.contains(fullWord)) {
@@ -96,6 +96,36 @@ public class RankedSearch {
     return whitespaceWords;
   }
 
+  private String searchNumberSuggestion(String query) {
+    boolean hitNumber = false;
+    int count = -1;
+    while (!hitNumber && count < query.length()) {
+      count++;
+      hitNumber = StringUtils.isNumeric(query.substring(count));
+
+    }
+
+    if (hitNumber) {
+      Integer courseCode = Integer.parseInt(query.substring(count));
+      int lengthOfCourseCode = (int) (Math.log10(courseCode) + 1);
+
+
+
+      if (lengthOfCourseCode == 2) {
+        String toReturn = query.substring(0, count) + "0"
+            + query.substring(count)
+            + "0";
+        return toReturn;
+      } else if (lengthOfCourseCode == 3) {
+        return query.substring(count) + " 0" + query.substring(count) + "0";
+      }
+
+
+    }
+
+    return null;
+  }
+
   private void searchOnCriteria(SearchSuggestions<Course> criteria,
       List<Course> finalCourseList, List<String> wordsToSearch) {
     for (int i = 0; i < wordsToSearch.size(); i++) {
@@ -104,6 +134,14 @@ public class RankedSearch {
       List<String> whitespaceWords = getWhitespaceSuggestions(wordsToSearch
           .get(i));
       whitespaceWords.add(wordsToSearch.get(i));
+      String numberSug = searchNumberSuggestion(wordsToSearch.get(i));
+      if (numberSug != null) {
+        List<String> whitespaceWordsNum = getWhitespaceSuggestions(numberSug);
+        for (String w : whitespaceWordsNum) {
+          whitespaceWords.add(w);
+        }
+        whitespaceWords.add(numberSug);
+      }
 
       for (String sugg : whitespaceWords) {
 
@@ -175,12 +213,8 @@ public class RankedSearch {
         wordsToSearch.add(searchWordsSplit[i]);
         searchIndividualWords(finalCourseList, wordsToSearch);
       }
-
-
     }
 
-    // if there aren't 25 results already, do an autocorrect search
-    // SuggestionMethods sm = new SuggestionMethods();
 
     return finalCourseList;
   }

@@ -48,7 +48,6 @@ public class CourselerMethodRunner implements MethodRunner<String> {
     }
 
     return new ArrayList<String>();
-
   }
 
   private void searchCmd(String currCmdStr) {
@@ -69,10 +68,8 @@ public class CourselerMethodRunner implements MethodRunner<String> {
     }
   }
 
-
   @Override
   public boolean isCmdForClass(String currCmdStr) {
-    // TODO: error handling
     return true;
   }
 

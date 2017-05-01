@@ -6,18 +6,26 @@ import java.util.List;
 import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.userinfo.User;
 
+/**
+ * Class to reccomend on writ courses.
+ * @author amywinkler
+ *
+ */
 public class WritCourseRecommendations implements Recommend<Course> {
   private User user;
   private Filter filter;
   private List<Course> allCourses;
 
   /**
-   * Constructor for WRIT course reccomendations.
+   * Constructor for WRIT course recommendations.
    *
    * @param user
    *          the user object
    * @param filter
    *          the filter
+   * @param allCourses
+   *          the list of all courses
+   *
    */
   public WritCourseRecommendations(User user, Filter filter,
       List<Course> allCourses) {

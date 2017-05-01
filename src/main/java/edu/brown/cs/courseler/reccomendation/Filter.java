@@ -20,6 +20,7 @@ public class Filter {
   private static final int MAX_NUM_RECCOMENDATIONS = 15;
   private static final int SMALL_COURSE_SIZE = 24;
   private static final int AVG_HOURS_PER_WEEK = 10;
+  private static final int CAP_SIZE = 999;
 
   private CourseDataCache cache;
   private User user;
@@ -206,7 +207,7 @@ public class Filter {
   private void filterOnOnlyCappedCourses(List<Course> currentListOfCourses) {
     List<Course> toRemove = new ArrayList<>();
     for (Course c : currentListOfCourses) {
-      if (c.getCap() == 999) {
+      if (c.getCap() == CAP_SIZE) {
         toRemove.add(c);
       }
     }
@@ -275,11 +276,13 @@ public class Filter {
     filterOnClassesNotInCart(currentListOfCourses);
     filterOnMaxReccomendations(currentListOfCourses);
 
-    if (user.getClassYear() != null && !user.getClassYear().equals("Freshman")) {
+    if (user.getClassYear() != null
+        && !user.getClassYear().equals("Freshman")) {
       filterOnNoFys(currentListOfCourses);
     }
 
-    if (user.getClassYear() != null && !user.getClassYear().equals("Sophomore")) {
+    if (user.getClassYear() != null
+        && !user.getClassYear().equals("Sophomore")) {
       filterOnNoSoph(currentListOfCourses);
     }
 

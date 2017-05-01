@@ -181,6 +181,10 @@ public class Course {
     sections.add(s);
   }
 
+  /**
+   * @param emoji
+   *          the department emoji
+   */
   public void setDeptEmoji(String emoji) {
     deptEmoji = emoji;
   }
