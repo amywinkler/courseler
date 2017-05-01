@@ -230,7 +230,20 @@ public class CourseDataParser {
       Section sect = new Section(sectionId, courseId, title, professors,
           sectionTime, locations, overlaps);
 
-      sect.setIsMainSection(nameArr[2].substring(0, 1).equals("S"));
+      String sectLetter = nameArr[2].substring(0, 1);
+      sect.setIsMainSection(sectLetter.equals("S") || sectLetter.equals("M"));
+
+      if (sectLetter.equals("S")) {
+        sect.setSectionType("section");
+      } else if (sectLetter.equals("L")) {
+        sect.setSectionType("lab");
+      } else if (sectLetter.equals("C")) {
+        sect.setSectionType("conference");
+      } else if (sectLetter.equals("F")) {
+        sect.setSectionType("film screening");
+      } else if (sectLetter.equals("M")) {
+        sect.setSectionType("lecture");
+      }
       cache.addToSectionCache(sectionId, sect);
 
       Course currCourse = cache.getCourseFomCache(courseId);
