@@ -34,6 +34,14 @@ export default class LoggedInView extends React.Component {
      );
    }
    
+   componentDidMount() {
+     api.checkIfPreferencesNeedEntry((needsPrefs) => {
+       if (needsPrefs) {
+         navigateToRoute({screen: 'preferences'});
+       }
+     });
+   }
+   
    renderScreen() {
      let screen = this.props.route.screen || 'calendar';
      if (screen === 'calendar') {

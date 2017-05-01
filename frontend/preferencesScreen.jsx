@@ -78,6 +78,7 @@ export default class PreferencesScreen extends React.Component {
       <select name="classYear" 
           value={this.state.classYear}
           onChange={ (e) => {this.setState({classYear: e.target.value})} }> 
+        <option value="" disabled>Select a year</option>
         <option value="Freshman">Freshman</option>
         <option value="Sophomore">Sophomore</option>
         <option value="Junior">Junior</option>
@@ -144,10 +145,11 @@ export default class PreferencesScreen extends React.Component {
       <div>
         {this.renderHeader()}
         <div className='preferences screen'>
-          <h3>Preferences</h3>
+          <h2>Tell us about yourself</h2>
+          <p>We'll use this information to provide personalized recommendations, and show you interesting courses you might not know about.</p>
           <div className="line"></div>
           <div className="prefSection">
-            <label>Class Year</label>
+            <label>Class Year</label><br/>
             {classYearField}
           </div>
           <div className="line"></div>
@@ -161,6 +163,11 @@ export default class PreferencesScreen extends React.Component {
             {interestsFields}
           </div>
           <div className="line" />
+          <div className="prefSection">
+            <div className='done big-button' onClick={this.done.bind(this)}>
+              <span className='fa fa-check' /> Done
+            </div>
+          </div>
           <div className="prefSection">
             <div className='logOut' onClick={this.logOut.bind(this)}>Log out</div>
           </div>
@@ -182,6 +189,7 @@ export default class PreferencesScreen extends React.Component {
   
   logOut() {
     api.logOut();
+    navigateToRoute({});
     this.props.onLogOut();
   }
 

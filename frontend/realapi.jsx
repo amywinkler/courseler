@@ -222,6 +222,12 @@ export class API {
       }
     });
   }
+  
+  checkIfPreferencesNeedEntry(callback) {
+    this.getPrefs((prefs) => {
+      callback(!prefs.class_year);
+    });
+  }
 
   postPrefs(prefs) {
     prefs.id = localStorage.userId;
