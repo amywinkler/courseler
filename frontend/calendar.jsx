@@ -32,9 +32,9 @@ export default class Calendar extends React.Component {
 	render() {
 		return (
 			<div className='calendar screen'>
-				<CalendarDayView day="Monday" sections={this.state.monday}/>
+				<CalendarDayView day="Monday" sections={this.state.monday} />
 				<CalendarDayView day="Tuesday" sections={this.state.tuesday} />
-				<CalendarDayView day="Wednesday" sections={this.state.wednesday}/>
+				<CalendarDayView day="Wednesday" sections={this.state.wednesday} />
 				<CalendarDayView day="Thursday" sections={this.state.thursday} />
 				<CalendarDayView day="Friday" sections={this.state.friday} />
 			</div>
@@ -102,6 +102,7 @@ export default class Calendar extends React.Component {
 										end={endTime}
 										locations={this.getLocationString(sectionObject.meetingLocations)}
 										onRemove={this.props.reloadCalendar} 
+                    locked={this.props.locked}
 										click={this.showCourseInfo.bind(this, courseId)}/>;
 				this.setState((state) => {
   				state[day] = state[day].concat([newSectionObject]).sort(orderSections);

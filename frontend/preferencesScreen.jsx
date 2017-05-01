@@ -78,6 +78,7 @@ export default class PreferencesScreen extends React.Component {
       <select name="classYear" 
           value={this.state.classYear}
           onChange={ (e) => {this.setState({classYear: e.target.value})} }> 
+        <option value="" disabled>Select a year</option>
         <option value="Freshman">Freshman</option>
         <option value="Sophomore">Sophomore</option>
         <option value="Junior">Junior</option>

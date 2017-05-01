@@ -27,6 +27,9 @@ export default class SectionInfo extends React.Component {
 		let buttonTitle = this.state.inCart ? 'Remove' : 'Add to Cart';
 	    // let addRemoveButton = <input type='submit' value={ buttonTitle } onClick={this.addOrRemove.bind(this)}/>;
 	    let addRemoveButton = times ? <div className="addRemove" onClick={this.addOrRemove.bind(this)}>{buttonTitle}</div> : null
+      if (this.props.locked) {
+        addRemoveButton = null;
+      }
 
 		return (
 			<div className="sectionInfo" style={style}>
