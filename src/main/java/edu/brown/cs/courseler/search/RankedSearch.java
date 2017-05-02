@@ -196,23 +196,53 @@ public class RankedSearch {
       }
     }
 
-    String[] searchWordsSplit = entireSearch.split(" ");
-    List<String> wordsToSearch = new ArrayList<>();
-    if (searchWordsSplit.length <= 5) {
-      //search on each word
-      for (int i = 0; i < searchWordsSplit.length; i++) {
-        wordsToSearch.add(searchWordsSplit[i]);
-        searchIndividualWords(finalCourseList, wordsToSearch);
+
+    String[] searchWordsSplit = entireSearch.trim().split(" ");
+    if (searchWordsSplit.length == 2) {
+      String putTogether = searchWordsSplit[0] + searchWordsSplit[1];
+
+      List<String> wsSugg = getWhitespaceSuggestions(putTogether);
+      wsSugg.add(putTogether);
+      List<String> numResults = new ArrayList<>();
+      for (String w : wsSugg) {
+        numResults.add(searchNumberSuggestion(w));
       }
 
-    } else {
-      // search on only the last 5 words
-      for (int i = searchWordsSplit.length - 1;
-          i > searchWordsSplit.length - 5; i--) {
-        wordsToSearch.add(searchWordsSplit[i]);
-        searchIndividualWords(finalCourseList, wordsToSearch);
+      for (String s : numResults) {
+        wsSugg.add(s);
       }
+
+      for (String word : wsSugg) {
+        List<Course> courseCodeResults = courseCodeSearch.suggest(word);
+        for (Course c : courseCodeResults) {
+          if (!finalCourseList.contains(c)) {
+            finalCourseList.add(c);
+          }
+        }
+
+      }
+
     }
+
+    if (finalCourseList.size() == 0) {
+      List<String> wordsToSearch = new ArrayList<>();
+      if (searchWordsSplit.length <= 5) {
+        // search on each word
+        for (int i = 0; i < searchWordsSplit.length; i++) {
+          wordsToSearch.add(searchWordsSplit[i]);
+          searchIndividualWords(finalCourseList, wordsToSearch);
+        }
+
+      } else {
+        // search on only the last 5 words
+        for (int i = searchWordsSplit.length - 1; i > searchWordsSplit.length - 5; i--) {
+          wordsToSearch.add(searchWordsSplit[i]);
+          searchIndividualWords(finalCourseList, wordsToSearch);
+        }
+      }
+
+    }
+
 
 
     return finalCourseList;

@@ -149,6 +149,17 @@ public class CourseDataCache {
   }
 
   /**
+   * Get department name for dept code.
+   *
+   * @param code
+   *          the department code
+   * @return the full name of the dept
+   */
+  public String getDeptForCode(String code) {
+    return departmentMap.get(code);
+  }
+
+  /**
    * Add something to the course cache.
    *
    * @param id
