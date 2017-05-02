@@ -13,6 +13,7 @@ public class Section {
   private String sectionId;
   private String courseCode;
   private String title;
+  private String sectionType;
   private List<String> professors;
   private SectionTime times;
   private MeetingLocation meetingLocations;
@@ -56,6 +57,16 @@ public class Section {
   public void setIsMainSection(boolean mainSection) {
     this.isMainSection = mainSection;
 
+  }
+
+  /**
+   * Set the section type of the section.
+   *
+   * @param sectType
+   *          the section type
+   */
+  public void setSectionType(String sectType) {
+    this.sectionType = sectType;
   }
 
   /**
