@@ -1,6 +1,7 @@
 package edu.brown.cs.courseler.search;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import edu.brown.cs.courseler.courseinfo.Course;
@@ -33,6 +34,9 @@ public class DescriptionSearch implements SearchSuggestions<Course> {
         toReturn.add(c);
       }
     }
+
+    Collections.sort(toReturn, Course.getAlphabetComp());
+
     return toReturn;
   }
 

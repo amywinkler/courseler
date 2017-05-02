@@ -61,6 +61,13 @@ public class Course {
     }
   };
 
+  private static Comparator<Course> alphabetComp = new Comparator<Course>() {
+    @Override
+    public int compare(Course c1, Course c2) {
+      return c1.getCourseCode().compareTo(c2.getCourseCode());
+    }
+  };
+
 
   /**
    * Get the comparator for course score.
@@ -69,6 +76,15 @@ public class Course {
    */
   public static Comparator<Course> getCrCompCScore() {
     return crCompCScore;
+  }
+
+  /**
+   * Get the comparator for course score.
+   *
+   * @return the comparator for course score
+   */
+  public static Comparator<Course> getAlphabetComp() {
+    return alphabetComp;
   }
 
   /**
