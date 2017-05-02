@@ -41,19 +41,33 @@ class ConcentrationField extends React.Component {
     this.setState({concentration: this.props.concentrations[this.props.index]});
   }
   render() {
+
+    // For autocomplete dropdown 
+    const departments = this.props.departments;
+    const id = "departments"+this.props.index;
+    $( "#"+id ).autocomplete({
+      source: departments
+    });
+
     return (
-      <select name="concentration" 
-          value={this.state.concentration} 
+      <div className="ui-widget">
+        <input id={id} 
+          defaultValue={this.state.concentration} 
           onChange={ (e) => {
             this.changeConcentration(e);
-          } }> 
-        {this.props.departments}
-      </select>
+          } } />
+      </div>
     )
   }
   changeConcentration(e) {
+    // should only change the concentration if it exists in props.departments
+    // if (this.props.departments[e.target.value]) {
+      // console.log("yes it exists yes");
     this.setState({concentration: [e.target.value]});
     this.props.onchange(e.target.value, this.props.index);
+    // } else {
+
+    // }
   }
 }
 
@@ -146,7 +160,7 @@ export default class PreferencesScreen extends React.Component {
         {this.renderHeader()}
         <div className='preferences screen'>
           <h2>Tell us about yourself</h2>
-          <p>We'll use this information to provide personalized recommendations, and show you interesting courses you might not know about.</p>
+          <p>We’ll use this information to provide personalized recommendations, and show you interesting courses you might not know about.</p>
           <div className="line"></div>
           <div className="prefSection">
             <label>Class Year</label><br/>
@@ -230,12 +244,13 @@ export default class PreferencesScreen extends React.Component {
     Loads the list of departments into the dropdowns using the api call.
   */
   loadDepartments() {
-    let departmentDropdown = (departments) => {
-      this.setState({departments: departments.map((department, index) => {
-        return <option key={index} value={department}>{department}</option>;
-      })});
+    let getDepts = (departments) => {
+      // this.setState({departments: departments.map((department, index) => {
+      //   return <option key={index} value={department}>{department}</option>;
+      // })});
+      this.setState({departments: departments});
     };
-    api.getDepartments(departmentDropdown);
+    api.getDepartments(getDepts);
   }
 
   /*
