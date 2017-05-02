@@ -16,7 +16,7 @@ import joptsimple.OptionSet;
  * @author jj
  */
 public final class Main {
-  private static final int DEFAULT_PORT = 4567;
+  private static final int DEFAULT_PORT = 8080;
   private static CourseDataCache courseCache;
   private static CourselerMethodRunner cmr;
 
