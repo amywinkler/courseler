@@ -43,6 +43,13 @@ public class CourseCodeSearch implements SearchSuggestions<Course> {
       }
     }
 
+    for (Course c : allCourses) {
+
+      if (c.getCourseCode().toLowerCase().split(" ")[0].equals(searchTerm)) {
+        toReturn.add(c);
+      }
+    }
+
     return toReturn;
   }
 

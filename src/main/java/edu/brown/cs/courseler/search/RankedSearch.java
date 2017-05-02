@@ -106,8 +106,7 @@ public class RankedSearch {
     }
 
     if (hitNumber) {
-      Integer courseCode = Integer.parseInt(query.substring(count));
-      int lengthOfCourseCode = (int) (Math.log10(courseCode) + 1);
+      int lengthOfCourseCode = query.substring(count).length();
 
 
 
@@ -117,7 +116,7 @@ public class RankedSearch {
             + "0";
         return toReturn;
       } else if (lengthOfCourseCode == 3) {
-        return query.substring(count) + " 0" + query.substring(count) + "0";
+        return query.substring(count) + "0" + query.substring(count);
       }
 
 

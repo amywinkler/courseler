@@ -29,8 +29,22 @@ public class TitleSearch implements SearchSuggestions<Course> {
     List<Course> toReturn =  new ArrayList<>();
 
     for (Course c: allCourses) {
-      if (c.getTitle().toLowerCase().contains(searchTerm)) {
+      boolean added = false;
+      String[] titleArr = c.getTitle().split(" ");
+      if (c.getTitle().toLowerCase().equals(searchTerm)) {
         toReturn.add(c);
+        added = true;
+      }
+
+      for (int i = 0; i < titleArr.length; i++) {
+
+        if (searchTerm.equals(titleArr[i]) && !added) {
+          if (c.getCourseCode().equals("PHYS 2630")) {
+            System.out.println("here");
+          }
+          toReturn.add(c);
+          added = true;
+        }
       }
     }
     return toReturn;
