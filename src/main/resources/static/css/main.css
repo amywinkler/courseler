@@ -427,9 +427,10 @@ h1, h2, h3, h4 {
 
 .ui-autocomplete {
   background-color: white;
+  color: gray;
   list-style: none;
-  padding-left: 0px;
   margin-left: 0px;
+  padding: 0px;
   width: 200px;
 }
 

@@ -43,45 +43,31 @@ class ConcentrationField extends React.Component {
   render() {
 
     // For autocomplete dropdown 
-    $( function() {
-    var availableTags = [
-      "ActionScript",
-      "AppleScript",
-      "Asp",
-      "BASIC",
-      "C",
-      "C++",
-      "Clojure",
-      "COBOL",
-      "ColdFusion",
-      "Erlang",
-      "Fortran",
-      "Groovy",
-      "Haskell",
-      "Java",
-      "JavaScript",
-      "Lisp",
-      "Perl",
-      "PHP",
-      "Python",
-      "Ruby",
-      "Scala",
-      "Scheme"
-    ];
-    $( "#tags" ).autocomplete({
-      source: availableTags
+    const departments = this.props.departments;
+    const id = "departments"+this.props.index;
+    $( "#"+id ).autocomplete({
+      source: departments
     });
-    } );
 
     return (
       <div className="ui-widget">
-        <input id="tags" />
+        <input id={id} 
+          defaultValue={this.state.concentration} 
+          onChange={ (e) => {
+            this.changeConcentration(e);
+          } } />
       </div>
     )
   }
   changeConcentration(e) {
+    // should only change the concentration if it exists in props.departments
+    // if (this.props.departments[e.target.value]) {
+      // console.log("yes it exists yes");
     this.setState({concentration: [e.target.value]});
     this.props.onchange(e.target.value, this.props.index);
+    // } else {
+
+    // }
   }
 }
 
@@ -258,12 +244,13 @@ export default class PreferencesScreen extends React.Component {
     Loads the list of departments into the dropdowns using the api call.
   */
   loadDepartments() {
-    let departmentDropdown = (departments) => {
-      this.setState({departments: departments.map((department, index) => {
-        return <option key={index} value={department}>{department}</option>;
-      })});
+    let getDepts = (departments) => {
+      // this.setState({departments: departments.map((department, index) => {
+      //   return <option key={index} value={department}>{department}</option>;
+      // })});
+      this.setState({departments: departments});
     };
-    api.getDepartments(departmentDropdown);
+    api.getDepartments(getDepts);
   }
 
   /*
