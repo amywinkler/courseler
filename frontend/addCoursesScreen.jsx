@@ -34,8 +34,10 @@ class CourseCell extends React.Component {
     return (
       <div className='CourseCell' onClick={this.props.onClick} style={style}>
         <h4>{this.props.course.courseCode}: { this.props.course.title }</h4>
-        <p>{this.courseTimes()}</p>
-        <p className='emoji'>{this.props.course.funAndCool.emojis.join(' ')}</p>
+        <div className='bottom'>
+          <div className='times'>{this.courseTimes()}</div>
+          <div className='emoji'>{this.props.course.funAndCool.emojis.join(' ')}</div>
+        </div>
       </div>
     )
   }
