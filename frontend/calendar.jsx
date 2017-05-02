@@ -30,8 +30,13 @@ export default class Calendar extends React.Component {
   }
 
 	render() {
+    let sharedCartTitle = null;
+    if (this.props.shared && this.props.calendar && this.props.calendar.email) {
+      sharedCartTitle = <h1 className='sharedCartTitle'><em>{ this.props.calendar.email }</em> has shared their cart with you.</h1>
+    }
 		return (
 			<div className='calendar screen'>
+        { sharedCartTitle }
 				<CalendarDayView day="Monday" sections={this.state.monday} />
 				<CalendarDayView day="Tuesday" sections={this.state.tuesday} />
 				<CalendarDayView day="Wednesday" sections={this.state.wednesday} />

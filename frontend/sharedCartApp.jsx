@@ -36,7 +36,7 @@ export default class SharedCartApp extends React.Component {
    renderContent() {
      let screen = this.state.route.screen || 'calendar';
      if (screen === 'calendar') {
-       return <Calendar calendar={this.state.calendar} locked={true} />;
+       return <Calendar calendar={this.state.calendar} locked={true} shared={true} />;
      } else if (screen === 'course') {
        return <CourseInfoScreen courseCode={this.state.route.courseCode} calendar={this.state.calendar} reloadCalendar={this.reloadCalendar.bind(this)} locked={true} />;
      }

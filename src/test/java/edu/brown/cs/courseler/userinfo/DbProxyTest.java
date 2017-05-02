@@ -8,9 +8,6 @@ import org.junit.Test;
 
 import com.google.common.collect.ImmutableList;
 
-import edu.brown.cs.courseler.userinfo.DbProxy;
-import edu.brown.cs.courseler.userinfo.User;
-
 /**
  * JUnit testing for the db proxy.
  *
@@ -160,5 +157,24 @@ public class DbProxyTest {
     assertTrue(alberta3.getSectionsInCart().size() == 1);
     assertTrue(alberta3.getSectionsInCart().get(0).equals("CSCI 0320 S01"));
 
+  }
+
+  /**
+   * Testing getting user email from a share id.
+   */
+  @Test
+  public void testGetEmailFromShareId() {
+    DbProxy proxy = new DbProxy("test_users_1.sqlite3");
+    User alberta = proxy.createNewUser("alberta_devor@brown.edu", "i_love_JJ");
+    String email = proxy.getEmailForShareId(alberta.getShareId());
+
+    proxy.clearTable();
+    try {
+      proxy.closeConnection();
+    } catch (SQLException e) {
+      e.printStackTrace();
+    }
+
+    assertTrue(email.equals("alberta_devor@brown.edu"));
   }
 }
