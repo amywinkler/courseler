@@ -7,26 +7,58 @@ class InterestField extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      inputtedText: '',
       interest: ''
     }
+    this.interestSet = false;
   }
   componentWillReceiveProps() {
     this.setState({interest: this.props.interests[this.props.index]});
+    this.interestSet = true;
+  }
+  componentDidUpdate() {
+    if (this.interestSet) {
+      this.interestSet = false;
+      this.refs.myInput.defaultValue = (this.state.interest==undefined) ? '' : this.state.interest;
+    }
   }
   render() {
+    // For autocomplete dropdown 
+    const departments = this.props.departments;
+    const id = "interest"+this.props.index;
+    $( "#"+id ).autocomplete({
+      source: departments,
+      change: this.handleChangeAutocomplete.bind(this)
+    },this);
+
     return (
-      <select name="interest" 
-          value={this.state.interest} 
+      <div className="ui-widget">
+        <input id = {id}
+          ref='myInput'
           onChange={ (e) => {
-            this.changeInterest(e);
-          } }> 
-        {this.props.departments}
-      </select>
+            this.handleChange(e);
+          } } />
+      </div>
     )
   }
   changeInterest(e) {
     this.setState({interest: [e.target.value]});
     this.props.onchange(e.target.value, this.props.index);
+  }
+  handleChangeAutocomplete(e, ui) {
+    if (ui.item != null) {
+      this.setState({inputtedText: ui.item.value});
+      this.setState({interest: [ui.item.value]});
+      this.props.onchange(ui.item.value, this.props.index);
+    }
+  }
+  handleChange(e) {
+    this.setState({inputtedText: e.target.value});
+    // Only change the interest if it exists in props.departments
+    if (this.props.departments.includes(e.target.value)) {
+      this.setState({interest: [e.target.value]});
+      this.props.onchange(e.target.value, this.props.index);
+    };
   }
 }
 
@@ -34,40 +66,59 @@ class ConcentrationField extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      inputtedText: '',
       concentration: ''
     }
+    this.concentrationSet = false;
   }
+
   componentWillReceiveProps() {
     this.setState({concentration: this.props.concentrations[this.props.index]});
+    this.concentrationSet = true;
   }
+
+  componentDidUpdate() {
+    if (this.concentrationSet) {
+      this.concentrationSet = false;
+      this.refs.myInput.defaultValue = (this.state.concentration==undefined) ? '' :this.state.concentration;
+    }
+  }
+
   render() {
 
     // For autocomplete dropdown 
     const departments = this.props.departments;
-    const id = "departments"+this.props.index;
+    const id = "concentration"+this.props.index;
     $( "#"+id ).autocomplete({
-      source: departments
-    });
+      source: departments,
+      change: this.handleChangeAutocomplete.bind(this)
+    },this);
 
     return (
       <div className="ui-widget">
-        <input id={id} 
-          defaultValue={this.state.concentration} 
+        <input id = {id}
+          ref='myInput'
           onChange={ (e) => {
-            this.changeConcentration(e);
+            this.handleChange(e);
           } } />
       </div>
     )
-  }
-  changeConcentration(e) {
-    // should only change the concentration if it exists in props.departments
-    // if (this.props.departments[e.target.value]) {
-      // console.log("yes it exists yes");
-    this.setState({concentration: [e.target.value]});
-    this.props.onchange(e.target.value, this.props.index);
-    // } else {
 
-    // }
+  }
+  handleChangeAutocomplete(e, ui) {
+    if (ui.item != null) {
+      this.setState({inputtedText: ui.item.value});
+      this.setState({concentration: [ui.item.value]});
+      this.props.onchange(ui.item.value, this.props.index);
+    }
+  }
+  handleChange(e) {
+    this.setState({inputtedText: e.target.value});
+    // Only change the concentration if it exists in props.departments
+    if (this.props.departments.includes(e.target.value)) {
+      this.setState({concentration: [e.target.value]});
+      this.props.onchange(e.target.value, this.props.index);
+    };
   }
 }
 
@@ -103,21 +154,21 @@ export default class PreferencesScreen extends React.Component {
 
     let concentrationFields = (
       <div className="concentrationFields">
-      <ConcentrationField 
-        index='0' 
-        concentrations={this.state.concentration}
-        departments={this.state.departments} 
-        onchange={this.updateConcentration.bind(this)}/>
-      <ConcentrationField 
-        index='1' 
-        concentrations={this.state.concentration}
-        departments={this.state.departments} 
-        onchange={this.updateConcentration.bind(this)}/>
-      <ConcentrationField 
-        index='2' 
-        concentrations={this.state.concentration}
-        departments={this.state.departments} 
-        onchange={this.updateConcentration.bind(this)}/>
+        <ConcentrationField 
+          index='0' 
+          concentrations={this.state.concentration}
+          departments={this.state.departments} 
+          onchange={this.updateConcentration.bind(this)}/>
+        <ConcentrationField 
+          index='1' 
+          concentrations={this.state.concentration}
+          departments={this.state.departments} 
+          onchange={this.updateConcentration.bind(this)}/>
+        <ConcentrationField 
+          index='2' 
+          concentrations={this.state.concentration}
+          departments={this.state.departments} 
+          onchange={this.updateConcentration.bind(this)}/>
       </div>
     )
 
@@ -168,7 +219,7 @@ export default class PreferencesScreen extends React.Component {
           </div>
           <div className="line"></div>
           <div className="prefSection">
-            <label>Concentration</label>
+            <label>Concentration(s)</label>
             {concentrationFields}
           </div>
           <div className="line"></div>
