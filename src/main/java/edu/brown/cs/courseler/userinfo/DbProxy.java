@@ -219,8 +219,8 @@ public class DbProxy {
           user.setClassYear(rs.getString("year"));
 
           if (concentration != null && concentration.length() > 1) {
-            List<String> concentrationList =
-                new ArrayList<>(Arrays.asList(concentration.split(",")));
+            List<String> concentrationList = new ArrayList<>(
+                Arrays.asList(concentration.split(",")));
             user.setConcentration(concentrationList);
           } else {
             user.setConcentration(new ArrayList<>());
@@ -228,14 +228,14 @@ public class DbProxy {
 
           String interests = rs.getString("interests");
           if (interests != null) {
-            List<String> interestList =
-                new ArrayList<>(Arrays.asList(interests.split(",")));
+            List<String> interestList = new ArrayList<>(
+                Arrays.asList(interests.split(",")));
             user.setInterests(interestList);
           }
           String sections = rs.getString("sections_in_cart");
           if (sections != null) {
-            List<String> sectionList =
-                new ArrayList<>(Arrays.asList(sections.split(",")));
+            List<String> sectionList = new ArrayList<>(
+                Arrays.asList(sections.split(",")));
             user.setCart(sectionList);
           }
 
@@ -314,32 +314,32 @@ public class DbProxy {
         String sections = rs.getString("sections_in_cart");
 
         if (sections != null && sections.length() > 1) {
-          List<String> sectionList =
-              new ArrayList<>(Arrays.asList(sections.split(",")));
+          List<String> sectionList = new ArrayList<>(
+              Arrays.asList(sections.split(",")));
           user.setCart(sectionList);
         } else {
           user.setCart(new ArrayList<>());
         }
 
         if (concentration != null && concentration.length() > 1) {
-          List<String> concentrationList =
-              new ArrayList<>(Arrays.asList(concentration.split(",")));
+          List<String> concentrationList = new ArrayList<>(
+              Arrays.asList(concentration.split(",")));
           user.setConcentration(concentrationList);
         } else {
           user.setConcentration(new ArrayList<>());
         }
 
         if (interests != null && interests.length() > 1) {
-          List<String> interestList =
-              new ArrayList<>(Arrays.asList(interests.split(",")));
+          List<String> interestList = new ArrayList<>(
+              Arrays.asList(interests.split(",")));
           user.setInterests(interestList);
         } else {
           user.setInterests(new ArrayList<>());
         }
 
         if (interests != null && interests.length() > 1) {
-          List<String> interestList =
-              new ArrayList<>(Arrays.asList(interests.split(",")));
+          List<String> interestList = new ArrayList<>(
+              Arrays.asList(interests.split(",")));
           user.setInterests(interestList);
         } else {
           user.setInterests(new ArrayList<>());
@@ -351,6 +351,29 @@ public class DbProxy {
       return null;
     }
     return user;
+  }
+
+  public String getEmailForShareId(String shareId) {
+    if (conn == null) {
+      return null;
+    }
+    String email = null;
+    String query = "SELECT email FROM users WHERE share_id  == ?";
+    PreparedStatement prep;
+    try {
+      prep = conn.prepareStatement(query);
+      prep.setString(1, shareId);
+      ResultSet rs = prep.executeQuery();
+
+      if (rs.next()) {
+        email = rs.getString(1);
+      }
+      rs.close();
+      prep.close();
+      return email;
+    } catch (SQLException e) {
+      return null;
+    }
   }
 
   private void connectToUserDb(String dbFile) {

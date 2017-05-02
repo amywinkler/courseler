@@ -11,16 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import spark.ExceptionHandler;
-import spark.ModelAndView;
-import spark.QueryParamsMap;
-import spark.Request;
-import spark.Response;
-import spark.Route;
-import spark.Spark;
-import spark.TemplateViewRoute;
-import spark.template.freemarker.FreeMarkerEngine;
-
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -35,6 +25,15 @@ import edu.brown.cs.courseler.userinfo.DbProxy;
 import edu.brown.cs.courseler.userinfo.User;
 import edu.brown.cs.courseler.userinfo.UserCache;
 import freemarker.template.Configuration;
+import spark.ExceptionHandler;
+import spark.ModelAndView;
+import spark.QueryParamsMap;
+import spark.Request;
+import spark.Response;
+import spark.Route;
+import spark.Spark;
+import spark.TemplateViewRoute;
+import spark.template.freemarker.FreeMarkerEngine;
 
 /**
  * The main request handler class where all API calls can be called. All calls
@@ -169,14 +168,14 @@ public final class RequestHandler {
       } else {
         String concentration = qm.value("concentration");
         if (concentration != null) {
-          List<String> concList = new ArrayList<>(Arrays.asList(concentration
-              .split(",")));
+          List<String> concList = new ArrayList<>(
+              Arrays.asList(concentration.split(",")));
           user.setConcentration(concList);
         }
         String interests = qm.value("interests");
         if (interests != null) {
-          List<String> interestList =
-              new ArrayList<>(Arrays.asList(interests.split(",")));
+          List<String> interestList = new ArrayList<>(
+              Arrays.asList(interests.split(",")));
           user.setInterests(interestList);
         }
         String year = qm.value("year");
@@ -251,8 +250,8 @@ public final class RequestHandler {
       } else if (user.getTokenId().equals("incorrect_password")) {
         variables = ImmutableMap.of("status", "wrong_password");
       } else {
-        variables =
-            ImmutableMap.of("status", "success", "id", user.getTokenId());
+        variables = ImmutableMap.of("status", "success", "id",
+            user.getTokenId());
       }
       return GSON.toJson(variables);
     }
@@ -280,7 +279,13 @@ public final class RequestHandler {
         }
 
       }
-      variables = ImmutableMap.of("status", "success", "sections", sectionList);
+      String email = db.getEmailForShareId(shareId);
+      if (email == null) {
+        email = "";
+      }
+
+      variables = ImmutableMap.of("status", "success", "sections", sectionList,
+          "email", email);
       return GSON.toJson(variables);
     }
   }
@@ -310,8 +315,8 @@ public final class RequestHandler {
             sectionList.add(sect);
           }
         }
-        variables =
-            ImmutableMap.of("status", "success", "sections", sectionList);
+        variables = ImmutableMap.of("status", "success", "sections",
+            sectionList);
       }
       return GSON.toJson(variables);
     }
@@ -432,14 +437,14 @@ public final class RequestHandler {
       if (email == null || pass == null) {
         variables = ImmutableMap.of("status", "null_input");
       }
-      User alreadyExistingUserWithThatEmail =
-          db.getUserFromEmailAndPassword(email, pass);
+      User alreadyExistingUserWithThatEmail = db
+          .getUserFromEmailAndPassword(email, pass);
       if (alreadyExistingUserWithThatEmail != null) {
         variables = ImmutableMap.of("status", "already_registered");
       } else {
         User newUser = db.createNewUser(email, pass);
-        variables =
-            ImmutableMap.of("status", "success", "id", newUser.getTokenId());
+        variables = ImmutableMap.of("status", "success", "id",
+            newUser.getTokenId());
       }
       return GSON.toJson(variables);
     }
@@ -517,8 +522,8 @@ public final class RequestHandler {
       List<Course> allCourses = courseCache.getAllCourses();
       Filter filter = new Filter(courseCache, currUser, openFilter,
           lessThanTenHoursFilter, smallCoursesFilter, cappedCoursesFilter);
-      RecommendationExecutor allRecs =
-          new RecommendationExecutor(currUser, filter, allCourses, courseCache);
+      RecommendationExecutor allRecs = new RecommendationExecutor(currUser,
+          filter, allCourses, courseCache);
 
       return GSON.toJson(allRecs.getRecommendations());
     }
