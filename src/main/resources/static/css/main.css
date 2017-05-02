@@ -259,7 +259,7 @@ h1, h2, h3, h4 {
 
 /* COURSE PAGE UI */
 
-.emojis {
+.courseInfo .emojis {
   display: inline-block;
   font-size: 28px;
   letter-spacing: .3em;
@@ -487,13 +487,30 @@ h1, h2, h3, h4 {
   width: 220px;
   margin: 0.8em;
   position: relative;
+  display: inline-flex !important;
+  flex-direction: column;
+}
+
+.CourseCell .bottom {
+  display: flex;
+  flex-grow: 1;
+  margin-top: 0;
+}
+
+.CourseCell h4 {
+  margin-bottom: 0;
+}
+
+.CourseCell .times {
+  opacity: 0.5;
+  font-size: 12px;
 }
 
 .CourseCell .emoji {
-  position: absolute;
-  right: 0.5em;
-  bottom: -0.1em;
-  opacity: 1;
+  align-self: flex-end;
+  white-space: nowrap;
+  text-align: right;
+  flex-grow: 1;
 }
 
 .hscroll .CourseCell:not(:first-child) {

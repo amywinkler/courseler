@@ -33,11 +33,12 @@ public class CourseCodeSearch implements SearchSuggestions<Course> {
     List<Course> toReturn = new ArrayList<>();
 
     for (Course c : allCourses) {
-      if (c.getCourseCode().toLowerCase().contains(searchTerm)
-          || c.getCourseCode().substring(0, c.getCourseCode().indexOf(" "))
-              .toLowerCase().equals(searchTerm)
-          || c.getCourseCode().substring(c.getCourseCode().indexOf(" ") + 1)
-              .toLowerCase().equals(searchTerm)) {
+      // if (c.getCourseCode().toLowerCase().contains(searchTerm)
+      // || c.getCourseCode().substring(0, c.getCourseCode().indexOf(" "))
+      // .toLowerCase().equals(searchTerm)
+      // || c.getCourseCode().substring(c.getCourseCode().indexOf(" ") + 1)
+      // .toLowerCase().equals(searchTerm)) {
+      if (c.getCourseCode().toLowerCase().equals(searchTerm)) {
         toReturn.add(c);
       }
     }
