@@ -305,4 +305,15 @@ export class API {
       callback(url);
     })
   }
+
+  isIpValid() {
+    $.get("/ipVerify", responseJSON => {
+      const responseObject = JSON.parse(responseJSON);
+      if(responseObject.status === "valid") {
+        return true;
+      } else {
+        return false;
+      }
+    });
+  }
 }

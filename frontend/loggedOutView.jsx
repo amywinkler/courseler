@@ -75,7 +75,12 @@ export default class LoggedOutView extends React.Component {
     };
     
     if (this.state.showSignup) {
-      api.signUp(this.state.email, this.state.password, handleLoginResult);
+      if(api.isIpValid) {
+        api.signUp(this.state.email, this.state.password, handleLoginResult);
+      } else  {
+        console.log("invalid ip");
+        this.setState({error: "Please to connect to Brown Wifi so we can validate that you are part of the Brown community!"});
+      }
     } else {
       api.logIn(this.state.email, this.state.password, handleLoginResult);
     }
