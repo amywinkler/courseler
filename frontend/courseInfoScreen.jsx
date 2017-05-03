@@ -117,6 +117,10 @@ export default class CourseInfoScreen extends React.Component {
 
       let courseDescriptionContent = <p>{info.description}</p>
 
+      let adjectives = (this.state.info.funAndCool.descriptions != undefined) ? this.state.info.funAndCool.descriptions.map((description, index) => {
+        return <div className="adj">{description}</div>
+      }) : null;
+
       return (
         <div>
           {this.renderHeader()}
@@ -126,6 +130,7 @@ export default class CourseInfoScreen extends React.Component {
               <div className='emojis'>{emojis}</div>
             </div>
     				<h2>{code}: {title}</h2>
+            <div className ="adjectives">{adjectives}</div>
             <CourseInfoSection label='Sections' content={sectionContent} />
             <CourseInfoSection label='Description' content={courseDescriptionContent} />
             <CourseInfoSection label='Hours Per Week' content={getHoursPerWeekContent()} />

@@ -287,6 +287,28 @@ h1, h2, h3, h4 {
   /*margin-right: 8px;*/
 }
 
+.adjectives {
+  margin-left: 0px;
+  width: 90%;
+}
+
+.courseInfo .adj {
+  display: inline-block;
+  background-color: #f0f0f0;
+  color: #888;
+  margin-right: 6px;
+  margin-bottom: 8px;
+  padding: 4px 12px;
+  text-transform: uppercase;
+  font-size: 10px;
+  letter-spacing: 1px;
+  border-radius: 20px; 
+}
+
+.courseInfo h2 {
+  /*margin-bottom: 8px;*/
+}
+
 .courseInfo {
   /*background-color: yellow;*/
   max-width: 560px;
