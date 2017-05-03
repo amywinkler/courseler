@@ -23,21 +23,22 @@ export default class SectionInfo extends React.Component {
 	    let professors = this.props.professors.join(', ');
 	    let locations = this.getLocationString(this.props.locations);
 	    let labelStyle = this.getLabelStyle();
+	    let infoStyle = this.getInfoStyle();
 
 		// Button to either add this section to the cart, or remove it
-		let buttonTitle = this.state.inCart ? 'Remove' : 'Add';
+		let buttonTitle = this.state.inCart ? 'Remove' : 'Add to Cart';
 	    // let addRemoveButton = <input type='submit' value={ buttonTitle } onClick={this.addOrRemove.bind(this)}/>;
-	    let addRemoveButton = times ? <div className="addRemove" onClick={this.addOrRemove.bind(this)}><label style={labelStyle}>{buttonTitle}</label></div> : null
+	    let addRemoveButton = times ? <div className="addRemove" onClick={this.addOrRemove.bind(this)} style={labelStyle}><label style={labelStyle}>{buttonTitle}</label></div> : null
       if (this.props.locked) {
         addRemoveButton = null;
       }
 
 		return (
 			<div className="sectionInfo" style={style}>
-				<h4 className="sectionName" style={labelStyle}>{sectionId}</h4> 
-				<p style={labelStyle}>{locations}</p>
-				<p style={labelStyle}>{times}</p>
-				<p style={labelStyle}>{professors}</p>
+				<h4 className="sectionName" style={infoStyle}>{sectionId}</h4> 
+				<p style={infoStyle}>{locations}</p>
+				<p style={infoStyle}>{times}</p>
+				<p style={infoStyle}>{professors}</p>
 				{addRemoveButton}
 			</div>
 		)	
@@ -93,15 +94,21 @@ export default class SectionInfo extends React.Component {
 			return (
 			{
 				color: 'white',
-				marginLeft: '8px',
-				borderColor: 'rgba(255,255,255,1)'
+				borderColor: 'rgba(255,255,255,0.5)'
 			}
 				
 			);
 		} else {
 			return {
-				marginLeft: '8px'
 			};
 		}
+	}
+
+	getInfoStyle = () => {
+		return (
+		{
+			marginLeft: '8px'
+		}
+		)
 	}
 }

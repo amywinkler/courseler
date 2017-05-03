@@ -294,17 +294,15 @@ h1, h2, h3, h4 {
 
 .courseInfo .adj {
   display: inline-block;
-  /*background-color: #f0f0f0;*/
   color: white;
-  margin-right: 6px;
+  margin-right: 4px;
   margin-bottom: 6px;
   padding: 4px 12px;
   text-transform: uppercase;
   font-size: 10px;
   letter-spacing: 1px;
   border-radius: 10px; 
-  /*background-image: linear-gradient(160deg, #eba7ba 0%, #abaef7 100%);*/
-  background-image: linear-gradient(-160deg, #a7c8eb 0%, #abaef7 100%);
+  background-image: linear-gradient(160deg, #a7c8eb 0%, #abaef7 100%);
 }
 
 .courseInfo h2 {
@@ -391,19 +389,25 @@ h1, h2, h3, h4 {
 }
 
 .addRemove {
-  margin-top: 8px;
-  margin-bottom: 2px;
+  margin-top: 16px;
+  margin-bottom: 8px;
+  margin-left: 6px;
   text-transform: uppercase;
-  color: #666;
+  color: rgb(122, 91, 206);
   letter-spacing: .5px;
   text-align: left;
-  padding-top: 5px;
-  padding-bottom: 4px;
+  /*padding-top: 1px;*/
+  padding-bottom: 1px;
+  /*background-color: yellow;*/
+  border: 1px solid rgba(122, 91, 206, 0.5);
+  width: 96px;
+  text-align: center;
+  border-radius: 16px;
 }
 
 .addRemove label {
-  font-weight: bolder;
-  /*border-bottom: 1px solid black;*/
+  /*padding-left: 4px;*/
+  /*background-color: yellow;*/
   font-size: 10px;
 }
 
@@ -671,11 +675,6 @@ h1, h2, h3, h4 {
   .CourseCell {
     width: 160px;
   }
-  .addRemove {
-    font-size: 10px;
-    width: 80px;
-  }
-
 }
 
 /* POPUP MENU */
