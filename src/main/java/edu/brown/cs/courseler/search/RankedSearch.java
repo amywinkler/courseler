@@ -116,7 +116,7 @@ public class RankedSearch {
             + "0";
         return toReturn;
       } else if (lengthOfCourseCode == 3) {
-        return query.substring(count) + "0" + query.substring(count);
+        return query.substring(0, count) + "0" + query.substring(count);
       }
 
 
