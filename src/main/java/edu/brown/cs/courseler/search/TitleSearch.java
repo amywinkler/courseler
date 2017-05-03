@@ -32,7 +32,12 @@ public class TitleSearch implements SearchSuggestions<Course> {
     for (Course c: allCourses) {
       boolean added = false;
       String[] titleArr = c.getTitle().split(" ");
-      if (c.getTitle().toLowerCase().equals(searchTerm)) {
+      if (c.getTitle().toLowerCase().equals(searchTerm)
+          || c.getTitle()
+              .toLowerCase()
+              .substring(0,
+                  Math.min(searchTerm.length(), c.getTitle().length()))
+              .equals(searchTerm)) {
         toReturn.add(c);
         added = true;
       }

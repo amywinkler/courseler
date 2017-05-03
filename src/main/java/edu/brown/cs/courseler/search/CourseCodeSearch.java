@@ -93,11 +93,22 @@ public class CourseCodeSearch implements SearchSuggestions<Course> {
     }
 
     for (Course c : allCourses) {
-      if (c.getCourseCode().toLowerCase().split(" ")[0].equals(searchTerm)
-          || cache.getDeptForCode(c.getCourseCode().split(" ")[0])
-              .toLowerCase().contains(searchTerm)) {
+      if (c.getCourseCode().toLowerCase().split(" ")[0].equals(searchTerm)) {
         if (!toReturn.contains(c)) {
           toReturn.add(c);
+        }
+
+      }
+
+      // TODO: is this needed?
+      if (shortenings.contains(c.getCourseCode().toLowerCase().split(" ")[0]
+          .toLowerCase())) {
+        if (courseMappings.get(
+            c.getCourseCode().toLowerCase().split(" ")[0].toLowerCase())
+            .equals(searchTerm)) {
+          if (!toReturn.contains(c)) {
+            toReturn.add(c);
+          }
         }
       }
     }
