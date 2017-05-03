@@ -21,7 +21,7 @@ public class Filter {
   private static final int SMALL_COURSE_SIZE = 24;
   private static final int AVG_HOURS_PER_WEEK = 10;
   private static final int CAP_SIZE = 999;
-  private static final double PERCENT_OF_CLASS_YEAR = 0.15;
+  private static final double PERCENT_OF_CLASS_YEAR = 0.2;
 
   private CourseDataCache cache;
   private User user;
