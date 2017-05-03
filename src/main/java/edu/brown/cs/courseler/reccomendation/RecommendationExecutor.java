@@ -83,7 +83,7 @@ public class RecommendationExecutor implements Recommend<RecommendationDatum> {
         cache.getAllCourses());
     List<Course> wcReccomendations = wc.getRecommendations();
     RecommendationDatum writRd = new RecommendationDatum(
-        "WRIT Courses Based on Your Interests", wcReccomendations);
+        "Interesting WRIT Courses", wcReccomendations);
     if (wcReccomendations.size() != 0) {
       toReturn.add(writRd);
     }

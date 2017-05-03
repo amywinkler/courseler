@@ -27,9 +27,7 @@ public class ClassYearRecommendations implements Recommend<Course> {
    * @param user
    *          the user object
    * @param filter
-   *          the filter
-   * @param allCourses
-   *          the list of all courses
+   *          the filter olt
    */
   public ClassYearRecommendations(User user, Filter filter,
       List<Course> allCourses) {

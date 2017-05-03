@@ -47,7 +47,8 @@ public class ConcentrationRecommendations implements Recommend<Course> {
       return toReturn;
     } else {
       for (Course c : allCourses) {
-        if (concentration.contains(c.getDepartment())) {
+        if (concentration.contains(c.getDepartment()) && c.getCrData() != null
+            && c.getCrData().getDemographics().get("percent_concentrators") > .25) {
           toReturn.add(c);
         }
       }
