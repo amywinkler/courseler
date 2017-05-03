@@ -22,21 +22,22 @@ export default class SectionInfo extends React.Component {
 	    let times = descriptionForSectionTimes(this.props.times);
 	    let professors = this.props.professors.join(', ');
 	    let locations = this.getLocationString(this.props.locations);
+	    let labelStyle = this.getLabelStyle();
 
 		// Button to either add this section to the cart, or remove it
-		let buttonTitle = this.state.inCart ? 'Remove' : 'Add to Cart';
+		let buttonTitle = this.state.inCart ? 'Remove' : 'Add';
 	    // let addRemoveButton = <input type='submit' value={ buttonTitle } onClick={this.addOrRemove.bind(this)}/>;
-	    let addRemoveButton = times ? <div className="addRemove" onClick={this.addOrRemove.bind(this)}>{buttonTitle}</div> : null
+	    let addRemoveButton = times ? <div className="addRemove" onClick={this.addOrRemove.bind(this)}><label style={labelStyle}>{buttonTitle}</label></div> : null
       if (this.props.locked) {
         addRemoveButton = null;
       }
 
 		return (
 			<div className="sectionInfo" style={style}>
-				<h4 className="sectionName">{sectionId}</h4> 
-				<p>{locations}</p>
-				<p>{times}</p>
-				<p>{professors}</p>
+				<h4 className="sectionName" style={labelStyle}>{sectionId}</h4> 
+				<p style={labelStyle}>{locations}</p>
+				<p style={labelStyle}>{times}</p>
+				<p style={labelStyle}>{professors}</p>
 				{addRemoveButton}
 			</div>
 		)	
@@ -54,6 +55,9 @@ export default class SectionInfo extends React.Component {
 		}
 	}
 
+	/*
+		Formatted location string
+	*/
 	getLocationString(locations){
 		let weekdays = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday'];
 		let locationArray = new Set();
@@ -66,15 +70,38 @@ export default class SectionInfo extends React.Component {
     	return Array.from(locationArray).join(', ');
 	}
 
-	// visual marker for sections already in cart
+	/*
+		Styling for sections already in cart
+	*/
 	getStyle = () => {
 		if (this.state.inCart) {
-			return {border: '1px dotted #aaa', borderRadius: '4px'};
-			// return {backgroundColor: 'rgb(252,84,184)'};
-			// #FC54B8
+			return (
+			{
+				backgroundImage: 'linear-gradient(135deg, rgb(122, 91, 206) 0%, rgb(71, 117, 202) 100%)',
+				borderRadius: '3px',
+				color: 'white'
+			}
+				
+			);
 		} else {
 			return {};
 		}
 	}
 
+	getLabelStyle = () => {
+		if (this.state.inCart) {
+			return (
+			{
+				color: 'white',
+				marginLeft: '8px',
+				borderColor: 'rgba(255,255,255,1)'
+			}
+				
+			);
+		} else {
+			return {
+				marginLeft: '8px'
+			};
+		}
+	}
 }

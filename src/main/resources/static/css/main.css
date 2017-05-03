@@ -321,19 +321,21 @@ h1, h2, h3, h4 {
   margin-right: 2%;
   display: inline-block;
   vertical-align: top;
+  /*background-color: #f0f0f0*/
 }
 
 .sectionInfo>.sectionName{
   margin-top: 8px;
-  margin-left: 8px;
-  margin-bottom: 8px;
+  /*margin-left: 8px;*/
+  margin-bottom: 4px;
 }
 
 .sectionInfo>p  {
   margin-top: 0px;
   margin-bottom: 0px;
-  font-size: 14px;
-  margin-left: 8px
+  font-size: 13px;
+  /*margin-left: 8px;*/
+  opacity: 0.5;
 }
 
 .classYearDemographics,
@@ -365,27 +367,25 @@ h1, h2, h3, h4 {
 }
 
 .addRemove {
-  font-size: 11px;
-  margin-top: 16px;
-  margin-bottom: 12px;
-  margin-left: 5px;
+  margin-top: 8px;
+  margin-bottom: 2px;
   text-transform: uppercase;
-  color: black;
+  color: #666;
   letter-spacing: .5px;
-  border: 1px solid black;
-  border-radius: 12px;
-  text-align: center;
+  text-align: left;
   padding-top: 5px;
   padding-bottom: 4px;
-  width: 100px;
-  transition: transform 0.1s ease-in-out, box-shadow 0.1s ease-in-out;
-  box-shadow: 0px 0px 0px rgba(0,0,0,255);
 }
 
-.addRemove:hover {
-  box-shadow: 2px 2px 0px rgba(0,0,0,255);
-  cursor: default;
-  transform: translate(-2px, -2px);
+.addRemove label {
+  font-weight: bolder;
+  /*border-bottom: 1px solid black;*/
+  font-size: 10px;
+}
+
+.addRemove label:hover {
+  cursor: pointer;
+  opacity: 1;
 }
 
 @media screen and (max-width: 500px) {
@@ -470,13 +470,13 @@ h1, h2, h3, h4 {
 }
 
 .ui-widget input{
-  height: 24px;
+  height: 32px;
   border: none;
-  border-radius: 3px;
-  margin-top: 8px;
+  border-radius: 4px;
+  margin-top: 12px;
   padding-left: 8px;
   background-color: #f2f2f2;
-  width: 200px;
+  width: 240px;
   color: #666;
 }
 
