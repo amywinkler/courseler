@@ -294,15 +294,17 @@ h1, h2, h3, h4 {
 
 .courseInfo .adj {
   display: inline-block;
-  background-color: #f0f0f0;
-  color: #888;
+  /*background-color: #f0f0f0;*/
+  color: white;
   margin-right: 6px;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   padding: 4px 12px;
   text-transform: uppercase;
   font-size: 10px;
   letter-spacing: 1px;
-  border-radius: 20px; 
+  border-radius: 10px; 
+  /*background-image: linear-gradient(160deg, #eba7ba 0%, #abaef7 100%);*/
+  background-image: linear-gradient(-160deg, #a7c8eb 0%, #abaef7 100%);
 }
 
 .courseInfo h2 {

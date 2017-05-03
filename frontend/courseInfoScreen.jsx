@@ -118,7 +118,7 @@ export default class CourseInfoScreen extends React.Component {
       let courseDescriptionContent = <p>{info.description}</p>
 
       let adjectives = (this.state.info.funAndCool.descriptions != undefined) ? this.state.info.funAndCool.descriptions.map((description, index) => {
-        return <div className="adj">{description}</div>
+        return <div className="adj" key={index}>{description}</div>
       }) : null;
 
       return (
