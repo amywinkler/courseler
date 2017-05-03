@@ -16,8 +16,8 @@ Contemplative Studies,COST,🔮
 Computer Science,CSCI,🖥
 Czech,CZCH,🇨🇿
 Development Studies,DEVL,🐣
-East Asian Studies,EAST,🐼
-Economics,ECON,🤑
+East Asian Studies,EAST,🌞
+Economics,ECON,💰
 Education,EDUC,👩‍🏫
 Egyptology,EGYT,🇪🇬
 English for Internationals,EINT,✈️
