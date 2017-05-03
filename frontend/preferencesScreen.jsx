@@ -258,7 +258,6 @@ export default class PreferencesScreen extends React.Component {
       concentration: this.state.concentration.join(','),
       interests: this.state.departmentalInterests.join(',')
     };
-    console.log(prefs);
     api.postPrefs(prefs);
   }
 
