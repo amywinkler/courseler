@@ -30,9 +30,11 @@ public class DescriptionSearch implements SearchSuggestions<Course> {
 
     for (Course c: allCourses) {
       if (c.getDescription() != null
-          && (c.getDescription().toLowerCase().contains(" " + searchTerm))) {
+            && (c.getDescription().toLowerCase().contains(" " + searchTerm))) {
         toReturn.add(c);
       }
+
+
     }
 
     Collections.sort(toReturn, Course.getAlphabetComp());

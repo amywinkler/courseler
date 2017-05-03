@@ -1,11 +1,11 @@
 Africana Studies,AFRI,🌍
 American Studies,AMST,🇺🇸
-Anthropolgy,ANTH,👩‍👩‍👧‍👧
+Anthropology,ANTH,👩‍👩‍👧‍👧
 Applied Mathematics,APMA,📈
 Arabic,ARAB,عربى
 Archeology,ARCH,🏛
 Assyriology,ASYR,🖌
-Buisness Entrepreneurship & Organizations,BEO,💼
+Business Entrepreneurship & Organizations,BEO,💼
 Biology,BIOL,🌿
 Chemistry,CHEM,👩‍🔬
 Chinese,CHIN,🀄️

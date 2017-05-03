@@ -108,8 +108,6 @@ public class RankedSearch {
     if (hitNumber) {
       int lengthOfCourseCode = query.substring(count).length();
 
-
-
       if (lengthOfCourseCode == 2) {
         String toReturn = query.substring(0, count) + "0"
             + query.substring(count)
@@ -150,8 +148,6 @@ public class RankedSearch {
             finalCourseList.add(c);
           }
         }
-
-        // get numberParsedForm and suggest on that
       }
     }
 
@@ -159,7 +155,7 @@ public class RankedSearch {
 
   private void searchIndividualWords(List<Course> finalCourseList,
       List<String> wordsToSearch) {
-    searchOnCriteria(courseCodeSearch, finalCourseList, wordsToSearch);
+    // searchOnCriteria(courseCodeSearch, finalCourseList, wordsToSearch);
     searchOnCriteria(titleSearch, finalCourseList, wordsToSearch);
     searchOnCriteria(descriptionSearch, finalCourseList, wordsToSearch);
   }
@@ -176,7 +172,6 @@ public class RankedSearch {
    */
   public List<Course> rankedKeywordSearch(String entireSearch) {
     entireSearch = entireSearch.toLowerCase().trim();
-
 
     List<Course> finalCourseList = new ArrayList<>();
     finalCourseList = courseCodeSearch.suggest(entireSearch);
@@ -209,25 +204,9 @@ public class RankedSearch {
     }
 
 
-
-
     String[] searchWordsSplit = entireSearch.trim().split(" ");
-    // TODO: make sure this isn't over suggesting
     if (searchWordsSplit.length == 2) {
       String putTogether = searchWordsSplit[0] + searchWordsSplit[1];
-      //
-      // List<String> wsSugg = getWhitespaceSuggestions(putTogether);
-      // wsSugg.add(putTogether);
-      // List<String> numResults = new ArrayList<>();
-      // for (String w : wsSugg) {
-      // numResults.add(searchNumberSuggestion(w));
-      // }
-      // for (String s : numResults) {
-      // wsSugg.add(s);
-      // }
-      //
-      // for (String word : wsSugg) {
-      // if (word != null) {
       List<Course> courseCodeResults = courseCodeSearch.suggest(putTogether);
       for (Course c : courseCodeResults) {
         if (!finalCourseList.contains(c)) {
@@ -247,24 +226,29 @@ public class RankedSearch {
 
     }
 
-    // }
-    // }
 
     if (finalCourseList.size() == 0) {
       List<String> wordsToSearch = new ArrayList<>();
       if (searchWordsSplit.length <= 5) {
         // search on each word
         for (int i = 0; i < searchWordsSplit.length; i++) {
-          wordsToSearch.add(searchWordsSplit[i]);
-          searchIndividualWords(finalCourseList, wordsToSearch);
+          if (cache.getDeptForCode(searchWordsSplit[i].toUpperCase()) == null
+              && !StringUtils.isNumeric(searchWordsSplit[i])) {
+            wordsToSearch.add(searchWordsSplit[i]);
+          }
+
         }
+        searchIndividualWords(finalCourseList, wordsToSearch);
 
       } else {
         // search on only the last 5 words
         for (int i = searchWordsSplit.length - 1; i > searchWordsSplit.length - 5; i--) {
-          wordsToSearch.add(searchWordsSplit[i]);
-          searchIndividualWords(finalCourseList, wordsToSearch);
+          if (cache.getDeptForCode(searchWordsSplit[i].toUpperCase()) == null
+              && !StringUtils.isNumeric(searchWordsSplit[i])) {
+            wordsToSearch.add(searchWordsSplit[i]);
+          }
         }
+        searchIndividualWords(finalCourseList, wordsToSearch);
       }
 
     }
