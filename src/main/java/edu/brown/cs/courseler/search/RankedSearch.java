@@ -191,21 +191,24 @@ public class RankedSearch {
       }
     }
 
+    if (finalCourseList.size() == 0) {
+      List<Course> titleSuggestionsFull = titleSearch.suggest(entireSearch);
+      for (Course c : titleSuggestionsFull) {
+        if (!finalCourseList.contains(c)) {
+          finalCourseList.add(c);
+        }
+      }
 
-    List<Course> titleSuggestionsFull = titleSearch.suggest(entireSearch);
-    for (Course c : titleSuggestionsFull) {
-      if (!finalCourseList.contains(c)) {
-        finalCourseList.add(c);
+      List<Course> descriptionSuggestionsFull = descriptionSearch
+          .suggest(entireSearch);
+      for (Course c : descriptionSuggestionsFull) {
+        if (!finalCourseList.contains(c)) {
+          finalCourseList.add(c);
+        }
       }
     }
 
-    List<Course> descriptionSuggestionsFull = descriptionSearch
-        .suggest(entireSearch);
-    for (Course c : descriptionSuggestionsFull) {
-      if (!finalCourseList.contains(c)) {
-        finalCourseList.add(c);
-      }
-    }
+
 
 
     String[] searchWordsSplit = entireSearch.trim().split(" ");
@@ -232,13 +235,16 @@ public class RankedSearch {
         }
       }
 
-      List<Course> courseCodeResults2 = courseCodeSearch
-          .suggest(searchNumberSuggestion(putTogether));
-      for (Course c : courseCodeResults2) {
-        if (!finalCourseList.contains(c)) {
-          finalCourseList.add(c);
+      String suggN = searchNumberSuggestion(putTogether);
+      if (suggN != null) {
+        List<Course> courseCodeResults2 = courseCodeSearch.suggest(suggN);
+        for (Course c : courseCodeResults2) {
+          if (!finalCourseList.contains(c)) {
+            finalCourseList.add(c);
+          }
         }
       }
+
     }
 
     // }

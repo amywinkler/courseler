@@ -114,7 +114,6 @@ public class CourseCodeSearch implements SearchSuggestions<Course> {
     }
 
     Collections.sort(toReturn, Course.getAlphabetComp());
-
     return toReturn;
   }
 

@@ -37,7 +37,8 @@ public class TitleSearch implements SearchSuggestions<Course> {
               .toLowerCase()
               .substring(0,
                   Math.min(searchTerm.length(), c.getTitle().length()))
-              .equals(searchTerm)) {
+              .equals(searchTerm)
+          || c.getTitle().toLowerCase().contains(searchTerm)) {
         toReturn.add(c);
         added = true;
       }
@@ -45,9 +46,7 @@ public class TitleSearch implements SearchSuggestions<Course> {
       for (int i = 0; i < titleArr.length; i++) {
 
         if (searchTerm.equals(titleArr[i]) && !added) {
-          if (c.getCourseCode().equals("PHYS 2630")) {
-            System.out.println("here");
-          }
+
           toReturn.add(c);
           added = true;
         }
