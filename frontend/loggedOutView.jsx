@@ -28,7 +28,7 @@ export default class LoggedOutView extends React.Component {
     if (this.state.showSignup) {
       switchButton = <div className='switch'>Already have an account? <a href='#' onClick={ onSwitch }>Log In</a></div>;
     } else {
-      switchButton = <div className='switch'>Don't have an account? <a href='#' onClick={ onSwitch }>Sign Up</a></div>;
+      switchButton = <div className='switch'>Don’t have an account? <a href='#' onClick={ onSwitch }>Sign Up</a></div>;
     }
     
     let error = null;
