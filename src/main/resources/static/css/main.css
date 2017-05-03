@@ -437,11 +437,12 @@ h1, h2, h3, h4 {
 
 .addMore {
   display: inline-block;
-  margin-left: 20px;
+  margin-left: 10px;
   background-color: black;
   color: white;
-  padding: 0px 5px;
+  padding: 0px 4px;
   border-radius: 10px;
+  font-size: 10px;
 }
 
 .ui-autocomplete {
@@ -455,6 +456,11 @@ h1, h2, h3, h4 {
 
 .ui-helper-hidden-accessible{
   display: none;
+}
+
+.ui-widget {
+/*  background-color: yellow;
+  display: inline-block;*/
 }
 
 /* SEARCH/RECOMMENDATIONS */

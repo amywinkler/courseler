@@ -19,7 +19,7 @@ class InterestField extends React.Component {
   componentDidUpdate() {
     if (this.interestSet) {
       this.interestSet = false;
-      this.refs.myInput.defaultValue = (this.state.interest==undefined) ? '' : this.state.interest;
+      this.refs.myInput.value = (this.state.interest==undefined) ? '' : this.state.interest;
     }
   }
   render() {
@@ -32,12 +32,14 @@ class InterestField extends React.Component {
     },this);
 
     return (
-      <div className="ui-widget">
-        <input id = {id}
-          ref='myInput'
-          onChange={ (e) => {
-            this.handleChange(e);
-          } } />
+      <div className="concentrationField">
+        <div className="ui-widget">
+          <input id = {id}
+            ref='myInput'
+            onChange={ (e) => {
+              this.handleChange(e);
+            } } />
+        </div>
       </div>
     )
   }
@@ -80,12 +82,11 @@ class ConcentrationField extends React.Component {
   componentDidUpdate() {
     if (this.concentrationSet) {
       this.concentrationSet = false;
-      this.refs.myInput.defaultValue = (this.state.concentration==undefined) ? '' :this.state.concentration;
+      this.refs.myInput.value = (this.state.concentration==undefined) ? '' :this.state.concentration;
     }
   }
 
   render() {
-
     // For autocomplete dropdown 
     const departments = this.props.departments;
     const id = "concentration"+this.props.index;
@@ -131,14 +132,15 @@ export default class PreferencesScreen extends React.Component {
        classYear: '',
        concentration: [],
        departmentalInterests: [],
-       departments: [] //for the dropdowns
+       departments: [], //for the dropdowns
+       numConcentrationBoxes: 0,
+       numInterestBoxes: 0
      };
      this.displayExistingPreferences();
      this.loadDepartments();
   }
 
   render() {
-
     let classYearField = (
       <select name="classYear" 
           value={this.state.classYear}
@@ -152,59 +154,33 @@ export default class PreferencesScreen extends React.Component {
       </select>
     );
 
-    let concentrationFields = (
-      <div className="concentrationFields">
+    let concentrationFields = [];
+    for (var i=0; i<this.state.numConcentrationBoxes; i++) {
+      concentrationFields.push(
         <ConcentrationField 
-          index='0' 
+          key={i}
+          index={i} 
           concentrations={this.state.concentration}
           departments={this.state.departments} 
           onchange={this.updateConcentration.bind(this)}/>
-        <ConcentrationField 
-          index='1' 
-          concentrations={this.state.concentration}
-          departments={this.state.departments} 
-          onchange={this.updateConcentration.bind(this)}/>
-        <ConcentrationField 
-          index='2' 
-          concentrations={this.state.concentration}
-          departments={this.state.departments} 
-          onchange={this.updateConcentration.bind(this)}/>
-      </div>
-    )
+      );
+    };
 
-    let interestsFields = (
-      <div className="interestsFields">
-      <InterestField 
-        index='0' 
-        interests={this.state.departmentalInterests}
-        departments={this.state.departments} 
-        onchange={this.updateInterest.bind(this)}/>
-      <InterestField 
-        index='1' 
-        interests={this.state.departmentalInterests}
-        departments={this.state.departments} 
-        onchange={this.updateInterest.bind(this)}/>
-      <InterestField 
-        index='2' 
-        interests={this.state.departmentalInterests}
-        departments={this.state.departments} 
-        onchange={this.updateInterest.bind(this)}/>
-      <InterestField 
-        index='3' 
-        interests={this.state.departmentalInterests}
-        departments={this.state.departments} 
-        onchange={this.updateInterest.bind(this)}/>
-      <InterestField 
-        index='4' 
-        interests={this.state.departmentalInterests}
-        departments={this.state.departments} 
-        onchange={this.updateInterest.bind(this)}/>
-      </div>
-    )
+    let interestsFields = [];
+    for (var i=0; i<this.state.numInterestBoxes; i++) {
+      interestsFields.push(
+        <InterestField
+          key={i} 
+          index={i}
+          interests={this.state.departmentalInterests}
+          departments={this.state.departments} 
+          onchange={this.updateInterest.bind(this)}/>
+      );
+    };
 
     let doneButton = <a href='#' onClick={() => this.done()}>done</a>;
-    let addConcentrationButton = <div className='addMore' onClick={() => this.updateConcentration('', this.state.concentration.length+1)} >+</div>;
-    let addInterestButton = <div className='addMore'>+</div>;
+    let addMoreConcentrations = (this.state.numConcentrationBoxes<3) ? <div className="addMore" onClick={this.addConcentrationBox.bind(this)}>+</div> : null;
+    let addMoreInterests = (this.state.numInterestBoxes<5) ? <div className="addMore" onClick={this.addInterestBox.bind(this)}>+</div> : null;
 
     return (
       <div>
@@ -220,12 +196,18 @@ export default class PreferencesScreen extends React.Component {
           <div className="line"></div>
           <div className="prefSection">
             <label>Concentration(s)</label>
-            {concentrationFields}
+            {addMoreConcentrations}
+            <div className="concentrationFields">
+              {concentrationFields}
+            </div>
           </div>
           <div className="line"></div>
           <div className="prefSection">
             <label>Departmental Interests</label>
-            {interestsFields}
+            {addMoreInterests}
+            <div className="interestsFields">
+              {interestsFields}
+            </div>
           </div>
           <div className="line" />
           <div className="prefSection">
@@ -276,6 +258,7 @@ export default class PreferencesScreen extends React.Component {
       concentration: this.state.concentration.join(','),
       interests: this.state.departmentalInterests.join(',')
     };
+    console.log(prefs);
     api.postPrefs(prefs);
   }
 
@@ -287,7 +270,17 @@ export default class PreferencesScreen extends React.Component {
       this.setState({classYear: prefs.class_year==undefined ? '' : prefs.class_year});
       this.setState({concentration: prefs.concentration==undefined ? [] : prefs.concentration});
       this.setState({departmentalInterests: prefs.dept_interests==undefined ? [] : prefs.dept_interests});
-    }
+
+
+      // Pre-fill Input boxes
+      if (prefs.concentration!=undefined) {
+        this.setState({numConcentrationBoxes: prefs.concentration.length});
+      };
+      if (prefs.dept_interests!=undefined) {
+        this.setState({numInterestBoxes: prefs.dept_interests.length});
+      };
+
+    };
     api.getPrefs(display);
   }
 
@@ -296,9 +289,6 @@ export default class PreferencesScreen extends React.Component {
   */
   loadDepartments() {
     let getDepts = (departments) => {
-      // this.setState({departments: departments.map((department, index) => {
-      //   return <option key={index} value={department}>{department}</option>;
-      // })});
       this.setState({departments: departments});
     };
     api.getDepartments(getDepts);
@@ -324,4 +314,19 @@ export default class PreferencesScreen extends React.Component {
     this.setState({departmentalInterests: newInterestArray});
   }
 
+  /*
+    adds a concentration box to dom
+  */
+  addConcentrationBox(){
+    let curr = this.state.numConcentrationBoxes;
+    this.setState({numConcentrationBoxes: curr+1});
+  }
+
+  /*
+    adds an interest box to dom
+  */
+  addInterestBox(){
+    let curr = this.state.numInterestBoxes;
+    this.setState({numInterestBoxes: curr+1});
+  }
 }
