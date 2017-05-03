@@ -175,11 +175,22 @@ public class RankedSearch {
    * @return list of resulting courses in ranked order
    */
   public List<Course> rankedKeywordSearch(String entireSearch) {
-    entireSearch = entireSearch.toLowerCase();
+    entireSearch = entireSearch.toLowerCase().trim();
 
 
     List<Course> finalCourseList = new ArrayList<>();
     finalCourseList = courseCodeSearch.suggest(entireSearch);
+
+    String sugg = searchNumberSuggestion(entireSearch);
+    if (sugg != null) {
+      List<Course> courseCodeResultsOuter = courseCodeSearch.suggest(sugg);
+      for (Course c : courseCodeResultsOuter) {
+        if (!finalCourseList.contains(c)) {
+          finalCourseList.add(c);
+        }
+      }
+    }
+
 
     List<Course> titleSuggestionsFull = titleSearch.suggest(entireSearch);
     for (Course c : titleSuggestionsFull) {
@@ -198,31 +209,40 @@ public class RankedSearch {
 
 
     String[] searchWordsSplit = entireSearch.trim().split(" ");
+    // TODO: make sure this isn't over suggesting
     if (searchWordsSplit.length == 2) {
       String putTogether = searchWordsSplit[0] + searchWordsSplit[1];
-
-      List<String> wsSugg = getWhitespaceSuggestions(putTogether);
-      wsSugg.add(putTogether);
-      List<String> numResults = new ArrayList<>();
-      for (String w : wsSugg) {
-        numResults.add(searchNumberSuggestion(w));
-      }
-
-      for (String s : numResults) {
-        wsSugg.add(s);
-      }
-
-      for (String word : wsSugg) {
-        List<Course> courseCodeResults = courseCodeSearch.suggest(word);
-        for (Course c : courseCodeResults) {
-          if (!finalCourseList.contains(c)) {
-            finalCourseList.add(c);
-          }
+      //
+      // List<String> wsSugg = getWhitespaceSuggestions(putTogether);
+      // wsSugg.add(putTogether);
+      // List<String> numResults = new ArrayList<>();
+      // for (String w : wsSugg) {
+      // numResults.add(searchNumberSuggestion(w));
+      // }
+      // for (String s : numResults) {
+      // wsSugg.add(s);
+      // }
+      //
+      // for (String word : wsSugg) {
+      // if (word != null) {
+      List<Course> courseCodeResults = courseCodeSearch.suggest(putTogether);
+      for (Course c : courseCodeResults) {
+        if (!finalCourseList.contains(c)) {
+          finalCourseList.add(c);
         }
-
       }
 
+      List<Course> courseCodeResults2 = courseCodeSearch
+          .suggest(searchNumberSuggestion(putTogether));
+      for (Course c : courseCodeResults2) {
+        if (!finalCourseList.contains(c)) {
+          finalCourseList.add(c);
+        }
+      }
     }
+
+    // }
+    // }
 
     if (finalCourseList.size() == 0) {
       List<String> wordsToSearch = new ArrayList<>();
