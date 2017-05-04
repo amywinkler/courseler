@@ -495,7 +495,18 @@ h1, h2, h3, h4 {
   vertical-align: top;
 }
 
+.gradient {
+  /* Rectangle 1 Copy 29: */
+  background-image: linear-gradient(-142deg, rgba(255,255,255,0.15) 00%, #F74EDC 110%);
+  opacity: .1;
+  width: 90%;
+  height: 24px;
+  z-index: 999;
+  position: absolute;
+}
+
 .demographic {
+  position: relative;
   display: inline-block;
   width: 50%;
 }
@@ -531,12 +542,11 @@ h1, h2, h3, h4 {
 }
 
 
-
 .keySquare {
   display: inline-block;
   height: 7px;
   width: 7px;
-  background-color: black;
+  /*background-color: black;*/
   margin-left: 4px;
 }
 
