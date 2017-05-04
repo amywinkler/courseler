@@ -112,7 +112,7 @@ export default class CourseInfoScreen extends React.Component {
                   onRemove={this.props.reloadCalendar} 
                   professors = {section.professors} 
                   locations = {section.meetingLocations}
-                  locked={this.props.locked} />
+                  shared={this.props.shared} />
       });
 
       let courseDescriptionContent = <p>{info.description}</p>

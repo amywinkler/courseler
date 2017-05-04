@@ -15,12 +15,16 @@ export default class SharedCartApp extends React.Component {
      };
      this.state = {
        route: currentRoute(),
-       calendar: null
+       calendar: null,
+       myCalendar: null
      };
-     this.reloadCalendar(this.getCartId());
+     this.reloadCalendar();
    }
-   reloadCalendar(id) {
-     api.getSharedCart(id, (cal) => this.setState({calendar: cal}))
+   reloadCalendar() {
+     api.getSharedCart(this.getCartId(), (cal) => this.setState({calendar: cal}))
+     if (api.isLoggedIn()) {
+       api.getCalendar((calendar) => { this.setState({myCalendar: calendar}) });
+     }
    }
    getCartId() {
      let parts = location.pathname.split('/')
@@ -38,7 +42,7 @@ export default class SharedCartApp extends React.Component {
      if (screen === 'calendar') {
        return <Calendar calendar={this.state.calendar} locked={true} shared={true} />;
      } else if (screen === 'course') {
-       return <CourseInfoScreen courseCode={this.state.route.courseCode} calendar={this.state.calendar} reloadCalendar={this.reloadCalendar.bind(this)} locked={true} />;
+       return <CourseInfoScreen courseCode={this.state.route.courseCode} calendar={this.state.myCalendar}  reloadCalendar={this.reloadCalendar.bind(this)} shared={true} />;
      }
    }
 }
