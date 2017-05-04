@@ -394,6 +394,24 @@ h1, h2, h3, h4 {
   /*margin-right: 8px;*/
 }
 
+.altTitles {
+  margin-bottom: 16px;
+  white-space: pre-wrap;
+  display: inline-block;
+}
+
+.altTitle {
+  color: #bbb;
+  display: inline-block;
+  font-size: 14px;
+  margin-right: 4px;
+  float:left;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  /*text-wrap: normal;*/
+  /*text-transform: uppercase;*/
+}
+
 .adjectives {
   margin-left: 0px;
   width: 90%;
@@ -414,7 +432,7 @@ h1, h2, h3, h4 {
 }
 
 .courseInfo h2 {
-  /*margin-bottom: 8px;*/
+  margin-bottom: 8px;
 }
 
 .courseInfo {
@@ -741,12 +759,7 @@ h1, h2, h3, h4 {
   transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   color: rgba(255,255,255,0.9);
   border-radius: 3px;
-  /*box-shadow: 0px 0px 10px rgb(75, 115, 202);*/
   background-image: linear-gradient(135deg, rgb(122, 91, 206) 0%, rgb(71, 117, 202) 100%);
-/*
-  background-image: linear-gradient(135deg, rgba(76,44,163,1) 0%, rgba(73,165,191,1) 100%);
-    
-  background-image: linear-gradient(135deg, rgb(78, 68, 234) 0%, rgb(33, 185, 228) 100%);*/
 }
 
 .CourseCell:hover,
