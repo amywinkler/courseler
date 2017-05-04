@@ -120,7 +120,6 @@ export default class LoggedOutView extends React.Component {
     };
 
     let handleIpValidation = (ipObj) => {
-      console.log(ipObj.ip);
       let firstSeven = ipObj.ip.substring(0, 7);
       if(firstSeven == "128.148." ||
         firstSeven == "138.16." ||
@@ -128,7 +127,6 @@ export default class LoggedOutView extends React.Component {
         ipObj.ip == "127.0.0.1") {
          api.signUp(this.state.email, this.state.password, handleLoginResult);
       } else {
-        console.log("invalid ip");
         this.setState({error: "Please to connect to Brown Wifi so we can validate that you are part of the Brown community!"});
       }
     };

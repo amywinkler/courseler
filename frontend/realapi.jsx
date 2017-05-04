@@ -186,7 +186,7 @@ export class API {
     this.post('/login', {email: email, password: password}, (result) => {
       if (result.status === 'success') {
         localStorage.userId = result.id;
-      }
+      } 
       callback(result);
     });
   }
@@ -257,12 +257,14 @@ export class API {
   getRecommendations(filters, callback) {
     // /recommend?id=verySecureId123|open=true|false&less_than_10_hours=true|false&small_courses=true|false
     let boolString = (bool) => bool ? 'true' : 'false';
+    let hoursString = (hours) => hours ? hours : '999';
+    let courseString = (size) => size ? size : 'any';
     let params = {
       id: localStorage.userId,
       open: boolString(filters.open),
-      less_than_10_hours: boolString(filters.less_than_10_hours),
-      small_courses: boolString(filters.small_courses),
-      cap: boolString(filters.cap)
+      hours: hoursString(filters.hours),
+      course_size: courseString(filters.course_size),
+      cap: courseString(filters.cap)
     }
     this.post('/recommend', params, callback);
   }
@@ -307,7 +309,6 @@ export class API {
   }
 
   getIpForValidation(callback) {
-    console.log("IS THE IP VALID");
     $.getJSON("http://jsonip.com/?callback=?", function (data) {
       callback(data);
     });

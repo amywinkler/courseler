@@ -83,7 +83,6 @@ public final class RequestHandler {
     Spark.get("/", new MainHandler(), freeMarker);
     Spark.post("/login", new LoginHandler());
     Spark.post("/signup", new SignupHandler());
-    Spark.get("/ipVerify", new IPVerificationHandler());
     Spark.get("/timeslots", new TimeSlotHandler());
     Spark.post("/course", new CourseHandler());
     Spark.post("/addSection", new AddCartSectionHandler());
@@ -387,41 +386,6 @@ public final class RequestHandler {
     }
   }
 
-  boolean isIpValid(String ip) {
-    if (ip.length() < THE_NUMBER_NEEDED_FOR_IP) {
-      return false;
-    }
-    String frontOfIp = ip.substring(0, THE_NUMBER_NEEDED_FOR_IP);
-    if ((frontOfIp.equals("128.148") || frontOfIp.equals("138.16.")
-        || frontOfIp.equals("0:0:0:0"))) {
-      // 0:0:0: represents localhost - no one outside of brown's campus better
-      // have this on their localhost
-      return true;
-    }
-    return false;
-  }
-
-  /**
-   * Processes a request to verify ip address.
-   *
-   * @author adevor
-   *
-   */
-  private class IPVerificationHandler implements Route {
-    @Override
-    public String handle(Request req, Response res) {
-      String clientIp = req.ip();
-      System.out.println("the ip is " + clientIp);
-      Map<String, Object> variables;
-      if (isIpValid(clientIp)) {
-        variables = ImmutableMap.of("status", "valid");
-      } else {
-        variables = ImmutableMap.of("status", "invalid");
-      }
-      return GSON.toJson(variables);
-    }
-  }
-
   /**
    * Processes a request to sign up!
    *
@@ -483,6 +447,7 @@ public final class RequestHandler {
   }
 
   /**
+   * Handler for recommendationss.
    *
    * @author amywinkler
    *
@@ -495,7 +460,7 @@ public final class RequestHandler {
 
       String userId = qm.value("id");
       User currUser = userCache.getUserForId(userId);
-      // open=true|false&less_than_10_hours=true|false&small_courses=true|false
+      // open=true|false&hours=2&course_size=small|medium|large|any
 
       String open = qm.value("open");
       boolean openFilter = false;
@@ -503,27 +468,19 @@ public final class RequestHandler {
         openFilter = Boolean.parseBoolean(open);
       }
 
-      String lessThanTenHours = qm.value("less_than_10_hours");
-      boolean lessThanTenHoursFilter = false;
-      if (lessThanTenHours != null) {
-        lessThanTenHoursFilter = Boolean.parseBoolean(lessThanTenHours);
-      }
+      String maxAverageHoursPerWeekStr = qm.value("hours");
+      int maxAverageHoursPerWeek = Integer.parseInt(maxAverageHoursPerWeekStr);
 
-      String smallCourses = qm.value("small_courses");
-      boolean smallCoursesFilter = false;
-      if (smallCourses != null) {
-        smallCoursesFilter = Boolean.parseBoolean(smallCourses);
-      }
+
+      String courseSize = qm.value("course_size");
+
 
       String cappedCourses = qm.value("cap");
-      boolean cappedCoursesFilter = false;
-      if (cappedCourses != null) {
-        cappedCoursesFilter = Boolean.parseBoolean(cappedCourses);
-      }
+
 
       List<Course> allCourses = courseCache.getAllCourses();
       Filter filter = new Filter(courseCache, currUser, openFilter,
-          lessThanTenHoursFilter, smallCoursesFilter, cappedCoursesFilter);
+          maxAverageHoursPerWeek, courseSize, cappedCourses);
       RecommendationExecutor allRecs =
           new RecommendationExecutor(currUser, filter, allCourses, courseCache);
 
