@@ -897,9 +897,20 @@ h1, h2, h3, h4 {
 
 .add-emoji {
   cursor: pointer;
+  display: inline-block;
+  font-size: 30px;
+  color: gray;
 }
 
 #emoji-input-box {
+  display: inline-block;
   display:none;
+  height: 20px;
+  width: 50px;
+  font-size: 30px;
+}
+
+#emoji-error {
+  display: none;
 }
 

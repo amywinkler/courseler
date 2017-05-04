@@ -121,12 +121,6 @@ export default class CourseInfoScreen extends React.Component {
         return <div className="adj" key={index}>{description}</div>
       }) : null;
 
-      //bind fucking passes things in backwards which is honest ridiculous but you live and you learn am i right
-      
-              // <p className = "lead emoji-picker-container">
-              //   <input placeholder="Input field" data-emojiable="true" data-emoji-input="unicode" />
-              // </p>
-
       return (
         <div>
           {this.renderHeader()}
@@ -136,8 +130,11 @@ export default class CourseInfoScreen extends React.Component {
               <div className='emojis'>{emojis}</div>
               <div className='add-emoji' onClick={
                 this.addEmoji.bind(this)
-              }>Add emoji!!</div>
-              <input id = "emoji-input-box" className="form-control" data-emojiable="true"/>
+              }>⊕</div>
+              <input id = "emoji-input-box" onChange={
+                this.emojiChange.bind(this)
+              }/>
+              <p id="emoji-error"></p>
             </div>
     				<h2>{code}: {title}</h2>
             <div className ="adjectives">{adjectives}</div>
@@ -156,11 +153,25 @@ export default class CourseInfoScreen extends React.Component {
   addEmoji(e){
     if (!e) var e = window.event;
     if (e.stopPropagation) e.stopPropagation();
+    let emojiBox = $('#emoji-input-box');
+    emojiBox.show();
+    emojiBox.emojiPicker({
+      height: '200px',
+      width:  '300px'
+    });
+    $('.add-emoji').hide();
+  }
+
+  emojiChange(e) {
+    let emojiVal = $('#emoji-input-box');
     console.log(this.state.info.courseCode);
-    api.addEmoji();
-    $('#emoji-input-box').show();
-    
-    // api.removeFromCart(this.props.id, this.props.onRemove);
+    if (emojiVal.val().length == 2) {
+      api.addEmoji(this.state.info.courseCode, emojiVal.val());
+      //this.setState({emojis: })
+    } else {
+      console.log("unkown error");
+    }
+    emojiVal.val("");
   }
   
   renderHeader() {
