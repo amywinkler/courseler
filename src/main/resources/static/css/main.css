@@ -363,9 +363,11 @@ h1, h2, h3, h4 {
 .classYearDemographics,
 .concentratorDemographics {
   margin-top: 20px;
-  width: 100%;
+  width: 60%;
   height: 24px;
   font-size: 11px;
+  display:inline-block;
+  /*vertical-align: top;*/
 }
 
 .demLabel {
@@ -380,10 +382,22 @@ h1, h2, h3, h4 {
   margin-top: 50px;
 }
 
+.demographicsKey {
+  width: 30%;
+  display: inline-block;
+  background-color: #f4f4f4;
+  margin-left: 16px;
+  vertical-align: top;
+}
 
+.keySquare {
+  height: 8px;
+  width: 8px;
+  background-color: black;
+}
 
-.classYearDemographics>div,
-.concentratorDemographics>div {
+.classYearDemographics>.graph,
+.concentratorDemographics>.graph {
   display: inline-block;
   height: 100%;
 }
@@ -393,21 +407,17 @@ h1, h2, h3, h4 {
   margin-bottom: 8px;
   margin-left: 6px;
   text-transform: uppercase;
-  color: rgb(122, 91, 206);
+  color: #333;
   letter-spacing: .5px;
   text-align: left;
-  /*padding-top: 1px;*/
   padding-bottom: 1px;
-  /*background-color: yellow;*/
-  border: 1px solid rgba(122, 91, 206, 0.5);
+  border: 1px solid #bbb;
   width: 96px;
   text-align: center;
   border-radius: 16px;
 }
 
 .addRemove label {
-  /*padding-left: 4px;*/
-  /*background-color: yellow;*/
   font-size: 10px;
 }
 
@@ -674,6 +684,9 @@ h1, h2, h3, h4 {
   }
   .CourseCell {
     width: 160px;
+  }
+  .calendar {
+    margin-top: 100px;
   }
 }
 
