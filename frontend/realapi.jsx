@@ -264,7 +264,7 @@ export class API {
       open: boolString(filters.open),
       hours: hoursString(filters.hours),
       course_size: courseString(filters.course_size),
-      cap: boolString(filters.cap)
+      cap: courseString(filters.cap)
     }
     this.post('/recommend', params, callback);
   }
