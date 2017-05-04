@@ -39,10 +39,13 @@ export default class CourseInfoScreen extends React.Component {
 		this.state = {
       info: null,
       place: '',
-      time: ''
+      time: '',
+      emojis: []
     };
     api.courseInfo(this.props.courseCode, (info) => {
       this.setState({info: info});
+      let emojis = (this.state.info.funAndCool.emojis != undefined) ? this.state.info.funAndCool.emojis : [];
+      this.setState({emojis: emojis});
     });
   }
 
@@ -55,7 +58,7 @@ export default class CourseInfoScreen extends React.Component {
   		let title = info.title;
   		let code = info.courseCode;
   		let description = info.description;
-      let emojis = this.state.info.funAndCool.emojis;
+      let emojis = this.state.emojis;
 
    		let mySections = this.props.calendar ? this.props.calendar.sections : [];
       let mySectionIds = mySections.map((s) => s.sectionId);
@@ -161,6 +164,9 @@ export default class CourseInfoScreen extends React.Component {
           })}
         </div>
       : null;
+
+      let addEmojiVisibility = this.addEmojiVisibility();
+
       return (
         <div>
           {this.renderHeader()}
@@ -170,10 +176,10 @@ export default class CourseInfoScreen extends React.Component {
               <div className='emojis'>{emojis}</div>
               <div className='add-emoji' onClick={
                 this.addEmoji.bind(this)
-              }>⊕</div>
+              } style = {addEmojiVisibility}>⊕</div>
               <input id = "emoji-input-box" onChange={
                 this.emojiChange.bind(this)
-              }/>
+              } style = {addEmojiVisibility} />
               <p id="emoji-error"></p>
             </div>
     				<h2>{code}: {title}</h2>
@@ -205,12 +211,20 @@ export default class CourseInfoScreen extends React.Component {
     $('.add-emoji').hide();
   }
 
+  addEmojiVisibility() {
+    let numEmojis = this.state.emojis.length;
+    if (numEmojis <5 ){
+      return ({});
+    } 
+  }
+
   emojiChange(e) {
     let emojiVal = $('#emoji-input-box');
     console.log(this.state.info.courseCode);
     if (emojiVal.val().length == 2) {
       api.addEmoji(this.state.info.courseCode, emojiVal.val());
-      //this.setState({emojis: })
+      let currEmojis = this.state.emojis;
+      this.setState({emojis: currEmojis.concat(emojiVal.val())});
     } else {
       console.log("unkown error");
     }
