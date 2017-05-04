@@ -45,16 +45,36 @@ export default class SectionInfo extends React.Component {
 	}
 
 	addOrRemove(e) {
-		if (this.state.inCart) {
-			api.removeFromCart(this.props.sectionId, this.props.onAdd);
-			this.setState({inCart: false});
-			navigateToRoute({});
-		}	else {
-			api.addToCart(this.props.sectionId, this.props.onRemove);
-			this.setState({inCart: true});
-			navigateToRoute({});
-		}
+    if (api.isLoggedIn()) {
+  		if (this.state.inCart) {
+  			api.removeFromCart(this.props.sectionId, () => {
+          this.props.onRemove();
+        });
+  			this.setState({inCart: false});
+  		}	else {
+  			api.addToCart(this.props.sectionId, () => {
+          this.props.onAdd();
+        });
+  			this.setState({inCart: true});
+  		}
+      if (this.props.shared) {
+        window.open('/', '_blank');
+      } else {
+  			navigateToRoute({});
+      }
+    } else {
+      // open courseler so they can log in:
+      window.open('/', '_blank');
+    }
 	}
+  
+  openCalendarInNewTab() {
+    window.open('/', '_blank');
+  }
+  
+  openCourselerFrontPageInNewTab() {
+    window.open('/', '_blank');
+  }
 
 	/*
 		Formatted location string
