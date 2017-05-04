@@ -634,6 +634,23 @@ h1, h2, h3, h4 {
   width: 120px;
 }
 
+.ui-widget {
+  display: inline-block;
+}
+
+.clearField {
+  display: inline-block;
+  color: #666;
+  opacity: 0.5;
+  margin-left: 16px;
+  font-size: 12px;
+}
+
+.clearField:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
 /* SEARCH/RECOMMENDATIONS */
 
 .AddCourses {
