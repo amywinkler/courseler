@@ -307,7 +307,6 @@ export class API {
   }
 
   getIpForValidation(callback) {
-    console.log("IS THE IP VALID");
     $.getJSON("http://jsonip.com/?callback=?", function (data) {
       callback(data);
     });
