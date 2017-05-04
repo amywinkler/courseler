@@ -313,4 +313,8 @@ export class API {
       callback(data);
     });
   }
+
+  addEmoji(id, emojiIcon) {
+    $.post('/addEmoji', {courseId: id, emoji: emojiIcon});
+  }
 }

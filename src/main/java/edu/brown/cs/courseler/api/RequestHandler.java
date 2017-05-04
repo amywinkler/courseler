@@ -1,6 +1,8 @@
 package edu.brown.cs.courseler.api;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.io.StringWriter;
@@ -96,6 +98,9 @@ public final class RequestHandler {
     Spark.post("/setUserPrefs", new SetUserPrefHandler());
     Spark.post("/getShareId", new GetShareIdHandler());
     Spark.get("/user/:userId", new GuestCartHandler(), freeMarker);
+    Spark.post("/addEmoji", new AddEmojiHandler());
+    Spark.post("/addAltName", new AddAltNameHandler());
+    Spark.post("/addWord", new AddWordHandler());
   }
 
   /**
@@ -523,6 +528,83 @@ public final class RequestHandler {
     public String handle(Request req, Response res) {
       return GSON.toJson(courseCache.getTimeSlotToTimes());
 
+    }
+  }
+
+  /**
+   * Handler for emojis.
+   *
+   * @author amywinkler
+   *
+   */
+  private class AddEmojiHandler implements Route {
+
+    @Override
+    public String handle(Request req, Response res) {
+      QueryParamsMap qm = req.queryMap();
+      String courseId = qm.value("courseId");
+      String emoji = qm.value("emoji");
+      Course currCourse = courseCache.getCourseFomCache(courseId);
+      currCourse.addToFunAndCool("emojis", emoji);
+      String strToWrite = "time" + ","
+          + "courseler_user," + courseId + ",," + emoji + ",";
+      writeLineToFile(strToWrite);
+      return GSON.toJson("");
+
+    }
+  }
+
+  /**
+   * Handler for emojis.
+   *
+   * @author amywinkler
+   *
+   */
+  private class AddAltNameHandler implements Route {
+
+    @Override
+    public String handle(Request req, Response res) {
+      QueryParamsMap qm = req.queryMap();
+      String courseId = qm.value("courseId");
+      String altName = qm.value("altName");
+      Course currCourse = courseCache.getCourseFomCache(courseId);
+      currCourse.addToFunAndCool("alternate_titles", altName);
+      String strToWrite = "time,courseler_user," + courseId + ",,,"
+          + altName;
+      writeLineToFile(strToWrite);
+      return GSON.toJson("");
+
+    }
+  }
+
+  /**
+   * Handler for words.
+   *
+   * @author amywinkler
+   *
+   */
+  private class AddWordHandler implements Route {
+
+    @Override
+    public String handle(Request req, Response res) {
+      QueryParamsMap qm = req.queryMap();
+      String courseId = qm.value("courseId");
+      String word = qm.value("word");
+      Course currCourse = courseCache.getCourseFomCache(courseId);
+      currCourse.addToFunAndCool("descriptions", word);
+      String strToWrite = "time,courseler_user," + courseId + "," + word + ",,";
+      writeLineToFile(strToWrite);
+      return GSON.toJson("");
+
+    }
+  }
+
+  private void writeLineToFile(String strToWrite) {
+    File file = new File("data/google_form_data.csv");
+    try (BufferedWriter bw = new BufferedWriter(new FileWriter(file, true))) {
+      bw.write("\n" + strToWrite);
+    } catch (IOException except) {
+      except.printStackTrace();
     }
   }
 

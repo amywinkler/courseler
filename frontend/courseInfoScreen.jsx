@@ -121,6 +121,7 @@ export default class CourseInfoScreen extends React.Component {
         return <div className="adj" key={index}>{description}</div>
       }) : null;
 
+      //bind fucking passes things in backwards which is honest ridiculous but you live and you learn am i right
       return (
         <div>
           {this.renderHeader()}
@@ -128,6 +129,10 @@ export default class CourseInfoScreen extends React.Component {
             <div className ="courseInfoHeader">
               <label>{term}</label> 
               <div className='emojis'>{emojis}</div>
+              <div className='add-emoji' onClick={
+                this.addEmoji.bind(this)
+              }>Add emoji!!</div>
+              <input id = "emoji-input-box" data-emojiable="true"/>
             </div>
     				<h2>{code}: {title}</h2>
             <div className ="adjectives">{adjectives}</div>
@@ -142,6 +147,16 @@ export default class CourseInfoScreen extends React.Component {
       return null;
     }
 	}
+
+  addEmoji(e){
+    if (!e) var e = window.event;
+    if (e.stopPropagation) e.stopPropagation();
+    console.log(this.state.info.courseCode);
+    api.addEmoji();
+    $('#emoji-input-box').show();
+    
+    // api.removeFromCart(this.props.id, this.props.onRemove);
+  }
   
   renderHeader() {
     return (
