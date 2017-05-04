@@ -305,4 +305,11 @@ export class API {
       callback(url);
     })
   }
+
+  getIpForValidation(callback) {
+    console.log("IS THE IP VALID");
+    $.getJSON("http://jsonip.com/?callback=?", function (data) {
+      callback(data);
+    });
+  }
 }
