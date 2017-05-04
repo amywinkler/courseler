@@ -286,7 +286,6 @@ public class RankedSearch {
         }
         searchIndividualWords(finalCourseList, wordsToSearch);
       }
-
     }
 
 

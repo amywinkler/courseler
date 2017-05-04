@@ -55,6 +55,9 @@ public class ClassYearRecommendations implements Recommend<Course> {
     languageDepts.add("Arabic");
     languageDepts.add("French");
     languageDepts.add("Hispanic Studies");
+    languageDepts.add("Judaic Studies");
+    languageDepts.add("Italian");
+
   }
 
   @Override
