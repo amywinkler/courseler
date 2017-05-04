@@ -19,6 +19,7 @@ import edu.brown.cs.courseler.userinfo.User;
 public class Filter {
   private static final int MAX_NUM_RECCOMENDATIONS = 15;
   private static final int SMALL_COURSE_SIZE = 24;
+  private static final int LARGE_COURSE_SIZE = 24;
   private static final int AVG_HOURS_PER_WEEK = 10;
   private static final int CAP_SIZE = 999;
   private static final double PERCENT_OF_CLASS_YEAR = 0.2;
@@ -26,8 +27,8 @@ public class Filter {
   private CourseDataCache cache;
   private User user;
   private boolean openFilter;
-  private boolean lessThanTenHoursFilter;
-  private boolean smallCoursesFilter;
+  private int maxAvgHoursPerWeek;
+  private String courseSize;
   private boolean cappedCoursesFilter;
   private List<Section> sectionsInCart;
   private List<Course> coursesInCart;
@@ -51,13 +52,13 @@ public class Filter {
    *           filter on capped courses
    */
   public Filter(CourseDataCache cache, User user, boolean openFilter,
-      boolean lessThanTenHoursFilter, boolean smallCoursesFilter,
+      int maxAvgHoursPerWeek, String courseSize,
       boolean cappedCoursesFilter) {
     this.cache = cache;
     this.user = user;
     this.openFilter = openFilter;
-    this.lessThanTenHoursFilter = lessThanTenHoursFilter;
-    this.smallCoursesFilter = smallCoursesFilter;
+    this.maxAvgHoursPerWeek = maxAvgHoursPerWeek;
+    this.courseSize = courseSize;
     this.cappedCoursesFilter = cappedCoursesFilter;
     this.sectionsInCart = getSectionsInUserCart();
     this.openTimeSlots = getOpenTimeslots();
@@ -155,14 +156,31 @@ public class Filter {
 
   }
 
-  private void filterOnSmallCourses(List<Course> currentListOfCourses) {
+  private void filterOnCourseSize(List<Course> currentListOfCourses) {
     List<Course> toRemove = new ArrayList<>();
+    if (courseSize.equals("small")) {
+      for (Course c : currentListOfCourses) {
+        if (c.getCap() > SMALL_COURSE_SIZE) {
+          toRemove.add(c);
 
-    for (Course c : currentListOfCourses) {
-      if (c.getCap() > SMALL_COURSE_SIZE) {
-        toRemove.add(c);
-
+        }
       }
+    } else if (courseSize.equals("medium")) {
+      for (Course c : currentListOfCourses) {
+        if (c.getCap() <= SMALL_COURSE_SIZE || c.getCap() > LARGE_COURSE_SIZE) {
+          toRemove.add(c);
+
+        }
+      }
+
+    } else if (courseSize.equals("large")) {
+      for (Course c : currentListOfCourses) {
+        if (c.getCap() <= LARGE_COURSE_SIZE) {
+          toRemove.add(c);
+
+        }
+      }
+
     }
 
     for (Course c : toRemove) {
@@ -205,13 +223,12 @@ public class Filter {
     }
   }
 
-  private void filterOnLessThanTenHours(List<Course> currentListOfCourses) {
+  private void filterHoursPerWeek(List<Course> currentListOfCourses) {
     List<Course> toRemove = new ArrayList<>();
     for (Course c : currentListOfCourses) {
 
       if (c.getCrData() == null
-          || c.getCrData().getHoursPerWeek().get("average")
-          > AVG_HOURS_PER_WEEK) {
+          || c.getCrData().getHoursPerWeek().get("average") > maxAvgHoursPerWeek) {
         toRemove.add(c);
       }
     }
@@ -280,13 +297,9 @@ public class Filter {
       filterOnOpenTimeSlots(currentListOfCourses);
     }
 
-    if (lessThanTenHoursFilter) {
-      filterOnLessThanTenHours(currentListOfCourses);
-    }
+    filterHoursPerWeek(currentListOfCourses);
 
-    if (smallCoursesFilter) {
-      filterOnSmallCourses(currentListOfCourses);
-    }
+    filterOnCourseSize(currentListOfCourses);
 
     if (cappedCoursesFilter) {
       filterOnOnlyCappedCourses(currentListOfCourses);

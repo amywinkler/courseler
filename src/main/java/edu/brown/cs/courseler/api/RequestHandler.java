@@ -483,6 +483,7 @@ public final class RequestHandler {
   }
 
   /**
+   * Handler for recommendationss.
    *
    * @author amywinkler
    *
@@ -495,7 +496,7 @@ public final class RequestHandler {
 
       String userId = qm.value("id");
       User currUser = userCache.getUserForId(userId);
-      // open=true|false&less_than_10_hours=true|false&small_courses=true|false
+      // open=true|false&hours=2&course_size=small|medium|large|any
 
       String open = qm.value("open");
       boolean openFilter = false;
@@ -503,17 +504,12 @@ public final class RequestHandler {
         openFilter = Boolean.parseBoolean(open);
       }
 
-      String lessThanTenHours = qm.value("less_than_10_hours");
-      boolean lessThanTenHoursFilter = false;
-      if (lessThanTenHours != null) {
-        lessThanTenHoursFilter = Boolean.parseBoolean(lessThanTenHours);
-      }
+      String maxAverageHoursPerWeekStr = qm.value("hours");
+      int maxAverageHoursPerWeek = Integer.parseInt(maxAverageHoursPerWeekStr);
 
-      String smallCourses = qm.value("small_courses");
-      boolean smallCoursesFilter = false;
-      if (smallCourses != null) {
-        smallCoursesFilter = Boolean.parseBoolean(smallCourses);
-      }
+
+      String courseSize = qm.value("course_size");
+
 
       String cappedCourses = qm.value("cap");
       boolean cappedCoursesFilter = false;
@@ -523,7 +519,7 @@ public final class RequestHandler {
 
       List<Course> allCourses = courseCache.getAllCourses();
       Filter filter = new Filter(courseCache, currUser, openFilter,
-          lessThanTenHoursFilter, smallCoursesFilter, cappedCoursesFilter);
+          maxAverageHoursPerWeek, courseSize, cappedCoursesFilter);
       RecommendationExecutor allRecs =
           new RecommendationExecutor(currUser, filter, allCourses, courseCache);
 
