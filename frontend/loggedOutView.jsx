@@ -74,8 +74,13 @@ export default class LoggedOutView extends React.Component {
       }
     };
 
-    let handleIpValidation = (isIpvalid) => {
-       if (isIpvalid.status === "valid") {
+    let handleIpValidation = (ipObj) => {
+      console.log(ipObj.ip);
+      let firstSeven = ipObj.ip.substring(0, 7);
+      if(firstSeven == "128.148." ||
+        firstSeven == "138.16." ||
+        ipObj.ip == "0:0:0:0:0:0:0:1" ||
+        ipObj.ip == "127.0.0.1") {
          api.signUp(this.state.email, this.state.password, handleLoginResult);
       } else {
         console.log("invalid ip");
@@ -85,8 +90,7 @@ export default class LoggedOutView extends React.Component {
     
     if (this.state.showSignup) {
       //check validation for sign up
-      console.log("ok here we go we're signing up");
-      api.isIpValid(handleIpValidation); 
+      api.getIpForValidation(handleIpValidation); 
     } else {
       api.logIn(this.state.email, this.state.password, handleLoginResult);
     }
