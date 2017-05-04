@@ -78,7 +78,7 @@ export default class LoggedOutView extends React.Component {
     let error = null;
     if (this.state.error) error = <div className='error'>{this.state.error}</div>;
     
-    let title = this.state.showSignup ? <h1>Sign up</h1> : <div className='circle' />;
+    let title = this.state.showSignup ? <h1>Sign up</h1> : <h1>Log in</h1>;
     
     return (
       <div className='LoggedOutView'>
