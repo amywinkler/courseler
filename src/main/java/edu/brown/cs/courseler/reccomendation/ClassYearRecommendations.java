@@ -1,7 +1,9 @@
 package edu.brown.cs.courseler.reccomendation;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import edu.brown.cs.courseler.courseinfo.Course;
 import edu.brown.cs.courseler.userinfo.User;
@@ -19,6 +21,7 @@ public class ClassYearRecommendations implements Recommend<Course> {
   private Filter filter;
   private List<Course> allCourses;
   private String classYear;
+  private Set<String> languageDepts;
 
 
   /**
@@ -37,6 +40,24 @@ public class ClassYearRecommendations implements Recommend<Course> {
     this.filter = filter;
     this.allCourses = allCourses;
     this.classYear = user.getClassYear();
+    this.languageDepts = new HashSet<>();
+    setUpLanguageDepts();
+  }
+
+  private void setUpLanguageDepts() {
+    languageDepts.add("Persian");
+    languageDepts.add("German");
+    languageDepts.add("Russian");
+    languageDepts.add("Sanskrit");
+    languageDepts.add("Chinese");
+    languageDepts.add("Japanese");
+    languageDepts.add("Korean");
+    languageDepts.add("Arabic");
+    languageDepts.add("French");
+    languageDepts.add("Hispanic Studies");
+    languageDepts.add("Judaic Studies");
+    languageDepts.add("Italian");
+
   }
 
   @Override
@@ -61,8 +82,9 @@ public class ClassYearRecommendations implements Recommend<Course> {
 
       for (Course c : allCourses) {
         if (c.getCrData() != null
-            && c.getCrData().getDemographics().get(percentName)
-            >= PERCENT_TO_CHECK) {
+            && c.getCrData().getDemographics().get(percentName) >= PERCENT_TO_CHECK
+            && (!languageDepts.contains(c.getDepartment()) || c.getCourseCode()
+                .contains("0100"))) {
           goodForClassYear.add(c);
         }
       }

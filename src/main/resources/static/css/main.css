@@ -394,6 +394,24 @@ h1, h2, h3, h4 {
   /*margin-right: 8px;*/
 }
 
+.altTitles {
+  margin-bottom: 8px;
+  white-space: pre-wrap;
+  display: inline-block;
+}
+
+.altTitle {
+  color: #bbb;
+  display: inline-block;
+  font-size: 14px;
+  margin-right: 4px;
+  float:left;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  /*text-wrap: normal;*/
+  /*text-transform: uppercase;*/
+}
+
 .adjectives {
   margin-left: 0px;
   width: 90%;
@@ -405,6 +423,7 @@ h1, h2, h3, h4 {
   margin-right: 4px;
   margin-bottom: 6px;
   padding: 4px 12px;
+  padding-bottom: 3px;
   text-transform: uppercase;
   font-size: 10px;
   letter-spacing: 1px;
@@ -413,7 +432,7 @@ h1, h2, h3, h4 {
 }
 
 .courseInfo h2 {
-  /*margin-bottom: 8px;*/
+  margin-bottom: 8px;
 }
 
 .courseInfo {
@@ -469,38 +488,56 @@ h1, h2, h3, h4 {
 
 .classYearDemographics,
 .concentratorDemographics {
-  margin-top: 20px;
-  width: 60%;
+  margin-top: 0px;
+  width: 90%;
   height: 24px;
-  font-size: 11px;
   display:inline-block;
-  /*vertical-align: top;*/
-}
-
-.demLabel {
-  margin-top: 8px;
-  margin-left: 8px;
-  color: white;
-  font-weight: lighter;
-  overflow: hidden;
-}
-
-.concentratorDemographics {
-  margin-top: 50px;
-}
-
-.demographicsKey {
-  width: 30%;
-  display: inline-block;
-  background-color: #f4f4f4;
-  margin-left: 16px;
   vertical-align: top;
 }
 
+.demographic {
+  display: inline-block;
+  width: 50%;
+}
+
+.demLabel {
+  text-transform: uppercase;
+  /*color: #888;*/
+  letter-spacing: .5px;
+  font-size: 10px;
+}
+
+.key {
+  width: 70%;
+  display: inline-block;
+  background-color: #f4f4f4;
+  /*margin-left: 2%;*/
+  vertical-align: top;
+  margin-top: 16px;
+  border-radius: 4px;
+
+}
+.keyRow {
+  width: 100%;
+  min-width: 98px;
+  margin-left: 8px; 
+  display: inline-block;
+}
+
+.key label {
+  display: inline-block;
+  margin-left: 6px;
+  font-size: 10px;
+}
+
+
+
 .keySquare {
-  height: 8px;
-  width: 8px;
+  display: inline-block;
+  height: 7px;
+  width: 7px;
   background-color: black;
+  margin-left: 4px;
 }
 
 .classYearDemographics>.graph,
@@ -537,6 +574,10 @@ h1, h2, h3, h4 {
 
   .sectionInfo {
     width: 45%;
+  }
+
+  .demographic {
+    width: 100%;
   }
 
 }
@@ -740,12 +781,7 @@ h1, h2, h3, h4 {
   transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   color: rgba(255,255,255,0.9);
   border-radius: 3px;
-  /*box-shadow: 0px 0px 10px rgb(75, 115, 202);*/
   background-image: linear-gradient(135deg, rgb(122, 91, 206) 0%, rgb(71, 117, 202) 100%);
-/*
-  background-image: linear-gradient(135deg, rgba(76,44,163,1) 0%, rgba(73,165,191,1) 100%);
-    
-  background-image: linear-gradient(135deg, rgb(78, 68, 234) 0%, rgb(33, 185, 228) 100%);*/
 }
 
 .CourseCell:hover,

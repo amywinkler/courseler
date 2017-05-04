@@ -17,7 +17,7 @@ class CourseInfoSection extends React.Component {
   }
 
   render() {
-    if (this.props.content != null) {
+    if (this.props.content != null && this.props.content.length != 0) {
       return (
         <div className="courseInfoSection">
           <div className="line"></div>
@@ -42,15 +42,13 @@ export default class CourseInfoScreen extends React.Component {
       time: ''
     };
     api.courseInfo(this.props.courseCode, (info) => {
-      console.log(info);
       this.setState({info: info});
     });
   }
 
 	render() {
     if (this.state.info) {
-
-      console.log(this.state.info);
+      // console.log(this.state.info);
 
       let info = this.state.info;
       let term = info.term;
@@ -66,19 +64,35 @@ export default class CourseInfoScreen extends React.Component {
         if (this.state.info.crData) {
           return (
             <div className="demographicsSection">
-              <div className="classYearDemographics">
-                <p>Class Year Demographics</p>
-                <div className="freshmen" style={{width:info.crData.demographics.percent_freshmen*100+"%", backgroundColor: "#444"}}></div>
-                <div className="sophomores" style={{width:info.crData.demographics.percent_sophomores*100+"%", backgroundColor: "#777"}}></div>
-                <div className="junior" style={{width:info.crData.demographics.percent_juniors*100+"%", backgroundColor: "#999"}}></div>
-                <div className="senior" style={{width:info.crData.demographics.percent_seniors*100+"%", backgroundColor: "#aaa"}}></div>
-                <div className="other" style={{width:info.crData.demographics.percent_grad*100+"%", backgroundColor: "#ccc"}}></div>
+              <div className="demographic">
+              <h4 className="demLabel">Class Year Demographics</h4>
+                <div className="classYearDemographics">
+                  <div className="freshmen graph" style={{width:info.crData.demographics.percent_freshmen*100+"%", backgroundColor: "#444"}}></div>
+                  <div className="sophomores graph" style={{width:info.crData.demographics.percent_sophomores*100+"%", backgroundColor: "#777"}}></div>
+                  <div className="junior graph" style={{width:info.crData.demographics.percent_juniors*100+"%", backgroundColor: "#999"}}></div>
+                  <div className="senior graph" style={{width:info.crData.demographics.percent_seniors*100+"%", backgroundColor: "#aaa"}}></div>
+                  <div className="other graph" style={{width:info.crData.demographics.percent_grad*100+"%", backgroundColor: "#ccc"}}></div>
+                </div>
+                <div className="key">
+                  <div className="keyRow"><div className="keySquare"></div><label>Freshmen: {(info.crData.demographics.percent_freshmen*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare"></div><label>Sophomores: {(info.crData.demographics.percent_sophomores*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare"></div><label>Juniors: {(info.crData.demographics.percent_juniors*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare"></div><label>Seniors: {(info.crData.demographics.percent_seniors*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare"></div><label>Grad: {(info.crData.demographics.percent_grad*100).toFixed(2)}%</label></div>
+                </div>
               </div>
-              <div className="concentratorDemographics">
-                <p>Concentrator Demographics</p>
-                <div className="conc" style={{width:info.crData.demographics.percent_concentrators*100+"%", backgroundColor: "#444"}}></div>
-                <div className="nonconc" style={{width:info.crData.demographics.percent_non_concentrators*100+"%", backgroundColor: "#777"}}></div>
-                <div className="undecided" style={{width:info.crData.demographics.percent_undecided*100+"%", backgroundColor: "#999"}}></div>
+              <div className="demographic">
+                <h4 className="demLabel">Concentrator Demographics</h4>
+                <div className="concentratorDemographics">              
+                  <div className="conc graph" style={{width:info.crData.demographics.percent_concentrators*100+"%", backgroundColor: "#444"}}></div>
+                  <div className="nonconc graph" style={{width:info.crData.demographics.percent_non_concentrators*100+"%", backgroundColor: "#777"}}></div>
+                  <div className="undecided graph" style={{width:info.crData.demographics.percent_undecided*100+"%", backgroundColor: "#999"}}></div>
+                </div>
+                <div className="key">
+                  <div className="keyRow"><div className="keySquare"></div><label>Concentrator: {(info.crData.demographics.percent_concentrators*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare"></div><label>Non-concentrator: {(info.crData.demographics.percent_non_concentrators*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare"></div><label>Undecided: {(info.crData.demographics.percent_undecided*100).toFixed(2)}%</label></div>
+                </div>
               </div>
             </div>
           )
@@ -97,14 +111,16 @@ export default class CourseInfoScreen extends React.Component {
         }
       }
 
-  		let sectionContent = info.sections.map((section, index) => {
 
-        if (section.isMainSection) {
-        } 
+      // Differentiation of section types
+      let sections = [];
+      let conferences = [];
+      let filmScreenings = [];
 
-  			// Checks whether the current cart has this section in it already
+      // Add each section in the course to its corresponding group
+  		info.sections.map((section, index) => {
         let inCart = mySectionIds.indexOf(section.sectionId) >= 0;
-        return <SectionInfo key={index} 
+        let sectionObject =  <SectionInfo key={index} 
                   sectionId={section.sectionId} 
                   times={section.times} 
                   inCart = {inCart} 
@@ -112,7 +128,21 @@ export default class CourseInfoScreen extends React.Component {
                   onRemove={this.props.reloadCalendar} 
                   professors = {section.professors} 
                   locations = {section.meetingLocations}
-                  shared={this.props.shared} />
+                  locked={this.props.locked} 
+                  shared={this.props.shared} />;
+
+        switch(section.sectionType) {
+          case 'film screening':
+            filmScreenings.push(sectionObject);
+            break;
+          case 'conference':
+            conferences.push(sectionObject);
+            break;
+          default:
+            sections.push(sectionObject);
+        }
+
+                
       });
 
       let courseDescriptionContent = <p>{info.description}</p>
@@ -121,6 +151,14 @@ export default class CourseInfoScreen extends React.Component {
         return <div className="adj" key={index}>{description}</div>
       }) : null;
 
+      let altTitles = (this.state.info.funAndCool.alternate_titles != undefined) ? 
+        <div className="altTitles">
+        <div className="altTitle">also known as... </div>
+          {this.state.info.funAndCool.alternate_titles.map((altTitle, index) => {
+            return <div className="altTitle" key={index}>"{altTitle}"</div>
+          })}
+        </div>
+      : null;
       return (
         <div>
           {this.renderHeader()}
@@ -137,8 +175,11 @@ export default class CourseInfoScreen extends React.Component {
               <p id="emoji-error"></p>
             </div>
     				<h2>{code}: {title}</h2>
+            {altTitles}
             <div className ="adjectives">{adjectives}</div>
-            <CourseInfoSection label='Sections' content={sectionContent} />
+            <CourseInfoSection label='Sections' content={sections} />
+            <CourseInfoSection label='Conferences' content={conferences} />
+            <CourseInfoSection label='Film Screenings' content={filmScreenings} />
             <CourseInfoSection label='Description' content={courseDescriptionContent} />
             <CourseInfoSection label='Hours Per Week' content={getHoursPerWeekContent()} />
             <CourseInfoSection label='Demographics' content={getDemographicsContent()} />

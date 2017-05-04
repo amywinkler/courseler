@@ -52,14 +52,6 @@ public class RecommendationExecutor implements Recommend<RecommendationDatum> {
       toReturn.add(bcRec);
     }
 
-    ClassYearRecommendations cyr = new ClassYearRecommendations(user, filter,
-        cache.getAllCourses());
-    List<Course> cyReccomendations = cyr.getRecommendations();
-    RecommendationDatum cyRec = new RecommendationDatum(
-        "Good Courses For Your Class Year", cyReccomendations);
-    if (cyReccomendations.size() != 0) {
-      toReturn.add(cyRec);
-    }
 
     ConcentrationRecommendations cr = new ConcentrationRecommendations(user,
         filter, cache.getAllCourses());
@@ -77,6 +69,15 @@ public class RecommendationExecutor implements Recommend<RecommendationDatum> {
         "Good Fourth Classes", gfcRecs);
     if (gfcRecs.size() != 0) {
       toReturn.add(gfcRecDatum);
+    }
+
+    ClassYearRecommendations cyr = new ClassYearRecommendations(user, filter,
+        cache.getAllCourses());
+    List<Course> cyReccomendations = cyr.getRecommendations();
+    RecommendationDatum cyRec = new RecommendationDatum(
+        "Good Courses For Your Class Year", cyReccomendations);
+    if (cyReccomendations.size() != 0) {
+      toReturn.add(cyRec);
     }
 
     WritCourseRecommendations wc = new WritCourseRecommendations(user, filter,
