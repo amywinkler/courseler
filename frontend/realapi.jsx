@@ -262,7 +262,7 @@ export class API {
       id: localStorage.userId,
       open: boolString(filters.open),
       hours: hoursString(filters.hours),
-      small_courses: boolString(filters.small_courses),
+      course_size: boolString(filters.small_courses),
       cap: boolString(filters.cap)
     }
     this.post('/recommend', params, callback);
