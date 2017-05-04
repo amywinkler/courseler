@@ -11,6 +11,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import spark.ExceptionHandler;
+import spark.ModelAndView;
+import spark.QueryParamsMap;
+import spark.Request;
+import spark.Response;
+import spark.Route;
+import spark.Spark;
+import spark.TemplateViewRoute;
+import spark.template.freemarker.FreeMarkerEngine;
+
 import com.google.common.collect.ImmutableMap;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -25,15 +35,6 @@ import edu.brown.cs.courseler.userinfo.DbProxy;
 import edu.brown.cs.courseler.userinfo.User;
 import edu.brown.cs.courseler.userinfo.UserCache;
 import freemarker.template.Configuration;
-import spark.ExceptionHandler;
-import spark.ModelAndView;
-import spark.QueryParamsMap;
-import spark.Request;
-import spark.Response;
-import spark.Route;
-import spark.Spark;
-import spark.TemplateViewRoute;
-import spark.template.freemarker.FreeMarkerEngine;
 
 /**
  * The main request handler class where all API calls can be called. All calls
@@ -46,7 +47,7 @@ public final class RequestHandler {
   private static final Gson GSON = new GsonBuilder().serializeNulls().create();
   private DbProxy db;
   private static final int THE_NUMBER_NEEDED_FOR_IP = 7;
-  private static final int MAX_SEARCH_LIST_SIZE = 30;
+  private static final int MAX_SEARCH_LIST_SIZE = 35;
   private CourseDataCache courseCache;
   private UserCache userCache;
 
