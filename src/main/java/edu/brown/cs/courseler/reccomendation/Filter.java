@@ -293,7 +293,7 @@ public class Filter {
     }
 
     filterOnClassesNotInCart(currentListOfCourses);
-    filterOnMaxReccomendations(currentListOfCourses);
+
 
     if (user.getClassYear() != null
         && !user.getClassYear().equals("Freshman")) {
@@ -308,6 +308,8 @@ public class Filter {
     if (user.getClassYear() != null) {
       filterOnFewFromClassYear(currentListOfCourses, user.getClassYear());
     }
+
+    filterOnMaxReccomendations(currentListOfCourses);
 
 
     return currentListOfCourses;

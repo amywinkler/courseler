@@ -155,7 +155,6 @@ public class RankedSearch {
 
   private void searchIndividualWords(List<Course> finalCourseList,
       List<String> wordsToSearch) {
-    // searchOnCriteria(courseCodeSearch, finalCourseList, wordsToSearch);
     searchOnCriteria(titleSearch, finalCourseList, wordsToSearch);
     searchOnCriteria(descriptionSearch, finalCourseList, wordsToSearch);
   }
