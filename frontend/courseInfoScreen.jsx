@@ -135,9 +135,14 @@ export default class CourseInfoScreen extends React.Component {
         return <div className="adj" key={index}>{description}</div>
       }) : null;
 
-      let altTitles = (this.state.info.funAndCool.alternate_titles != undefined) ? this.state.info.funAndCool.alternate_titles.map((altTitle, index) => {
-        return <div className="altTitle" key={index}>"{altTitle}"</div>
-      }) : null;
+      let altTitles = (this.state.info.funAndCool.alternate_titles != undefined) ? 
+        <div className="altTitles">
+        <div className="altTitle">also known as... </div>
+          {this.state.info.funAndCool.alternate_titles.map((altTitle, index) => {
+            return <div className="altTitle" key={index}>"{altTitle}"</div>
+          })}
+        </div>
+      : null;
 
       //bind fucking passes things in backwards which is honest ridiculous but you live and you learn am i right
 
@@ -154,10 +159,7 @@ export default class CourseInfoScreen extends React.Component {
               <input id = "emoji-input-box" data-emojiable="true"/>
             </div>
     				<h2>{code}: {title}</h2>
-            <div className ="altTitles">
-              <div className="altTitle">also known as...</div>
-              {altTitles}
-            </div>
+            {altTitles}
             <div className ="adjectives">{adjectives}</div>
             <CourseInfoSection label='Sections' content={sections} />
             <CourseInfoSection label='Conferences' content={conferences} />
