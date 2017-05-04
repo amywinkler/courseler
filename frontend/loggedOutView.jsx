@@ -38,7 +38,7 @@ export default class LoggedOutView extends React.Component {
       <div className='sellingPoints'>
         <div>
           <h1>Simplify your shopping period with <span>Courseler</span></h1>
-          <p>Browse courses, get unique recommendations, and share your shopping period plans with friends. On the web or on your phone.</p>
+          <p>Browse courses, get unique recommendations, and share your shopping period plans with friends. On the web and on your phone.</p>
           <div className='buttons'>
             <div onClick={ this.showSignup.bind(this) }>Sign up</div>
             <div onClick={ this.showLogin.bind(this) }>Log in</div>
