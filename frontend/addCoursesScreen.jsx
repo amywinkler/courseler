@@ -50,7 +50,10 @@ class FilterEditor extends React.Component {
   options() {
     return [
       {key: 'open', values: [false, true], labels: ['Any time', 'Avoid time conflicts']},
-      {key: 'less_than_10_hours', values: [false, true], labels: ['Any workload', 'Less than 10 hours/wk']},
+      {key: 'hours', values: [false, "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15"], 
+      labels: ['Any workload', '< 1 hrs/wk', '< 2 hrs/wk', '< 3 hrs/wk',
+       '< 4 hrs/wk', '< 5 hrs/wk', '< 6 hrs/wk', '< 7 hrs/wk', '< 8 hrs/wk',
+       '< 9 hrs/wk', '< 10 hrs/wk', '< 11 hrs/wk', '< 12 hrs/wk', '< 13 hrs/wk', '< 14 hrs/wk', '< 15 hrs/wk']},
       {key: 'small_courses', values: [false, true], labels: ['Any size', 'Small courses only']},
       {key: 'cap', values: [false, true], labels: ['Capped + uncapped', 'Capped classes only']}
     ]
