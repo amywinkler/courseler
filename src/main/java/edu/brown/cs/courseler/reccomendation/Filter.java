@@ -19,7 +19,7 @@ import edu.brown.cs.courseler.userinfo.User;
 public class Filter {
   private static final int MAX_NUM_RECCOMENDATIONS = 15;
   private static final int SMALL_COURSE_SIZE = 24;
-  private static final int LARGE_COURSE_SIZE = 24;
+  private static final int LARGE_COURSE_SIZE = 50;
   private static final int CAP_SIZE = 999;
   private static final double PERCENT_OF_CLASS_YEAR = 0.2;
 
@@ -227,7 +227,7 @@ public class Filter {
     for (Course c : currentListOfCourses) {
 
       if (c.getCrData() == null
-          || c.getCrData().getHoursPerWeek().get("average") > maxAvgHoursPerWeek) {
+          || c.getCrData().getHoursPerWeek().get("average") > maxAvgHoursPerWeek + 1) {
         toRemove.add(c);
       }
     }
