@@ -64,19 +64,35 @@ export default class CourseInfoScreen extends React.Component {
         if (this.state.info.crData) {
           return (
             <div className="demographicsSection">
-              <div className="classYearDemographics">
-                <p>Class Year Demographics</p>
-                <div className="freshmen" style={{width:info.crData.demographics.percent_freshmen*100+"%", backgroundColor: "#444"}}></div>
-                <div className="sophomores" style={{width:info.crData.demographics.percent_sophomores*100+"%", backgroundColor: "#777"}}></div>
-                <div className="junior" style={{width:info.crData.demographics.percent_juniors*100+"%", backgroundColor: "#999"}}></div>
-                <div className="senior" style={{width:info.crData.demographics.percent_seniors*100+"%", backgroundColor: "#aaa"}}></div>
-                <div className="other" style={{width:info.crData.demographics.percent_grad*100+"%", backgroundColor: "#ccc"}}></div>
+              <div className="demographic">
+              <h4 className="demLabel">Class Year Demographics</h4>
+                <div className="classYearDemographics">
+                  <div className="freshmen graph" style={{width:info.crData.demographics.percent_freshmen*100+"%", backgroundColor: "#444"}}></div>
+                  <div className="sophomores graph" style={{width:info.crData.demographics.percent_sophomores*100+"%", backgroundColor: "#777"}}></div>
+                  <div className="junior graph" style={{width:info.crData.demographics.percent_juniors*100+"%", backgroundColor: "#999"}}></div>
+                  <div className="senior graph" style={{width:info.crData.demographics.percent_seniors*100+"%", backgroundColor: "#aaa"}}></div>
+                  <div className="other graph" style={{width:info.crData.demographics.percent_grad*100+"%", backgroundColor: "#ccc"}}></div>
+                </div>
+                <div className="key">
+                  <div className="keyRow"><div className="keySquare"></div><label>Freshmen: {(info.crData.demographics.percent_freshmen*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare"></div><label>Sophomores: {(info.crData.demographics.percent_sophomores*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare"></div><label>Juniors: {(info.crData.demographics.percent_juniors*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare"></div><label>Seniors: {(info.crData.demographics.percent_seniors*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare"></div><label>Grad: {(info.crData.demographics.percent_grad*100).toFixed(2)}%</label></div>
+                </div>
               </div>
-              <div className="concentratorDemographics">
-                <p>Concentrator Demographics</p>
-                <div className="conc" style={{width:info.crData.demographics.percent_concentrators*100+"%", backgroundColor: "#444"}}></div>
-                <div className="nonconc" style={{width:info.crData.demographics.percent_non_concentrators*100+"%", backgroundColor: "#777"}}></div>
-                <div className="undecided" style={{width:info.crData.demographics.percent_undecided*100+"%", backgroundColor: "#999"}}></div>
+              <div className="demographic">
+                <h4 className="demLabel">Concentrator Demographics</h4>
+                <div className="concentratorDemographics">              
+                  <div className="conc graph" style={{width:info.crData.demographics.percent_concentrators*100+"%", backgroundColor: "#444"}}></div>
+                  <div className="nonconc graph" style={{width:info.crData.demographics.percent_non_concentrators*100+"%", backgroundColor: "#777"}}></div>
+                  <div className="undecided graph" style={{width:info.crData.demographics.percent_undecided*100+"%", backgroundColor: "#999"}}></div>
+                </div>
+                <div className="key">
+                  <div className="keyRow"><div className="keySquare"></div><label>Concentrator: {(info.crData.demographics.percent_concentrators*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare"></div><label>Non-concentrator: {(info.crData.demographics.percent_non_concentrators*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare"></div><label>Undecided: {(info.crData.demographics.percent_undecided*100).toFixed(2)}%</label></div>
+                </div>
               </div>
             </div>
           )
