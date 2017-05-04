@@ -264,6 +264,18 @@ h1, h2, h3, h4 {
   margin-top: -51px;
 }
 
+.calendar-screen .emptyState {
+  background-image: url(/img/CalendarEmpty.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  position: fixed;
+  width: 15vw;
+  top: 20%;
+  bottom: 20%;
+  left: 42.5%;
+}
+
 .calendarSectionObject {
   width: 85%;
   padding: 10px 10px;
@@ -340,6 +352,10 @@ h1, h2, h3, h4 {
     padding-top: 1em;
     box-sizing: border-box;
     white-space: normal;
+  }
+  .calendar-screen .emptyState {
+    width: 60vw;
+    left: 20vw;
   }
 }
 
