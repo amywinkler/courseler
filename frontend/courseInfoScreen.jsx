@@ -17,7 +17,7 @@ class CourseInfoSection extends React.Component {
   }
 
   render() {
-    if (this.props.content != null) {
+    if (this.props.content != null && this.props.content.length != 0) {
       return (
         <div className="courseInfoSection">
           <div className="line"></div>
@@ -42,15 +42,13 @@ export default class CourseInfoScreen extends React.Component {
       time: ''
     };
     api.courseInfo(this.props.courseCode, (info) => {
-      console.log(info);
       this.setState({info: info});
     });
   }
 
 	render() {
     if (this.state.info) {
-
-      console.log(this.state.info);
+      // console.log(this.state.info);
 
       let info = this.state.info;
       let term = info.term;
@@ -97,14 +95,16 @@ export default class CourseInfoScreen extends React.Component {
         }
       }
 
-  		let sectionContent = info.sections.map((section, index) => {
 
-        if (section.isMainSection) {
-        } 
+      // Differentiation of section types
+      let sections = [];
+      let conferences = [];
+      let filmScreenings = [];
 
-  			// Checks whether the current cart has this section in it already
+      // Add each section in the course to its corresponding group
+  		info.sections.map((section, index) => {
         let inCart = mySectionIds.indexOf(section.sectionId) >= 0;
-        return <SectionInfo key={index} 
+        let sectionObject =  <SectionInfo key={index} 
                   sectionId={section.sectionId} 
                   times={section.times} 
                   inCart = {inCart} 
@@ -112,7 +112,21 @@ export default class CourseInfoScreen extends React.Component {
                   onRemove={this.props.reloadCalendar} 
                   professors = {section.professors} 
                   locations = {section.meetingLocations}
-                  shared={this.props.shared} />
+                  locked={this.props.locked} 
+                  shared={this.props.shared} />;
+
+        switch(section.sectionType) {
+          case 'film screening':
+            filmScreenings.push(sectionObject);
+            break;
+          case 'conference':
+            conferences.push(sectionObject);
+            break;
+          default:
+            sections.push(sectionObject);
+        }
+
+                
       });
 
       let courseDescriptionContent = <p>{info.description}</p>
@@ -121,7 +135,17 @@ export default class CourseInfoScreen extends React.Component {
         return <div className="adj" key={index}>{description}</div>
       }) : null;
 
+      let altTitles = (this.state.info.funAndCool.alternate_titles != undefined) ? 
+        <div className="altTitles">
+        <div className="altTitle">also known as... </div>
+          {this.state.info.funAndCool.alternate_titles.map((altTitle, index) => {
+            return <div className="altTitle" key={index}>"{altTitle}"</div>
+          })}
+        </div>
+      : null;
+
       //bind fucking passes things in backwards which is honest ridiculous but you live and you learn am i right
+
       return (
         <div>
           {this.renderHeader()}
@@ -135,8 +159,11 @@ export default class CourseInfoScreen extends React.Component {
               <input id = "emoji-input-box" data-emojiable="true"/>
             </div>
     				<h2>{code}: {title}</h2>
+            {altTitles}
             <div className ="adjectives">{adjectives}</div>
-            <CourseInfoSection label='Sections' content={sectionContent} />
+            <CourseInfoSection label='Sections' content={sections} />
+            <CourseInfoSection label='Conferences' content={conferences} />
+            <CourseInfoSection label='Film Screenings' content={filmScreenings} />
             <CourseInfoSection label='Description' content={courseDescriptionContent} />
             <CourseInfoSection label='Hours Per Week' content={getHoursPerWeekContent()} />
             <CourseInfoSection label='Demographics' content={getDemographicsContent()} />
