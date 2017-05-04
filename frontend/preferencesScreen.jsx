@@ -23,7 +23,7 @@ class InterestField extends React.Component {
     }
   }
   render() {
-    // For autocomplete dropdown 
+    // For autocomplete dropdown; Remove 'independent concentration' first
     let depts = this.props.departments.slice();
     let icIndex = depts.indexOf('Independent Concentration');
     if (icIndex!=-1) {
@@ -37,7 +37,7 @@ class InterestField extends React.Component {
     },this);
 
     return (
-      <div className="concentrationField">
+      <div className="interestField">
         <div className="ui-widget">
           <input id = {id}
             ref='myInput'
@@ -45,9 +45,15 @@ class InterestField extends React.Component {
               this.handleChange(e);
             } } />
         </div>
+        <div className="clearField" onClick={this.removeInterest.bind(this)}>Clear</div>
       </div>
     )
   }
+  removeInterest(e) {
+    this.setState({interest: null});
+    this.props.onchange(null, this.props.index);
+  }
+
   changeInterest(e) {
     this.setState({interest: [e.target.value]});
     this.props.onchange(e.target.value, this.props.index);
@@ -101,16 +107,24 @@ class ConcentrationField extends React.Component {
     },this);
 
     return (
-      <div className="ui-widget">
-        <input id = {id}
-          ref='myInput'
-          onChange={ (e) => {
-            this.handleChange(e);
-          } } />
+      <div className="concentrationField">
+        <div className="ui-widget">
+          <input id = {id}
+            ref='myInput'
+            onChange={ (e) => {
+              this.handleChange(e);
+            } } />
+        </div>
+        <div className="clearField" onClick={this.removeConcentration.bind(this)}>Clear</div>
       </div>
     )
 
   }
+
+  removeConcentration(e) {
+    this.setState({concentration: null});
+    this.props.onchange(null, this.props.index);
+  }  
   handleChangeAutocomplete(e, ui) {
     if (ui.item != null) {
       this.setState({inputtedText: ui.item.value});
@@ -263,6 +277,7 @@ export default class PreferencesScreen extends React.Component {
       concentration: this.state.concentration.join(','),
       interests: this.state.departmentalInterests.join(',')
     };
+    console.log(prefs);
     api.postPrefs(prefs);
   }
 
