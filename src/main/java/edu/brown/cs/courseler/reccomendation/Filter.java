@@ -20,7 +20,6 @@ public class Filter {
   private static final int MAX_NUM_RECCOMENDATIONS = 15;
   private static final int SMALL_COURSE_SIZE = 24;
   private static final int LARGE_COURSE_SIZE = 24;
-  private static final int AVG_HOURS_PER_WEEK = 10;
   private static final int CAP_SIZE = 999;
   private static final double PERCENT_OF_CLASS_YEAR = 0.2;
 
@@ -29,7 +28,7 @@ public class Filter {
   private boolean openFilter;
   private int maxAvgHoursPerWeek;
   private String courseSize;
-  private boolean cappedCoursesFilter;
+  private String cappedCourses;
   private List<Section> sectionsInCart;
   private List<Course> coursesInCart;
   private EnumSet<TimeSlot> openTimeSlots;
@@ -53,13 +52,13 @@ public class Filter {
    */
   public Filter(CourseDataCache cache, User user, boolean openFilter,
       int maxAvgHoursPerWeek, String courseSize,
-      boolean cappedCoursesFilter) {
+ String cappedCourses) {
     this.cache = cache;
     this.user = user;
     this.openFilter = openFilter;
     this.maxAvgHoursPerWeek = maxAvgHoursPerWeek;
     this.courseSize = courseSize;
-    this.cappedCoursesFilter = cappedCoursesFilter;
+    this.cappedCourses = cappedCourses;
     this.sectionsInCart = getSectionsInUserCart();
     this.openTimeSlots = getOpenTimeslots();
     this.coursesInCart = getCoursesInCart();
@@ -238,13 +237,22 @@ public class Filter {
     }
   }
 
-  private void filterOnOnlyCappedCourses(List<Course> currentListOfCourses) {
+  private void filterOnCapped(List<Course> currentListOfCourses) {
     List<Course> toRemove = new ArrayList<>();
-    for (Course c : currentListOfCourses) {
-      if (c.getCap() == CAP_SIZE) {
-        toRemove.add(c);
+    if (cappedCourses.equals("capped")) {
+      for (Course c : currentListOfCourses) {
+        if (c.getCap() == CAP_SIZE) {
+          toRemove.add(c);
+        }
+      }
+    } else if (cappedCourses.equals("uncapped")) {
+      for (Course c : currentListOfCourses) {
+        if (c.getCap() != CAP_SIZE) {
+          toRemove.add(c);
+        }
       }
     }
+
 
     for (Course c : toRemove) {
       currentListOfCourses.remove(c);
@@ -301,9 +309,8 @@ public class Filter {
 
     filterOnCourseSize(currentListOfCourses);
 
-    if (cappedCoursesFilter) {
-      filterOnOnlyCappedCourses(currentListOfCourses);
-    }
+    filterOnCapped(currentListOfCourses);
+
 
     filterOnClassesNotInCart(currentListOfCourses);
 
