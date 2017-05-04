@@ -27,6 +27,7 @@ public class RankedSearch {
   private Map<String, List<String>> whitespaceSuggestions;
   private Map<String, String> courseMappings;
   private Set<String> shortenings;
+  private Set<String> smallWords;
 
   private DescriptionSearch descriptionSearch;
   private CourseCodeSearch courseCodeSearch;
@@ -47,6 +48,39 @@ public class RankedSearch {
     this.descriptionSearch = new DescriptionSearch(cache);
     this.courseCodeSearch = new CourseCodeSearch(cache);
     this.titleSearch = new TitleSearch(cache);
+    this.smallWords = new HashSet<>();
+    setUpSmallWords();
+  }
+
+  private void setUpSmallWords() {
+    smallWords.add("a");
+    smallWords.add("b");
+    smallWords.add("c");
+    smallWords.add("d");
+    smallWords.add("e");
+    smallWords.add("f");
+    smallWords.add("g");
+    smallWords.add("h");
+    smallWords.add("i");
+    smallWords.add("j");
+    smallWords.add("k");
+    smallWords.add("l");
+    smallWords.add("m");
+    smallWords.add("n");
+    smallWords.add("o");
+    smallWords.add("p");
+    smallWords.add("q");
+    smallWords.add("r");
+    smallWords.add("s");
+    smallWords.add("w");
+    smallWords.add("x");
+    smallWords.add("y");
+    smallWords.add("z");
+
+    smallWords.add("and");
+    smallWords.add("of");
+    smallWords.add("the");
+
   }
 
   private void setUpMappingsAndShortenings() {
@@ -232,7 +266,8 @@ public class RankedSearch {
         // search on each word
         for (int i = 0; i < searchWordsSplit.length; i++) {
           if (cache.getDeptForCode(searchWordsSplit[i].toUpperCase()) == null
-              && !StringUtils.isNumeric(searchWordsSplit[i])) {
+              && !StringUtils.isNumeric(searchWordsSplit[i])
+              && !smallWords.contains(searchWordsSplit[i])) {
             wordsToSearch.add(searchWordsSplit[i]);
           }
 
@@ -244,7 +279,8 @@ public class RankedSearch {
         for (int i = searchWordsSplit.length - 1;
             i > searchWordsSplit.length - 5; i--) {
           if (cache.getDeptForCode(searchWordsSplit[i].toUpperCase()) == null
-              && !StringUtils.isNumeric(searchWordsSplit[i])) {
+              && !StringUtils.isNumeric(searchWordsSplit[i])
+              && !smallWords.contains(searchWordsSplit[i])) {
             wordsToSearch.add(searchWordsSplit[i]);
           }
         }
