@@ -24,7 +24,12 @@ class InterestField extends React.Component {
   }
   render() {
     // For autocomplete dropdown 
-    const departments = this.props.departments;
+    let depts = this.props.departments.slice();
+    let icIndex = depts.indexOf('Independent Concentration');
+    if (icIndex!=-1) {
+      depts.splice(icIndex, 1);
+    };
+    const departments = depts;
     const id = "interest"+this.props.index;
     $( "#"+id ).autocomplete({
       source: departments,
