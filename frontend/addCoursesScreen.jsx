@@ -49,13 +49,13 @@ class CourseCell extends React.Component {
 class FilterEditor extends React.Component {
   options() {
     return [
-      {key: 'open', values: [false, true], labels: ['Any time', 'Avoid time conflicts']},
-      {key: 'hours', values: ["any", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"], 
+      {key: 'open', values: [false, true], labels: ['Any time', 'Open spots in my calendar only']},
+      {key: 'hours', values: ["999", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14"], 
       labels: ['Any workload','< 3 hrs/wk',
        '< 4 hrs/wk', '< 5 hrs/wk', '< 6 hrs/wk', '< 7 hrs/wk', '< 8 hrs/wk',
        '< 9 hrs/wk', '< 10 hrs/wk', '< 11 hrs/wk', '< 12 hrs/wk', '< 13 hrs/wk', '< 14 hrs/wk', '< 15 hrs/wk']},
       {key: 'course_size', values: ['any', 'small', 'medium', 'large'], labels: ['Any size', '< 25 students', '25-50 students', '>50 students']},
-      {key: 'cap', values: [false, true], labels: ['Capped + uncapped', 'Capped classes only']}
+      {key: 'cap', values: ['any', 'capped', 'uncapped'], labels: ['Capped + uncapped', 'Capped classes only', 'Uncapped classes only']}
     ]
   }
   render() {
