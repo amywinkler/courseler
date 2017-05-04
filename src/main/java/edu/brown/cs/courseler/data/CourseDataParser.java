@@ -472,11 +472,18 @@ public class CourseDataParser {
         String courseCode = nextLine[2].toUpperCase();
         Course currCourse = cache.getCourseFomCache(courseCode);
         if (currCourse != null) {
-          currCourse.addToFunAndCool("alternate_titles", nextLine[5]);
-          currCourse.addToFunAndCool("emojis", nextLine[4]);
+          if (!nextLine[5].trim().isEmpty()) {
+            currCourse.addToFunAndCool("alternate_titles", nextLine[5]);
+          }
+
+          if (!nextLine[4].trim().isEmpty()) {
+            currCourse.addToFunAndCool("emojis", nextLine[4]);
+          }
           String[] wordsToDescribe = nextLine[3].split(", ");
           for (int i = 0; i < wordsToDescribe.length; i++) {
-            currCourse.addToFunAndCool("descriptions", wordsToDescribe[i]);
+            if (!wordsToDescribe[i].trim().isEmpty()) {
+              currCourse.addToFunAndCool("descriptions", wordsToDescribe[i]);
+            }
           }
         }
       }

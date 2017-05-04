@@ -45,7 +45,6 @@ public class TitleSearch implements SearchSuggestions<Course> {
       for (int i = 0; i < titleArr.length; i++) {
 
         if (searchTerm.equals(titleArr[i].toLowerCase()) && !added) {
-
           toReturn.add(c);
           added = true;
         }
