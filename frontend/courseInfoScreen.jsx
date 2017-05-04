@@ -122,6 +122,11 @@ export default class CourseInfoScreen extends React.Component {
       }) : null;
 
       //bind fucking passes things in backwards which is honest ridiculous but you live and you learn am i right
+      
+              // <p className = "lead emoji-picker-container">
+              //   <input placeholder="Input field" data-emojiable="true" data-emoji-input="unicode" />
+              // </p>
+
       return (
         <div>
           {this.renderHeader()}
@@ -132,7 +137,7 @@ export default class CourseInfoScreen extends React.Component {
               <div className='add-emoji' onClick={
                 this.addEmoji.bind(this)
               }>Add emoji!!</div>
-              <input id = "emoji-input-box" data-emojiable="true"/>
+              <input id = "emoji-input-box" className="form-control" data-emojiable="true"/>
             </div>
     				<h2>{code}: {title}</h2>
             <div className ="adjectives">{adjectives}</div>
