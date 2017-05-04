@@ -592,8 +592,7 @@ public final class RequestHandler {
       String word = qm.value("word");
       Course currCourse = courseCache.getCourseFomCache(courseId);
       currCourse.addToFunAndCool("descriptions", word);
-      String strToWrite = "time,courseler_user," + courseId + ",\"" + word
-          + "\",,";
+      String strToWrite = "time,courseler_user," + courseId + "," + word + ",,";
       writeLineToFile(strToWrite);
       return GSON.toJson("");
 
