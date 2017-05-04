@@ -28,6 +28,8 @@ public class ClassYearRecommendations implements Recommend<Course> {
    *          the user object
    * @param filter
    *          the filter olt
+   * @param allCourses
+   *          the list of all courses
    */
   public ClassYearRecommendations(User user, Filter filter,
       List<Course> allCourses) {

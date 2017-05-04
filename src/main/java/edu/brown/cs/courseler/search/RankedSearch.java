@@ -155,7 +155,6 @@ public class RankedSearch {
 
   private void searchIndividualWords(List<Course> finalCourseList,
       List<String> wordsToSearch) {
-    // searchOnCriteria(courseCodeSearch, finalCourseList, wordsToSearch);
     searchOnCriteria(titleSearch, finalCourseList, wordsToSearch);
     searchOnCriteria(descriptionSearch, finalCourseList, wordsToSearch);
   }
@@ -242,7 +241,7 @@ public class RankedSearch {
 
       } else {
         // search on only the last 5 words
-        for (int i = searchWordsSplit.length - 1; 
+        for (int i = searchWordsSplit.length - 1;
             i > searchWordsSplit.length - 5; i--) {
           if (cache.getDeptForCode(searchWordsSplit[i].toUpperCase()) == null
               && !StringUtils.isNumeric(searchWordsSplit[i])) {

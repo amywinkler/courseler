@@ -306,14 +306,10 @@ export class API {
     })
   }
 
-  isIpValid() {
-    $.get("/ipVerify", responseJSON => {
-      const responseObject = JSON.parse(responseJSON);
-      if(responseObject.status === "valid") {
-        return true;
-      } else {
-        return false;
-      }
+  getIpForValidation(callback) {
+    console.log("IS THE IP VALID");
+    $.getJSON("http://jsonip.com/?callback=?", function (data) {
+      callback(data);
     });
   }
 }
