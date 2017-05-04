@@ -37,15 +37,14 @@ public class TitleSearch implements SearchSuggestions<Course> {
               .toLowerCase()
               .substring(0,
                   Math.min(searchTerm.length(), c.getTitle().length()))
-              .equals(searchTerm)
-          || c.getTitle().toLowerCase().contains(searchTerm)) {
+              .equals(searchTerm)) {
         toReturn.add(c);
         added = true;
       }
 
       for (int i = 0; i < titleArr.length; i++) {
 
-        if (searchTerm.equals(titleArr[i]) && !added) {
+        if (searchTerm.equals(titleArr[i].toLowerCase()) && !added) {
 
           toReturn.add(c);
           added = true;
@@ -54,6 +53,22 @@ public class TitleSearch implements SearchSuggestions<Course> {
     }
 
     Collections.sort(toReturn, Course.getAlphabetComp());
+
+    List<Course> tempToAdd = new ArrayList<>();
+
+    for (Course c : allCourses) {
+      if (c.getTitle().toLowerCase().contains(searchTerm)) {
+        tempToAdd.add(c);
+      }
+    }
+
+    Collections.sort(tempToAdd, Course.getAlphabetComp());
+
+    for (Course c : tempToAdd) {
+      if (!toReturn.contains(c)) {
+        toReturn.add(c);
+      }
+    }
 
     return toReturn;
   }

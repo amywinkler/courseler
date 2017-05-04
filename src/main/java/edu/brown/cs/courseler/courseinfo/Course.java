@@ -106,7 +106,9 @@ public class Course {
   public void addToFunAndCool(String key, String value) {
     if (funAndCool.containsKey(key)) {
       List<String> currVals = funAndCool.get(key);
-      currVals.add(value);
+      if (!currVals.contains(value)) {
+        currVals.add(value);
+      }
       funAndCool.put(key, currVals);
     } else {
       List<String> toAdd = new ArrayList<>();
