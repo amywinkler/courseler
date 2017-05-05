@@ -40,10 +40,13 @@ export default class CourseInfoScreen extends React.Component {
 		this.state = {
       info: null,
       place: '',
-      time: ''
+      time: '',
+      emojis: []
     };
     api.courseInfo(this.props.courseCode, (info) => {
       this.setState({info: info});
+      let emojis = (this.state.info.funAndCool.emojis != undefined) ? this.state.info.funAndCool.emojis : [];
+      this.setState({emojis: emojis});
     });
   }
 
@@ -62,7 +65,7 @@ export default class CourseInfoScreen extends React.Component {
   		let title = info.title;
   		let code = info.courseCode;
   		let description = info.description;
-      let emojis = this.state.info.funAndCool.emojis;
+      let emojis = this.state.emojis;
 
    		let mySections = this.props.calendar ? this.props.calendar.sections : [];
       let mySectionIds = mySections.map((s) => s.sectionId);
@@ -73,32 +76,34 @@ export default class CourseInfoScreen extends React.Component {
             <div className="demographicsSection">
               <div className="demographic">
               <h4 className="demLabel">Class Year Demographics</h4>
+                <div className="gradient"></div>
                 <div className="classYearDemographics">
-                  <div className="freshmen graph" style={{width:info.crData.demographics.percent_freshmen*100+"%", backgroundColor: "#444"}}></div>
-                  <div className="sophomores graph" style={{width:info.crData.demographics.percent_sophomores*100+"%", backgroundColor: "#777"}}></div>
-                  <div className="junior graph" style={{width:info.crData.demographics.percent_juniors*100+"%", backgroundColor: "#999"}}></div>
-                  <div className="senior graph" style={{width:info.crData.demographics.percent_seniors*100+"%", backgroundColor: "#aaa"}}></div>
-                  <div className="other graph" style={{width:info.crData.demographics.percent_grad*100+"%", backgroundColor: "#ccc"}}></div>
+                  <div className="freshmen graph" style={{width:info.crData.demographics.percent_freshmen*100+"%", backgroundColor: "#626BFF"}}></div>
+                  <div className="sophomores graph" style={{width:info.crData.demographics.percent_sophomores*100+"%", backgroundColor: "#7E86FF"}}></div>
+                  <div className="junior graph" style={{width:info.crData.demographics.percent_juniors*100+"%", backgroundColor: "#A6ABFF"}}></div>
+                  <div className="senior graph" style={{width:info.crData.demographics.percent_seniors*100+"%", backgroundColor: "#CACDFF"}}></div>
+                  <div className="other graph" style={{width:info.crData.demographics.percent_grad*100+"%", backgroundColor: "#DCDEFF"}}></div>
                 </div>
                 <div className="key">
-                  <div className="keyRow"><div className="keySquare"></div><label>Freshmen: {(info.crData.demographics.percent_freshmen*100).toFixed(2)}%</label></div>
-                  <div className="keyRow"><div className="keySquare"></div><label>Sophomores: {(info.crData.demographics.percent_sophomores*100).toFixed(2)}%</label></div>
-                  <div className="keyRow"><div className="keySquare"></div><label>Juniors: {(info.crData.demographics.percent_juniors*100).toFixed(2)}%</label></div>
-                  <div className="keyRow"><div className="keySquare"></div><label>Seniors: {(info.crData.demographics.percent_seniors*100).toFixed(2)}%</label></div>
-                  <div className="keyRow"><div className="keySquare"></div><label>Grad: {(info.crData.demographics.percent_grad*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#626BFF"}}></div><label>Freshmen: {(info.crData.demographics.percent_freshmen*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#7E86FF"}}></div><label>Sophomores: {(info.crData.demographics.percent_sophomores*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#A6ABFF"}}></div><label>Juniors: {(info.crData.demographics.percent_juniors*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#CACDFF"}}></div><label>Seniors: {(info.crData.demographics.percent_seniors*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#DCDEFF"}}></div><label>Grad: {(info.crData.demographics.percent_grad*100).toFixed(2)}%</label></div>
                 </div>
               </div>
               <div className="demographic">
                 <h4 className="demLabel">Concentrator Demographics</h4>
+                <div className="gradient"></div>
                 <div className="concentratorDemographics">              
-                  <div className="conc graph" style={{width:info.crData.demographics.percent_concentrators*100+"%", backgroundColor: "#444"}}></div>
-                  <div className="nonconc graph" style={{width:info.crData.demographics.percent_non_concentrators*100+"%", backgroundColor: "#777"}}></div>
-                  <div className="undecided graph" style={{width:info.crData.demographics.percent_undecided*100+"%", backgroundColor: "#999"}}></div>
+                  <div className="conc graph" style={{width:info.crData.demographics.percent_concentrators*100+"%", backgroundColor: "#3CEEE5"}}></div>
+                  <div className="nonconc graph" style={{width:info.crData.demographics.percent_non_concentrators*100+"%", backgroundColor: "#84FFFA"}}></div>
+                  <div className="undecided graph" style={{width:info.crData.demographics.percent_undecided*100+"%", backgroundColor: "#C5FFFD"}}></div>
                 </div>
                 <div className="key">
-                  <div className="keyRow"><div className="keySquare"></div><label>Concentrator: {(info.crData.demographics.percent_concentrators*100).toFixed(2)}%</label></div>
-                  <div className="keyRow"><div className="keySquare"></div><label>Non-concentrator: {(info.crData.demographics.percent_non_concentrators*100).toFixed(2)}%</label></div>
-                  <div className="keyRow"><div className="keySquare"></div><label>Undecided: {(info.crData.demographics.percent_undecided*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#3CEEE5"}}></div><label>Concentrator: {(info.crData.demographics.percent_concentrators*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#84FFFA"}}></div><label>Non-concentrator: {(info.crData.demographics.percent_non_concentrators*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#C5FFFD"}}></div><label>Undecided: {(info.crData.demographics.percent_undecided*100).toFixed(2)}%</label></div>
                 </div>
               </div>
             </div>
@@ -166,6 +171,9 @@ export default class CourseInfoScreen extends React.Component {
           })}
         </div>
       : null;
+
+      let addEmojiVisibility = this.addEmojiVisibility();
+
       return (
         <div>
           {this.renderHeader()}
@@ -173,9 +181,12 @@ export default class CourseInfoScreen extends React.Component {
             <div className ="courseInfoHeader">
               <label>{term}</label> 
               <div className='emojis'>{emojis}</div>
+              <div className='add-emoji' onClick={
+                this.addEmoji.bind(this)
+              } style = {addEmojiVisibility}>⊕</div>
               <input id = "emoji-input-box" onChange={
                 this.emojiChange.bind(this)
-              }/>
+              } style = {addEmojiVisibility} />
               <p id="emoji-error"></p>
             </div>
     				<h2>{code}: {title}</h2>
@@ -205,13 +216,21 @@ export default class CourseInfoScreen extends React.Component {
     });
   }
 
+  addEmojiVisibility() {
+    let numEmojis = this.state.emojis.length;
+    if (numEmojis <5 ){
+      return ({});
+    } 
+  }
+
   emojiChange(e) {
     this.addEmojiBox();
     let emojiVal = $('#emoji-input-box');
     console.log(this.state.info.courseCode);
     if (emojiVal.val().length == 2) {
       api.addEmoji(this.state.info.courseCode, emojiVal.val());
-      //this.setState({emojis: })
+      let currEmojis = this.state.emojis;
+      this.setState({emojis: currEmojis.concat(emojiVal.val())});
     } else {
       console.log("unkown error");
     }
