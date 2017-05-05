@@ -16,6 +16,7 @@ class CourseInfoSection extends React.Component {
     super(props);
   }
 
+
   render() {
     if (this.props.content != null && this.props.content.length != 0) {
       return (
@@ -44,6 +45,12 @@ export default class CourseInfoScreen extends React.Component {
     api.courseInfo(this.props.courseCode, (info) => {
       this.setState({info: info});
     });
+  }
+
+  //after everything renders we construct this stuff here hahahahaha
+  componentDidMount() {
+    console.log('hahah');
+    this.addEmojiBox();
   }
 
 	render() {
@@ -166,9 +173,6 @@ export default class CourseInfoScreen extends React.Component {
             <div className ="courseInfoHeader">
               <label>{term}</label> 
               <div className='emojis'>{emojis}</div>
-              <div className='add-emoji' onClick={
-                this.addEmoji.bind(this)
-              }>⊕</div>
               <input id = "emoji-input-box" onChange={
                 this.emojiChange.bind(this)
               }/>
@@ -191,19 +195,18 @@ export default class CourseInfoScreen extends React.Component {
     }
 	}
 
-  addEmoji(e){
-    if (!e) var e = window.event;
-    if (e.stopPropagation) e.stopPropagation();
+  addEmojiBox(){
+    // if (!e) var e = window.event;
+    // if (e.stopPropagation) e.stopPropagation();
     let emojiBox = $('#emoji-input-box');
-    emojiBox.show();
     emojiBox.emojiPicker({
       height: '200px',
       width:  '300px'
     });
-    $('.add-emoji').hide();
   }
 
   emojiChange(e) {
+    this.addEmojiBox();
     let emojiVal = $('#emoji-input-box');
     console.log(this.state.info.courseCode);
     if (emojiVal.val().length == 2) {
