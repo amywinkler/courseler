@@ -14,9 +14,12 @@ export default class CalendarDayView extends React.Component {
 		};
 	}
 
+	componentWillReceiveProps() {
+		this.setState({startTimes: []});
+	}
+
 	componentDidUpdate() {
 		if (this.props.sections) {
-			// let currTimes = [];
 			this.props.sections.map((section) => {
 				let currTimes = this.state.startTimes;
 				if (!currTimes.includes(section.props.start)) {
@@ -57,7 +60,6 @@ export default class CalendarDayView extends React.Component {
 
 	getSectionsWithStartTime(time) {
 		let sections = [];
-		// console.log(time);
 		this.props.sections.map((section)=> {
 			if (section.props.start === time) {
 				sections.push(section);

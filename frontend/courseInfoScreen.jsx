@@ -1,20 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import ReactPerf from 'react-addons-shallow-compare';
+// import EmojiPicker from './src/picker';
 import api from './api.jsx';
 import SectionInfo from './sectionInfo.jsx';
 import { currentRoute, navigateToRoute } from './routing.jsx';
 
+// let Emoji = require('emojione');
+// let EmojiPicker = require('emojione-picker');
 
 /*
-  A single section of the Course Info screen, 
+  A single section of the Course Info screen,
   like "Hours per week" or "Demographics"
 */
 class CourseInfoSection extends React.Component {
-  
+
   // Props are 'label' and 'content'
   constructor(props) {
     super(props);
   }
+
 
   render() {
     if (this.props.content != null && this.props.content.length != 0) {
@@ -40,13 +45,22 @@ export default class CourseInfoScreen extends React.Component {
       info: null,
       place: '',
       time: '',
-      emojis: []
+      emojis: [],
+      adjectives: []
     };
     api.courseInfo(this.props.courseCode, (info) => {
       this.setState({info: info});
       let emojis = (this.state.info.funAndCool.emojis != undefined) ? this.state.info.funAndCool.emojis : [];
       this.setState({emojis: emojis});
+      let adjectives = (this.state.info.funAndCool.descriptions != undefined) ? this.state.info.funAndCool.descriptions : [];
+      this.setState({adjectives: adjectives});
     });
+  }
+
+  //after everything renders we construct this stuff here hahahahaha
+  componentDidMount() {
+    console.log('hahah');
+    this.addEmojiBox();
   }
 
 	render() {
@@ -62,7 +76,7 @@ export default class CourseInfoScreen extends React.Component {
 
    		let mySections = this.props.calendar ? this.props.calendar.sections : [];
       let mySectionIds = mySections.map((s) => s.sectionId);
-      
+
       let getDemographicsContent = () => {
         if (this.state.info.crData) {
           return (
@@ -88,7 +102,7 @@ export default class CourseInfoScreen extends React.Component {
               <div className="demographic">
                 <h4 className="demLabel">Concentrator Demographics</h4>
                 <div className="gradient"></div>
-                <div className="concentratorDemographics">              
+                <div className="concentratorDemographics">
                   <div className="conc graph" style={{width:info.crData.demographics.percent_concentrators*100+"%", backgroundColor: "#3CEEE5"}}></div>
                   <div className="nonconc graph" style={{width:info.crData.demographics.percent_non_concentrators*100+"%", backgroundColor: "#84FFFA"}}></div>
                   <div className="undecided graph" style={{width:info.crData.demographics.percent_undecided*100+"%", backgroundColor: "#C5FFFD"}}></div>
@@ -125,15 +139,15 @@ export default class CourseInfoScreen extends React.Component {
       // Add each section in the course to its corresponding group
   		info.sections.map((section, index) => {
         let inCart = mySectionIds.indexOf(section.sectionId) >= 0;
-        let sectionObject =  <SectionInfo key={index} 
-                  sectionId={section.sectionId} 
-                  times={section.times} 
-                  inCart = {inCart} 
-                  onAdd={this.props.reloadCalendar} 
-                  onRemove={this.props.reloadCalendar} 
-                  professors = {section.professors} 
+        let sectionObject =  <SectionInfo key={index}
+                  sectionId={section.sectionId}
+                  times={section.times}
+                  inCart = {inCart}
+                  onAdd={this.props.reloadCalendar}
+                  onRemove={this.props.reloadCalendar}
+                  professors = {section.professors}
                   locations = {section.meetingLocations}
-                  locked={this.props.locked} 
+                  locked={this.props.locked}
                   shared={this.props.shared} />;
 
         switch(section.sectionType) {
@@ -147,16 +161,16 @@ export default class CourseInfoScreen extends React.Component {
             sections.push(sectionObject);
         }
 
-                
+
       });
 
       let courseDescriptionContent = <p>{info.description}</p>
 
-      let adjectives = (this.state.info.funAndCool.descriptions != undefined) ? this.state.info.funAndCool.descriptions.map((description, index) => {
+      let adjectives =  this.state.adjectives.map((description, index) => {
         return <div className="adj" key={index}>{description}</div>
-      }) : null;
+      });
 
-      let altTitles = (this.state.info.funAndCool.alternate_titles != undefined) ? 
+      let altTitles = (this.state.info.funAndCool.alternate_titles != undefined) ?
         <div className="altTitles">
         <div className="altTitle">also known as... </div>
           {this.state.info.funAndCool.alternate_titles.map((altTitle, index) => {
@@ -167,24 +181,28 @@ export default class CourseInfoScreen extends React.Component {
 
       let addEmojiVisibility = this.addEmojiVisibility();
 
+              //       <EmojiPicker onChange={function(data){
+              //   console.log("Emoji chosen", data);
+              // }} />
+
       return (
         <div>
           {this.renderHeader()}
     			<div className='courseInfo screen'>
             <div className ="courseInfoHeader">
-              <label>{term}</label> 
+              <label>{term}</label>
               <div className='emojis'>{emojis}</div>
-              <div className='add-emoji' onClick={
-                this.addEmoji.bind(this)
-              } style = {addEmojiVisibility}>⊕</div>
+
               <input id = "emoji-input-box" onChange={
                 this.emojiChange.bind(this)
               } style = {addEmojiVisibility} />
+
               <p id="emoji-error"></p>
             </div>
     				<h2>{code}: {title}</h2>
             {altTitles}
             <div className ="adjectives">{adjectives}</div>
+            <input id = "word-input-box" onKeyDown={this.handleKeyDown} onKeyPress={this.handleKeyPress} />
             <CourseInfoSection label='Sections' content={sections} />
             <CourseInfoSection label='Conferences' content={conferences} />
             <CourseInfoSection label='Film Screenings' content={filmScreenings} />
@@ -193,32 +211,59 @@ export default class CourseInfoScreen extends React.Component {
             <CourseInfoSection label='Demographics' content={getDemographicsContent()} />
     			</div>
         </div>
-  		)	
+  		)
     } else {
       return null;
     }
 	}
 
-  addEmoji(e){
-    if (!e) var e = window.event;
-    if (e.stopPropagation) e.stopPropagation();
-    let emojiBox = $('#emoji-input-box');
-    emojiBox.show();
-    emojiBox.emojiPicker({
-      height: '200px',
-      width:  '300px'
-    });
-    $('.add-emoji').hide();
+
+  handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      console.log("here");
+      this.wordChange(e);
+    }
+  }
+
+  handleKeyDown = (e) => {
+    console.log('hereee');
+    if(e.key === " "){
+      return false;
+       //var inputString = $('#word-input-box').val();
+
+      //   var shortenedString = inputString.substr(0,(inputString.length -1));
+      //   $('#word-input-box').val(inputString);
+    } else {
+      return true;
+    }
+  }
+
+  addEmojiBox(){
+    // if (!e) var e = window.event;
+    // if (e.stopPropagation) e.stopPropagation();
+    console.log("adding emoji box");
+    let emojiBox = document.getElementById('emoji-input-box');
+    console.log("emoji box is");
+    console.log(emojiBox);
+
+    setTimeout(function(){
+      console.log(emojiBox);
+    }, 3000);
+    // emojiBox.emojiPicker({
+    //   height: '200px',
+    //   width:  '300px'
+    // });
   }
 
   addEmojiVisibility() {
     let numEmojis = this.state.emojis.length;
     if (numEmojis <5 ){
       return ({});
-    } 
+    }
   }
 
   emojiChange(e) {
+    this.addEmojiBox();
     let emojiVal = $('#emoji-input-box');
     console.log(this.state.info.courseCode);
     if (emojiVal.val().length == 2) {
@@ -230,7 +275,17 @@ export default class CourseInfoScreen extends React.Component {
     }
     emojiVal.val("");
   }
-  
+
+  wordChange(e) {
+    console.log("here 2");
+    let wordVal = $('#word-input-box');
+    api.addWord(this.state.info.courseCode, wordVal.val());
+    let currWords = this.state.adjectives;
+    this.setState({adjectives: currWords.concat(wordVal.val())});
+    wordVal.val("");
+  }
+
+
   renderHeader() {
     return (
       <div className='header'>

@@ -157,7 +157,7 @@ export class API {
   constructor() {
 
   }
-  
+
   post(endpoint, params, callback) {
     let url = endpoint + '?' + Object.keys(params).map((k) => k + '=' + encodeURIComponent(params[k])).join('&');
     $.ajax({
@@ -186,7 +186,7 @@ export class API {
     this.post('/login', {email: email, password: password}, (result) => {
       if (result.status === 'success') {
         localStorage.userId = result.id;
-      } 
+      }
       callback(result);
     });
   }
@@ -222,7 +222,7 @@ export class API {
       }
     });
   }
-  
+
   checkIfPreferencesNeedEntry(callback) {
     this.getPrefs((prefs) => {
       callback(!prefs.class_year);
@@ -295,11 +295,11 @@ export class API {
       callback(responseObject);
     });
   }
-  
+
   getSharedCart(id, callback) {
     this.post('/getSharedCart', {id: id}, callback);
   }
-  
+
   getSharedCartUrl(callback) {
     this.post('/getShareId', {id: localStorage.userId}, (response) => {
       let id = response.share_id;
@@ -316,5 +316,9 @@ export class API {
 
   addEmoji(id, emojiIcon) {
     $.post('/addEmoji', {courseId: id, emoji: emojiIcon});
+  }
+
+  addWord(id, word) {
+    $.post('/addWord', {courseId: id, word: word});
   }
 }
