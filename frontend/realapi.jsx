@@ -321,4 +321,11 @@ export class API {
   addWord(id, word) {
     $.post('/addWord', {courseId: id, word: word});
   }
+
+  getTimeslots(callback) {
+    $.get("/timeslots", responseJSON => {
+      const responseObject = JSON.parse(responseJSON);
+      callback(responseObject);
+    });
+  }
 }
