@@ -14,8 +14,16 @@ class Conflicts extends React.Component {
 		let titles = this.props.conflicts.map((section) => {
 			return section.title;
 		});
-
-		return <div>Conflicts: {titles}</div>
+		
+		if (titles.length>0) {
+			return (
+				<p className="conflicts">
+					Conflicts: {titles.join(", ")}
+				</p>
+			)
+		} else {
+			return null;
+		}
 	}
 }
 
