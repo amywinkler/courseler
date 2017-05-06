@@ -77,9 +77,9 @@ public class RankedSearch {
     smallWords.add("y");
     smallWords.add("z");
 
-    smallWords.add("and");
+    smallWords.add("an");
     smallWords.add("of");
-    smallWords.add("the");
+    smallWords.add("th");
 
   }
 

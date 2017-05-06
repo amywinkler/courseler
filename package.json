@@ -52,7 +52,11 @@
   "bugs": {
     "url": "https://github.com/one-signal/emoji-picker/issues"
   },
-  "dependencies": {},
+  "dependencies": {
+    "emojione-picker": "^2.1.2",
+    "react-addons-shallow-compare": "^15.5.2",
+    "react-emoji-picker": "^1.0.13"
+  },
   "description": "Add a slick emoji selector to input fields and textareas on your website.",
   "devDependencies": {},
   "directories": {
