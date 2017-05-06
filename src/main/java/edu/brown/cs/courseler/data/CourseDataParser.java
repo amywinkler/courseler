@@ -473,7 +473,8 @@ public class CourseDataParser {
         Course currCourse = cache.getCourseFomCache(courseCode);
         if (currCourse != null) {
           if (!nextLine[5].trim().isEmpty()) {
-            currCourse.addToFunAndCool("alternate_titles", nextLine[5]);
+            currCourse.addToFunAndCool("alternate_titles",
+                nextLine[5].toLowerCase());
           }
 
           if (!nextLine[4].trim().isEmpty()) {
