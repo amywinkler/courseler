@@ -203,7 +203,7 @@ export default class CourseInfoScreen extends React.Component {
             {altTitles}
 
             <div className ="adjectives">
-            {adjectives}
+             {adjectives}  Add adjective: 
             <div className='add-word' onClick={
               this.addWord.bind(this) } >⊕</div>
             <input id = "word-input-box" onKeyDown={this.handleKeyDown} onKeyPress={this.handleKeyPress} />
@@ -293,8 +293,9 @@ export default class CourseInfoScreen extends React.Component {
     var words = require("an-array-of-english-words")
 
     let wordToAdd = filter.clean(wordVal.val());
-    if(wordVal.val() != wordToAdd || !words.includes(wordVal.val())){
-      alert('Must add real words that are not profanity!')
+    if(wordVal.val() != wordToAdd || !words.includes(wordVal.val()) ||
+    this.state.adjectives.includes(wordVal.val().toLowerCase())){
+      alert('Must add real words that are not profanity and have not already been added!')
     } else {
       api.addWord(this.state.info.courseCode, wordToAdd);
       let currWords = this.state.adjectives;

@@ -482,7 +482,8 @@ public class CourseDataParser {
           String[] wordsToDescribe = nextLine[3].split(", ");
           for (int i = 0; i < wordsToDescribe.length; i++) {
             if (!wordsToDescribe[i].trim().isEmpty()) {
-              currCourse.addToFunAndCool("descriptions", wordsToDescribe[i]);
+              currCourse.addToFunAndCool("descriptions",
+                  wordsToDescribe[i].toLowerCase());
             }
           }
         }

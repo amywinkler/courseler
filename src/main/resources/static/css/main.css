@@ -964,6 +964,7 @@ h1, h2, h3, h4 {
 #word-input-box {
   display: inline-block;
   display:none;
+    width: 80px;
 }
 
 
