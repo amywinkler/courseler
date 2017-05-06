@@ -170,17 +170,9 @@ export default class CourseInfoScreen extends React.Component {
 
       let addEmojiVisibility = this.addEmojiVisibility();
 
-<<<<<<< HEAD
-=======
-              //       <EmojiPicker onChange={function(data){
-              //   console.log("Emoji chosen", data);
-              // }} />
-
       let areAdj = this.state.adjectives.length > 0;
 
       let addAdjStyle = areAdj ? {display: 'none'} : {};
-
->>>>>>> f31bf6c1509e2676daae7837932b281d0ddf3457
       return (
         <div>
           {this.renderHeader()}
@@ -228,6 +220,7 @@ export default class CourseInfoScreen extends React.Component {
       height: '200px',
       width:  '300px'
     });
+  }
 
   addWord(e){
   if (!e) var e = window.event;
