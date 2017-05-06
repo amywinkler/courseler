@@ -5,13 +5,13 @@ import SectionInfo from './sectionInfo.jsx';
 import { currentRoute, navigateToRoute } from './routing.jsx';
 
 /*
-  A single section of the Course Info screen, 
+  A single section of the Course Info screen,
   like "Hours per week" or "Demographics"
 */
 
 
 class CourseInfoSection extends React.Component {
-  
+
   // Props are 'label' and 'content'
   constructor(props) {
     super(props);
@@ -42,12 +42,18 @@ export default class CourseInfoScreen extends React.Component {
       info: null,
       place: '',
       time: '',
-      emojis: []
+      emojis: [],
+      adjectives: [],
+      altTitles: []
     };
     api.courseInfo(this.props.courseCode, (info) => {
       this.setState({info: info});
       let emojis = (this.state.info.funAndCool.emojis != undefined) ? this.state.info.funAndCool.emojis : [];
       this.setState({emojis: emojis});
+      let adjectives = (this.state.info.funAndCool.descriptions != undefined) ? this.state.info.funAndCool.descriptions : [];
+      this.setState({adjectives: adjectives});
+      let altTitles = (this.state.info.funAndCool.alternate_titles != undefined) ? this.state.info.funAndCool.alternate_titles : [];
+      this.setState({altTitles: altTitles});
     });
   }
 
@@ -64,7 +70,7 @@ export default class CourseInfoScreen extends React.Component {
 
    		let mySections = this.props.calendar ? this.props.calendar.sections : [];
       let mySectionIds = mySections.map((s) => s.sectionId);
-      
+
       let getDemographicsContent = () => {
         if (this.state.info.crData) {
           return (
@@ -90,7 +96,7 @@ export default class CourseInfoScreen extends React.Component {
               <div className="demographic">
                 <h4 className="demLabel">Concentrator Demographics</h4>
                 <div className="gradient"></div>
-                <div className="concentratorDemographics">              
+                <div className="concentratorDemographics">
                   <div className="conc graph" style={{width:info.crData.demographics.percent_concentrators*100+"%", backgroundColor: "#3CEEE5"}}></div>
                   <div className="nonconc graph" style={{width:info.crData.demographics.percent_non_concentrators*100+"%", backgroundColor: "#84FFFA"}}></div>
                   <div className="undecided graph" style={{width:info.crData.demographics.percent_undecided*100+"%", backgroundColor: "#C5FFFD"}}></div>
@@ -127,15 +133,15 @@ export default class CourseInfoScreen extends React.Component {
       // Add each section in the course to its corresponding group
   		info.sections.map((section, index) => {
         let inCart = mySectionIds.indexOf(section.sectionId) >= 0;
-        let sectionObject =  <SectionInfo key={index} 
-                  sectionId={section.sectionId} 
-                  times={section.times} 
-                  inCart = {inCart} 
-                  onAdd={this.props.reloadCalendar} 
-                  onRemove={this.props.reloadCalendar} 
-                  professors = {section.professors} 
+        let sectionObject =  <SectionInfo key={index}
+                  sectionId={section.sectionId}
+                  times={section.times}
+                  inCart = {inCart}
+                  onAdd={this.props.reloadCalendar}
+                  onRemove={this.props.reloadCalendar}
+                  professors = {section.professors}
                   locations = {section.meetingLocations}
-                  locked={this.props.locked} 
+                  locked={this.props.locked}
                   shared={this.props.shared} />;
 
         switch(section.sectionType) {
@@ -149,45 +155,59 @@ export default class CourseInfoScreen extends React.Component {
             sections.push(sectionObject);
         }
 
-                
+
       });
 
       let courseDescriptionContent = <p>{info.description}</p>
 
-      let adjectives = (this.state.info.funAndCool.descriptions != undefined) ? this.state.info.funAndCool.descriptions.map((description, index) => {
+      let adjectives =  this.state.adjectives.map((description, index) => {
         return <div className="adj" key={index}>{description}</div>
-      }) : null;
+      });
 
-      let altTitles = (this.state.info.funAndCool.alternate_titles != undefined) ? 
-        <div className="altTitles">
-        <div className="altTitle">also known as... </div>
-          {this.state.info.funAndCool.alternate_titles.map((altTitle, index) => {
-            return <div className="altTitle" key={index}>"{altTitle}"</div>
-          })}
-        </div>
-      : null;
+      let altTitles =  this.state.altTitles.map((altTitle, index) => {
+        return <div className="altTitle" key={index}>"{altTitle}"</div>
+      });
 
       let addEmojiVisibility = this.addEmojiVisibility();
 
+<<<<<<< HEAD
+=======
+              //       <EmojiPicker onChange={function(data){
+              //   console.log("Emoji chosen", data);
+              // }} />
+
+      let areAdj = this.state.adjectives.length > 0;
+
+      let addAdjStyle = areAdj ? {display: 'none'} : {};
+
+>>>>>>> f31bf6c1509e2676daae7837932b281d0ddf3457
       return (
         <div>
           {this.renderHeader()}
     			<div className='courseInfo screen'>
             <div className ="courseInfoHeader">
-              <label>{term}</label> 
+              <label>{term}</label>
               <div className='emojis'>{emojis}</div>
-  
               <input id = "emoji-input-box" 
               ref={(input) => { this.addEmojiBox(input); }
-              }
-              onChange={
-                this.emojiChange.bind(this)
-              } style = {addEmojiVisibility} />
+              } />
               <p id="emoji-error"></p>
             </div>
     				<h2>{code}: {title}</h2>
+            <div className="altTitles">
+            <div className="altTitle">also known as... </div>
             {altTitles}
-            <div className ="adjectives">{adjectives}</div>
+            <div className='add-alttitle' onClick={
+              this.addAltTitle.bind(this) } >⊕</div>
+            <input id = "alttitle-input-box" onKeyPress={this.handleEnterTitle} />
+            </div>
+
+            <div className ="adjectives">
+             {adjectives}  <span style={addAdjStyle}> Add adjective: </span>
+            <div className='add-word' onClick={
+              this.addWord.bind(this) } >⊕</div>
+            <input id = "word-input-box" onKeyDown={this.handleTypeWordNoSpaces} onKeyPress={this.handleEnterWord} />
+            </div>
             <CourseInfoSection label='Sections' content={sections} />
             <CourseInfoSection label='Conferences' content={conferences} />
             <CourseInfoSection label='Film Screenings' content={filmScreenings} />
@@ -196,7 +216,7 @@ export default class CourseInfoScreen extends React.Component {
             <CourseInfoSection label='Demographics' content={getDemographicsContent()} />
     			</div>
         </div>
-  		)	
+  		)
     } else {
       return null;
     }
@@ -208,13 +228,52 @@ export default class CourseInfoScreen extends React.Component {
       height: '200px',
       width:  '300px'
     });
+
+  addWord(e){
+  if (!e) var e = window.event;
+  if (e.stopPropagation) e.stopPropagation();
+  let wordBox = $('#word-input-box');
+  wordBox.show();
+
+  $('.add-word').hide();
+}
+
+addAltTitle(e){
+if (!e) var e = window.event;
+if (e.stopPropagation) e.stopPropagation();
+let titleBox = $('#alttitle-input-box');
+titleBox.show();
+
+$('.add-alttitle').hide();
+}
+
+
+  handleEnterWord = (e) => {
+
+    if (e.key === 'Enter') {
+      this.wordChange(e);
+    }
+  }
+
+  handleEnterTitle = (e) => {
+
+    if (e.key === 'Enter') {
+      this.titleChange(e);
+    }
+  }
+
+
+  handleTypeWordNoSpaces = (e) => {
+    if(e.key === " "){
+    e.preventDefault();
+    }
   }
 
   addEmojiVisibility() {
     let numEmojis = this.state.emojis.length;
     if (numEmojis <5 ){
       return ({});
-    } 
+    }
   }
 
   emojiChange(e) {
@@ -229,7 +288,57 @@ export default class CourseInfoScreen extends React.Component {
     }
     emojiVal.val("");
   }
-  
+
+  wordChange(e) {
+
+    let wordVal = $('#word-input-box');
+    let Filter = require('bad-words'),
+    filter = new Filter();
+    var words = require("an-array-of-english-words")
+
+    let wordToAdd = filter.clean(wordVal.val());
+    if(wordVal.val() != wordToAdd || !words.includes(wordVal.val()) ||
+    this.state.adjectives.includes(wordVal.val().toLowerCase())){
+      alert('Must add real words that are not profanity and have not already been added!')
+    } else {
+      api.addWord(this.state.info.courseCode, wordToAdd);
+      let currWords = this.state.adjectives;
+      this.setState({adjectives: currWords.concat(wordToAdd)});
+      wordVal.val("");
+    }
+
+  }
+
+  titleChange(e) {
+
+    let titleVal = $('#alttitle-input-box');
+    let Filter = require('bad-words'),
+    filter = new Filter();
+    var words = require("an-array-of-english-words")
+
+    let wordsAreValid = true;
+    let wordArr = titleVal.val().split(' ');
+
+    for (var i = 0; i < wordArr.length; i++) {
+      if(!words.includes(wordArr[i])){
+        wordsAreValid = false;
+      }
+    }
+
+    let wordToAdd = filter.clean(titleVal.val());
+    if(titleVal.val() != wordToAdd ||
+    this.state.altTitles.includes(titleVal.val().toLowerCase()) || !wordsAreValid){
+      alert('Must add real words that are not profanity and have not already been added!')
+    } else {
+      api.addAltName(this.state.info.courseCode, titleVal.val());
+      let currTitles = this.state.altTitles;
+      this.setState({altTitles: currTitles.concat(wordToAdd)});
+      titleVal.val("");
+    }
+
+  }
+
+
   renderHeader() {
     return (
       <div className='header'>
