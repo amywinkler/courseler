@@ -217,6 +217,21 @@ public class RankedSearch {
           finalCourseList.add(c);
         }
       }
+
+      List<Course> titleSuggestionsFull = titleSearch.suggest(entireSearch);
+      for (Course c : titleSuggestionsFull) {
+        if (!finalCourseList.contains(c)) {
+          finalCourseList.add(c);
+        }
+      }
+
+      List<Course> descriptionSuggestionsFull = descriptionSearch
+          .suggest(entireSearch);
+      for (Course c : descriptionSuggestionsFull) {
+        if (!finalCourseList.contains(c)) {
+          finalCourseList.add(c);
+        }
+      }
     } else {
       finalCourseList = courseCodeSearch.suggest(entireSearch);
 
