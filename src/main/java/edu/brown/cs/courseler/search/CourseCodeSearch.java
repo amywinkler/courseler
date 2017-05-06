@@ -46,6 +46,29 @@ public class CourseCodeSearch implements SearchSuggestions<Course> {
 
   }
 
+  /**
+   * Suggest only on course numbers.
+   *
+   * @param searchTerm
+   *          the search term
+   * @return the suggestion
+   */
+  public List<Course> suggestNumeric(String searchTerm) {
+    List<Course> allCourses = cache.getAllCourses();
+    List<Course> toReturn = new ArrayList<>();
+
+    for (Course c : allCourses) {
+      String[] courseCodeArr = c.getCourseCode().toLowerCase().split(" ");
+      String courseNumber = courseCodeArr[1];
+      if (searchTerm.equals(courseNumber)
+          || courseNumber.startsWith(searchTerm)) {
+        toReturn.add(c);
+      }
+    }
+
+    return toReturn;
+  }
+
   @Override
   public List<Course> suggest(String searchTerm) {
 
@@ -97,10 +120,8 @@ public class CourseCodeSearch implements SearchSuggestions<Course> {
         if (!toReturn.contains(c)) {
           toReturn.add(c);
         }
-
       }
 
-      // TODO: is this needed?
       if (shortenings.contains(c.getCourseCode().toLowerCase().split(" ")[0]
           .toLowerCase())) {
         if (courseMappings.get(

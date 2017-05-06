@@ -61,7 +61,12 @@ public class WritCourseRecommendations implements Recommend<Course> {
   private List<Course> getOnlyWritCourses() {
     List<Course> toReturn = new ArrayList<>();
     for (Course c : allCourses) {
-      if (c.getDescription() != null && c.getDescription().contains("WRIT")) {
+      if (c.getDescription() != null
+          && (c.getDescription().contains("WRIT") || c.getDepartment()
+              .toLowerCase().equals("literary arts")
+              || c.getDepartment().toLowerCase()
+                  .equals("comparative literature") || c.getDepartment()
+              .toLowerCase().equals("english"))) {
         toReturn.add(c);
       }
     }

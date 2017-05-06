@@ -207,88 +207,96 @@ public class RankedSearch {
     entireSearch = entireSearch.toLowerCase().trim();
 
     List<Course> finalCourseList = new ArrayList<>();
-    finalCourseList = courseCodeSearch.suggest(entireSearch);
 
-    String sugg = searchNumberSuggestion(entireSearch);
-    if (sugg != null) {
-      List<Course> courseCodeResultsOuter = courseCodeSearch.suggest(sugg);
-      for (Course c : courseCodeResultsOuter) {
+
+    if (StringUtils.isNumeric(entireSearch)) {
+      List<Course> numericSearchRes = courseCodeSearch
+          .suggestNumeric(entireSearch);
+      for (Course c : numericSearchRes) {
         if (!finalCourseList.contains(c)) {
           finalCourseList.add(c);
         }
       }
-    }
+    } else {
+      finalCourseList = courseCodeSearch.suggest(entireSearch);
 
-    if (finalCourseList.size() == 0) {
-      List<Course> titleSuggestionsFull = titleSearch.suggest(entireSearch);
-      for (Course c : titleSuggestionsFull) {
-        if (!finalCourseList.contains(c)) {
-          finalCourseList.add(c);
-        }
-      }
-
-      List<Course> descriptionSuggestionsFull = descriptionSearch
-          .suggest(entireSearch);
-      for (Course c : descriptionSuggestionsFull) {
-        if (!finalCourseList.contains(c)) {
-          finalCourseList.add(c);
-        }
-      }
-    }
-
-
-    String[] searchWordsSplit = entireSearch.trim().split(" ");
-    if (searchWordsSplit.length == 2) {
-      String putTogether = searchWordsSplit[0] + searchWordsSplit[1];
-      List<Course> courseCodeResults = courseCodeSearch.suggest(putTogether);
-      for (Course c : courseCodeResults) {
-        if (!finalCourseList.contains(c)) {
-          finalCourseList.add(c);
-        }
-      }
-
-      String suggN = searchNumberSuggestion(putTogether);
-      if (suggN != null) {
-        List<Course> courseCodeResults2 = courseCodeSearch.suggest(suggN);
-        for (Course c : courseCodeResults2) {
+      String sugg = searchNumberSuggestion(entireSearch);
+      if (sugg != null) {
+        List<Course> courseCodeResultsOuter = courseCodeSearch.suggest(sugg);
+        for (Course c : courseCodeResultsOuter) {
           if (!finalCourseList.contains(c)) {
             finalCourseList.add(c);
           }
         }
       }
 
-    }
-
-
-    if (finalCourseList.size() == 0) {
-      List<String> wordsToSearch = new ArrayList<>();
-      if (searchWordsSplit.length <= 5) {
-        // search on each word
-        for (int i = 0; i < searchWordsSplit.length; i++) {
-          if (cache.getDeptForCode(searchWordsSplit[i].toUpperCase()) == null
-              && !StringUtils.isNumeric(searchWordsSplit[i])
-              && !smallWords.contains(searchWordsSplit[i])) {
-            wordsToSearch.add(searchWordsSplit[i]);
-          }
-
-        }
-        searchIndividualWords(finalCourseList, wordsToSearch);
-
-      } else {
-        // search on only the last 5 words
-        for (int i = searchWordsSplit.length - 1;
-            i > searchWordsSplit.length - 5; i--) {
-          if (cache.getDeptForCode(searchWordsSplit[i].toUpperCase()) == null
-              && !StringUtils.isNumeric(searchWordsSplit[i])
-              && !smallWords.contains(searchWordsSplit[i])) {
-            wordsToSearch.add(searchWordsSplit[i]);
+      if (finalCourseList.size() == 0) {
+        List<Course> titleSuggestionsFull = titleSearch.suggest(entireSearch);
+        for (Course c : titleSuggestionsFull) {
+          if (!finalCourseList.contains(c)) {
+            finalCourseList.add(c);
           }
         }
-        searchIndividualWords(finalCourseList, wordsToSearch);
+
+        List<Course> descriptionSuggestionsFull = descriptionSearch
+            .suggest(entireSearch);
+        for (Course c : descriptionSuggestionsFull) {
+          if (!finalCourseList.contains(c)) {
+            finalCourseList.add(c);
+          }
+        }
+      }
+
+      String[] searchWordsSplit = entireSearch.trim().split(" ");
+      if (searchWordsSplit.length == 2) {
+        String putTogether = searchWordsSplit[0] + searchWordsSplit[1];
+        List<Course> courseCodeResults = courseCodeSearch.suggest(putTogether);
+        for (Course c : courseCodeResults) {
+          if (!finalCourseList.contains(c)) {
+            finalCourseList.add(c);
+          }
+        }
+
+        String suggN = searchNumberSuggestion(putTogether);
+        if (suggN != null) {
+          List<Course> courseCodeResults2 = courseCodeSearch.suggest(suggN);
+          for (Course c : courseCodeResults2) {
+            if (!finalCourseList.contains(c)) {
+              finalCourseList.add(c);
+            }
+          }
+        }
+      }
+
+
+
+      if (finalCourseList.size() == 0) {
+        List<String> wordsToSearch = new ArrayList<>();
+        if (searchWordsSplit.length <= 5) {
+          // search on each word
+          for (int i = 0; i < searchWordsSplit.length; i++) {
+            if (cache.getDeptForCode(searchWordsSplit[i].toUpperCase()) == null
+                && !StringUtils.isNumeric(searchWordsSplit[i])
+                && !smallWords.contains(searchWordsSplit[i])) {
+              wordsToSearch.add(searchWordsSplit[i]);
+            }
+
+          }
+          searchIndividualWords(finalCourseList, wordsToSearch);
+
+        } else {
+          // search on only the last 5 words
+          for (int i = searchWordsSplit.length - 1; i > searchWordsSplit.length - 5; i--) {
+            if (cache.getDeptForCode(searchWordsSplit[i].toUpperCase()) == null
+                && !StringUtils.isNumeric(searchWordsSplit[i])
+                && !smallWords.contains(searchWordsSplit[i])) {
+              wordsToSearch.add(searchWordsSplit[i]);
+            }
+          }
+          searchIndividualWords(finalCourseList, wordsToSearch);
+        }
       }
     }
-
-
 
     return finalCourseList;
   }
