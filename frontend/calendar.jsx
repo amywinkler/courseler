@@ -30,7 +30,6 @@ export default class Calendar extends React.Component {
   }
 
 	render() {
-		console.log(this.state.timeslots);
     let sharedCartTitle = null;
     if (this.props.shared && this.props.calendar && this.props.calendar.email) {
       sharedCartTitle = <h1 className='sharedCartTitle'><em>{ this.props.calendar.email }</em> has shared their cart with you.</h1>
