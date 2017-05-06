@@ -176,6 +176,7 @@ export default class CourseInfoScreen extends React.Component {
           {this.state.info.funAndCool.alternate_titles.map((altTitle, index) => {
             return <div className="altTitle" key={index}>"{altTitle}"</div>
           })}
+
         </div>
       : null;
 
@@ -184,6 +185,10 @@ export default class CourseInfoScreen extends React.Component {
               //       <EmojiPicker onChange={function(data){
               //   console.log("Emoji chosen", data);
               // }} />
+
+      let areAdj = this.state.adjectives.length > 0;
+
+      let addAdjStyle = areAdj ? {display: 'none'} : {};
 
       return (
         <div>
@@ -203,7 +208,7 @@ export default class CourseInfoScreen extends React.Component {
             {altTitles}
 
             <div className ="adjectives">
-             {adjectives}  Add adjective: 
+             {adjectives}  <span style={addAdjStyle}> Add adjective: </span>
             <div className='add-word' onClick={
               this.addWord.bind(this) } >⊕</div>
             <input id = "word-input-box" onKeyDown={this.handleKeyDown} onKeyPress={this.handleKeyPress} />
