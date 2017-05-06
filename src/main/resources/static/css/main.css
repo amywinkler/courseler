@@ -961,10 +961,25 @@ h1, h2, h3, h4 {
   color: gray;
 }
 
+.add-alttitle {
+  cursor: pointer;
+  display: inline-block;
+  font-size: 30px;
+  color: gray;
+}
+
 #word-input-box {
   display: inline-block;
   display:none;
+    width: 80px;
 }
+
+#alttitle-input-box {
+  display: inline-block;
+  display:none;
+
+}
+
 
 
 #emoji-error {

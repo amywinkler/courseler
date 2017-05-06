@@ -46,7 +46,8 @@ export default class CourseInfoScreen extends React.Component {
       place: '',
       time: '',
       emojis: [],
-      adjectives: []
+      adjectives: [],
+      altTitles: []
     };
     api.courseInfo(this.props.courseCode, (info) => {
       this.setState({info: info});
@@ -54,6 +55,8 @@ export default class CourseInfoScreen extends React.Component {
       this.setState({emojis: emojis});
       let adjectives = (this.state.info.funAndCool.descriptions != undefined) ? this.state.info.funAndCool.descriptions : [];
       this.setState({adjectives: adjectives});
+      let altTitles = (this.state.info.funAndCool.alternate_titles != undefined) ? this.state.info.funAndCool.alternate_titles : [];
+      this.setState({altTitles: altTitles});
     });
   }
 
@@ -170,20 +173,19 @@ export default class CourseInfoScreen extends React.Component {
         return <div className="adj" key={index}>{description}</div>
       });
 
-      let altTitles = (this.state.info.funAndCool.alternate_titles != undefined) ?
-        <div className="altTitles">
-        <div className="altTitle">also known as... </div>
-          {this.state.info.funAndCool.alternate_titles.map((altTitle, index) => {
-            return <div className="altTitle" key={index}>"{altTitle}"</div>
-          })}
-        </div>
-      : null;
+      let altTitles =  this.state.altTitles.map((altTitle, index) => {
+        return <div className="altTitle" key={index}>"{altTitle}"</div>
+      });
 
       let addEmojiVisibility = this.addEmojiVisibility();
 
               //       <EmojiPicker onChange={function(data){
               //   console.log("Emoji chosen", data);
               // }} />
+
+      let areAdj = this.state.adjectives.length > 0;
+
+      let addAdjStyle = areAdj ? {display: 'none'} : {};
 
       return (
         <div>
@@ -200,14 +202,19 @@ export default class CourseInfoScreen extends React.Component {
               <p id="emoji-error"></p>
             </div>
     				<h2>{code}: {title}</h2>
+            <div className="altTitles">
+            <div className="altTitle">also known as... </div>
             {altTitles}
-
+            <div className='add-alttitle' onClick={
+              this.addAltTitle.bind(this) } >⊕</div>
+            <input id = "alttitle-input-box" onKeyPress={this.handleEnterTitle} />
+            </div>
 
             <div className ="adjectives">
-            {adjectives}
+             {adjectives}  <span style={addAdjStyle}> Add adjective: </span>
             <div className='add-word' onClick={
               this.addWord.bind(this) } >⊕</div>
-            <input id = "word-input-box" onKeyDown={this.handleKeyDown} onKeyPress={this.handleKeyPress} />
+            <input id = "word-input-box" onKeyDown={this.handleTypeWordNoSpaces} onKeyPress={this.handleEnterWord} />
             </div>
             <CourseInfoSection label='Sections' content={sections} />
             <CourseInfoSection label='Conferences' content={conferences} />
@@ -232,24 +239,34 @@ export default class CourseInfoScreen extends React.Component {
   $('.add-word').hide();
 }
 
+addAltTitle(e){
+if (!e) var e = window.event;
+if (e.stopPropagation) e.stopPropagation();
+let titleBox = $('#alttitle-input-box');
+titleBox.show();
 
-  handleKeyPress = (e) => {
+$('.add-alttitle').hide();
+}
+
+
+  handleEnterWord = (e) => {
+
     if (e.key === 'Enter') {
-      console.log("here");
       this.wordChange(e);
     }
   }
 
-  handleKeyDown = (e) => {
-    console.log('hereee');
-    if(e.key === " "){
-      return false;
-       //var inputString = $('#word-input-box').val();
+  handleEnterTitle = (e) => {
 
-      //   var shortenedString = inputString.substr(0,(inputString.length -1));
-      //   $('#word-input-box').val(inputString);
-    } else {
-      return true;
+    if (e.key === 'Enter') {
+      this.titleChange(e);
+    }
+  }
+
+
+  handleTypeWordNoSpaces = (e) => {
+    if(e.key === " "){
+    e.preventDefault();
     }
   }
 
@@ -292,12 +309,52 @@ export default class CourseInfoScreen extends React.Component {
   }
 
   wordChange(e) {
-    console.log("here 2");
+
     let wordVal = $('#word-input-box');
-    api.addWord(this.state.info.courseCode, wordVal.val());
-    let currWords = this.state.adjectives;
-    this.setState({adjectives: currWords.concat(wordVal.val())});
-    wordVal.val("");
+    let Filter = require('bad-words'),
+    filter = new Filter();
+    var words = require("an-array-of-english-words")
+
+    let wordToAdd = filter.clean(wordVal.val());
+    if(wordVal.val() != wordToAdd || !words.includes(wordVal.val()) ||
+    this.state.adjectives.includes(wordVal.val().toLowerCase())){
+      alert('Must add real words that are not profanity and have not already been added!')
+    } else {
+      api.addWord(this.state.info.courseCode, wordToAdd);
+      let currWords = this.state.adjectives;
+      this.setState({adjectives: currWords.concat(wordToAdd)});
+      wordVal.val("");
+    }
+
+  }
+
+  titleChange(e) {
+
+    let titleVal = $('#alttitle-input-box');
+    let Filter = require('bad-words'),
+    filter = new Filter();
+    var words = require("an-array-of-english-words")
+
+    let wordsAreValid = true;
+    let wordArr = titleVal.val().split(' ');
+
+    for (var i = 0; i < wordArr.length; i++) {
+      if(!words.includes(wordArr[i])){
+        wordsAreValid = false;
+      }
+    }
+
+    let wordToAdd = filter.clean(titleVal.val());
+    if(titleVal.val() != wordToAdd ||
+    this.state.altTitles.includes(titleVal.val().toLowerCase()) || !wordsAreValid){
+      alert('Must add real words that are not profanity and have not already been added!')
+    } else {
+      api.addAltName(this.state.info.courseCode, titleVal.val());
+      let currTitles = this.state.altTitles;
+      this.setState({altTitles: currTitles.concat(wordToAdd)});
+      titleVal.val("");
+    }
+
   }
 
 
