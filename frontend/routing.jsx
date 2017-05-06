@@ -17,5 +17,6 @@ export let navigateToRoute = function(route) {
   let url = '?' + Object.keys(route).map((k) => k + '=' + encodeURIComponent(route[k])).join('&');
   history.pushState({}, null, url);
   window.onpopstate();
+  window.scrollTo(0, 0)
 }
 

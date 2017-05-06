@@ -20,13 +20,13 @@ export default class Calendar extends React.Component {
 			// For course info view
 			selectedCourseInfo: {},
 			// Array of all sectionIds in current cart
-			currentCart: []
+			currentCart: [],
+			timeslots: {}
 		};
 	}
   
   componentDidMount() {
     if (this.props.calendar) this.gotCalendar(this.props.calendar);
-    this.getToday();
   }
 
 	render() {
@@ -97,7 +97,20 @@ export default class Calendar extends React.Component {
   	}
 
 		// Puts a single section into the appropriate day
-		let loadDay = (day, timeObject, sectionObject) => {
+		let loadDay = (day, timeObject, sectionObject, timeslots) => {
+
+			// Conflicting section logic
+			let conflictingSections = [];
+			sectionObject.overlappingTimeSlots.map((slot) => {
+				if ((timeslots[slot].length) > 0){
+					timeslots[slot].map((section) => {
+						if (!(section.title===sectionObject.title)) {
+							conflictingSections = conflictingSections.concat([section]);
+						};
+					});
+				};
+			});
+
 			let startString = day+"Start";
 			let endString = day+"End";
 			let courseId = sectionObject.courseCode;
@@ -111,6 +124,7 @@ export default class Calendar extends React.Component {
 										start={startTime} 
 										end={endTime}
 										locations={this.getLocationString(sectionObject.meetingLocations)}
+										conflictingSections={conflictingSections}
 										onRemove={this.props.reloadCalendar} 
                     locked={this.props.locked}
 										click={this.showCourseInfo.bind(this, courseId)}/>;
@@ -119,18 +133,30 @@ export default class Calendar extends React.Component {
         });
 			}
     }
-		calendar.sections.map(function(section) {
-			loadDay("monday", section.times, section);
-			loadDay("tuesday", section.times, section);
-			loadDay("wednesday", section.times, section);
-			loadDay("thursday", section.times, section);
-			loadDay("friday", section.times, section);
+
+    //Overlapping timeslot logic; messy
+    let timeslots = {};
+    calendar.sections.map((section) => {
+			if (section.overlappingTimeSlots) {
+				section.overlappingTimeSlots.map((slot) => {
+					if (!timeslots[slot]) {
+						timeslots[slot] = [section];
+					} else {
+						timeslots[slot].push(section);
+					}
+				});
+			};
+			this.setState({timeslots: timeslots});
+    })
+
+		calendar.sections.map((section) => {
+			loadDay("monday", section.times, section, timeslots);
+			loadDay("tuesday", section.times, section, timeslots);
+			loadDay("wednesday", section.times, section, timeslots);
+			loadDay("thursday", section.times, section, timeslots);
+			loadDay("friday", section.times, section, timeslots);
 			this.setState({currentCart: this.state.currentCart.concat([section.sectionId])});
 		}, this);
-  }
-
-  getToday() {
-  	let today = new Date().getDay();
   }
 
   getLocationString(locations){
@@ -144,5 +170,6 @@ export default class Calendar extends React.Component {
     	});
     	return Array.from(locationArray).join(', ');
 	}
+
 
 }
