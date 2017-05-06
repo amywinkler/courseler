@@ -279,8 +279,8 @@ h1, h2, h3, h4 {
 .calendarSectionObject {
   width: 85%;
   padding: 10px 10px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+  margin-top: 4px;
+  margin-bottom: 8px;
   background-color: #ccc;
   position: relative;
 }
@@ -294,6 +294,12 @@ h1, h2, h3, h4 {
 
 .calendarSectionObject>h4 {
   width: 90%;
+}
+
+.timeLabel {
+  font-size: 12px;
+  margin-bottom: 0px;
+  opacity: 0.4;
 }
 
 .removeSection {

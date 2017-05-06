@@ -2,13 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import api from './api.jsx';
 import CalendarSectionObject from './calendarSectionObject.jsx';
+import { militaryTimeIntToString } from './timeFormatter.jsx';
 
 export default class CalendarDayView extends React.Component {
 	
 	constructor(props) {
 		super(props);
 		this.state = {
-			startTimes: []
+			startTimes: [],
+			sectionMap: {}
 		};
 	}
 
@@ -33,18 +35,34 @@ export default class CalendarDayView extends React.Component {
 		let sections = this.props.sections;
 		let style= (this.props.style) ? this.props.style : {};
 
-		console.log(this.state.startTimes);
-
+		let timeHeaders = this.state.startTimes.map((time, index) => {
+			return (
+				<div className='timeSection' key={index}>
+					<h4 className = 'timeLabel' key={index}>{militaryTimeIntToString(time)}</h4>
+					<div className='courses'>
+						{this.getSectionsWithStartTime(time)}
+					</div>
+				</div>
+			);
+		});
 
 		return (
 			<div className='calendarDayView' style={style}>
 				<h3 className='dayLabel'>{day}</h3>
-				<h4 className='timeLabel'>Time</h4>
-				<div className='courses'>
-					{sections}
-				</div>
+				{timeHeaders}
 			</div>
 		)
+	}
+
+	getSectionsWithStartTime(time) {
+		let sections = [];
+		console.log(time);
+		this.props.sections.map((section)=> {
+			if (section.props.start === time) {
+				sections.push(section);
+			};
+		});
+		return sections;
 	}
 
 }
