@@ -200,12 +200,12 @@ h1, h2, h3, h4 {
   display: flex;
   flex-direction: row;
   text-transform: lowercase;
-  
+
 /*  background-image: linear-gradient(0deg, #FFB746 0%, #FFE0AD 100%);
   box-shadow: 0 0 10px 0 #E06F7A;*/
 /*  background-color: rgba(0,0,0,0.05);
-*/ 
-  
+*/
+
   color: rgba(50, 57, 78, 0.9);
 /*  background-image: url(/img/NavBar.png);
   background-size: 100% 100%;
@@ -239,7 +239,7 @@ h1, h2, h3, h4 {
 /* CALENDAR UI */
 
 .calendarDayView {
-  display: inline-block; 
+  display: inline-block;
   width: 20%;
   padding: 10px;
   vertical-align: top;
@@ -427,7 +427,7 @@ h1, h2, h3, h4 {
   text-transform: uppercase;
   font-size: 10px;
   letter-spacing: 1px;
-  border-radius: 10px; 
+  border-radius: 10px;
   background-image: linear-gradient(160deg, #a7c8eb 0%, #abaef7 100%);
 }
 
@@ -531,7 +531,7 @@ h1, h2, h3, h4 {
 .keyRow {
   width: 100%;
   min-width: 98px;
-  margin-left: 8px; 
+  margin-left: 8px;
   display: inline-block;
 }
 
@@ -625,7 +625,7 @@ h1, h2, h3, h4 {
 }
 
 .preferences .done {
-  
+
 }
 
 .prefSection {
@@ -821,7 +821,7 @@ h1, h2, h3, h4 {
 }
 
 .results .CourseCell {
-  
+
 }
 
 .FilterEditor {
@@ -847,8 +847,8 @@ h1, h2, h3, h4 {
 }
 
 @media screen and (max-width: 500px) {
-  .SectionCell label, 
-  .CourseCell, 
+  .SectionCell label,
+  .CourseCell,
   .search-field,
   .calendar {
     font-size: small;
@@ -948,6 +948,19 @@ h1, h2, h3, h4 {
   font-size: 35px;
 }
 
+.add-word {
+  cursor: pointer;
+  display: inline-block;
+  font-size: 30px;
+  color: gray;
+}
+
+#word-input-box {
+  display: inline-block;
+  display:none;
+}
+
+
 #emoji-error {
   display: none;
 }
@@ -955,4 +968,3 @@ h1, h2, h3, h4 {
 .emojiPickerIcon {
   background-color: white !important;
 }
-

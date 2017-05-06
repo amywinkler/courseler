@@ -201,8 +201,14 @@ export default class CourseInfoScreen extends React.Component {
             </div>
     				<h2>{code}: {title}</h2>
             {altTitles}
-            <div className ="adjectives">{adjectives}</div>
+
+
+            <div className ="adjectives">
+            {adjectives}
+            <div className='add-word' onClick={
+              this.addWord.bind(this) } >⊕</div>
             <input id = "word-input-box" onKeyDown={this.handleKeyDown} onKeyPress={this.handleKeyPress} />
+            </div>
             <CourseInfoSection label='Sections' content={sections} />
             <CourseInfoSection label='Conferences' content={conferences} />
             <CourseInfoSection label='Film Screenings' content={filmScreenings} />
@@ -216,6 +222,15 @@ export default class CourseInfoScreen extends React.Component {
       return null;
     }
 	}
+
+  addWord(e){
+  if (!e) var e = window.event;
+  if (e.stopPropagation) e.stopPropagation();
+  let wordBox = $('#word-input-box');
+  wordBox.show();
+
+  $('.add-word').hide();
+}
 
 
   handleKeyPress = (e) => {
