@@ -7,6 +7,7 @@ input, select {
   height: 100%;
   font-family: 'Nunito Sans', sans-serif;
   line-height: 1.4;
+  -webkit-font-smoothing: antialiased;
 }
 
 .logo {
@@ -776,6 +777,7 @@ h1, h2, h3, h4 {
   white-space: nowrap;
   text-align: right;
   flex-grow: 1;
+  padding-right: 5px;
 }
 
 .hscroll .CourseCell:not(:first-child) {
