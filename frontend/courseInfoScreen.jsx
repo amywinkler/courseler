@@ -202,7 +202,6 @@ export default class CourseInfoScreen extends React.Component {
     				<h2>{code}: {title}</h2>
             {altTitles}
 
-
             <div className ="adjectives">
             {adjectives}
             <div className='add-word' onClick={
@@ -234,6 +233,7 @@ export default class CourseInfoScreen extends React.Component {
 
 
   handleKeyPress = (e) => {
+
     if (e.key === 'Enter') {
       console.log("here");
       this.wordChange(e);
@@ -241,6 +241,7 @@ export default class CourseInfoScreen extends React.Component {
   }
 
   handleKeyDown = (e) => {
+
     console.log('hereee');
     if(e.key === " "){
       return false;
@@ -292,12 +293,21 @@ export default class CourseInfoScreen extends React.Component {
   }
 
   wordChange(e) {
-    console.log("here 2");
+
     let wordVal = $('#word-input-box');
-    api.addWord(this.state.info.courseCode, wordVal.val());
-    let currWords = this.state.adjectives;
-    this.setState({adjectives: currWords.concat(wordVal.val())});
-    wordVal.val("");
+    let Filter = require('bad-words'),
+    filter = new Filter();
+
+    let wordToAdd = filter.clean(wordVal.val());
+    if(wordVal.val() != wordToAdd){
+      alert('cannot add bad words!')
+    } else {
+      api.addWord(this.state.info.courseCode, wordToAdd);
+      let currWords = this.state.adjectives;
+      this.setState({adjectives: currWords.concat(wordToAdd)});
+      wordVal.val("");
+    }
+
   }
 
 
