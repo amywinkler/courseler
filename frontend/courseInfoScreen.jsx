@@ -241,16 +241,9 @@ export default class CourseInfoScreen extends React.Component {
   }
 
   handleKeyDown = (e) => {
-
-    console.log('hereee');
+  //TODO change this to not allow for numbers
     if(e.key === " "){
-      return false;
-       //var inputString = $('#word-input-box').val();
-
-      //   var shortenedString = inputString.substr(0,(inputString.length -1));
-      //   $('#word-input-box').val(inputString);
-    } else {
-      return true;
+    e.preventDefault();
     }
   }
 
@@ -297,10 +290,11 @@ export default class CourseInfoScreen extends React.Component {
     let wordVal = $('#word-input-box');
     let Filter = require('bad-words'),
     filter = new Filter();
+    var words = require("an-array-of-english-words")
 
     let wordToAdd = filter.clean(wordVal.val());
-    if(wordVal.val() != wordToAdd){
-      alert('cannot add bad words!')
+    if(wordVal.val() != wordToAdd || !words.includes(wordVal.val())){
+      alert('Must add real words that are not profanity!')
     } else {
       api.addWord(this.state.info.courseCode, wordToAdd);
       let currWords = this.state.adjectives;
