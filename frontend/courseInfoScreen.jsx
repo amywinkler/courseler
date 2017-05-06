@@ -1,18 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ReactPerf from 'react-addons-shallow-compare';
-// import EmojiPicker from './src/picker';
 import api from './api.jsx';
 import SectionInfo from './sectionInfo.jsx';
 import { currentRoute, navigateToRoute } from './routing.jsx';
-
-// let Emoji = require('emojione');
-// let EmojiPicker = require('emojione-picker');
 
 /*
   A single section of the Course Info screen, 
   like "Hours per week" or "Demographics"
 */
+
+
 class CourseInfoSection extends React.Component {
   
   // Props are 'label' and 'content'
@@ -52,12 +49,6 @@ export default class CourseInfoScreen extends React.Component {
       let emojis = (this.state.info.funAndCool.emojis != undefined) ? this.state.info.funAndCool.emojis : [];
       this.setState({emojis: emojis});
     });
-  }
-
-  //after everything renders we construct this stuff here hahahahaha
-  componentDidMount() {
-    console.log('hahah');
-    this.addEmojiBox();
   }
 
 	render() {
@@ -178,10 +169,6 @@ export default class CourseInfoScreen extends React.Component {
 
       let addEmojiVisibility = this.addEmojiVisibility();
 
-              //       <EmojiPicker onChange={function(data){
-              //   console.log("Emoji chosen", data);
-              // }} />
-
       return (
         <div>
           {this.renderHeader()}
@@ -190,10 +177,12 @@ export default class CourseInfoScreen extends React.Component {
               <label>{term}</label> 
               <div className='emojis'>{emojis}</div>
   
-              <input id = "emoji-input-box" onChange={
+              <input id = "emoji-input-box" 
+              ref={(input) => { this.addEmojiBox(input); }
+              }
+              onChange={
                 this.emojiChange.bind(this)
               } style = {addEmojiVisibility} />
-
               <p id="emoji-error"></p>
             </div>
     				<h2>{code}: {title}</h2>
@@ -213,21 +202,12 @@ export default class CourseInfoScreen extends React.Component {
     }
 	}
 
-  addEmojiBox(){
-    // if (!e) var e = window.event;
-    // if (e.stopPropagation) e.stopPropagation();
-    console.log("adding emoji box");
-    let emojiBox = document.getElementById('emoji-input-box');
-    console.log("emoji box is");
-    console.log(emojiBox);
-
-    setTimeout(function(){
-      console.log(emojiBox);
-    }, 3000);
-    // emojiBox.emojiPicker({
-    //   height: '200px',
-    //   width:  '300px'
-    // });
+/* Add emoji box to screen!!!!*/
+  addEmojiBox(emojiBox){
+    $(emojiBox).emojiPicker({
+      height: '200px',
+      width:  '300px'
+    });
   }
 
   addEmojiVisibility() {
@@ -238,7 +218,6 @@ export default class CourseInfoScreen extends React.Component {
   }
 
   emojiChange(e) {
-    this.addEmojiBox();
     let emojiVal = $('#emoji-input-box');
     console.log(this.state.info.courseCode);
     if (emojiVal.val().length == 2) {

@@ -58,7 +58,9 @@
     "react-emoji-picker": "^1.0.13"
   },
   "description": "Add a slick emoji selector to input fields and textareas on your website.",
-  "devDependencies": {},
+  "devDependencies": {
+    "json-loader": "^0.5.4"
+  },
   "directories": {
     "lib": "./lib"
   },
