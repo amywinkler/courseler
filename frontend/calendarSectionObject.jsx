@@ -4,12 +4,34 @@ import api from './api.jsx';
 import { militaryTimeIntToString } from './timeFormatter.jsx';
 import { currentRoute, navigateToRoute } from './routing.jsx';
 
+
+class Conflicts extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		let titles = this.props.conflicts.map((section) => {
+			return section.title;
+		});
+		
+		if (titles.length>0) {
+			return (
+				<p className="conflicts">
+					Conflicts: {titles.join(", ")}
+				</p>
+			)
+		} else {
+			return null;
+		}
+	}
+}
+
 export default class CalendarSectionObject extends React.Component {
 
 	constructor(props) {
 		super(props);
 		this.state = {
-			selected: false,
 			overlaps: false
 		};
   }
@@ -23,6 +45,8 @@ export default class CalendarSectionObject extends React.Component {
 			backgroundColor: '#FC54B8'
 		}
 		let locations = this.props.locations;
+		let conflictingSections = this.props.conflictingSections;
+		let conflicts = <Conflicts conflicts={conflictingSections} />
 
 		return (
 		  <div className='calendarSectionObject' onClick={ this.props.click} style={style}>
@@ -30,6 +54,7 @@ export default class CalendarSectionObject extends React.Component {
 				<h4>{title}</h4>
 				<p>{start}–{end}</p>
 				<p>{locations}</p>
+				{conflicts}
 		  </div>
 		)
 	}
