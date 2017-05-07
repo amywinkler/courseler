@@ -193,7 +193,7 @@ export default class CourseInfoScreen extends React.Component {
             <div className="altTitles">
               <div className="altTitle">
                 <span style={akaStyle}>also known as...</span>
-                <span style={akaStyle} className="titles">{altTitles}</span>  
+                <span style={akaStyle} className="titles">{altTitles}</span>
                 <div className='add-alttitle' onClick={
                   this.addAltTitle.bind(this) } >add alternate title</div>
                 <input id = "alttitle-input-box" onKeyPress={this.handleEnterTitle} />
@@ -320,18 +320,10 @@ $('.add-alttitle').hide();
     filter = new Filter();
     var words = require("an-array-of-english-words")
 
-    let wordsAreValid = true;
-    let wordArr = titleVal.val().split(' ');
-
-    for (var i = 0; i < wordArr.length; i++) {
-      if(!words.includes(wordArr[i])){
-        wordsAreValid = false;
-      }
-    }
 
     let wordToAdd = filter.clean(titleVal.val());
     if(titleVal.val() != wordToAdd ||
-    this.state.altTitles.includes(titleVal.val().toLowerCase()) || !wordsAreValid){
+    this.state.altTitles.includes(titleVal.val().toLowerCase())){
       alert('Must add real words that are not profanity and have not already been added!')
     } else {
       api.addAltName(this.state.info.courseCode, titleVal.val());

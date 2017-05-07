@@ -294,13 +294,13 @@ public class CourseDataCache {
     timeSlotToTimes.put(TimeSlot.CF, timeSlotCF);
 
     SectionTime timeSlotDM = new SectionTime();
-    timeSlotCM.setSectionTime("mondayStart", ELEVEN_AM);
-    timeSlotCM.setSectionTime("mondayEnd", ELEVEN_AM + FIFTY_MINS);
+    timeSlotDM.setSectionTime("mondayStart", ELEVEN_AM);
+    timeSlotDM.setSectionTime("mondayEnd", ELEVEN_AM + FIFTY_MINS);
     timeSlotToTimes.put(TimeSlot.DM, timeSlotDM);
 
     SectionTime timeSlotDW = new SectionTime();
-    timeSlotCW.setSectionTime("wednesdayStart", ELEVEN_AM);
-    timeSlotCW.setSectionTime("wednesdayEnd", ELEVEN_AM + FIFTY_MINS);
+    timeSlotDW.setSectionTime("wednesdayStart", ELEVEN_AM);
+    timeSlotDW.setSectionTime("wednesdayEnd", ELEVEN_AM + FIFTY_MINS);
     timeSlotToTimes.put(TimeSlot.DW, timeSlotDW);
 
     SectionTime timeSlotDF = new SectionTime();
@@ -309,13 +309,13 @@ public class CourseDataCache {
     timeSlotToTimes.put(TimeSlot.DF, timeSlotDF);
 
     SectionTime timeSlotEM = new SectionTime();
-    timeSlotEM.setSectionTime("mondayStart", ELEVEN_AM);
-    timeSlotEM.setSectionTime("mondayEnd", ELEVEN_AM + FIFTY_MINS);
+    timeSlotEM.setSectionTime("mondayStart", TWELVE_PM);
+    timeSlotEM.setSectionTime("mondayEnd", TWELVE_PM + FIFTY_MINS);
     timeSlotToTimes.put(TimeSlot.EM, timeSlotEM);
 
     SectionTime timeSlotEW = new SectionTime();
-    timeSlotEW.setSectionTime("wednesdayStart", ELEVEN_AM);
-    timeSlotEW.setSectionTime("wednesdayEnd", ELEVEN_AM + FIFTY_MINS);
+    timeSlotEW.setSectionTime("wednesdayStart", TWELVE_PM);
+    timeSlotEW.setSectionTime("wednesdayEnd", TWELVE_PM + FIFTY_MINS);
     timeSlotToTimes.put(TimeSlot.EW, timeSlotEW);
 
     SectionTime timeSlotEF = new SectionTime();
@@ -402,7 +402,6 @@ public class CourseDataCache {
     timeSlotLTH.setSectionTime("thursdayStart", SIX_FORTY_PM);
     timeSlotLTH.setSectionTime("thursdayEnd", EIGHT_PM);
     timeSlotToTimes.put(TimeSlot.LTH, timeSlotLTH);
-
 
     SectionTime timeSlotM = new SectionTime();
     timeSlotM.setSectionTime("mondayStart", THREE_PM);
