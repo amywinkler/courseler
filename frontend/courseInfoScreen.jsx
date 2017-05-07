@@ -193,7 +193,7 @@ export default class CourseInfoScreen extends React.Component {
             <div className="altTitles">
               <div className="altTitle">
                 <span style={akaStyle}>also known as...</span>
-                <span className="titles">{altTitles}</span>  
+                <span style={akaStyle} className="titles">{altTitles}</span>  
                 <div className='add-alttitle' onClick={
                   this.addAltTitle.bind(this) } >add alternate title</div>
                 <input id = "alttitle-input-box" onKeyPress={this.handleEnterTitle} />

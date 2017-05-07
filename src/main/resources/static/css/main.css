@@ -288,8 +288,8 @@ h1, h2, h3, h4 {
   height: 100%;
 }
 
-.calendarSectionObject>h4,
-.calendarSectionObject>p {
+.calendarSectionObject h4,
+.calendarSectionObject p {
   margin: 0;
   padding: 0;
   font-size: 13px;
@@ -313,6 +313,10 @@ h1, h2, h3, h4 {
   right: 1px;
   bottom: 0px;
   height: 100%;
+}
+
+.conflicts {
+  opacity: 1;
 }
 
 .conflictMarker {
@@ -1013,32 +1017,8 @@ h1, h2, h3, h4 {
   cursor: pointer;
   display: inline-block;
   text-decoration: underline;
-/*  color: rgba(0,0,0,.3);
-  letter-spacing: .5px;*/
-  /*margin-left: 6px;*/
-/*  border: 1px solid #bbb;
-  border-radius: 16px;
-  font-size: 10px;
-  padding-top: 3px;
-  padding-bottom: 2px;
-  width: 140px;
-  text-align: center;*/
 }
 
-/*.addRemove {
-  margin-top: 16px;
-  margin-bottom: 8px;
-  margin-left: 6px;
-  text-transform: uppercase;
-  color: #333;
-  letter-spacing: .5px;
-  text-align: left;
-  padding-bottom: 1px;
-  border: 1px solid #bbb;
-  width: 96px;
-  text-align: center;
-  border-radius: 16px;
-}*/
 
 #word-input-box {
   display: inline-block;
