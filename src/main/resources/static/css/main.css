@@ -997,3 +997,7 @@ h1, h2, h3, h4 {
 .emojiPickerIcon {
   background-color: white !important;
 }
+
+.emojiPicker .search {
+  display: block;
+}

@@ -214,6 +214,11 @@ export default class CourseInfoScreen extends React.Component {
 
 /* Add emoji box to screen!!!!*/
   addEmojiBox(emojiBox){
+    // let emojiLen = 0;
+    // if(this.state.emojis) {
+    //   emojiLen = this.state.emojis.lenght
+    // }
+    // console.log(this.state.emojis);
     $(emojiBox).emojiPicker({
       height: '200px',
       width:  '300px'
@@ -269,7 +274,6 @@ $('.add-alttitle').hide();
 
   emojiChange(e) {
     let emojiVal = $('#emoji-input-box');
-    console.log(this.state.info.courseCode);
     if (emojiVal.val().length == 2) {
       api.addEmoji(this.state.info.courseCode, emojiVal.val());
       let currEmojis = this.state.emojis;

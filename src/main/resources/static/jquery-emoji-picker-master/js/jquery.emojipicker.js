@@ -281,7 +281,7 @@
 
     emojiMouseout: function(e) {
       $(e.target).parents('.emojiPicker').find('.shortcode .info').empty().hide();
-      $(e.target).parents('.emojiPicker').find('.shortcode .random').show();
+      //$(e.target).parents('.emojiPicker').find('.shortcode .random').show();
     },
 
     emojiCategoryClicked: function(e) {
@@ -510,20 +510,20 @@
     nodes.push('</div>');
 
     // Shortcode section
-    nodes.push('<div class="shortcode"><span class="random">');
-    nodes.push('<em class="tabTitle">' + generateEmojiOfDay() + '</em>');
+    //nodes.push('<div class="shortcode"><span class="random">');
+    //nodes.push('<em class="tabTitle">' + generateEmojiOfDay() + '</em>');
     nodes.push('</span><span class="info"></span></div>');
 
     nodes.push('</div>');
     return nodes.join("\n");
   }
 
-  function generateEmojiOfDay() {
-    var emojis = $.fn.emojiPicker.emojis;
-    var i = Math.floor(Math.random() * (364 - 0) + 0);
-    var emoji = emojis[i];
-    return 'Daily Emoji: <span class="eod"><span class="emoji emoji-' + emoji.name + '"></span> <span class="emojiName">' + emoji.name + '</span></span>';
-  }
+  // function generateEmojiOfDay() {
+  //   var emojis = $.fn.emojiPicker.emojis;
+  //   var i = Math.floor(Math.random() * (364 - 0) + 0);
+  //   var emoji = emojis[i];
+  //   return 'Daily Emoji: <span class="eod"><span class="emoji emoji-' + emoji.name + '"></span> <span class="emojiName">' + emoji.name + '</span></span>';
+  // }
 
   function findEmoji(emojiShortcode) {
     var emojis = $.fn.emojiPicker.emojis;
