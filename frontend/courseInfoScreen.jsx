@@ -231,22 +231,22 @@ export default class CourseInfoScreen extends React.Component {
   }
 
   addWord(e){
-  if (!e) var e = window.event;
-  if (e.stopPropagation) e.stopPropagation();
-  let wordBox = $('#word-input-box');
-  wordBox.show();
+    if (!e) var e = window.event;
+    if (e.stopPropagation) e.stopPropagation();
+    let wordBox = $('#word-input-box');
+    wordBox.show();
 
-  $('.add-word').hide();
-}
+    $('#addAdj').hide();
+  }
 
-addAltTitle(e){
-if (!e) var e = window.event;
-if (e.stopPropagation) e.stopPropagation();
-let titleBox = $('#alttitle-input-box');
-titleBox.show();
+  addAltTitle(e){
+    if (!e) var e = window.event;
+    if (e.stopPropagation) e.stopPropagation();
+    let titleBox = $('#alttitle-input-box');
+    titleBox.show();
 
-$('.add-alttitle').hide();
-}
+    $('.add-alttitle').hide();
+  }
 
 
   handleEnterWord = (e) => {
