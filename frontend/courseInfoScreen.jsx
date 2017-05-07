@@ -180,9 +180,7 @@ export default class CourseInfoScreen extends React.Component {
             <div className ="courseInfoHeader">
               <label>{term}</label>
               <div className='emojis'>{emojis}</div>
-              <input id = "emoji-input-box"
-              ref={(input) => { this.addEmojiBox(input); }
-              } />
+              <input id = "emoji-input-box" ref={(input) => { this.addEmojiBox(input)}} onChange={(e) => this.emojiChange(e)} />
               <p id="emoji-error"></p>
             </div>
     				<h2>{code}: {title}</h2>
