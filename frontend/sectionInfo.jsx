@@ -27,8 +27,10 @@ export default class SectionInfo extends React.Component {
 
 		// Button to either add this section to the cart, or remove it
 		let buttonTitle = this.state.inCart ? 'Remove' : 'Add to List';
-	    // let addRemoveButton = <input type='submit' value={ buttonTitle } onClick={this.addOrRemove.bind(this)}/>;
-	    let addRemoveButton = times ? <div className="addRemove" onClick={this.addOrRemove.bind(this)} style={labelStyle}><label style={labelStyle}>{buttonTitle}</label></div> : null
+	    
+	    let addRemoveButton = times ? <div className="addRemove" onClick={this.addOrRemove.bind(this)} style={labelStyle}><label style={labelStyle}>{buttonTitle}</label></div> : <p style={infoStyle}>Section time not listed</p>
+      
+
       if (this.props.locked) {
         addRemoveButton = null;
       }
