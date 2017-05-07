@@ -235,6 +235,14 @@ public class RankedSearch {
     } else {
       finalCourseList = courseCodeSearch.suggest(entireSearch);
 
+      List<Course> numericSearchRes = courseCodeSearch
+          .suggestNumeric(entireSearch);
+      for (Course c : numericSearchRes) {
+        if (!finalCourseList.contains(c)) {
+          finalCourseList.add(c);
+        }
+      }
+
       String sugg = searchNumberSuggestion(entireSearch);
       if (sugg != null) {
         List<Course> courseCodeResultsOuter = courseCodeSearch.suggest(sugg);

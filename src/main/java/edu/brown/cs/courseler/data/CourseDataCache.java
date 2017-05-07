@@ -247,9 +247,21 @@ public class CourseDataCache {
 
   private void setUpTimeSlots() {
     timeSlotToTimes = new EnumMap<TimeSlot, SectionTime>(TimeSlot.class);
-    SectionTime timeSlotA = new SectionTime();
-    timeSlotA.addMonWedFriTime(EIGHT_AM, EIGHT_AM + FIFTY_MINS);
-    timeSlotToTimes.put(TimeSlot.A, timeSlotA);
+
+    SectionTime timeSlotAM = new SectionTime();
+    timeSlotAM.setSectionTime("mondayStart", EIGHT_AM);
+    timeSlotAM.setSectionTime("mondayEnd", EIGHT_AM + FIFTY_MINS);
+    timeSlotToTimes.put(TimeSlot.AM, timeSlotAM);
+
+    SectionTime timeSlotAW = new SectionTime();
+    timeSlotAW.setSectionTime("wednesdayStart", EIGHT_AM);
+    timeSlotAW.setSectionTime("wednesdayEnd", EIGHT_AM + FIFTY_MINS);
+    timeSlotToTimes.put(TimeSlot.AW, timeSlotAW);
+
+    SectionTime timeSlotAF = new SectionTime();
+    timeSlotAF.setSectionTime("fridayStart", EIGHT_AM);
+    timeSlotAF.setSectionTime("fridayEnd", EIGHT_AM + FIFTY_MINS);
+    timeSlotToTimes.put(TimeSlot.AF, timeSlotAF);
 
     SectionTime timeSlotB = new SectionTime();
     timeSlotB.addMonWedFriTime(NINE_AM, NINE_AM + FIFTY_MINS);
@@ -271,9 +283,20 @@ public class CourseDataCache {
     timeSlotF.addMonWedFriTime(ONE_PM, ONE_PM + FIFTY_MINS);
     timeSlotToTimes.put(TimeSlot.F, timeSlotF);
 
-    SectionTime timeSlotG = new SectionTime();
-    timeSlotG.addMonWedFriTime(TWO_PM, TWO_PM + FIFTY_MINS);
-    timeSlotToTimes.put(TimeSlot.G, timeSlotG);
+    SectionTime timeSlotGM = new SectionTime();
+    timeSlotGM.setSectionTime("mondayStart", TWO_PM);
+    timeSlotGM.setSectionTime("mondayEnd", TWO_PM + FIFTY_MINS);
+    timeSlotToTimes.put(TimeSlot.GM, timeSlotGM);
+
+    SectionTime timeSlotGW = new SectionTime();
+    timeSlotGW.setSectionTime("wednesdayStart", TWO_PM);
+    timeSlotGW.setSectionTime("wednesdayEnd", TWO_PM + FIFTY_MINS);
+    timeSlotToTimes.put(TimeSlot.GW, timeSlotGW);
+
+    SectionTime timeSlotGF = new SectionTime();
+    timeSlotGF.setSectionTime("fridayStart", TWO_PM);
+    timeSlotGF.setSectionTime("fridayEnd", TWO_PM + FIFTY_MINS);
+    timeSlotToTimes.put(TimeSlot.GF, timeSlotGF);
 
     SectionTime timeSlotH = new SectionTime();
     timeSlotH.addTuesThursTime(NINE_AM, NINE_AM + ONE_TWENTY_MINS);
@@ -350,6 +373,8 @@ public class CourseDataCache {
     timeSlotW.setSectionTime("thursdayStart", EIGHT_PM);
     timeSlotW.setSectionTime("thursdayEnd", TEN_PM);
     timeSlotToTimes.put(TimeSlot.W, timeSlotW);
+
+
 
 
   }

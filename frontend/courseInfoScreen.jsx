@@ -171,8 +171,8 @@ export default class CourseInfoScreen extends React.Component {
       let addEmojiVisibility = this.addEmojiVisibility();
 
       let areAdj = this.state.adjectives.length > 0;
-
       let addAdjStyle = areAdj ? {display: 'none'} : {};
+      
       return (
         <div>
           {this.renderHeader()}
@@ -180,7 +180,7 @@ export default class CourseInfoScreen extends React.Component {
             <div className ="courseInfoHeader">
               <label>{term}</label>
               <div className='emojis'>{emojis}</div>
-              <input id = "emoji-input-box" 
+              <input id = "emoji-input-box"
               ref={(input) => { this.addEmojiBox(input); }
               } />
               <p id="emoji-error"></p>
