@@ -263,25 +263,80 @@ public class CourseDataCache {
     timeSlotAF.setSectionTime("fridayEnd", EIGHT_AM + FIFTY_MINS);
     timeSlotToTimes.put(TimeSlot.AF, timeSlotAF);
 
-    SectionTime timeSlotB = new SectionTime();
-    timeSlotB.addMonWedFriTime(NINE_AM, NINE_AM + FIFTY_MINS);
-    timeSlotToTimes.put(TimeSlot.B, timeSlotB);
+    SectionTime timeSlotBM = new SectionTime();
+    timeSlotAM.setSectionTime("mondayStart", NINE_AM);
+    timeSlotAM.setSectionTime("mondayEnd", NINE_AM + FIFTY_MINS);
+    timeSlotToTimes.put(TimeSlot.BM, timeSlotBM);
 
-    SectionTime timeSlotC = new SectionTime();
-    timeSlotC.addMonWedFriTime(TEN_AM, TEN_AM + FIFTY_MINS);
-    timeSlotToTimes.put(TimeSlot.C, timeSlotC);
+    SectionTime timeSlotBW = new SectionTime();
+    timeSlotAW.setSectionTime("wednesdayStart", NINE_AM);
+    timeSlotAW.setSectionTime("wednesdayEnd", NINE_AM + FIFTY_MINS);
+    timeSlotToTimes.put(TimeSlot.BW, timeSlotBW);
 
-    SectionTime timeSlotD = new SectionTime();
-    timeSlotD.addMonWedFriTime(ELEVEN_AM, ELEVEN_AM + FIFTY_MINS);
-    timeSlotToTimes.put(TimeSlot.D, timeSlotD);
+    SectionTime timeSlotBF = new SectionTime();
+    timeSlotAF.setSectionTime("fridayStart", NINE_AM);
+    timeSlotAF.setSectionTime("fridayEnd", NINE_AM + FIFTY_MINS);
+    timeSlotToTimes.put(TimeSlot.BF, timeSlotBF);
 
-    SectionTime timeSlotE = new SectionTime();
-    timeSlotE.addMonWedFriTime(TWELVE_PM, TWELVE_PM + FIFTY_MINS);
-    timeSlotToTimes.put(TimeSlot.E, timeSlotE);
+    SectionTime timeSlotCM = new SectionTime();
+    timeSlotAM.setSectionTime("mondayStart", TEN_AM);
+    timeSlotAM.setSectionTime("mondayEnd", TEN_AM + FIFTY_MINS);
+    timeSlotToTimes.put(TimeSlot.CM, timeSlotCM);
 
-    SectionTime timeSlotF = new SectionTime();
-    timeSlotF.addMonWedFriTime(ONE_PM, ONE_PM + FIFTY_MINS);
-    timeSlotToTimes.put(TimeSlot.F, timeSlotF);
+    SectionTime timeSlotCW = new SectionTime();
+    timeSlotAW.setSectionTime("wednesdayStart", TEN_AM);
+    timeSlotAW.setSectionTime("wednesdayEnd", TEN_AM + FIFTY_MINS);
+    timeSlotToTimes.put(TimeSlot.CW, timeSlotCW);
+
+    SectionTime timeSlotCF = new SectionTime();
+    timeSlotAF.setSectionTime("fridayStart", TEN_AM);
+    timeSlotAF.setSectionTime("fridayEnd", TEN_AM + FIFTY_MINS);
+    timeSlotToTimes.put(TimeSlot.CF, timeSlotCF);
+
+    SectionTime timeSlotDM = new SectionTime();
+    timeSlotAM.setSectionTime("mondayStart", ELEVEN_AM);
+    timeSlotAM.setSectionTime("mondayEnd", ELEVEN_AM + FIFTY_MINS);
+    timeSlotToTimes.put(TimeSlot.DM, timeSlotDM);
+
+    SectionTime timeSlotDW = new SectionTime();
+    timeSlotAW.setSectionTime("wednesdayStart", ELEVEN_AM);
+    timeSlotAW.setSectionTime("wednesdayEnd", ELEVEN_AM + FIFTY_MINS);
+    timeSlotToTimes.put(TimeSlot.DW, timeSlotDW);
+
+    SectionTime timeSlotDF = new SectionTime();
+    timeSlotAF.setSectionTime("fridayStart", ELEVEN_AM);
+    timeSlotAF.setSectionTime("fridayEnd", ELEVEN_AM + FIFTY_MINS);
+    timeSlotToTimes.put(TimeSlot.DF, timeSlotDF);
+
+    SectionTime timeSlotEM = new SectionTime();
+    timeSlotAM.setSectionTime("mondayStart", ELEVEN_AM);
+    timeSlotAM.setSectionTime("mondayEnd", ELEVEN_AM + FIFTY_MINS);
+    timeSlotToTimes.put(TimeSlot.EM, timeSlotEM);
+
+    SectionTime timeSlotEW = new SectionTime();
+    timeSlotAW.setSectionTime("wednesdayStart", ELEVEN_AM);
+    timeSlotAW.setSectionTime("wednesdayEnd", ELEVEN_AM + FIFTY_MINS);
+    timeSlotToTimes.put(TimeSlot.EW, timeSlotEW);
+
+    SectionTime timeSlotEF = new SectionTime();
+    timeSlotAF.setSectionTime("fridayStart", TWELVE_PM);
+    timeSlotAF.setSectionTime("fridayEnd", TWELVE_PM + FIFTY_MINS);
+    timeSlotToTimes.put(TimeSlot.EF, timeSlotEF);
+
+    SectionTime timeSlotFM = new SectionTime();
+    timeSlotAM.setSectionTime("mondayStart", ONE_PM);
+    timeSlotAM.setSectionTime("mondayEnd", ONE_PM + FIFTY_MINS);
+    timeSlotToTimes.put(TimeSlot.FM, timeSlotFM);
+
+    SectionTime timeSlotFW = new SectionTime();
+    timeSlotAW.setSectionTime("wednesdayStart", ONE_PM);
+    timeSlotAW.setSectionTime("wednesdayEnd", ONE_PM + FIFTY_MINS);
+    timeSlotToTimes.put(TimeSlot.FW, timeSlotFW);
+
+    SectionTime timeSlotFF = new SectionTime();
+    timeSlotAF.setSectionTime("fridayStart", ONE_PM);
+    timeSlotAF.setSectionTime("fridayEnd", ONE_PM + FIFTY_MINS);
+    timeSlotToTimes.put(TimeSlot.FF, timeSlotFF);
 
     SectionTime timeSlotGM = new SectionTime();
     timeSlotGM.setSectionTime("mondayStart", TWO_PM);
@@ -298,25 +353,55 @@ public class CourseDataCache {
     timeSlotGF.setSectionTime("fridayEnd", TWO_PM + FIFTY_MINS);
     timeSlotToTimes.put(TimeSlot.GF, timeSlotGF);
 
-    SectionTime timeSlotH = new SectionTime();
-    timeSlotH.addTuesThursTime(NINE_AM, NINE_AM + ONE_TWENTY_MINS);
-    timeSlotToTimes.put(TimeSlot.H, timeSlotH);
+    SectionTime timeSlotHT = new SectionTime();
+    timeSlotHT.setSectionTime("tuesdayStart", NINE_AM);
+    timeSlotHT.setSectionTime("tuesdayEnd", NINE_AM + ONE_TWENTY_MINS);
+    timeSlotToTimes.put(TimeSlot.HT, timeSlotHT);
 
-    SectionTime timeSlotI = new SectionTime();
-    timeSlotI.addTuesThursTime(TEN_THIRTY_AM, TEN_THIRTY_AM + ONE_TWENTY_MINS);
-    timeSlotToTimes.put(TimeSlot.I, timeSlotI);
+    SectionTime timeSlotHTH = new SectionTime();
+    timeSlotHTH.setSectionTime("thursdayStart", NINE_AM);
+    timeSlotHTH.setSectionTime("thursdayEnd", NINE_AM + ONE_TWENTY_MINS);
+    timeSlotToTimes.put(TimeSlot.HTH, timeSlotHTH);
 
-    SectionTime timeSlotJ = new SectionTime();
-    timeSlotJ.addTuesThursTime(ONE_PM, ONE_PM + ONE_TWENTY_MINS);
-    timeSlotToTimes.put(TimeSlot.J, timeSlotJ);
+    SectionTime timeSlotIT = new SectionTime();
+    timeSlotIT.setSectionTime("tuesdayStart", TEN_THIRTY_AM);
+    timeSlotIT.setSectionTime("tuesdayEnd", TEN_THIRTY_AM + ONE_TWENTY_MINS);
+    timeSlotToTimes.put(TimeSlot.IT, timeSlotIT);
 
-    SectionTime timeSlotK = new SectionTime();
-    timeSlotK.addTuesThursTime(TWO_THIRTY_PM, TWO_THIRTY_PM + ONE_TWENTY_MINS);
-    timeSlotToTimes.put(TimeSlot.K, timeSlotK);
+    SectionTime timeSlotITH = new SectionTime();
+    timeSlotITH.setSectionTime("thursdayStart", TEN_THIRTY_AM);
+    timeSlotITH.setSectionTime("thursdayEnd", TEN_THIRTY_AM + ONE_TWENTY_MINS);
+    timeSlotToTimes.put(TimeSlot.ITH, timeSlotITH);
 
-    SectionTime timeSlotL = new SectionTime();
-    timeSlotL.addTuesThursTime(SIX_FORTY_PM, EIGHT_PM);
-    timeSlotToTimes.put(TimeSlot.L, timeSlotL);
+    SectionTime timeSlotJT = new SectionTime();
+    timeSlotJT.setSectionTime("tuesdayStart", ONE_PM);
+    timeSlotJT.setSectionTime("tuesdayEnd", ONE_PM + ONE_TWENTY_MINS);
+    timeSlotToTimes.put(TimeSlot.JT, timeSlotJT);
+
+    SectionTime timeSlotJTH = new SectionTime();
+    timeSlotJTH.setSectionTime("thursdayStart", ONE_PM);
+    timeSlotJTH.setSectionTime("thursdayEnd", ONE_PM + ONE_TWENTY_MINS);
+    timeSlotToTimes.put(TimeSlot.JTH, timeSlotJTH);
+
+    SectionTime timeSlotKT = new SectionTime();
+    timeSlotKT.setSectionTime("tuesdayStart", TWO_THIRTY_PM);
+    timeSlotKT.setSectionTime("tuesdayEnd", TWO_THIRTY_PM + ONE_TWENTY_MINS);
+    timeSlotToTimes.put(TimeSlot.KT, timeSlotKT);
+
+    SectionTime timeSlotKTH = new SectionTime();
+    timeSlotKTH.setSectionTime("thursdayStart", TWO_THIRTY_PM);
+    timeSlotKTH.setSectionTime("thursdayEnd", TWO_THIRTY_PM + ONE_TWENTY_MINS);
+    timeSlotToTimes.put(TimeSlot.KTH, timeSlotKTH);
+
+    SectionTime timeSlotLT = new SectionTime();
+    timeSlotLT.setSectionTime("tuesdayStart", SIX_FORTY_PM);
+    timeSlotLT.setSectionTime("tuesdayEnd", EIGHT_PM);
+    timeSlotToTimes.put(TimeSlot.LT, timeSlotLT);
+
+    SectionTime timeSlotLTH = new SectionTime();
+    timeSlotLTH.setSectionTime("thursdayStart", SIX_FORTY_PM);
+    timeSlotLTH.setSectionTime("thursdayEnd", EIGHT_PM);
+    timeSlotToTimes.put(TimeSlot.LTH, timeSlotLTH);
 
 
     SectionTime timeSlotM = new SectionTime();

@@ -70,10 +70,6 @@ public class CourseDataParser {
     parseBannerData();
     parseCritReviewData();
     parseGoogleFormData();
-    Course php = cache.getCourseFomCache("PHP 1700");
-    Course cs = cache.getCourseFomCache("CSCI 0330");
-    Course pobs = cache.getCourseFomCache("POBS 0100");
-    System.out.println("hello world");
   }
 
   private void parseDeptData() {
