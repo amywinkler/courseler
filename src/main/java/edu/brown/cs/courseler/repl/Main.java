@@ -49,10 +49,7 @@ public final class Main {
     OptionSet options = parser.parse(args);
 
     if (options.has("gui")) {
-      // TODO: Someone remind me to switch this to the live db when the time is
-      // right.
-      RequestHandler handler =
-          new RequestHandler("test_users_1.sqlite3", courseCache);
+      RequestHandler handler = new RequestHandler("users.sqlite3", courseCache);
       handler.runSparkServer((int) options.valueOf("port"));
     }
 
