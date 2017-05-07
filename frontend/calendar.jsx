@@ -104,7 +104,7 @@ export default class Calendar extends React.Component {
 			sectionObject.overlappingTimeSlots.map((slot) => {
 				if ((timeslots[slot].length) > 0){
 					timeslots[slot].map((section) => {
-						if (!(section.title===sectionObject.title)) {
+						if (!(section.title===sectionObject.title) && !conflictingSections.includes(section)) {
 							conflictingSections = conflictingSections.concat([section]);
 						};
 					});
