@@ -1,4 +1,4 @@
-package edu.brown.cs.courseler.reccomendation;
+package edu.brown.cs.courseler.recommendation;
 
 import java.util.List;
 
