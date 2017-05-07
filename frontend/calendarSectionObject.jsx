@@ -17,9 +17,9 @@ class Conflicts extends React.Component {
 		
 		if (titles.length>0) {
 			return (
-				<p className="conflicts">
-					Conflicts: {titles.join(", ")}
-				</p>
+				<div className="conflict">
+					<div className="conflictMarker"></div>
+				</div>
 			)
 		} else {
 			return null;
@@ -54,7 +54,7 @@ export default class CalendarSectionObject extends React.Component {
 				<h4>{title}</h4>
 				<p>{start}–{end}</p>
 				<p>{locations}</p>
-				{conflicts}
+		  	{conflicts}
 		  </div>
 		)
 	}

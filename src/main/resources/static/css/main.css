@@ -284,6 +284,8 @@ h1, h2, h3, h4 {
   margin-bottom: 8px;
   background-color: #ccc;
   position: relative;
+  display: inline-block;
+  height: 100%;
 }
 
 .calendarSectionObject>h4,
@@ -301,6 +303,27 @@ h1, h2, h3, h4 {
   font-size: 12px;
   margin-bottom: 0px;
   opacity: 0.4;
+}
+
+.conflict {
+  width: 0px;
+  display: inline-block;
+  position: absolute;
+  top: 0px;
+  right: 1px;
+  bottom: 0px;
+  height: 100%;
+}
+
+.conflictMarker {
+  width: 7px;
+  background-color: rgba(255, 0, 0, 0.3);
+  height: 100%;
+  border-radius: 3px;
+}
+
+.calendarCell {
+  background-color: yellow;
 }
 
 .removeSection {
@@ -503,7 +526,6 @@ h1, h2, h3, h4 {
 }
 
 .gradient {
-  /* Rectangle 1 Copy 29: */
   background-image: linear-gradient(-142deg, rgba(255,255,255,0.15) 00%, #F74EDC 110%);
   opacity: .1;
   width: 90%;
