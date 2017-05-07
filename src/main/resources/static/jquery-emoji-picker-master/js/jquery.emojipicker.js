@@ -99,7 +99,7 @@
           .wrap("<div class='emojiPickerIconWrap'></div>")
           .parent();
 
-        this.$icon = $('<div class="emojiPickerIcon"></div>')
+        this.$icon = $('<div class="emojiPickerIcon">⊕</div>')
           .height(iconHeight)
           .width(iconHeight)
           .addClass(this.settings.iconColor)

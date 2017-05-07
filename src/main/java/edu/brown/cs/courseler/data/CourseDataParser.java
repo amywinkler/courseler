@@ -211,6 +211,7 @@ public class CourseDataParser {
 
       addTimesAndLocations(meetingTimes, locations, sectionTime);
 
+
       List<TimeSlot> overlaps = getTimeSlots(sectionTime);
 
       String title = (String) courseJSON.get("title");

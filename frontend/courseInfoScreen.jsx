@@ -164,15 +164,21 @@ export default class CourseInfoScreen extends React.Component {
         return <div className="adj" key={index}>{description}</div>
       });
 
-      let altTitles =  this.state.altTitles.map((altTitle, index) => {
-        return <div className="altTitle" key={index}>"{altTitle}"</div>
-      });
+      // let altTitles =  this.state.altTitles.map((altTitle, index) => {
+      //   return <div className="altTitle" key={index}>"{altTitle}"</div>
+      // });
+
+      let altTitles = (this.state.altTitles.map((altTitle, index) => {
+        return '"' + altTitle + '"'
+      })).join(", ");
 
       let addEmojiVisibility = this.addEmojiVisibility();
 
-      let areAdj = this.state.adjectives.length > 0;
+      let areAdj = (this.state.adjectives && this.state.adjectives.length) > 0;
       let addAdjStyle = areAdj ? {display: 'none'} : {};
-      
+      let altTitlesExist = (this.state.altTitles && this.state.altTitles.length) > 0;
+      let akaStyle = altTitlesExist ? {} : {display: 'none'};
+
       return (
         <div>
           {this.renderHeader()}
@@ -185,17 +191,16 @@ export default class CourseInfoScreen extends React.Component {
             </div>
     				<h2>{code}: {title}</h2>
             <div className="altTitles">
-            <div className="altTitle">also known as... </div>
-            {altTitles}
-            <div className='add-alttitle' onClick={
-              this.addAltTitle.bind(this) } >⊕</div>
-            <input id = "alttitle-input-box" onKeyPress={this.handleEnterTitle} />
-            </div>
-
+              <div className="altTitle">
+                <span style={akaStyle}>also known as...</span>
+                <span style={akaStyle} className="titles">{altTitles}</span>
+                <div className='add-alttitle' onClick={
+                  this.addAltTitle.bind(this) } >add alternate title</div>
+                <input id = "alttitle-input-box" onKeyPress={this.handleEnterTitle} />
+                </div>
+              </div>
             <div className ="adjectives">
-             {adjectives}  <span style={addAdjStyle}> Add adjective: </span>
-            <div className='add-word' onClick={
-              this.addWord.bind(this) } >⊕</div>
+             {adjectives}  <div className="adj" id="addAdj" onClick={this.addWord.bind(this)}> Add adjective</div>
             <input id = "word-input-box" onKeyDown={this.handleTypeWordNoSpaces} onKeyPress={this.handleEnterWord} />
             </div>
             <CourseInfoSection label='Sections' content={sections} />
@@ -248,6 +253,8 @@ $('.add-alttitle').hide();
 
     if (e.key === 'Enter') {
       this.wordChange(e);
+      $('#alttitle-input-box').hide();
+      $('.add-alttitle').show();
     }
   }
 
@@ -255,6 +262,8 @@ $('.add-alttitle').hide();
 
     if (e.key === 'Enter') {
       this.titleChange(e);
+      $('#alttitle-input-box').hide();
+      $('.add-alttitle').show();
     }
   }
 
@@ -274,7 +283,7 @@ $('.add-alttitle').hide();
 
   emojiChange(e) {
     let emojiVal = $('#emoji-input-box');
-    if (emojiVal.val().length == 2) {
+    if (emojiVal && emojiVal.val().length == 2) {
       api.addEmoji(this.state.info.courseCode, emojiVal.val());
       let currEmojis = this.state.emojis;
       this.setState({emojis: currEmojis.concat(emojiVal.val())});
@@ -300,8 +309,8 @@ $('.add-alttitle').hide();
       let currWords = this.state.adjectives;
       this.setState({adjectives: currWords.concat(wordToAdd)});
       wordVal.val("");
+      wordVal.hide();
     }
-
   }
 
   titleChange(e) {
@@ -311,18 +320,10 @@ $('.add-alttitle').hide();
     filter = new Filter();
     var words = require("an-array-of-english-words")
 
-    let wordsAreValid = true;
-    let wordArr = titleVal.val().split(' ');
-
-    for (var i = 0; i < wordArr.length; i++) {
-      if(!words.includes(wordArr[i])){
-        wordsAreValid = false;
-      }
-    }
 
     let wordToAdd = filter.clean(titleVal.val());
     if(titleVal.val() != wordToAdd ||
-    this.state.altTitles.includes(titleVal.val().toLowerCase()) || !wordsAreValid){
+    this.state.altTitles.includes(titleVal.val().toLowerCase())){
       alert('Must add real words that are not profanity and have not already been added!')
     } else {
       api.addAltName(this.state.info.courseCode, titleVal.val());

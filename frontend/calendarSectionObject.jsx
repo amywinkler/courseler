@@ -5,7 +5,7 @@ import { militaryTimeIntToString } from './timeFormatter.jsx';
 import { currentRoute, navigateToRoute } from './routing.jsx';
 
 
-class Conflicts extends React.Component {
+class ConflictInfo extends React.Component {
 	constructor(props) {
 		super(props);
 	}
@@ -17,9 +17,33 @@ class Conflicts extends React.Component {
 		
 		if (titles.length>0) {
 			return (
-				<p className="conflicts">
-					Conflicts: {titles.join(", ")}
-				</p>
+				<div className="conflictInfo">
+					<p className="conflicts">⚠️ Conflicts: {titles.join(", ")}</p>
+				</div>
+			)
+		} else {
+			return null;
+		}
+	}
+ 
+}
+
+
+class ConflictMarker extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	render() {
+		let titles = this.props.conflicts.map((section) => {
+			return section.title;
+		});
+		
+		if (titles.length>0) {
+			return (
+				<div className="conflict">
+					<div className="conflictMarker"></div>
+				</div>
 			)
 		} else {
 			return null;
@@ -46,7 +70,8 @@ export default class CalendarSectionObject extends React.Component {
 		}
 		let locations = this.props.locations;
 		let conflictingSections = this.props.conflictingSections;
-		let conflicts = <Conflicts conflicts={conflictingSections} />
+		let conflictMarker = <ConflictMarker conflicts={conflictingSections} />
+		let conflictInfo = <ConflictInfo conflicts={conflictingSections} />
 
 		return (
 		  <div className='calendarSectionObject' onClick={ this.props.click} style={style}>
@@ -54,7 +79,8 @@ export default class CalendarSectionObject extends React.Component {
 				<h4>{title}</h4>
 				<p>{start}–{end}</p>
 				<p>{locations}</p>
-				{conflicts}
+				{conflictInfo}
+		  	{conflictMarker}
 		  </div>
 		)
 	}
