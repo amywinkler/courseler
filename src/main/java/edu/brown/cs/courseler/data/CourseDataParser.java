@@ -70,11 +70,6 @@ public class CourseDataParser {
     parseBannerData();
     parseCritReviewData();
     parseGoogleFormData();
-    Course pobs = cache.getCourseFomCache("POBS 0400");
-    Course cs = cache.getCourseFomCache("CSCI 1250");
-    Course greek = cache.getCourseFomCache("MGRK 0100");
-
-    System.out.println("hi");
   }
 
   private void parseDeptData() {
@@ -216,9 +211,7 @@ public class CourseDataParser {
 
       addTimesAndLocations(meetingTimes, locations, sectionTime);
 
-      if (sectionId.equals("MGRK 0100 S01")) {
-        System.out.println("here");
-      }
+
       List<TimeSlot> overlaps = getTimeSlots(sectionTime);
 
       String title = (String) courseJSON.get("title");
