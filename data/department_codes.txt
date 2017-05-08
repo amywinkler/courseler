@@ -54,7 +54,7 @@ Philosophy,PHIL,🤷‍♂️
 Public Health,PHP,👩‍⚕️
 Physics,PHYS,🔭
 Public Policy,PLCY,📝
-Program in Libreral Medical Education,PLME,🔬
+Program in Liberal Medical Education,PLME,🔬
 Polish,PLSH,🇵🇱
 Portugese and Brazilian Studies,POBS,🇧🇷
 Political Science,POLS,📢
