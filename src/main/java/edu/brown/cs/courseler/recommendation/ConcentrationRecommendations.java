@@ -1,4 +1,4 @@
-package edu.brown.cs.courseler.reccomendation;
+package edu.brown.cs.courseler.recommendation;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,7 +19,7 @@ public class ConcentrationRecommendations implements Recommend<Course> {
   private List<String> concentration;
 
   /**
-   * Constructor for class year reccomendations.
+   * Constructor for class year recommendations.
    *
    * @param user
    *          the user object

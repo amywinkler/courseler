@@ -160,7 +160,7 @@ public class RankedSearch {
   private void searchOnCriteria(SearchSuggestions<Course> criteria,
       List<Course> finalCourseList, List<String> wordsToSearch) {
     for (int i = 0; i < wordsToSearch.size(); i++) {
-      // search on the whole word then the whitspace suggestions
+      // search on the whole word then the whitespace suggestions
 
       List<String> whitespaceWords = getWhitespaceSuggestions(wordsToSearch
           .get(i));

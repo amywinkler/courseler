@@ -68,6 +68,6 @@ Sociology,SOC,👨‍👦‍👦
 Swedish,SWED,🐟
 Theatre Arts and Performance Studies,TAPS,🎭
 Turkish,TKSH,🇹🇷
-Urban Studies,URBN,🌆 
+Urban Studies,URBN,🌆
 Undecided,Undecided,❓
 Visual Art,VISA,👩‍🎨
