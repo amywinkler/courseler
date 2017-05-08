@@ -317,7 +317,7 @@ export default class CourseInfoScreen extends React.Component {
     if(wordVal.val() != wordToAdd || !words.includes(wordVal.val()) ||
     this.state.adjectives.includes(wordVal.val().toLowerCase())){
       alert('Must add real words that are not profanity and have not already been added!')
-    } else {
+    } else if(wordVal.val().trim()) {
       api.addWord(this.state.info.courseCode, wordToAdd);
       let currWords = this.state.adjectives;
       this.setState({adjectives: currWords.concat(wordToAdd)});
@@ -338,8 +338,8 @@ export default class CourseInfoScreen extends React.Component {
 
     let wordToAdd = filter.clean(titleVal.val());
     if(titleVal.val() != wordToAdd ||
-    this.state.altTitles.includes(titleVal.val().toLowerCase())){
-      alert('Must add real words that are not profanity and have not already been added!')
+    this.state.altTitles.includes(titleVal.val().toLowerCase()) || !titleVal.val().trim()){
+      alert('Must add real title that is not profanity and has not already been added!')
     } else {
       api.addAltName(this.state.info.courseCode, titleVal.val());
       let currTitles = this.state.altTitles;
