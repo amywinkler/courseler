@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import api from './api.jsx';
 import { currentRoute, navigateToRoute } from './routing.jsx';
 import { descriptionForCourseTimes } from './timeFormatter.jsx';
+import { getDepartmentColor } from './courseColor.jsx';
 
 // from http://werxltd.com/wp/2010/05/13/javascript-implementation-of-javas-string-hashcode-method/
 function hashCode(string) {
@@ -24,19 +25,20 @@ let colors = [
 ];
 
 function colorForCourse(course) {
+  console.log(course);
   let hash = Math.abs(hashCode(course.title));
   return colors[hash % colors.length];
 }
 
 class CourseCell extends React.Component {
   render() {
-    let style = {backgroundColor: colorForCourse(this.props.course)};
+    let style = {backgroundImage: getDepartmentColor(this.props.course.department)};
     return (
       <div className='CourseCell' onClick={this.props.onClick} style={style}>
         <h4>{this.props.course.courseCode}: { this.props.course.title }</h4>
         <div className='bottom'>
           <div className='times'>{this.courseTimes()}</div>
-          <div className='emoji'>{this.props.course.funAndCool.emojis.join(' ')}</div>
+          <div className='emoji'>{this.props.course.funAndCool.emojis.slice(0,3).join(' ')}</div>
         </div>
       </div>
     )

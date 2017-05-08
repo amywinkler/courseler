@@ -837,7 +837,7 @@ h1, h2, h3, h4 {
   transition: transform 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
   color: rgba(255,255,255,0.9);
   border-radius: 3px;
-  background-image: linear-gradient(135deg, rgb(122, 91, 206) 0%, rgb(71, 117, 202) 100%);
+  /*background-image: linear-gradient(135deg, rgb(122, 91, 206) 0%, rgb(71, 117, 202) 100%);*/
 }
 
 .CourseCell:hover,

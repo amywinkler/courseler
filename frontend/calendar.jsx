@@ -99,6 +99,8 @@ export default class Calendar extends React.Component {
 		// Puts a single section into the appropriate day
 		let loadDay = (day, timeObject, sectionObject, timeslots) => {
 
+			console.log(sectionObject);
+
 			// Conflicting section logic
 			let conflictingSections = [];
 			sectionObject.overlappingTimeSlots.map((slot) => {
@@ -121,6 +123,7 @@ export default class Calendar extends React.Component {
 										key={sectionObject.sectionId} 
 										id={sectionObject.sectionId}
 										title={sectionObject.title} 
+										department={sectionObject.department}
 										start={startTime} 
 										end={endTime}
 										locations={this.getLocationString(sectionObject.meetingLocations)}

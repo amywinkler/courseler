@@ -48,7 +48,28 @@ export default class CourseInfoScreen extends React.Component {
     };
     api.courseInfo(this.props.courseCode, (info) => {
       this.setState({info: info});
-      let emojis = (this.state.info.funAndCool.emojis != undefined) ? this.state.info.funAndCool.emojis : [];
+
+      // function to shuffle emojis
+      let shuffle = (array) => {
+        let j;
+        let x;
+        let i;
+        for (i = array.length; i; i--) {
+            j = Math.floor(Math.random() * i);
+            x = array[i - 1];
+            array[i - 1] = array[j];
+            array[j] = x;
+        }
+        return array;
+      };
+
+      // get the shuffled emoji array (but keep the dept emoji first)
+      let getShuffledEmojiArray = (array) => {
+        let copy = shuffle(array.slice(1)).slice(0,4);
+        return array.slice(0,1).concat(copy);
+      }
+
+      let emojis = (this.state.info.funAndCool.emojis != undefined) ? getShuffledEmojiArray(this.state.info.funAndCool.emojis) : [];
       this.setState({emojis: emojis});
       let adjectives = (this.state.info.funAndCool.descriptions != undefined) ? this.state.info.funAndCool.descriptions : [];
       this.setState({adjectives: adjectives});
@@ -164,10 +185,6 @@ export default class CourseInfoScreen extends React.Component {
         return <div className="adj" key={index}>{description}</div>
       });
 
-      // let altTitles =  this.state.altTitles.map((altTitle, index) => {
-      //   return <div className="altTitle" key={index}>"{altTitle}"</div>
-      // });
-
       let altTitles = (this.state.altTitles.map((altTitle, index) => {
         return '"' + altTitle + '"'
       })).join(", ");
@@ -185,7 +202,6 @@ export default class CourseInfoScreen extends React.Component {
             if(s1.props.sectionId > s2.props.sectionId) return 1;
             return 0;
       };
-
 
       return (
         <div>

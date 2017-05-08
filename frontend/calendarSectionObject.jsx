@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import api from './api.jsx';
 import { militaryTimeIntToString } from './timeFormatter.jsx';
 import { currentRoute, navigateToRoute } from './routing.jsx';
+import { getDepartmentColor } from './courseColor.jsx';
 
 
 class ConflictInfo extends React.Component {
@@ -65,13 +66,14 @@ export default class CalendarSectionObject extends React.Component {
 		let start = militaryTimeIntToString(this.props.start);
 		let end = militaryTimeIntToString(this.props.end);
 		let removeButton = this.props.locked ? null : <div className='removeSection' onClick={this.removeSection.bind(this)}>×</div>;
-		let style={
-			backgroundColor: '#FC54B8'
-		}
 		let locations = this.props.locations;
 		let conflictingSections = this.props.conflictingSections;
 		let conflictMarker = <ConflictMarker conflicts={conflictingSections} />
 		let conflictInfo = <ConflictInfo conflicts={conflictingSections} />
+		// let department = this.props.department;
+		console.log(this.props.department);
+		let style = {backgroundImage: getDepartmentColor(this.props.department)};
+
 
 		return (
 		  <div className='calendarSectionObject' onClick={ this.props.click} style={style}>
