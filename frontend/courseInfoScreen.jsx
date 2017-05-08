@@ -155,6 +155,7 @@ export default class CourseInfoScreen extends React.Component {
   		info.sections.map((section, index) => {
         let inCart = mySectionIds.indexOf(section.sectionId) >= 0;
         let sectionObject =  <SectionInfo key={index}
+                  department={section.department}
                   sectionId={section.sectionId}
                   times={section.times}
                   inCart = {inCart}
@@ -242,7 +243,7 @@ export default class CourseInfoScreen extends React.Component {
 	}
 
   listenToPage(){
-    console.log('hit page');
+    // console.log('hit page');
     window.addEventListener('mousedown', this.pageClick, false);
   }
 

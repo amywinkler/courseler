@@ -70,8 +70,6 @@ export default class CalendarSectionObject extends React.Component {
 		let conflictingSections = this.props.conflictingSections;
 		let conflictMarker = <ConflictMarker conflicts={conflictingSections} />
 		let conflictInfo = <ConflictInfo conflicts={conflictingSections} />
-		// let department = this.props.department;
-		console.log(this.props.department);
 		let style = {backgroundImage: getDepartmentColor(this.props.department)};
 
 

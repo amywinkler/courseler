@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import api from './api.jsx';
 import { descriptionForSectionTimes } from './timeFormatter.jsx';
 import { currentRoute, navigateToRoute } from './routing.jsx';
+import { getDepartmentColor } from './courseColor.jsx';
 
 export default class SectionInfo extends React.Component {
 
@@ -15,6 +16,8 @@ export default class SectionInfo extends React.Component {
   	}
 
 	render() {
+
+		// let style = {backgroundImage: getDepartmentColor(this.props.course.department)};
 
 	    // Section info 
 	    let sectionId = this.props.sectionId;
@@ -97,10 +100,13 @@ export default class SectionInfo extends React.Component {
 		Styling for sections already in cart
 	*/
 	getStyle = () => {
+
+		let bgColor = getDepartmentColor(this.props.department);
+
 		if (this.state.inCart) {
 			return (
 			{
-				backgroundImage: 'linear-gradient(135deg, rgb(122, 91, 206) 0%, rgb(71, 117, 202) 100%)',
+				backgroundImage: bgColor,
 				borderRadius: '3px',
 				color: 'white'
 			}

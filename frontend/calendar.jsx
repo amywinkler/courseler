@@ -99,7 +99,7 @@ export default class Calendar extends React.Component {
 		// Puts a single section into the appropriate day
 		let loadDay = (day, timeObject, sectionObject, timeslots) => {
 
-			console.log(sectionObject);
+			// console.log(sectionObject);
 
 			// Conflicting section logic
 			let conflictingSections = [];
