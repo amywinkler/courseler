@@ -100,32 +100,32 @@ export default class CourseInfoScreen extends React.Component {
               <h4 className="demLabel">Class Year Demographics</h4>
                 <div className="gradient"></div>
                 <div className="classYearDemographics">
-                  <div className="freshmen graph" style={{width:info.crData.demographics.percent_freshmen*100+"%", backgroundColor: "#626BFF"}}></div>
-                  <div className="sophomores graph" style={{width:info.crData.demographics.percent_sophomores*100+"%", backgroundColor: "#7E86FF"}}></div>
-                  <div className="junior graph" style={{width:info.crData.demographics.percent_juniors*100+"%", backgroundColor: "#A6ABFF"}}></div>
-                  <div className="senior graph" style={{width:info.crData.demographics.percent_seniors*100+"%", backgroundColor: "#CACDFF"}}></div>
-                  <div className="other graph" style={{width:info.crData.demographics.percent_grad*100+"%", backgroundColor: "#DCDEFF"}}></div>
+                  <div className="freshmen graph" style={{width:info.crData.demographics.percent_freshmen*100+"%", backgroundColor: "#F980FF"}}></div>
+                  <div className="sophomores graph" style={{width:info.crData.demographics.percent_sophomores*100+"%", backgroundColor: "#A527E8"}}></div>
+                  <div className="junior graph" style={{width:info.crData.demographics.percent_juniors*100+"%", backgroundColor: "#A161FF"}}></div>
+                  <div className="senior graph" style={{width:info.crData.demographics.percent_seniors*100+"%", backgroundColor: "#664CE8"}}></div>
+                  <div className="other graph" style={{width:info.crData.demographics.percent_grad*100+"%", backgroundColor: "#5461FF"}}></div>
                 </div>
                 <div className="key">
-                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#626BFF"}}></div><label>Freshmen: {(info.crData.demographics.percent_freshmen*100).toFixed(2)}%</label></div>
-                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#7E86FF"}}></div><label>Sophomores: {(info.crData.demographics.percent_sophomores*100).toFixed(2)}%</label></div>
-                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#A6ABFF"}}></div><label>Juniors: {(info.crData.demographics.percent_juniors*100).toFixed(2)}%</label></div>
-                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#CACDFF"}}></div><label>Seniors: {(info.crData.demographics.percent_seniors*100).toFixed(2)}%</label></div>
-                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#DCDEFF"}}></div><label>Grad: {(info.crData.demographics.percent_grad*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#F980FF"}}></div><label>Freshmen: {(info.crData.demographics.percent_freshmen*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#A527E8"}}></div><label>Sophomores: {(info.crData.demographics.percent_sophomores*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#A161FF"}}></div><label>Juniors: {(info.crData.demographics.percent_juniors*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#664CE8"}}></div><label>Seniors: {(info.crData.demographics.percent_seniors*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#5461FF"}}></div><label>Grad: {(info.crData.demographics.percent_grad*100).toFixed(2)}%</label></div>
                 </div>
               </div>
               <div className="demographic">
                 <h4 className="demLabel">Concentrator Demographics</h4>
                 <div className="gradient"></div>
                 <div className="concentratorDemographics">
-                  <div className="conc graph" style={{width:info.crData.demographics.percent_concentrators*100+"%", backgroundColor: "#3CEEE5"}}></div>
-                  <div className="nonconc graph" style={{width:info.crData.demographics.percent_non_concentrators*100+"%", backgroundColor: "#84FFFA"}}></div>
-                  <div className="undecided graph" style={{width:info.crData.demographics.percent_undecided*100+"%", backgroundColor: "#C5FFFD"}}></div>
+                  <div className="conc graph" style={{width:info.crData.demographics.percent_concentrators*100+"%", backgroundColor: "#A5FFCA"}}></div>
+                  <div className="nonconc graph" style={{width:info.crData.demographics.percent_non_concentrators*100+"%", backgroundColor: "#79E8E7"}}></div>
+                  <div className="undecided graph" style={{width:info.crData.demographics.percent_undecided*100+"%", backgroundColor: "#8BC2FF"}}></div>
                 </div>
                 <div className="key">
-                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#3CEEE5"}}></div><label>Concentrator: {(info.crData.demographics.percent_concentrators*100).toFixed(2)}%</label></div>
-                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#84FFFA"}}></div><label>Non-concentrator: {(info.crData.demographics.percent_non_concentrators*100).toFixed(2)}%</label></div>
-                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#C5FFFD"}}></div><label>Undecided: {(info.crData.demographics.percent_undecided*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#A5FFCA"}}></div><label>Concentrator: {(info.crData.demographics.percent_concentrators*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#79E8E7"}}></div><label>Non-concentrator: {(info.crData.demographics.percent_non_concentrators*100).toFixed(2)}%</label></div>
+                  <div className="keyRow"><div className="keySquare" style={{backgroundColor: "#8BC2FF"}}></div><label>Undecided: {(info.crData.demographics.percent_undecided*100).toFixed(2)}%</label></div>
                 </div>
               </div>
             </div>

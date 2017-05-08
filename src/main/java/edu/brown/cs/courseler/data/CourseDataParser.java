@@ -233,6 +233,7 @@ public class CourseDataParser {
 
       String sectLetter = nameArr[2].substring(0, 1);
       sect.setIsMainSection(sectLetter.equals("S") || sectLetter.equals("M"));
+      sect.setDepartment(cache.lookUpFullName(nameArr[0]));
 
       if (sectLetter.equals("S")) {
         sect.setSectionType("section");

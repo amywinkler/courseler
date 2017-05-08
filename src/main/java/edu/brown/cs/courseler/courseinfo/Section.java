@@ -14,6 +14,7 @@ public class Section {
   private String courseCode;
   private String title;
   private String sectionType;
+  private String department;
   private List<String> professors;
   private SectionTime times;
   private MeetingLocation meetingLocations;
@@ -57,6 +58,16 @@ public class Section {
   public void setIsMainSection(boolean mainSection) {
     this.isMainSection = mainSection;
 
+  }
+
+  /**
+   * Set the dept.
+   *
+   * @param dept
+   *          the dept
+   */
+  public void setDepartment(String dept) {
+    this.department = dept;
   }
 
   /**
