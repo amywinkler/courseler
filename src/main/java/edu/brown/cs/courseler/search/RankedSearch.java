@@ -208,6 +208,10 @@ public class RankedSearch {
 
     List<Course> finalCourseList = new ArrayList<>();
 
+    if (entireSearch.toLowerCase().trim().isEmpty()) {
+      return finalCourseList;
+    }
+
 
     if (StringUtils.isNumeric(entireSearch)) {
       List<Course> numericSearchRes = courseCodeSearch

@@ -291,7 +291,7 @@ export default class CourseInfoScreen extends React.Component {
     if (e.key === 'Enter') {
       this.wordChange(e);
       $('#alttitle-input-box').hide();
-      $('.add-alttitle').show();
+      $('#addAdj').show();
     }
   }
 
