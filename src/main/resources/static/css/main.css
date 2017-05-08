@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Nunito+Sans:300,400,500,600,700');
 @import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700');
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono');
 
 html, body, #app,
 input, select {
@@ -73,6 +74,7 @@ input, select {
 
 .sellingPoints h1 span {
   color: #585FBE;
+  font-family: 'Roboto Mono', monospace;
 }
 
 .sellingPoints > * {
@@ -193,7 +195,8 @@ h1, h2, h3, h4 {
   position: fixed;
   top: 0;
   left: 0;
-  background-color: rgba(233, 247, 246, 0.9);
+  /*background-color: rgba(233, 247, 246, 0.9);*/
+  background-color: rgba(88, 92, 123, 0.22);
   color: white;
   box-sizing: border-box;
   flex-direction: row;
@@ -1054,3 +1057,8 @@ h1, h2, h3, h4 {
 .emojiPicker .search {
   display: block;
 }
+
+.SharedCartApp .courseInfo {
+  margin-top: 51px;
+}
+
