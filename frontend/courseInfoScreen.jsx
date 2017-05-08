@@ -196,12 +196,12 @@ export default class CourseInfoScreen extends React.Component {
                 <span style={akaStyle} className="titles">{altTitles}</span>
                 <div className='add-alttitle' onClick={
                   this.addAltTitle.bind(this) } >add alternate title</div>
-                <input id = "alttitle-input-box" onKeyPress={this.handleEnterTitle} />
+                <input id = "alttitle-input-box" ref={this.listenToPage()} onKeyPress={this.handleEnterTitle} />
                 </div>
               </div>
             <div className ="adjectives">
              {adjectives}  <div className="adj" id="addAdj" onClick={this.addWord.bind(this)}> Add adjective</div>
-            <input id = "word-input-box" onKeyDown={this.handleTypeWordNoSpaces} onKeyPress={this.handleEnterWord} />
+            <input id = "word-input-box" ref={this.listenToPage()} onKeyDown={this.handleTypeWordNoSpaces} onKeyPress={this.handleEnterWord} />
             </div>
             <CourseInfoSection label='Sections' content={sections} />
             <CourseInfoSection label='Conferences' content={conferences} />
@@ -217,6 +217,19 @@ export default class CourseInfoScreen extends React.Component {
     }
 	}
 
+  listenToPage(){
+    console.log('hit page');
+    window.addEventListener('mousedown', this.pageClick, false);
+  }
+
+  pageClick (e) {
+    if(e.srcElement.id != 'alttitle-input-box' && e.srcElement.id != 'word-input-box'){
+    $('#word-input-box').hide();
+    $('#addAdj').show();
+    $('.add-alttitle').show();
+    $('#alttitle-input-box').hide();
+    }
+  }
 /* Add emoji box to screen!!!!*/
   addEmojiBox(emojiBox){
     // let emojiLen = 0;
@@ -312,6 +325,8 @@ export default class CourseInfoScreen extends React.Component {
       wordVal.hide();
     }
   }
+
+
 
   titleChange(e) {
 
