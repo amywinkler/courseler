@@ -179,6 +179,14 @@ export default class CourseInfoScreen extends React.Component {
       let altTitlesExist = (this.state.altTitles && this.state.altTitles.length) > 0;
       let akaStyle = altTitlesExist ? {} : {display: 'none'};
 
+      // Compare function to order sections alphabetically
+      let orderSections = (s1, s2) => {
+            if(s1.props.sectionId < s2.props.sectionId) return -1;
+            if(s1.props.sectionId > s2.props.sectionId) return 1;
+            return 0;
+      };
+
+
       return (
         <div>
           {this.renderHeader()}
@@ -203,9 +211,9 @@ export default class CourseInfoScreen extends React.Component {
              {adjectives}  <div className="adj" id="addAdj" onClick={this.addWord.bind(this)}> Add adjective</div>
             <input id = "word-input-box" ref={this.listenToPage()} onKeyDown={this.handleTypeWordNoSpaces} onKeyPress={this.handleEnterWord} />
             </div>
-            <CourseInfoSection label='Sections' content={sections} />
-            <CourseInfoSection label='Conferences' content={conferences} />
-            <CourseInfoSection label='Film Screenings' content={filmScreenings} />
+            <CourseInfoSection label='Sections' content={sections.sort(orderSections)} />
+            <CourseInfoSection label='Conferences' content={conferences.sort(orderSections)} />
+            <CourseInfoSection label='Film Screenings' content={filmScreenings.sort(orderSections)} />
             <CourseInfoSection label='Description' content={courseDescriptionContent} />
             <CourseInfoSection label='Hours Per Week' content={getHoursPerWeekContent()} />
             <CourseInfoSection label='Demographics' content={getDemographicsContent()} />
@@ -317,7 +325,7 @@ export default class CourseInfoScreen extends React.Component {
     if(wordVal.val() != wordToAdd || !words.includes(wordVal.val()) ||
     this.state.adjectives.includes(wordVal.val().toLowerCase())){
       alert('Must add real words that are not profanity and have not already been added!')
-    } else {
+    } else if(wordVal.val().trim()) {
       api.addWord(this.state.info.courseCode, wordToAdd);
       let currWords = this.state.adjectives;
       this.setState({adjectives: currWords.concat(wordToAdd)});
@@ -338,8 +346,8 @@ export default class CourseInfoScreen extends React.Component {
 
     let wordToAdd = filter.clean(titleVal.val());
     if(titleVal.val() != wordToAdd ||
-    this.state.altTitles.includes(titleVal.val().toLowerCase())){
-      alert('Must add real words that are not profanity and have not already been added!')
+    this.state.altTitles.includes(titleVal.val().toLowerCase()) || !titleVal.val().trim()){
+      alert('Must add real title that is not profanity and has not already been added!')
     } else {
       api.addAltName(this.state.info.courseCode, titleVal.val());
       let currTitles = this.state.altTitles;

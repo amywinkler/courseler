@@ -7,8 +7,9 @@
     <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' />
     <link rel="stylesheet" type="text/css" href="/jquery-emoji-picker-master/css/jquery.emojipicker.css">
     <link rel="stylesheet" type="text/css" href="/jquery-emoji-picker-master/css/jquery.emojipicker.a.css">
+    <link rel="shortcut icon" href="/img/favicon.ico" />  
 
-    
+
   </head>
   <body>
   	<div id='app'></div>
