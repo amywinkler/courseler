@@ -1,5 +1,12 @@
 # cs0320 Term Project
 
+**Team Members:** 
+Alberta Devor, Amy Winkler, Koko Nakajima, Nathaniel Parrott
+
+
+**Project** 
+A web application to help Brown students navigate the tumultuous series of days that is known as “shopping period”, where they have to pick their classes. We are going to allow students to add courses to an easy to use mobile-responsive calendar. We also suggest courses to check out based on user interests/preferences.
+
 ## How to Build and Run
 
 You gotta compile the frontend _and_ the backend!!!!
@@ -28,19 +35,10 @@ also:
 
 _If you update the frontend code, you just need to re-run `webpack` — no need to `mvn package` or `./run` again!_
 
-**Team Members:** 
-Alberta Devor, Amy Winkler, Koko Nakajima, Nathaniel Parrott
-(A very heterogrenous team of fun friends!!)
-
-**Project Idea:** 
-We are going to make a web application to help students navigate the stressful and tumultuous series of days that is known as “shopping period”. We are going to allow students to add courses to an easy to use mobile-responsive calendar. We will also suggest courses to fill empty time slots.
-
-**Mentor TA:** _Put your mentor TA's name and email here once you're assigned one!_
 
 ## Project Requirements
 ![friends](http://i.imgur.com/NH3osox.png)
 ### Overview:
-We are going to make a web application to help students navigate the stressful and tumultuous series of days that is known as “shopping period”. We are going to allow students to add courses to an easy to use mobile-responsive calendar. We will also suggest courses to fill empty time slots.
 ### Potential User Flow:
 (First-time user)
  * Log in with my Brown account information
@@ -70,36 +68,4 @@ We are going to make a web application to help students navigate the stressful a
 
       *  We will develop a ranking system to generate suggested courses for students based on the courses in their cart, their department preferences, and their open times. Interviewed participants indicated that they lacked a concrete system for getting suggestions outside of their own department. Participants also indicated they specifically were unsure how to obtain suggestions in departments where they do not have friends who have already taken courses in the department. This would benefit students who are looking for suggestions in departments where they do not have social connections.
 
-###Potential Features:
-
-* Exporting a calendar to Google Calendar, iCal formats
-* See courses your friends are shopping
-* Course recommendations based on Critical Review’s “Respondents also recommended…”. The only reason this is a potential feature is because we are still in preliminary talks about getting the actual review text from the critical review.
-* Integrating data about number of students currently enrolled in the class
-
-###Questions We Asked Potential Users:
-
-Do you have a strategy for shopping classes? If so, what is it? Has it worked so far?
-
-How many classes do you shop in a semester?
-
-How do you keep track of the courses you’re shopping?
-
-How do you prioritize courses with prioritizing timeslots?
-
-What factors do you take into consideration when shopping classes?
-
-Describe your shopping period experiences
-
-Shopping period grievances
-
-
-## Project Specs and Mockup
-https://docs.google.com/a/brown.edu/document/d/1GKM-N-vWcIS38vIEOaYEuHFBCRq0A_ufGcuqTijh5DM/edit?usp=sharing
-
-## Project Design Presentation
-Doc:
-https://docs.google.com/document/d/1Qzbr1F-rTaYdqKQuIACWUSw_MGFiXSuz3HvZNHAJZds/edit#
-Presentation:
-https://docs.google.com/a/brown.edu/presentation/d/1y0aD0XIOIBRLpxyBk9F8SL-xjUq4c0EEfjcIgC6ZOzk/edit?usp=sharing
 
