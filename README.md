@@ -33,6 +33,9 @@ also:
 _If you update the frontend code, you just need to re-run `webpack` — no need to `mvn package` or `./run` again!_
 
 ### Overview:
+
+![friends](http://i.imgur.com/NH3osox.png)
+
 ### Potential User Flow:
 (First-time user)
  * Log in with my Brown account information
@@ -40,9 +43,7 @@ _If you update the frontend code, you just need to re-run `webpack` — no need 
 * Calendar view
       * Ability to add multiple courses per timeslot
       * Ability to toggle course suggestions for specified timeslots
-
-![friends](http://i.imgur.com/NH3osox.png)
-
+      
 ### Features:
 1. brown.edu email authentication/Brown Wifi authentication:
 
