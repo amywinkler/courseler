@@ -1,8 +1,5 @@
-# cs0320 Term Project
-
 **Team Members:** 
 Alberta Devor, Amy Winkler, Koko Nakajima, Nathaniel Parrott
-
 
 **Project** 
 A web application to help Brown students navigate the tumultuous series of days that is known as “shopping period”, where they have to pick their classes. We are going to allow students to add courses to an easy to use mobile-responsive calendar. We also suggest courses to check out based on user interests/preferences.
@@ -35,9 +32,6 @@ also:
 
 _If you update the frontend code, you just need to re-run `webpack` — no need to `mvn package` or `./run` again!_
 
-
-## Project Requirements
-![friends](http://i.imgur.com/NH3osox.png)
 ### Overview:
 ### Potential User Flow:
 (First-time user)
@@ -47,7 +41,9 @@ _If you update the frontend code, you just need to re-run `webpack` — no need 
       * Ability to add multiple courses per timeslot
       * Ability to toggle course suggestions for specified timeslots
 
-### Necessary Features:
+![friends](http://i.imgur.com/NH3osox.png)
+
+### Features:
 1. brown.edu email authentication/Brown Wifi authentication:
 
       * We need this because the Critical Review data cannot be accessed outside of the Brown community. We will explore which method is the most reasonable out of these two. 
@@ -64,8 +60,11 @@ _If you update the frontend code, you just need to re-run `webpack` — no need 
 
       *  We must use banner data to get information about all of the courses that brown offers for a given semester, their descriptions, time slots and locations.
 
-5. Using data to suggest course for open timeslots
+5. Using data to suggest courses
 
       *  We will develop a ranking system to generate suggested courses for students based on the courses in their cart, their department preferences, and their open times. Interviewed participants indicated that they lacked a concrete system for getting suggestions outside of their own department. Participants also indicated they specifically were unsure how to obtain suggestions in departments where they do not have friends who have already taken courses in the department. This would benefit students who are looking for suggestions in departments where they do not have social connections.
 
+5. Share your cart
+
+      *  We have a feature to share your cart with others.
 
