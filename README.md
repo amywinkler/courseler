@@ -4,6 +4,8 @@ Alberta Devor, Amy Winkler, Koko Nakajima, Nathaniel Parrott
 **Project** 
 A web application to help Brown students navigate the tumultuous series of days that is known as “shopping period”, where they have to pick their classes. We are going to allow students to add courses to an easy to use mobile-responsive calendar. We also suggest courses to check out based on user interests/preferences.
 
+Originally built as a final project for CS0320: Introduction to Software Engineering.
+
 ## How to Build and Run
 
 You gotta compile the frontend _and_ the backend!!!!
@@ -43,7 +45,7 @@ _If you update the frontend code, you just need to re-run `webpack` — no need 
 * Calendar view
       * Ability to add multiple courses per timeslot
       * Ability to toggle course suggestions for specified timeslots
-      
+
 ### Features:
 1. brown.edu email authentication/Brown Wifi authentication:
 
